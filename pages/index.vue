@@ -1,9 +1,13 @@
 <template>
   <NuxtLayout name="layout-basic">
     <template #header>
-      <header class="py-2 px-4 | border">
-        <input class="px-3 py-1 | bg-slate-200 | rounded-full"
-        placeholder="Search"/>
+      <header class="flex items-center | py-2 px-4 | border">
+        <input
+          class="px-3 py-1 | bg-slate-200 | rounded-full"
+          placeholder="Search" />
+        <button class="flex lg:hidden | ml-auto">
+          <i class="icon icon-bars text-xl"></i>
+        </button>
       </header>
     </template>
     <div
@@ -29,14 +33,18 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-8 gap-2 | p-4">
+      <div
+        class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
         <NuxtLink v-for="(todo, index) in todos" :key="index" :to="`/${index}`">
           <figure
-            class="relative | flex items-center justify-center | w-full aspect-square | p-2 | border">
-            <div class="w-full h-full overflow-hidden | text-lg">
-              8-1에서 회의, Simple Todo 리뷰(Rowan, Saang), 8-1에서 회의, Simple Todo 리뷰(Rowan, Saang), 8-1에서 회의, Simple Todo 리뷰(Rowan, Saang)
+            class="relative | w-full aspect-square overflow-hidden | p-2 | border">
+            <div class="truncate-4 | text-lg">
+              8-1에서 회의, Simple Todo 리뷰(Rowan, Saang), 8-1에서 회의, Simple
+              Todo 리뷰(Rowan, Saang), 8-1에서 회의, Simple Todo 리뷰(Rowan,
+              Saang)
             </div>
-            <figcaption class="w-full | absolute bottom-0 left-0 | p-1 | text-xs | border | bg-white">
+            <figcaption
+              class="w-full | absolute bottom-0 left-0 | p-1 | text-xs | border | bg-white">
               2024-01-07
             </figcaption>
           </figure>
@@ -51,8 +59,8 @@
   </NuxtLayout>
 </template>
 <script setup lang="ts">
-import { Todo } from '~/models/Todo';
-import { useGlobalStore } from '~/store/global.store';
+import { Todo } from '~/models/Todo'
+import { useGlobalStore } from '~/store/global.store'
 
 const router = useRouter()
 const globalStore = useGlobalStore()
@@ -61,9 +69,9 @@ const todos = ref<Todo[]>(Array(100).fill(Todo.of()))
 
 onBeforeRouteLeave((to, from, next) => {
   if (from.name === 'index' && to.name === 'id') {
-      const scrollTop = document.getElementById('scroll-area')?.scrollTop || 0
-      globalStore.saveScrollTop(scrollTop)
-    }
+    const scrollTop = document.getElementById('scroll-area')?.scrollTop || 0
+    globalStore.saveScrollTop(scrollTop)
+  }
 
   next()
 })

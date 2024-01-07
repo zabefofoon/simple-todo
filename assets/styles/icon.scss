@@ -25,3 +25,15 @@
 .icon-add {
     @include generateIcon('https://api.iconify.design/material-symbols/add.svg')
 }
+
+.icon-arrow-right {
+    @include generateIcon('https://api.iconify.design/ic/baseline-arrow-forward-ios.svg')
+}
+
+.icon-arrow-left {
+    @include generateIcon('https://api.iconify.design/ic/baseline-arrow-back-ios-new.svg')
+}
+
+.icon-bars {
+    @include generateIcon('https://api.iconify.design/heroicons/bars-3-20-solid.svg')
+}

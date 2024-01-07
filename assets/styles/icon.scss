@@ -1,0 +1,27 @@
+@mixin generateIcon($src) {
+  -webkit-mask-image: url($src);
+  mask-image: url($src);
+}
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  background-color: currentColor;
+}
+
+.icon-grid {
+  @include generateIcon('https://api.iconify.design/bi/grid.svg');
+}
+
+.icon-row {
+    @include generateIcon('https://api.iconify.design/fluent/row-triple-20-regular.svg')
+}
+
+.icon-add {
+    @include generateIcon('https://api.iconify.design/material-symbols/add.svg')
+}

@@ -1,15 +1,5 @@
 <template>
   <NuxtLayout name="layout-basic">
-    <template #header>
-      <header class="flex items-center | py-2 px-4 | border">
-        <input
-          class="px-3 py-1 | bg-slate-200 | rounded-full"
-          placeholder="Search" />
-        <button class="flex lg:hidden | ml-auto">
-          <i class="icon icon-bars text-xl"></i>
-        </button>
-      </header>
-    </template>
     <div
       v-if="!todos.length"
       class="w-full h-full | flex flex-col justify-center items-center">
@@ -17,20 +7,23 @@
     </div>
     <div v-else class="flex flex-col">
       <div
-        class="sticky top-0 z-10 | flex items-center gap-2 | bg-white | px-4 py-2 | border">
-        <select class="border | p-1 | text-sm">
+        class="sticky top-0 z-10 | flex items-center gap-1 | bg-white | px-4 py-2 | border">
+        <input
+          class="w-full max-w-[50%] | px-3 py-1 | bg-slate-200 | rounded-full | text-sm"
+          placeholder="Search" />
+        <button class="flex | border p-1 | ml-auto">
+          <i class="icon icon-grid text-md"></i>
+        </button>
+        <button class="flex | border p-1">
+          <i class="icon icon-row text-md"></i>
+        </button>
+        <select class="border | bg-white | p-1 | text-xs">
           <option>All</option>
           <option>Day</option>
           <option>Weekend</option>
           <option>Month</option>
           <option>Year</option>
         </select>
-        <button class="flex | border p-1">
-          <i class="icon icon-grid text-lg"></i>
-        </button>
-        <button class="flex | border p-1">
-          <i class="icon icon-row text-lg"></i>
-        </button>
       </div>
 
       <div
@@ -51,11 +44,11 @@
         </NuxtLink>
       </div>
     </div>
-    <div class="fixed right-8 bottom-8">
-      <button class="flex | bg-black rounded-full text-white p-2">
+    <template #actions>
+      <button class="flex | bg-black rounded-full | text-white | p-2">
         <i class="icon icon-add text-2xl"></i>
       </button>
-    </div>
+    </template>
   </NuxtLayout>
 </template>
 <script setup lang="ts">

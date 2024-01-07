@@ -3,19 +3,34 @@
     <div class="py-4 | border | text-center">Simple Todos</div>
     <ul class="h-full">
       <NuxtLink to="/">
-        <li class="py-1 px-3">Todo</li>
+        <li class="flex items-center gap-2 | py-1 px-3">
+          <i class="icon icon-file"></i>
+          <span>Todo</span>
+        </li>
       </NuxtLink>
       <NuxtLink to="/calender">
-        <li class="py-1 px-3">Calender</li>
+        <li class="flex items-center gap-2 | py-1 px-3">
+          <i class="icon icon-calender"></i>
+          <span>Calender</span>
+        </li>
       </NuxtLink>
       <NuxtLink to="/analysis">
-        <li class="py-1 px-3">Analysis</li>
+        <li class="flex items-center gap-2 | py-1 px-3">
+          <i class="icon icon-analysis"></i>
+          <span>Analysis</span>
+        </li>
       </NuxtLink>
       <NuxtLink to="/setting">
-        <li class="py-1 px-3">Setting</li>
+        <li class="flex items-center gap-2 | py-1 px-3">
+          <i class="icon icon-setting"></i>
+          <span>Setting</span>
+        </li>
       </NuxtLink>
       <NuxtLink to="/">
-        <li class="py-1 px-3">Guide</li>
+        <li class="flex items-center gap-2 | py-1 px-3">
+          <i class="icon icon-help"></i>
+          <span>Guide</span>
+        </li>
       </NuxtLink>
     </ul>
     <Footer />

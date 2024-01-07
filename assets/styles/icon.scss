@@ -19,49 +19,71 @@
 }
 
 .icon-row {
-    @include generateIcon('https://api.iconify.design/fluent/row-triple-20-regular.svg')
+  @include generateIcon(
+    'https://api.iconify.design/fluent/row-triple-20-regular.svg'
+  );
 }
 
 .icon-add {
-    @include generateIcon('https://api.iconify.design/material-symbols/add.svg')
+  @include generateIcon('https://api.iconify.design/material-symbols/add.svg');
 }
 
 .icon-arrow-right {
-    @include generateIcon('https://api.iconify.design/ic/baseline-arrow-forward-ios.svg')
+  @include generateIcon(
+    'https://api.iconify.design/ic/baseline-arrow-forward-ios.svg'
+  );
 }
 
 .icon-arrow-left {
-    @include generateIcon('https://api.iconify.design/ic/baseline-arrow-back-ios-new.svg')
+  @include generateIcon(
+    'https://api.iconify.design/ic/baseline-arrow-back-ios-new.svg'
+  );
 }
 
 .icon-arrow-top {
-  @include generateIcon('https://api.iconify.design/mdi/arrow-up.svg')
+  @include generateIcon('https://api.iconify.design/mdi/arrow-up.svg');
 }
 
 .icon-bars {
-    @include generateIcon('https://api.iconify.design/heroicons/bars-3-20-solid.svg')
+  @include generateIcon(
+    'https://api.iconify.design/heroicons/bars-3-20-solid.svg'
+  );
 }
 
 .icon-home {
-  @include generateIcon('https://api.iconify.design/mdi/home-outline.svg')
+  @include generateIcon('https://api.iconify.design/mdi/home-outline.svg');
 }
 
 .icon-file {
-  @include generateIcon('https://api.iconify.design/mdi/file-outline.svg')
+  @include generateIcon('https://api.iconify.design/mdi/file-outline.svg');
 }
 
 .icon-calender {
-  @include generateIcon('https://api.iconify.design/material-symbols/date-range.svg')
+  @include generateIcon(
+    'https://api.iconify.design/material-symbols/date-range.svg'
+  );
 }
 
 .icon-analysis {
-  @include generateIcon('https://api.iconify.design/mdi/chart-bell-curve-cumulative.svg')
+  @include generateIcon(
+    'https://api.iconify.design/mdi/chart-bell-curve-cumulative.svg'
+  );
 }
 
 .icon-setting {
-  @include generateIcon('https://api.iconify.design/material-symbols/settings.svg')
+  @include generateIcon(
+    'https://api.iconify.design/material-symbols/settings.svg'
+  );
 }
 
 .icon-help {
-  @include generateIcon('https://api.iconify.design/material-symbols/help-outline.svg')
+  @include generateIcon(
+    'https://api.iconify.design/material-symbols/help-outline.svg'
+  );
+}
+
+.icon-close {
+  @include generateIcon(
+    'https://api.iconify.design/material-symbols/close.svg'
+  );
 }

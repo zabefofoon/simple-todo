@@ -1,5 +1,7 @@
 <template>
-  <ul class="flex lg:hidden justify-around | py-2 | bg-white">
+  <ul
+    v-if="$route.name !== 'todo-id'"
+    class="flex lg:hidden justify-around | py-2 | bg-white">
     <NuxtLink to="/">
       <li>
         <button class="flex flex-col items-center gap-.5">

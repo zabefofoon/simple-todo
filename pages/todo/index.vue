@@ -1,7 +1,7 @@
 <template>
   <NuxtLayout name="layout-basic">
     <div
-      v-if="!todos.length"
+      v-if="!todos?.length"
       class="w-full h-full | flex flex-col justify-center items-center">
       Create Todo
     </div>
@@ -23,29 +23,13 @@
         </select>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
-        <NuxtLink
-          v-for="(todo, index) in todos"
-          :key="index"
-          :to="`/todo/${index}`">
-          <figure
-            class="relative | w-full aspect-square overflow-hidden | p-2 | border">
-            <div class="truncate-4 | text-lg">
-              8-1에서 회의, Simple Todo 리뷰(Rowan, Saang), 8-1에서 회의, Simple
-              Todo 리뷰(Rowan, Saang), 8-1에서 회의, Simple Todo 리뷰(Rowan,
-              Saang)
-            </div>
-            <figcaption
-              class="w-full | absolute bottom-0 left-0 | p-1 | text-xs | border | bg-white">
-              2024-01-07
-            </figcaption>
-          </figure>
-        </NuxtLink>
+        <TodoThumbnail v-for="todo in todos" :key="todo.id" :todo="todo" />
       </div>
     </div>
     <template #actions>
       <ClientOnly>
         <NuxtLink
-          :to="`/todo/${generateUniqueId()}`"
+          to="/todo/new"
           class="flex | bg-black rounded-full | text-white | p-2">
           <i class="icon icon-add text-2xl"></i>
         </NuxtLink>
@@ -54,29 +38,47 @@
   </NuxtLayout>
 </template>
 <script setup lang="ts">
+import type { RouteLocationNormalized } from 'vue-router'
+import todoApi from '~/api/todo.api'
+import TodoThumbnail from '~/components/TodoThumbnail.vue'
 import { Todo } from '~/models/Todo'
 import { useScrollStore } from '~/store/scroll.store'
-import { generateUniqueId } from '~/utils/etc'
 
 const router = useRouter()
 const scrollStore = useScrollStore()
 
-const todos = ref<Todo[]>(Array(100).fill(Todo.of()))
+const todos = ref<Todo[]>()
 
-onBeforeRouteLeave((to, from, next) => {
+const saveScrollTop = (
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized
+) => {
   if (from.name === 'index' && to.name === 'id') {
     const scrollTop = document.getElementById('scroll-area')?.scrollTop || 0
     scrollStore.saveScrollTop(scrollTop)
   }
+}
 
-  next()
-})
-
-onMounted(() => {
+const moveToSavedScrollPosition = () => {
   if (`${router.options.history.state.forward}`.match(/\/\d+/)) {
     const scrollArea = document.getElementById('scroll-area')
     scrollArea?.scrollTo({ top: scrollStore.savedScrollTop })
     scrollStore.saveScrollTop(0)
   }
+}
+
+onBeforeRouteLeave((to, from, next) => {
+  saveScrollTop(to, from)
+  next()
+})
+
+const getAllTodos = async () => {
+  const data = await todoApi.getAllTodos()
+  todos.value = Todo.map(data).sort((a, b) => b.created - a.created)
+}
+
+onMounted(() => {
+  moveToSavedScrollPosition()
+  getAllTodos()
 })
 </script>

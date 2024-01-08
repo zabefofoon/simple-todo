@@ -6,7 +6,7 @@
       <main
         id="scroll-area"
         ref="scrollArea"
-        class="relative | h-full"
+        class="flex flex-col | relative | h-full"
         :class="lockScrollClass"
         @scroll="checkShowScrollTop">
         <slot />

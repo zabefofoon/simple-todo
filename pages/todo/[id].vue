@@ -74,7 +74,7 @@
       </div>
     </div>
     <button
-      class="w-full | bg-black | text-white | py-3 mt-auto lg:mt-0"
+      class="w-[96vw] lg:w-[300px] | bg-black | text-white rounded-full | py-3 lg:py-2 mx-auto mt-auto mb-4"
       @click="done">
       <span>Done</span>
     </button>

@@ -87,3 +87,15 @@
     'https://api.iconify.design/material-symbols/close.svg'
   );
 }
+
+.icon-timer {
+  @include generateIcon(
+    'https://api.iconify.design/material-symbols/timer-outline-rounded.svg'
+  );
+}
+
+.icon-check {
+  @include generateIcon(
+    'https://api.iconify.design/material-symbols/check.svg'
+  );
+}

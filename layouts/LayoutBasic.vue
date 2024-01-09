@@ -1,5 +1,5 @@
 <template>
-  <div class="flex | h-dvh overflow-hidden">
+  <div class="flex | w-screen h-dvh overflow-hidden">
     <SNB />
     <div class="flex flex-col | w-full h-full">
       <slot name="header"><Header /></slot>

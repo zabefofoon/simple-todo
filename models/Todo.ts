@@ -7,12 +7,12 @@ export class Todo {
   description?: string
   tags: Tag[] = []
   time?: string
-  title?: string
   created?: number
+  done?: boolean
 
   constructor(todo: Partial<Todo>) {
     Object.assign(this, todo)
-    this.created = new Date().getTime()
+    if (!todo.created) this.created = new Date().getTime()
   }
 
   static of(todo: Partial<Todo>) {

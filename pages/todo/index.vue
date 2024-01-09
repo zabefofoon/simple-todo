@@ -23,7 +23,12 @@
         </select>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
-        <TodoThumbnail v-for="todo in todos" :key="todo.id" :todo="todo" />
+        <TodoThumbnail
+          v-for="todo in todos"
+          :key="todo.id"
+          :todo="todo"
+          @delete="deleteTodo" 
+          @done="doneTodo"/>
       </div>
     </div>
     <template #actions>
@@ -74,7 +79,20 @@ onBeforeRouteLeave((to, from, next) => {
 
 const getAllTodos = async () => {
   const data = await todoApi.getAllTodos()
-  todos.value = Todo.map(data).sort((a, b) => b.created - a.created)
+  console.log(Todo.map(data))
+  todos.value = Todo.map(data).sort(
+    (a, b) => Number(b.created) - Number(a.created)
+  )
+}
+
+const deleteTodo = async (id: number) => {
+  await todoApi.deleteTodo(id)
+  getAllTodos()
+}
+
+const doneTodo = async (id: number, done?: boolean) => {
+  await todoApi.updateTodo(id, {done: !done})
+  getAllTodos()
 }
 
 onMounted(() => {

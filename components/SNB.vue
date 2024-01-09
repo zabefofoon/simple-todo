@@ -1,5 +1,5 @@
 <template>
-  <aside class="hidden lg:block | w-[240px] h-full | border">
+  <aside class="flex-shrink-0 | hidden lg:block | w-[240px] h-full | border">
     <nav class="flex flex-col | h-full">
       <NuxtLink to="/">
         <div class="py-4 | border | text-center">LOGO</div>

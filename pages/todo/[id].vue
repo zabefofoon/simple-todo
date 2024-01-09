@@ -1,14 +1,15 @@
 <template>
   <NuxtLayout name="layout-basic">
     <template #header>
-      <header class="flex items-center gap-3 | py-2 px-4 | border | overflow-hidden">
+      <header
+        class="flex items-center gap-3 | py-2 px-4 | border | overflow-hidden">
         <button class="flex" @click="$router.back()">
           <i class="icon icon-arrow-left"></i>
         </button>
-        <div
-          class="w-full | text-lg truncate"
-          @click="$router.back()">
-          <span v-if="isEditMode">{{ description?.slice(0, 20) || 'New' }}</span>
+        <div class="w-full | text-lg truncate | cursor-pointer" @click="$router.back()">
+          <span v-if="isEditMode">
+            {{ description?.slice(0, 20) || 'New' }}
+          </span>
           <span v-else>Todo</span>
         </div>
       </header>
@@ -17,13 +18,20 @@
       <div class="flex flex-col gap-2">
         <div class="flex lg:gap-2">
           <!-- <h4 class="text-sm">Deadline</h4> -->
-          <div class="flex items-center gap-1 | px-2 py-1 | border">
+          <div class="flex items-center gap-1 | border">
             <input
+              class="hidden"
               :checked="upto"
               @change="setUpto"
               id="upTo"
               type="checkbox" />
-            <label for="upTo" class="text-sm">Upto</label>
+            <label
+              for="upTo"
+              class="flex items-center gap-1.5 | p-2 | text-sm | cursor-pointer"
+              :class="upto ? 'text-black' : 'text-gray-300'">
+              <i class="icon icon-timer"></i>
+              <span>Upto</span>
+            </label>
           </div>
           <div v-if="upto" class="flex gap-1 lg:gap-2 | ml-auto lg:ml-0">
             <input
@@ -65,10 +73,9 @@
               class="bg-white | min-w-[16px] w-16 | py-1 px-2 | text-sm"
               placeholder="Tag"
               @change="setTag(index, 'label', $event)" />
-              <button class="flex pr-1"
-                      @click="deleteTag(index)">
-                <i class="icon icon-close"></i>
-              </button>
+            <button class="flex pr-1" @click="deleteTag(index)">
+              <i class="icon icon-close"></i>
+            </button>
           </div>
           <button
             class="flex items-center justify-center gap-1 | w-fit | px-2 py-1 | border border-dashed"

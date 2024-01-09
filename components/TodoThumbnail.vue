@@ -18,36 +18,29 @@
           #{{ tag.label }}
         </span>
       </div>
-      <div class="truncate-4 | text-md">
+      <div class="text-md | py-3">
         {{ todo.description }}
       </div>
       <button
-        class="flex items-center | absolute right-1 bottom-1 z-10 | pl-1 pr-2 | rounded-full"
+        class="flex items-center | absolute left-1 top-1 z-10 | rounded-full"
         :class="todo.done ? 'bg-green-500' : 'border border-gray-200'"
         @click.stop.prevent="emit('done', todo.id || -1, todo.done)">
         <i
           class="icon icon-check | text-sm"
           :class="todo.done ? 'text-white' : 'text-gray-300'"></i>
-        <span
-          class="text-xs"
-          :class="todo.done ? 'text-white' : 'text-gray-300'">
-          Done
-        </span>
       </button>
-      <div
+      <figcaption
         v-if="todo.upto"
-        class="flex flex-col gap-1 | absolute bottom-0 left-0 | w-full | border | p-1">
-        <figcaption class="flex items-center gap-1 | text-xs | bg-white">
-          <i class="icon icon-timer"></i>
-          <span>{{ todo.date }} {{ todo.time }}</span>
-        </figcaption>
-      </div>
+        class="w-full | absolute bottom-0 left-0 | border | p-1 | flex items-center gap-1 | text-xs | bg-white">
+        <i class="icon icon-timer"></i>
+        <span>{{ todo.date }} {{ todo.time }}</span>
+      </figcaption>
     </figure>
   </NuxtLink>
 </template>
 
 <script setup lang="ts">
-import type { Todo } from '~/models/Todo';
+import type { Todo } from '~/models/Todo'
 
 defineProps<{
   todo: Todo

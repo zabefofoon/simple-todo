@@ -16,10 +16,8 @@
         </button>
         <select class="border | bg-white | p-1 | text-xs">
           <option>All</option>
-          <option>Day</option>
-          <option>Weekend</option>
-          <option>Month</option>
-          <option>Year</option>
+          <option>Undone</option>
+          <option>Done</option>
         </select>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
@@ -79,10 +77,14 @@ onBeforeRouteLeave((to, from, next) => {
 
 const getAllTodos = async () => {
   const data = await todoApi.getAllTodos()
-  console.log(Todo.map(data))
   todos.value = Todo.map(data).sort(
     (a, b) => Number(b.created) - Number(a.created)
   )
+  
+  navigator.serviceWorker.controller?.postMessage({
+    type: 'registerTimer',
+    todos: data.filter((todo) => todo.upto)
+  })
 }
 
 const deleteTodo = async (id: number) => {

@@ -18,9 +18,7 @@
           #{{ tag.label }}
         </span>
       </div>
-      <div class="text-md | py-3">
-        {{ todo.description }}
-      </div>
+      <div class="text-sm md:text-base | py-3" v-html="todo.description?.replaceAll('\n', '<br />')"></div>
       <button
         class="flex items-center | absolute left-1 top-1 z-10 | rounded-full"
         :class="todo.done ? 'bg-green-500' : 'border border-gray-200'"

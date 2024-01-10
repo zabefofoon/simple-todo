@@ -80,7 +80,7 @@ const getAllTodos = async () => {
   todos.value = Todo.map(data).sort(
     (a, b) => Number(b.created) - Number(a.created)
   )
-  
+  await Notification.requestPermission()
   navigator.serviceWorker.controller?.postMessage({
     type: 'registerTimer',
     todos: data.filter((todo) => todo.upto)

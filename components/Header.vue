@@ -7,7 +7,7 @@
       @click="expand(false)"></div>
   </Transition>
   <header class="relative z-30 | lg:hidden">
-    <div class="flex items-center | relative z-30 bg-white | px-4 py-2">
+    <div class="flex items-center | relative z-30 bg-white | px-4 py-2 | border-b">
       <NuxtLink class="block w-full" to="/">
         LOGO
       </NuxtLink>

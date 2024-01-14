@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
     <nav
-      class="absolute bottom-0 | lg:hidden | w-full | bg-white | border-t | transition-all"
+      class="absolute bottom-0 | lg:hidden | w-full | bg-white | transition-all"
       :class="isExpanded ? 'translate-y-full' : '-translate-y-0'">
       <ul class="py-2">
         <NuxtLink

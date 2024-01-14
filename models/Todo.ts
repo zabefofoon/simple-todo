@@ -15,6 +15,15 @@ export class Todo {
     if (!todo.created) this.created = new Date().getTime()
   }
 
+  get createdDate() {
+    const currentDate = new Date(this.created)
+    const year = currentDate.getFullYear()
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0')
+    const day = currentDate.getDate().toString().padStart(2, '0')
+
+    return year + '-' + month + '-' + day
+  }
+
   static of(todo: Partial<Todo>) {
     return new Todo(todo)
   }

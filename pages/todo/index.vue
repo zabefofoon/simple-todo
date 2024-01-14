@@ -7,7 +7,7 @@
     </div>
     <div v-else class="flex flex-col">
       <div
-        class="sticky top-0 z-10 | flex items-center gap-1 | bg-white | px-4 py-2 | border">
+        class="sticky top-0 z-10 | flex items-center gap-1 | bg-white | px-4 py-2 | border-b">
         <input
           class="w-full max-w-[50%] | px-3 py-1 | bg-slate-200 | rounded-full | text-sm"
           placeholder="Search" />
@@ -50,7 +50,6 @@ import { useScrollStore } from '~/store/scroll.store'
 const router = useRouter()
 const scrollStore = useScrollStore()
 
-const todos = ref<Todo[]>()
 
 const saveScrollTop = (
   to: RouteLocationNormalized,
@@ -75,6 +74,7 @@ onBeforeRouteLeave((to, from, next) => {
   next()
 })
 
+const todos = ref<Todo[]>()
 const getAllTodos = async () => {
   const data = await todoApi.getAllTodos()
   todos.value = Todo.map(data).sort(

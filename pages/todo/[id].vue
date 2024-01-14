@@ -6,7 +6,9 @@
         <button class="flex" @click="$router.back()">
           <i class="icon icon-arrow-left"></i>
         </button>
-        <div class="w-full | text-lg truncate | cursor-pointer" @click="$router.back()">
+        <div
+          class="w-full | text-lg truncate | cursor-pointer"
+          @click="$router.back()">
           <span v-if="isEditMode">
             {{ description?.slice(0, 20) || 'New' }}
           </span>
@@ -27,7 +29,7 @@
               type="checkbox" />
             <label
               for="upTo"
-              class="flex items-center gap-1.5 | p-2 | text-sm | cursor-pointer"
+              class="flex items-center gap-1.5 | p-2 | text-xs | cursor-pointer"
               :class="upto ? 'text-black' : 'text-gray-300'">
               <i class="icon icon-timer"></i>
               <span>Upto</span>
@@ -36,12 +38,12 @@
           <div v-if="upto" class="flex gap-1 lg:gap-2 | ml-auto lg:ml-0">
             <input
               :value="date"
-              class="w-fit | border | px-2 py-1 | bg-white | text-sm"
+              class="w-fit | border | px-2 py-1 | bg-white | text-xs"
               type="date"
               @change="setDate" />
             <input
               :value="time"
-              class="w-fit | border | px-2 py-1 | bg-white | text-sm"
+              class="w-fit | border | px-2 py-1 | bg-white | text-xs"
               type="time"
               @change="setTime" />
           </div>
@@ -69,10 +71,16 @@
               type="color"
               @change="setTag(index, 'color', $event)" />
             <input
+              list="tags"
               :value="tag.label"
               class="bg-white | min-w-[16px] w-16 | py-1 px-2 | text-sm"
               placeholder="Tag"
               @change="setTag(index, 'label', $event)" />
+            <datalist id="tags">
+              <option v-for="tag in allTags" :key="tag" :value="tag">
+                {{ tag }}
+              </option>
+            </datalist>
             <button class="flex pr-1" @click="deleteTag(index)">
               <i class="icon icon-close"></i>
             </button>
@@ -97,7 +105,7 @@
 <script setup lang="ts">
 import todoApi from '~/api/todo.api';
 import { Tag } from '~/models/Tag';
-import type { Todo } from '~/models/Todo';
+import { Todo } from '~/models/Todo';
 
 const router = useRouter()
 const route = useRoute()
@@ -165,7 +173,15 @@ const done = async () => {
     upto: toValue(upto),
   }
 
-  if (!toValue(isEditMode)) data.created = new Date().getTime()
+  if (!toValue(isEditMode)) {
+    const now = new Date()
+    const customDate = new Date(String(route.query.date))
+    customDate.setHours(now.getHours())
+    customDate.setMinutes(now.getMinutes())
+    customDate.setSeconds(now.getSeconds())
+
+    data.created = route.query.date ? customDate.getTime() : now.getTime()
+  }
 
   data.date = toValue(upto) ? toValue(date) : undefined
   data.time = toValue(upto) ? toValue(time) : undefined
@@ -176,7 +192,7 @@ const done = async () => {
     ? await todoApi.updateTodo(Number(route.params.id), data)
     : await todoApi.addTodo(<Todo>data)
 
-  router.push('/todo')
+  router.back()
 }
 
 const loadTodo = async () => {
@@ -197,6 +213,26 @@ const loadTodo = async () => {
 onMounted(() => {
   if (toValue(isEditMode)) loadTodo()
 })
+
+const todos = ref<Todo[]>()
+const getAllTodos = async () => {
+  const data = await todoApi.getAllTodos()
+  todos.value = Todo.map(data).sort(
+    (a, b) => Number(b.created) - Number(a.created)
+  )
+  await Notification.requestPermission()
+  navigator.serviceWorker.controller?.postMessage({
+    type: 'registerTimer',
+    todos: data.filter((todo) => todo.upto),
+  })
+}
+const allTags = computed(() => {
+  const result = toValue(todos)?.flatMap((todo) =>
+    todo.tags.map((tag) => tag.label)
+  )
+  return [...new Set(result)]
+})
+onMounted(() => getAllTodos())
 </script>
 
 <style></style>

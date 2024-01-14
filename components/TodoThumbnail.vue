@@ -3,6 +3,7 @@
     <figure
       class="thumbnail | relative | w-full aspect-square overflow-hidden | p-2 | border">
       <button
+        v-if="!hideDelete"
         class="close-button | flex | absolute top-1 right-1"
         @click.stop.prevent="emit('delete', todo.id || -1)">
         <i class="icon icon-close"></i>
@@ -18,7 +19,9 @@
           #{{ tag.label }}
         </span>
       </div>
-      <div class="text-sm md:text-base | py-3" v-html="todo.description?.replaceAll('\n', '<br />')"></div>
+      <div
+        class="text-sm md:text-base | py-3"
+        v-html="todo.description?.replaceAll('\n', '<br />')"></div>
       <button
         class="flex items-center | absolute left-1 top-1 z-10 | rounded-full"
         :class="todo.done ? 'bg-green-500' : 'border border-gray-200'"
@@ -42,6 +45,7 @@ import type { Todo } from '~/models/Todo'
 
 defineProps<{
   todo: Todo
+  hideDelete?: boolean
 }>()
 
 const emit = defineEmits<{

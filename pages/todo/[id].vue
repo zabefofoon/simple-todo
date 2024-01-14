@@ -171,6 +171,7 @@ const done = async () => {
   const data: Partial<Todo> = {
     description: toValue(description),
     upto: toValue(upto),
+    modified: new Date().getTime()
   }
 
   if (!toValue(isEditMode)) {

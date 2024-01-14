@@ -54,8 +54,6 @@ const attrs = ref([
   },
 ])
 
-const log = console.log
-
 const todos = ref<Todo[]>()
 const getAllTodos = async () => {
   const data = await todoApi.getAllTodos()

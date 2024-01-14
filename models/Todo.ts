@@ -9,6 +9,7 @@ export class Todo {
   time?: string
   created?: number
   done?: boolean
+  modified?: number
 
   constructor(todo: Partial<Todo>) {
     Object.assign(this, todo)
@@ -16,12 +17,16 @@ export class Todo {
   }
 
   get createdDate() {
-    const currentDate = new Date(this.created)
+    const currentDate = new Date(this.created || '')
     const year = currentDate.getFullYear()
     const month = (currentDate.getMonth() + 1).toString().padStart(2, '0')
     const day = currentDate.getDate().toString().padStart(2, '0')
 
     return year + '-' + month + '-' + day
+  }
+
+  get uptoTime() {
+    return this.upto ? new Date(`${this.date!} ${this.time}`).getTime() : undefined
   }
 
   static of(todo: Partial<Todo>) {

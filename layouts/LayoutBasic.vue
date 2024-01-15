@@ -48,4 +48,3 @@ onMounted(() => {
   checkShowScrollTop()
 })
 </script>
-~/store/scroll.store

@@ -103,12 +103,15 @@
 </template>
 
 <script setup lang="ts">
-import todoApi from '~/api/todo.api';
-import { Tag } from '~/models/Tag';
-import { Todo } from '~/models/Todo';
+import todoApi from '~/api/todo.api'
+import { Tag } from '~/models/Tag'
+import { Todo } from '~/models/Todo'
+import { useTodoStore } from '~/store/todo.store'
 
 const router = useRouter()
 const route = useRoute()
+
+const todoStore = useTodoStore()
 
 const isEditMode = computed(() => !isNaN(Number(route.params.id)))
 
@@ -171,7 +174,7 @@ const done = async () => {
   const data: Partial<Todo> = {
     description: toValue(description),
     upto: toValue(upto),
-    modified: new Date().getTime()
+    modified: new Date().getTime(),
   }
 
   if (!toValue(isEditMode)) {
@@ -190,14 +193,14 @@ const done = async () => {
   data.tags = toRaw(toValue(tags)).filter((tag) => tag.label)
 
   toValue(isEditMode)
-    ? await todoApi.updateTodo(Number(route.params.id), data)
+    ? await todoStore.updateTodo(Number(route.params.id), data)
     : await todoApi.addTodo(<Todo>data)
-
+  todoStore.getAllTodos(true)
   router.back()
 }
 
 const loadTodo = async () => {
-  const todo = await todoApi.getTodo(Number(route.params.id))
+  const todo = await todoStore.getTodo(Number(route.params.id))
   if (todo) {
     description.value = todo.description
     tags.value = todo.tags || []
@@ -215,25 +218,12 @@ onMounted(() => {
   if (toValue(isEditMode)) loadTodo()
 })
 
-const todos = ref<Todo[]>()
-const getAllTodos = async () => {
-  const data = await todoApi.getAllTodos()
-  todos.value = Todo.map(data).sort(
-    (a, b) => Number(b.created) - Number(a.created)
-  )
-  await Notification.requestPermission()
-  navigator.serviceWorker.controller?.postMessage({
-    type: 'registerTimer',
-    todos: data.filter((todo) => todo.upto),
-  })
-}
 const allTags = computed(() => {
-  const result = toValue(todos)?.flatMap((todo) =>
+  const result = todoStore.todos?.flatMap((todo) =>
     todo.tags.map((tag) => tag.label)
   )
   return [...new Set(result)]
 })
-onMounted(() => getAllTodos())
 </script>
 
 <style></style>

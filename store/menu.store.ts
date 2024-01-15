@@ -14,12 +14,6 @@ export const useMenuStore = defineStore('menu', () => {
         icon: 'icon-calender',
       }),
       Menu.of({
-        code: 'analysis',
-        name: 'Analysis',
-        href: '/analysis',
-        icon: 'icon-analysis',
-      }),
-      Menu.of({
         code: 'setting',
         name: 'Setting',
         href: '/setting',

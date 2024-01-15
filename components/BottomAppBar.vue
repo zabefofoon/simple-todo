@@ -26,11 +26,11 @@
         </button>
       </li>
     </NuxtLink>
-    <NuxtLink to="/analysis">
+    <NuxtLink to="/setting">
       <li>
         <button class="flex flex-col items-center gap-.5">
-          <i class="icon icon-analysis | text-xl"></i>
-          <span class="text-xs">Analysis</span>
+          <i class="icon icon-setting | text-xl"></i>
+          <span class="text-xs">Setting</span>
         </button>
       </li>
     </NuxtLink>

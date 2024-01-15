@@ -7,7 +7,7 @@ export const useTodoStore = defineStore('todo', () => {
 
   const getAllTodos = async (refresh?: boolean) => {
     if (!todos && !refresh) {
-        return toValue(todos)
+      return toValue(todos)
     }
 
     const data = await todoApi.getAllTodos()
@@ -23,8 +23,34 @@ export const useTodoStore = defineStore('todo', () => {
     return toValue(todos)
   }
 
+  const doneTodo = async (id: number, done?: boolean) => {
+    await todoApi.updateTodo(id, { done: !done })
+    getAllTodos(true)
+  }
+
+  const deleteTodo = async (id: number) => {
+    await todoApi.deleteTodo(id)
+    getAllTodos(true)
+  }
+
+  const updateTodo = async (id: number, data: Partial<Todo>) => {
+    return await todoApi.updateTodo(id, data)
+  }
+  const addTodo = async (todo: Todo) => {
+    return await todoApi.addTodo(todo)
+  }
+
+  const getTodo = async (id: number) => {
+    return await todoApi.getTodo(id)
+  }
+
   return {
     todos,
-    getAllTodos
+    getAllTodos,
+    doneTodo,
+    deleteTodo,
+    updateTodo,
+    addTodo,
+    getTodo,
   }
 })

@@ -8,7 +8,7 @@
           v-for="menu in menuStore.menus"
           :key="menu.code"
           :to="menu.href">
-          <li class="flex items-center justify-center gap-2 | py-1">
+          <li class="flex items-center justify-center gap-2 | py-1.5">
             <i class="icon" :class="menu.icon"></i>
             <span>{{ menu.name }}</span>
           </li>

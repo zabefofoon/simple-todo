@@ -21,7 +21,7 @@
                 </h3>
                 <ul class="flex flex-col gap-.5 | min-h-[40px]">
                   <li
-                    v-for="todo in todos
+                    v-for="todo in todoStore.todos
                       ?.filter((todo) => todo.createdDate === data.day.id)
                       .slice(0, 3)"
                     :key="todo.id"
@@ -43,8 +43,9 @@
 
 <script setup lang="ts">
 import { Calendar } from 'v-calendar'
-import todoApi from '~/api/todo.api'
-import { Todo } from '~/models/Todo'
+import { useTodoStore } from '~/store/todo.store'
+
+const todoStore = useTodoStore()
 
 const date = ref(new Date())
 const attrs = ref([
@@ -53,23 +54,6 @@ const attrs = ref([
     dates: new Date(),
   },
 ])
-
-const todos = ref<Todo[]>()
-const getAllTodos = async () => {
-  const data = await todoApi.getAllTodos()
-  todos.value = Todo.map(data).sort(
-    (a, b) => Number(b.created) - Number(a.created)
-  )
-  await Notification.requestPermission()
-  navigator.serviceWorker.controller?.postMessage({
-    type: 'registerTimer',
-    todos: data.filter((todo) => todo.upto),
-  })
-}
-
-onMounted(() => {
-  getAllTodos()
-})
 </script>
 
 <style scoped lang="scss">

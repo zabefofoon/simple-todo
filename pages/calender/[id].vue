@@ -27,8 +27,8 @@
           v-for="todo in todayTodos"
           :key="todo.id"
           :todo="todo"
-          @delete="deleteTodo"
-          @done="doneTodo" />
+          @delete="todoStore.deleteTodo"
+          @done="todoStore.doneTodo" />
       </div>
     </div>
     <template #actions>
@@ -44,42 +44,16 @@
 </template>
 
 <script setup lang="ts">
-import todoApi from '~/api/todo.api'
-import { Todo } from '~/models/Todo'
+import { useTodoStore } from '~/store/todo.store'
 
 const route = useRoute()
 const router = useRouter()
 
-const todos = ref<Todo[]>()
+const todoStore = useTodoStore()
+
 const todayTodos = computed(() =>
-  toValue(todos)?.filter((todo) => todo.createdDate === route.params.id)
+  todoStore.todos?.filter((todo) => todo.createdDate === route.params.id)
 )
-const getAllTodos = async () => {
-  const data = await todoApi.getAllTodos()
-  todos.value = Todo.map(data).sort(
-    (a, b) => Number(b.created) - Number(a.created)
-  )
-  await Notification.requestPermission()
-  navigator.serviceWorker.controller?.postMessage({
-    type: 'registerTimer',
-    todos: data.filter((todo) => todo.upto),
-  })
-}
-
-const deleteTodo = async (id: number) => {
-  await todoApi.deleteTodo(id)
-  getAllTodos()
-}
-
-const doneTodo = async (id: number, done?: boolean) => {
-  await todoApi.updateTodo(id, {done: !done})
-  getAllTodos()
-}
-
-
-onMounted(() => {
-  getAllTodos()
-})
 </script>
 
 <style></style>

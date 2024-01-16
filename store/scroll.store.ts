@@ -10,7 +10,8 @@ export const useScrollStore = defineStore('scroll', () => {
   const savedScrollTop = ref(0)
   const saveScrollTop = (value: number) => (savedScrollTop.value = value)
 
-  const temp = ref(false)
+  const tempHistoryMoved = ref(false)
+  const setTempHistoryMoved = (value: boolean) => tempHistoryMoved.value = value
 
   const listenHistoryUpdate = () => {
     const scrollTo = () =>
@@ -19,13 +20,13 @@ export const useScrollStore = defineStore('scroll', () => {
         ?.scrollTo({ top: toValue(savedScrollTop) })
 
     router.options.history.listen(async () => {
-      temp.value = true
+      setTempHistoryMoved(true)
       await sleep(100)
-      temp.value = false
+      setTempHistoryMoved(false)
     })
 
     router.beforeResolve((to, from, next) => {
-      !toValue(temp)
+      !toValue(tempHistoryMoved)
         ? saveScrollTop(document.getElementById('scroll-area')?.scrollTop || 0)
         : setTimeout(scrollTo, 50)
       next()
@@ -33,7 +34,7 @@ export const useScrollStore = defineStore('scroll', () => {
   }
 
   return {
-    temp,
+    tempHistoryMoved,
 
     scrollLocked,
     lockScroll,

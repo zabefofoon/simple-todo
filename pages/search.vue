@@ -28,7 +28,7 @@
         <div
           v-if="isShowAddArea"
           class="w-full | absolute left-0 bottom-0 translate-y-full | border | bg-white">
-          <SearchAutocomplete v-if="keyword" :keyword="keyword"/>
+          <SearchAutocomplete v-if="keyword" :keyword="keyword" />
           <SearchRecentKeywords v-else />
         </div>
       </div>
@@ -79,8 +79,10 @@ const storageStore = useStorageStore()
 const input = ref<HTMLInputElement>()
 
 const keyword = ref()
-const setKeyword = (event?: Event) =>
-  (keyword.value = event ? (<HTMLInputElement>event.target)?.value : undefined)
+const setKeyword = (event?: Event | string) => {
+  keyword.value =
+    typeof event === 'string' ? event : (<HTMLInputElement>event?.target)?.value
+}
 
 const isShowAddArea = ref()
 const showAddArea = (value?: boolean) => (isShowAddArea.value = value)
@@ -96,10 +98,11 @@ const search = () => {
   router.replace({ query: { keyword: data } })
   storageStore.addRecentKeywords(data)
   showAddArea(false)
+  toValue(input)?.blur()
 }
 
 onMounted(() => {
-  toValue(input)?.focus()
+  if (!route.query.keyword) toValue(input)?.focus()
 })
 
 const todos = ref<Todo[]>()
@@ -115,6 +118,8 @@ watch(
         todo.description?.includes(String(queryKeyword))
       )
       setTodos(todos)
+
+      setKeyword(String(queryKeyword || ''))
     }),
   { immediate: true }
 )

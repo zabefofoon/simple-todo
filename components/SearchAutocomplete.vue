@@ -6,7 +6,9 @@
       :to="`/search?keyword=${searchedKeyword}`"
       replace
       class="w-full | flex items-center gap-2 | py-0.5">
-      <span v-html="getHighlightedKeyword(searchedKeyword)"></span>
+      <span
+        v-html="getHighlightedKeyword(searchedKeyword)"
+        class="truncate"></span>
     </NuxtLink>
   </div>
 </template>
@@ -24,7 +26,10 @@ const keywords = ref<string[]>()
 const setKeywords = (value?: string[]) => (keywords.value = value)
 
 const getHighlightedKeyword = (keyword: string) => {
-    return keyword.replace(props.keyword, (str) => `<span class="text-orange-500">${str}</span>`)
+  return keyword.replace(
+    props.keyword,
+    (str) => `<span class="text-orange-500">${str}</span>`
+  )
 }
 
 watch(
@@ -35,8 +40,9 @@ watch(
       .map((todo) => todo.description)
       .filter((description): description is string => !!description)
 
-    setKeywords(result || [])
-  }, {immediate: true}
+    setKeywords([...new Set(result || [])])
+  },
+  { immediate: true }
 )
 </script>
 

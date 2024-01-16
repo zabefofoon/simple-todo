@@ -21,6 +21,8 @@ export const useStorageStore = defineStore('storage', () => {
       keywords = keywords.filter((savedKeyword) => savedKeyword !== keyword)
       keywords.unshift(keyword)
     } else keywords.unshift(keyword)
+
+    keywords = keywords.filter((_, index) => index < 10)
     storageApi.setLocalStorage('recentKeywords', JSON.stringify(keywords))
   }
 

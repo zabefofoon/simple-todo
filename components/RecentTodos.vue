@@ -20,11 +20,11 @@ import { useTodoStore } from '~/store/todo.store'
 
 const todoStore = useTodoStore()
 
-const recentTodos = computed(() => {
-  return todoStore.todos
+const recentTodos = computed(() =>
+  todoStore.todos
     ?.sort((a, b) => Number(b.modified) - Number(a.modified))
     .slice(0, 4)
-})
+)
 </script>
 
 <style></style>

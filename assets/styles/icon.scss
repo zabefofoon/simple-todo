@@ -99,3 +99,9 @@
     'https://api.iconify.design/material-symbols/check.svg'
   );
 }
+
+.icon-search {
+  @include generateIcon(
+    'https://api.iconify.design/material-symbols/search.svg'
+  );
+}

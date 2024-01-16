@@ -9,18 +9,33 @@
 
 <script setup lang="ts">
 import { Chart } from 'chart.js/auto'
+import { useTodoStore } from '~/store/todo.store'
 
 const canvas = ref<HTMLCanvasElement>()
+
+const todoStore = useTodoStore()
+
+const tagInfo = computed(() => {
+  return (
+    todoStore.todos
+      ?.flatMap((todo) => todo.tags)
+      .map((tag) => tag.label)
+      .reduce<Record<string, number>>((acc, current) => {
+        acc[current] = (acc[current] || 0) + 1
+        return acc
+      }, {}) || {}
+  )
+})
 
 onMounted(() => {
   new Chart(toValue(canvas)!, {
     type: 'bar',
     data: {
-      labels: ['Category 1', 'Category 2', 'Category 3', 'Category 4'],
+      labels: Object.keys(toValue(tagInfo)),
       datasets: [
         {
           label: 'Data Set',
-          data: [25, 10, 30, 15],
+          data: Object.values(toValue(tagInfo)),
           backgroundColor: 'rgba(0, 0, 0, 0.2)', // 바의 배경색
           borderColor: 'rgba(0, 0, 0, 1)', // 바의 테두리 색
           borderWidth: 1, // 테두리 두께

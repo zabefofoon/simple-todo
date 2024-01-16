@@ -9,18 +9,29 @@
 
 <script setup lang="ts">
 import { Chart } from 'chart.js/auto'
+import { useTodoStore } from '~/store/todo.store'
+
+const todoStore = useTodoStore()
+
+const doneTodoLength = computed(
+  () => todoStore.todos?.filter((todo) => todo.done).length
+)
 
 const canvas = ref<HTMLCanvasElement>()
 
+const chart = ref<Chart<'pie', (number | undefined)[], string>>()
+
 onMounted(() => {
-  new Chart(toValue(canvas)!, {
+  chart.value = new Chart(toValue(canvas)!, {
     type: 'pie',
     data: {
-      labels: ['Undone', 'Done'],
+      labels: ['total', 'done'],
       datasets: [
         {
-          data: [6, 4],
-          backgroundColor: ['#cccccc', '#000000'],
+          data: [todoStore.todos?.length, toValue(doneTodoLength)],
+          backgroundColor: ['rgba(0, 0, 0, .3)', 'rgba(0, 0, 0, .2)'],
+          borderColor: ['rgba(0, 0, 0, 1)', 'rgba(0, 0, 0, 1)'], // 바의 테두리 색
+          borderWidth: 1, // 테두리 두께
         },
       ],
     },

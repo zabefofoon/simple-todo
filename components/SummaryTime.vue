@@ -10,8 +10,29 @@
 
 <script setup lang="ts">
 import { Chart } from 'chart.js/auto'
+import { useTodoStore } from '~/store/todo.store'
+
+const todoStore = useTodoStore()
 
 const canvas = ref<HTMLCanvasElement>()
+
+const data = computed(() => {
+  const map =
+    todoStore.todos
+      ?.filter(
+        (todo) =>
+          new Date(todo.created || 0).getFullYear() === new Date().getFullYear()
+      )
+      .map((todo) => new Date(todo.created || 0).getMonth())
+      .reduce<Record<string, number>>((acc, current) => {
+        acc[current] = (acc[current] || 0) + 1
+        return acc
+      }, {}) || {}
+
+  return Array(12)
+    .fill(0)
+    .map((item, index) => map[index])
+})
 
 onMounted(() => {
   new Chart(toValue(canvas)!, {
@@ -21,7 +42,7 @@ onMounted(() => {
       datasets: [
         {
           label: 'Data Set',
-          data: [10, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          data: toValue(data),
           backgroundColor: 'rgba(0, 0, 0, 0.2)', // 바의 배경색
           borderColor: 'rgba(0, 0, 0, 1)', // 바의 테두리 색
           borderWidth: 1, // 테두리 두께

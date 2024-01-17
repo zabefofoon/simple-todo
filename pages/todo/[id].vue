@@ -106,12 +106,14 @@
 import todoApi from '~/api/todo.api'
 import { Tag } from '~/models/Tag'
 import { Todo } from '~/models/Todo'
+import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const router = useRouter()
 const route = useRoute()
 
 const todoStore = useTodoStore()
+const storageStore = useStorageStore()
 
 const isEditMode = computed(() => !isNaN(Number(route.params.id)))
 
@@ -211,6 +213,8 @@ const loadTodo = async () => {
       time.value = todo.time
     }
     setTimeout(() => resizeTextArea())
+    
+    if (todo.expired) storageStore.addReadExpiredTodo(String(route.params.id))
   }
 }
 

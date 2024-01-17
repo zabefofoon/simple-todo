@@ -7,10 +7,10 @@
       @click="expand(false)"></div>
   </Transition>
   <header class="relative z-30 | lg:hidden">
-    <div class="flex items-center | relative z-30 bg-white | px-4 py-2 | border-b">
-      <NuxtLink class="block | w-full | font-bold" to="/">
-        MEMOO
-      </NuxtLink>
+    <div
+      class="flex items-center gap-1 | relative z-30 bg-white | px-4 py-2 | border-b">
+      <NuxtLink class="block | w-full | font-bold" to="/"> MEMOO </NuxtLink>
+      <NotificationButton />
       <button class="flex" @click="expand()">
         <i v-if="!isExpanded" class="icon icon-bars text-xl"></i>
         <i v-else class="icon icon-close text-xl"></i>

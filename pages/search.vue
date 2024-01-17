@@ -17,14 +17,16 @@
             @keydown.enter="search" />
           <button
             v-if="keyword"
-            class="flex | absolute right-1.5 top-1/2 -translate-y-1/2"
+            class="flex | absolute right-8 top-1/2 -translate-y-1/2"
             @click="close()">
-            <i class="icon icon-close"></i>
+            <i class="icon icon-close | text-xl"></i>
+          </button>
+          <button
+            class="flex | absolute right-1.5 top-1/2 -translate-y-1/2"
+            @click="search">
+            <i class="icon icon-search | text-xl"></i>
           </button>
         </div>
-        <button class="flex" @click="search">
-          <i class="icon icon-search | text-xl"></i>
-        </button>
         <div
           v-if="isShowAddArea"
           class="w-full | absolute left-0 bottom-0 translate-y-full | border | bg-white">

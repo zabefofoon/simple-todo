@@ -29,6 +29,10 @@ export class Todo {
     return this.upto ? new Date(`${this.date!} ${this.time}`).getTime() : undefined
   }
 
+  get expired() {
+    return this.uptoTime ? new Date().getTime() > this.uptoTime : false
+  }
+
   static of(todo: Partial<Todo>) {
     return new Todo(todo)
   }

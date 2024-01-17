@@ -2,11 +2,6 @@ import { defineStore } from 'pinia'
 import storageApi from '~/api/storage.api'
 
 export const useStorageStore = defineStore('storage', () => {
-  const getLocalStorage = (key: string) => storageApi.getLocalStorage(key)
-
-  const setLocalStorage = (key: string, data: string) =>
-    storageApi.setLocalStorage(key, data)
-
   const removeKeywords = (keyword: string) => {
     let keywords = getRecentKeywords()
     keywords = keywords.filter((savedKeyword) => savedKeyword !== keyword)
@@ -31,12 +26,37 @@ export const useStorageStore = defineStore('storage', () => {
     return JSON.parse(saved)
   }
 
-  return {
-    getLocalStorage,
-    setLocalStorage,
+  const readExpiredTodos = ref<string[]>()
+  const setReadExpiredTodos = (value: string[]) =>
+    (readExpiredTodos.value = value)
 
+  const addReadExpiredTodo = (id: string) => {
+    if (!id) return
+
+    let readTodoIds = getReadExpiredTodo()
+    if (readTodoIds.includes(id)) {
+      readTodoIds = readTodoIds.filter((savedKeyword) => savedKeyword !== id)
+      readTodoIds.unshift(id)
+    } else readTodoIds.unshift(id)
+
+    readTodoIds = readTodoIds.filter((_, index) => index < 10)
+    setReadExpiredTodos(readTodoIds)
+    storageApi.setLocalStorage('readExpiredTodos', JSON.stringify(readTodoIds))
+  }
+
+  const getReadExpiredTodo = (): string[] => {
+    const saved = storageApi.getLocalStorage('readExpiredTodos') || '[]'
+    setReadExpiredTodos(saved)
+    return JSON.parse(saved)
+  }
+
+  return {
     addRecentKeywords,
     getRecentKeywords,
     removeKeywords,
+
+    readExpiredTodos,
+    addReadExpiredTodo,
+    getReadExpiredTodo,
   }
 })

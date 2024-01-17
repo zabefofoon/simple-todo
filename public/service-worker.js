@@ -28,7 +28,7 @@ const registerTimer = (todos) => {
             ? `${todo.description.slice(0, 30)}...`
             : todo.description
 
-        self.registration.showNotification('Check your memo!', {
+        self.registration.showNotification('Check!', {
           body,
           requireInteraction: true,
           renotify: true,
@@ -37,6 +37,9 @@ const registerTimer = (todos) => {
           timestamp: Math.floor(Date.now()),
           badge: 'https://dummyimage.com/96x96/000/fff',
         })
+
+        const channel = new BroadcastChannel('sw-messages')
+        channel.postMessage({ type: 'notification' })
       }, time - now)
 
       timers.push(timer)
@@ -54,9 +57,21 @@ self.addEventListener('notificationclick', (event) => {
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then((clientList) => {
       for (const client of clientList) {
-        if ('focus' in client) return client.focus()
+        if ('focus' in client)
+          return client.focus().then(() => {
+            setTimeout(() => {
+              const channel = new BroadcastChannel('sw-messages')
+              channel.postMessage({ type: 'notificationclick' })
+            }, 1000)
+          })
       }
-      if (clients.openWindow) return clients.openWindow('/')
+      if (clients.openWindow)
+        return clients.openWindow('/').then(() => {
+          setTimeout(() => {
+            const channel = new BroadcastChannel('sw-messages')
+            channel.postMessage({ type: 'notificationclick' })
+          }, 1000)
+        })
     })
   )
 })

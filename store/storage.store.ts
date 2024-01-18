@@ -29,13 +29,19 @@ export const useStorageStore = defineStore('storage', () => {
   const readExpiredTodos = ref<string[]>()
   const setReadExpiredTodos = (value: string[]) =>
     (readExpiredTodos.value = value)
+  
+    const getReadExpiredTodo = (): string[] => {
+    const saved = storageApi.getLocalStorage('readExpiredTodos') || '[]'
+    setReadExpiredTodos(saved)
+    return JSON.parse(saved)
+  }
 
   const addReadExpiredTodo = (id: string) => {
     if (!id) return
 
     let readTodoIds = getReadExpiredTodo()
     if (readTodoIds.includes(id)) {
-      readTodoIds = readTodoIds.filter((savedKeyword) => savedKeyword !== id)
+      readTodoIds = readTodoIds.filter((readTodoId) => readTodoId !== id)
       readTodoIds.unshift(id)
     } else readTodoIds.unshift(id)
 
@@ -44,10 +50,11 @@ export const useStorageStore = defineStore('storage', () => {
     storageApi.setLocalStorage('readExpiredTodos', JSON.stringify(readTodoIds))
   }
 
-  const getReadExpiredTodo = (): string[] => {
-    const saved = storageApi.getLocalStorage('readExpiredTodos') || '[]'
-    setReadExpiredTodos(saved)
-    return JSON.parse(saved)
+  const removeReadExpiredTodo = (id?: string) => {
+    if (!id) return
+    const readTodoIds = getReadExpiredTodo().filter((readTodoId) => readTodoId !== id)
+    setReadExpiredTodos(readTodoIds)
+    storageApi.setLocalStorage('readExpiredTodos', JSON.stringify(readTodoIds))
   }
 
   return {
@@ -56,7 +63,8 @@ export const useStorageStore = defineStore('storage', () => {
     removeKeywords,
 
     readExpiredTodos,
-    addReadExpiredTodo,
     getReadExpiredTodo,
+    addReadExpiredTodo,
+    removeReadExpiredTodo
   }
 })

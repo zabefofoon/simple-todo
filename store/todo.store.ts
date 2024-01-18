@@ -9,7 +9,7 @@ export const useTodoStore = defineStore('todo', () => {
   const todos = ref<Todo[]>()
 
   const getAllTodos = async (refresh?: boolean) => {
-    if (!todos && !refresh) {
+    if (toValue(todos) && !refresh) {
       return toValue(todos)
     }
 
@@ -43,6 +43,14 @@ export const useTodoStore = defineStore('todo', () => {
     return await todoApi.addTodo(todo)
   }
 
+  const refreshTodo = (todo: Todo) => {
+    const found = todos.value?.findIndex(
+      (savedTodo) => savedTodo.id === todo.id
+    )
+    todos.value?.splice(Number(found), 1)
+    todos.value?.push(todo)
+  }
+
   const getTodo = async (id: number) => {
     const data = await todoApi.getTodo(id)
     return data ? Todo.of(data) : undefined
@@ -72,6 +80,7 @@ export const useTodoStore = defineStore('todo', () => {
     updateTodo,
     addTodo,
     getTodo,
+    refreshTodo,
 
     expiredTodos,
     hasUnCheckedTodos,

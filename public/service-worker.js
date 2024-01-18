@@ -36,10 +36,11 @@ const registerTimer = (todos) => {
           icon: 'https://dummyimage.com/144x144/000/fff',
           timestamp: Math.floor(Date.now()),
           badge: 'https://dummyimage.com/96x96/000/fff',
+          data: todo
         })
 
         const channel = new BroadcastChannel('sw-messages')
-        channel.postMessage({ type: 'notification' })
+        channel.postMessage({ type: 'notification', todo})
       }, time - now)
 
       timers.push(timer)
@@ -53,7 +54,7 @@ self.addEventListener('message', ({ data }) => {
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close()
-
+  
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then((clientList) => {
       for (const client of clientList) {
@@ -61,7 +62,7 @@ self.addEventListener('notificationclick', (event) => {
           return client.focus().then(() => {
             setTimeout(() => {
               const channel = new BroadcastChannel('sw-messages')
-              channel.postMessage({ type: 'notificationclick' })
+              channel.postMessage({ type: 'notificationclick', todo: event.notification.data })
             }, 1000)
           })
       }
@@ -69,7 +70,7 @@ self.addEventListener('notificationclick', (event) => {
         return clients.openWindow('/').then(() => {
           setTimeout(() => {
             const channel = new BroadcastChannel('sw-messages')
-            channel.postMessage({ type: 'notificationclick' })
+            channel.postMessage({ type: 'notificationclick', todo: event.notification.data })
           }, 1000)
         })
     })

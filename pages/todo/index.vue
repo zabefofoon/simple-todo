@@ -14,7 +14,7 @@
             placeholder="Search" />
             <i class="icon icon-search | text-xl | absolute right-1 top-1/2 -translate-y-1/2"></i>
         </NuxtLink>
-        <NotificationButton />
+        <NotificationButton class="hidden lg:block"/>
         <button class="flex | border p-1 | ml-auto">
           <i class="icon icon-grid text-md"></i>
         </button>

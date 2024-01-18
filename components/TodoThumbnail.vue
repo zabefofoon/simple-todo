@@ -9,8 +9,7 @@
         <i class="icon icon-close"></i>
       </button>
       <div
-        class="flex gap-1 | absolute right-2"
-        :class="todo.upto ? 'bottom-8' : 'bottom-2'">
+        class="flex gap-1 | absolute bottom-[5px] right-1.5 z-10">
         <span
           v-for="(tag, index) in todo.tags"
           :key="index"

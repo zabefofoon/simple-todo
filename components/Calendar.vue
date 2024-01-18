@@ -15,7 +15,7 @@
               class="flex flex-col gap-2 | px-0.5 py-2">
               <h3
                 class="w-fit | px-1.5 py-.5 mx-auto | rounded-full | text-[12px] md:text-sm"
-                :class="data.attributes.length ? 'bg-black | text-white' : ''">
+                :class="data.attributes.length ? 'bg-slate-800 | text-white' : ''">
                 {{ data.day.day }}
               </h3>
               <ul class="flex flex-col gap-.5 | min-h-[40px]">

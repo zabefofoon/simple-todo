@@ -14,10 +14,6 @@
   background-color: currentColor;
 }
 
-.icon-grid {
-  @include generateIcon('https://api.iconify.design/bi/grid.svg');
-}
-
 .icon-row {
   @include generateIcon(
     'https://api.iconify.design/fluent/row-triple-20-regular.svg'

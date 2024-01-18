@@ -16,11 +16,8 @@
             class="icon icon-search | text-xl | absolute right-1 top-1/2 -translate-y-1/2"></i>
         </NuxtLink>
         <NotificationButton class="hidden lg:block" />
-        <button class="flex | border p-1 | ml-auto">
-          <i class="icon icon-grid text-md"></i>
-        </button>
         <select
-          class="border | bg-white | p-1 | text-xs"
+          class="border | bg-white | p-1 ml-auto | text-xs"
           :value="route.query.filter || 'All'"
           @change="changeFilter">
           <option>All</option>
@@ -41,13 +38,13 @@
       <ClientOnly>
         <NuxtLink
           to="/search"
-          class="flex | bg-black rounded-full | text-white | p-2">
-          <i class="icon icon-search text-2xl"></i>
+          class="flex | bg-slate-800 rounded-full | text-white | p-2">
+          <i class="icon icon-search text-2xl text-white"></i>
         </NuxtLink>
         <NuxtLink
           to="/todo/new"
-          class="flex | bg-black rounded-full | text-white | p-2">
-          <i class="icon icon-add text-2xl"></i>
+          class="flex | bg-slate-800 rounded-full | text-white | p-2">
+          <i class="icon icon-add text-2xl text-white"></i>
         </NuxtLink>
       </ClientOnly>
     </template>

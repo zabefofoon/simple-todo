@@ -26,7 +26,7 @@
                 <h3
                   class="w-fit | px-1.5 py-.5 mx-auto | rounded-full | text-[12px] md:text-sm"
                   :class="
-                    data.attributes.length ? 'bg-black | text-white' : ''
+                    data.attributes.length ? 'bg-slate-800 | text-white' : ''
                   ">
                   {{ data.day.day }}
                 </h3>

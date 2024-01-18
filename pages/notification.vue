@@ -21,7 +21,7 @@
       </div>
       <ul v-else class="flex flex-col | w-full overflow-hidden">
         <NuxtLink
-          v-for="todo in todoStore.expiredTodos"
+          v-for="todo in todoStore.expiredTodos.slice(0, 30)"
           :key="todo.id"
           :to="`/todo/${todo.id}`">
           <li

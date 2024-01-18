@@ -48,9 +48,9 @@
               @change="setTime" />
           </div>
           <button
-            class="hidden lg:block | bg-black | text-white rounded-full | px-5 py-1 ml-auto"
+            class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto"
             @click="done">
-            <span>Save</span>
+            <span class="text-white">Save</span>
           </button>
         </div>
         <textarea
@@ -95,9 +95,9 @@
       </div>
     </div>
     <button
-      class="lg:hidden | w-[96vw] | bg-black | text-white rounded-full | py-3 lg:py-2 mx-auto mt-auto mb-4"
+      class="lg:hidden | w-[96vw] | bg-slate-800 | text-white rounded-full | py-3 lg:py-2 mx-auto mt-auto mb-4"
       @click="done">
-      <span>Done</span>
+      <span class="text-white">Done</span>
     </button>
   </NuxtLayout>
 </template>

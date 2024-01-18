@@ -35,7 +35,7 @@
       <ClientOnly>
         <NuxtLink
           :to="`/todo/new?date=${route.params.id}`"
-          class="flex | bg-black rounded-full | text-white | p-2">
+          class="flex | bg-slate-800 rounded-full | text-white | p-2">
           <i class="icon icon-add text-2xl"></i>
         </NuxtLink>
       </ClientOnly>

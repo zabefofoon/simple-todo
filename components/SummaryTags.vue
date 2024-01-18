@@ -36,8 +36,8 @@ onMounted(() => {
         {
           label: 'Data Set',
           data: Object.values(toValue(tagInfo)),
-          backgroundColor: 'rgba(0, 0, 0, 0.2)', // 바의 배경색
-          borderColor: 'rgba(0, 0, 0, 1)', // 바의 테두리 색
+          backgroundColor: 'rgba(71, 85, 105, 0.2)', // 바의 배경색
+          borderColor: 'rgba(71, 85, 105, 1)', // 바의 테두리 색
           borderWidth: 1, // 테두리 두께
         },
       ],

@@ -54,4 +54,20 @@ const attrs = ref([
 ])
 </script>
 
-<style></style>
+
+<style scoped lang="scss">
+::v-deep(.vc-container) {
+  .vc-weeks {
+    margin-top: 20px;
+    .vc-day {
+      width: 100%;
+      overflow: hidden;
+      border-top: 1px solid #f3f3f3;
+
+      &.is-not-in-month {
+        border: 0;
+      }
+    }
+  }
+}
+</style>

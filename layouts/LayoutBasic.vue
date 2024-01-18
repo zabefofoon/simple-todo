@@ -1,7 +1,7 @@
 <template>
   <div class="flex | w-screen h-dvh overflow-hidden">
     <SNB />
-    <div class="right-area | flex flex-col | h-full">
+    <div class="right-area | flex flex-col | h-full w-full overflow-hidden">
       <slot name="header"><Header /></slot>
       <main
         id="scroll-area"
@@ -48,11 +48,3 @@ onMounted(() => {
   checkShowScrollTop()
 })
 </script>
-<style scoped lang="scss">
-.right-area {
-  width: 100%;
-  @media (min-width: 1024px) {
-    width: calc(100% - 240px);
-  }
-}
-</style>

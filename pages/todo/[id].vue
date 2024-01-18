@@ -10,7 +10,7 @@
           class="w-full | text-lg truncate | cursor-pointer"
           @click="$router.back()">
           <span v-if="isEditMode">
-            {{ description?.slice(0, 20) || 'New' }}
+            {{ description || 'New' }}
           </span>
           <span v-else>Todo</span>
         </div>

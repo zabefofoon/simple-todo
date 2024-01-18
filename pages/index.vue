@@ -18,7 +18,7 @@
           <RecentTodos />
           <Summary class="hidden lg:flex" />
         </div>
-        <Calender />
+        <Calendar />
         <div class="w-full | lg:hidden">
           <Summary />
         </div>

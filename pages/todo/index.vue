@@ -12,13 +12,17 @@
           <input
             class="w-full | px-3 py-1 | bg-slate-200 | rounded-full | text-sm"
             placeholder="Search" />
-            <i class="icon icon-search | text-xl | absolute right-1 top-1/2 -translate-y-1/2"></i>
+          <i
+            class="icon icon-search | text-xl | absolute right-1 top-1/2 -translate-y-1/2"></i>
         </NuxtLink>
-        <NotificationButton class="hidden lg:block"/>
+        <NotificationButton class="hidden lg:block" />
         <button class="flex | border p-1 | ml-auto">
           <i class="icon icon-grid text-md"></i>
         </button>
-        <select class="border | bg-white | p-1 | text-xs">
+        <select
+          class="border | bg-white | p-1 | text-xs"
+          :value="route.query.filter || 'All'"
+          @change="changeFilter">
           <option>All</option>
           <option>Undone</option>
           <option>Done</option>
@@ -26,7 +30,7 @@
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
         <TodoThumbnail
-          v-for="todo in todoStore.todos"
+          v-for="todo in todos"
           :key="todo.id"
           :todo="todo"
           @delete="todoStore.deleteTodo"
@@ -49,9 +53,31 @@
     </template>
   </NuxtLayout>
 </template>
+
 <script setup lang="ts">
 import TodoThumbnail from '~/components/TodoThumbnail.vue'
 import { useTodoStore } from '~/store/todo.store'
 
+const router = useRouter()
+const route = useRoute()
+
 const todoStore = useTodoStore()
+
+const todos = computed(() => {
+  if (route.query.filter === 'Undone') {
+    return todoStore.todos?.filter((todo) => !todo.done)
+  } else if (route.query.filter === 'Done') {
+    return todoStore.todos?.filter((todo) => todo.done)
+  } else {
+    return todoStore.todos
+  }
+})
+
+const changeFilter = (event: Event) => {
+  const value = (<HTMLSelectElement>event.target).value
+
+  if (value === 'All') router.replace({ query: { filter: undefined } })
+  else if (value === 'Undone') router.replace({ query: { filter: 'Undone' } })
+  else if (value === 'Done') router.replace({ query: { filter: 'Done' } })
+}
 </script>

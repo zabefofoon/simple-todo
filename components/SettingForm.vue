@@ -1,7 +1,7 @@
 <template>
   <div class="flex | border-b | py-3">
     <div class="flex | lg:w-60 | text-sm">
-      <span>Form</span>
+      <span>{{ $t('Form') }}</span>
       <NuxtLink to="/form/new">
         <button
           class="flex | h-fit | p-1 ml-auto lg:ml-0 | border border-dashed">

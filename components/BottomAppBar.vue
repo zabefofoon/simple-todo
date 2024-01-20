@@ -6,7 +6,7 @@
       <li>
         <button class="flex flex-col items-center gap-.5">
           <i class="icon icon-home | text-xl"></i>
-          <span class="text-xs">Home</span>
+          <span class="text-xs">{{ $t('Home') }}</span>
         </button>
       </li>
     </NuxtLink>
@@ -14,7 +14,7 @@
       <li>
         <button class="flex flex-col items-center gap-.5">
           <i class="icon icon-file | text-xl"></i>
-          <span class="text-xs">Todo</span>
+          <span class="text-xs">{{ $t('Todo') }}</span>
         </button>
       </li>
     </NuxtLink>
@@ -22,7 +22,7 @@
       <li>
         <button class="flex flex-col items-center gap-.5">
           <i class="icon icon-calender | text-xl"></i>
-          <span class="text-xs">Calender</span>
+          <span class="text-xs">{{ $t('Calender') }}</span>
         </button>
       </li>
     </NuxtLink>
@@ -30,7 +30,7 @@
       <li>
         <button class="flex flex-col items-center gap-.5">
           <i class="icon icon-setting | text-xl"></i>
-          <span class="text-xs">Setting</span>
+          <span class="text-xs">{{ $t('Setting') }}</span>
         </button>
       </li>
     </NuxtLink>

@@ -2,7 +2,7 @@
   <NuxtLayout name="layout-basic">
     <template #header>
       <header
-        class="flex items-center gap-3 | py-2 px-4 | border | overflow-hidden">
+        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden">
         <button class="flex" @click="$router.back()">
           <i class="icon icon-arrow-left"></i>
         </button>

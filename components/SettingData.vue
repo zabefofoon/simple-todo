@@ -2,11 +2,11 @@
   <div class="flex gap-1 | ml-auto lg:ml-0 mb-6">
     <button
       class="px-4 py-0.5 | bg-slate-800 | text-sm text-white | rounded-full">
-      Export
+      {{ $t('Export') }}
     </button>
     <button
       class="px-4 py-0.5 | bg-slate-800 | text-sm text-white | rounded-full">
-      Import
+      {{ $t('Import') }}
     </button>
   </div>
 </template>

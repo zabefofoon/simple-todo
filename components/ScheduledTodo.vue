@@ -1,8 +1,10 @@
 <template>
   <div class="flex flex-col gap-2 | border | p-2 lg:p-4">
     <h3 class="font-bold">
-      <span v-if="scheduledTodo">Scheduled Todo({{ scheduledTodo.date }})</span>
-      <span v-else>No Scheduled</span>
+      <span v-if="scheduledTodo">
+        {{ $t('ScheduledTodo') }}({{ scheduledTodo.date }})
+      </span>
+      <span v-else>{{ $t('NoScheduled') }}</span>
     </h3>
     <NuxtLink
       v-if="scheduledTodo?.description"
@@ -20,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTodoStore } from '~/store/todo.store';
+import { useTodoStore } from '~/store/todo.store'
 
 const todoStore = useTodoStore()
 

@@ -10,7 +10,7 @@
           <input
             ref="input"
             class="w-full | px-3 py-1 | bg-slate-200 | rounded-full | text-sm"
-            placeholder="Search"
+            :placeholder="$t('Search')"
             :value="keyword"
             @input="setKeyword"
             @focus="showAddArea(true)"
@@ -59,9 +59,9 @@
         v-if="!todos?.length"
         class="w-full h-full | flex items-center justify-center">
         <span v-if="route.query.keyword">
-          No todos matched "{{ route.query.keyword }}"
+          {{ $t('NoMatched', [route.query.keyword]) }}
         </span>
-        <span v-else>Enter your search keyword</span>
+        <span v-else>{{ $t('EnterKeyword') }}</span>
       </h3>
     </div>
   </NuxtLayout>

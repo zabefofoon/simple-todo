@@ -2,7 +2,7 @@
   <NuxtLayout name="layout-basic">
     <template #header>
       <header
-        class="flex items-center gap-3 | py-2 px-4 | border | overflow-hidden">
+        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden">
         <button class="flex" @click="router.back()">
           <i class="icon icon-arrow-left"></i>
         </button>
@@ -35,8 +35,8 @@
       <ClientOnly>
         <NuxtLink
           :to="`/todo/new?date=${route.params.id}`"
-          class="flex | bg-slate-800 rounded-full | text-white | p-2">
-          <i class="icon icon-add text-2xl"></i>
+          class="flex | bg-slate-800 rounded-full | p-2">
+          <i class="icon icon-add | text-white text-2xl"></i>
         </NuxtLink>
       </ClientOnly>
     </template>

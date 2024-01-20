@@ -2,7 +2,7 @@
   <NuxtLayout name="layout-basic">
     <template #header>
       <header
-        class="flex items-center gap-3 | py-2 px-4 | border | overflow-hidden">
+        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden">
         <button class="flex" @click="$router.back()">
           <i class="icon icon-arrow-left"></i>
         </button>
@@ -10,9 +10,9 @@
           class="w-full | text-lg truncate | cursor-pointer"
           @click="$router.back()">
           <span v-if="isEditMode">
-            {{ description || 'New' }}
+            {{ description || $t('Todo') }}
           </span>
-          <span v-else>Todo</span>
+          <span v-else>{{ $t('Todo') }}</span>
         </div>
       </header>
     </template>
@@ -32,12 +32,12 @@
                 <div class="w-full | relative">
                   <label
                     class="absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full bg-white">
-                    Form
+                    {{ $t('Form') }}
                   </label>
                   <select
                     class="w-full lg:w-fit | text-sm | px-2 py-1 | border | bg-white"
                     @change="changeForm">
-                    <option>None</option>
+                    <option value="None">{{ $t('None') }}</option>
                     <option
                       v-for="form in settingStore.setting?.forms"
                       :key="form.id"
@@ -50,15 +50,16 @@
                   <label
                     class="flex items-center gap-0.5 | absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full bg-white">
                     <div
+                      v-if="tags[0]?.color !== undefined"
                       class="w-2 h-2"
                       :style="{ background: tags[0]?.color }"></div>
-                    <span>Tag</span>
+                    <span>{{ $t('Tag') }}</span>
                   </label>
                   <select
                     class="w-full lg:w-fit | text-sm | px-2 py-1 | border | bg-white"
                     :value="getSelectIndex(tags)"
                     @change="setTag">
-                    <option :value="-1" label="none"></option>
+                    <option :value="-1">{{ $t('None') }}</option>
                     <option
                       v-for="(tag, index) in settingStore.setting?.tags"
                       :key="index"
@@ -79,12 +80,13 @@
                 type="checkbox" />
               <label
                 for="upTo"
-                class="flex items-center gap-1.5 | px-2 py-3 lg:py-2.5 | text-xs | border | cursor-pointer"
+                class="flex items-center gap-1.5 | px-2 py-3 pr-3 lg:py-2.5 | text-xs | border | cursor-pointer"
                 :style="{ opacity: upto ? '1' : '.4' }">
                 <i class="icon icon-timer"></i>
-                <span>Upto</span>
+                <span>{{ $t('Upto') }}</span>
               </label>
-              <div v-if="upto"
+              <div
+                v-if="upto"
                 class="flex gap-1 lg:gap-2 | ml-auto lg:ml-0"
                 :style="{ opacity: upto ? '1' : '.4' }">
                 <input
@@ -103,7 +105,7 @@
           <button
             class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto"
             @click="save">
-            <span class="text-white">Save</span>
+            <span class="text-white whitespace-nowrap">{{ $t('Save') }}</span>
           </button>
         </div>
       </div>
@@ -111,7 +113,7 @@
     <button
       class="lg:hidden | w-[96vw] | bg-slate-800 | text-white rounded-full | py-3 lg:py-2 mx-auto mt-auto mb-4"
       @click="save">
-      <span class="text-white">Save</span>
+      <span class="text-white">{{ $t('Save') }}</span>
     </button>
   </NuxtLayout>
 </template>

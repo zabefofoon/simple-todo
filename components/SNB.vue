@@ -12,7 +12,7 @@
             :to="menu.href">
             <li class="flex items-center gap-2 | py-1.5 px-3">
               <i class="icon" :class="menu.icon"></i>
-              <span>{{ menu.name }}</span>
+              <span>{{ $t(menu.name) }}</span>
             </li>
           </NuxtLink>
         </ClientOnly>

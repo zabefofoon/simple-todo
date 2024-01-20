@@ -4,7 +4,7 @@
       <div
         v-if="todoStore.hasUnCheckedTodos"
         class="absolute top-[1px] left-[1px] | aspect-square w-2 | bg-red-500 | rounded-full"></div>
-      <i class="icon icon-notification | text-xl"></i>
+      <i class="icon icon-notification | text-2xl"></i>
     </button>
   </NuxtLink>
 </template>

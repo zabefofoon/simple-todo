@@ -11,7 +11,7 @@
         <NuxtLink class="w-full max-w-[50%] | relative" to="/search">
           <input
             class="w-full | px-3 py-1 | bg-slate-200 | rounded-full | text-sm"
-            placeholder="Search" />
+            :placeholder="$t('Search')" />
           <i
             class="icon icon-search | text-xl | absolute right-1 top-1/2 -translate-y-1/2"></i>
         </NuxtLink>
@@ -20,9 +20,9 @@
           class="border | bg-white | p-1 ml-auto | text-xs"
           :value="route.query.filter || 'All'"
           @change="changeFilter">
-          <option>All</option>
-          <option>Undone</option>
-          <option>Done</option>
+          <option value="All">{{ $t('All') }}</option>
+          <option value="Undone">{{ $t('Undone') }}</option>
+          <option value="Done">{{ $t('Done') }}</option>
         </select>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">

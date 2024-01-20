@@ -5,7 +5,7 @@
       <NuxtLink class="w-full max-w-[50%] | relative" to="/search">
         <input
           class="w-full | px-3 py-1 | bg-slate-200 | rounded-full | text-sm"
-          placeholder="Search" />
+          :placeholder="$t('Search')" />
         <i
           class="icon icon-search | text-xl | absolute right-1 top-1/2 -translate-y-1/2"></i>
       </NuxtLink>

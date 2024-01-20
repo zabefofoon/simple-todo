@@ -1,7 +1,7 @@
 <template>
   <!-- 12개월 동안 한달에 몇개 Todo -->
   <div class="flex flex-col gap-2 | w-full min-w-[200px] | border | p-2 lg:p-3">
-    <div class="font-bold">Years</div>
+    <div class="font-bold">{{ $t('Years') }}</div>
     <div class="h-full | flex items-center justify-center">
       <canvas ref="canvas" width="100%"></canvas>
     </div>

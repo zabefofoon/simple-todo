@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-3 | w-full min-w-[200px] | border | p-2 lg:p-3">
-    <div class="font-bold">Done</div>
+    <div class="font-bold">{{ $t('Done') }}</div>
     <div>
       <canvas ref="canvas" width="100%"></canvas>
     </div>

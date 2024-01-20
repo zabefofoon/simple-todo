@@ -1,7 +1,7 @@
 <template>
   <div class="flex | border-b | py-3">
     <div class="flex | lg:w-60 | text-sm">
-      <span>Tag</span>
+      <span>{{ $t('Tag') }}</span>
       <button
         class="flex | w-fit h-fit | p-1 | border border-dashed"
         @click="addTag">

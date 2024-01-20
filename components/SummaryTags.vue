@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-3 | w-full min-w-[200px] | border | p-2 lg:p-3">
-    <div class="font-bold">Tags</div>
+    <div class="font-bold">{{ $t('Tags') }}</div>
     <div class="h-full | flex items-center justify-center">
       <canvas ref="canvas" width="100%"></canvas>
     </div>

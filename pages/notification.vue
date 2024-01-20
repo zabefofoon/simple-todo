@@ -2,14 +2,14 @@
   <NuxtLayout name="layout-basic">
     <template #header>
       <header
-        class="flex items-center gap-3 | py-2 px-4 | border | overflow-hidden">
+        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden">
         <button class="flex" @click="router.back()">
           <i class="icon icon-arrow-left"></i>
         </button>
         <div
           class="w-full | text-lg truncate | cursor-pointer"
           @click="router.back()">
-          Notification
+          {{ $t('Notification') }}
         </div>
       </header>
     </template>
@@ -17,7 +17,7 @@
       <div
         v-if="!todoStore.expiredTodos?.length"
         class="w-full h-full | flex items-center justify-center">
-        Empty notification
+        {{ $t('EmptyNotification') }}
       </div>
       <ul v-else class="flex flex-col | w-full overflow-hidden">
         <NuxtLink

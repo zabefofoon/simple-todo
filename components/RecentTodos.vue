@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col gap-2 | border | p-2 lg:p-3">
-    <div class="font-bold">Recent</div>
+    <div class="font-bold">
+      <NuxtLink to="/todo">{{ $t('Recent') }}</NuxtLink>
+    </div>
     <div
       v-if="todoStore.todos?.length"
       class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
@@ -11,7 +13,7 @@
         hide-delete
         @done="todoStore.doneTodo" />
     </div>
-    <p v-else class="text-center py-10">No Todos.</p>
+    <p v-else class="text-center py-10">{{ $t('NoTodo') }}</p>
   </div>
 </template>
 

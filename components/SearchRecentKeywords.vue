@@ -1,6 +1,8 @@
 <template>
   <div class="p-2">
-    <h3 v-if="!keywords?.length" class="text-center text-sm">no keywords</h3>
+    <h3 v-if="!keywords?.length" class="text-center text-sm">
+      {{ $t('NoKeywords') }}
+    </h3>
     <NuxtLink
       v-for="keyword in keywords?.slice(0, 10)"
       :key="keyword"

@@ -12,8 +12,8 @@
       <NuxtLink class="block | w-full | font-bold" to="/"> MEMOO </NuxtLink>
       <NotificationButton />
       <button class="flex" @click="expand()">
-        <i v-if="!isExpanded" class="icon icon-bars text-xl"></i>
-        <i v-else class="icon icon-close text-xl"></i>
+        <i v-if="!isExpanded" class="icon icon-bars text-2xl"></i>
+        <i v-else class="icon icon-close text-2xl"></i>
       </button>
     </div>
     <LNB :is-expanded="isExpanded" />

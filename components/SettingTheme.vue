@@ -1,14 +1,14 @@
 <template>
   <div class="flex | border-b | py-3">
-    <label class="lg:w-60 | text-sm">Theme</label>
+    <label class="lg:w-60 | text-sm">{{ $t('Theme') }}</label>
     <ClientOnly>
       <select
         v-if="settingStore.setting"
         :value="settingStore.setting.theme"
         class="ml-auto lg:ml-0 | bg-white | text-sm"
         @change="changeTheme">
-        <option value="white">White</option>
-        <option value="dark">Dark</option>
+        <option value="white">{{ $t('White') }}</option>
+        <option value="dark">{{ $t('Dark') }}</option>
       </select>
     </ClientOnly>
   </div>

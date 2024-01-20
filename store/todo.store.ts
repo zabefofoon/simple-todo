@@ -14,9 +14,12 @@ export const useTodoStore = defineStore('todo', () => {
     }
 
     const data = await todoApi.getAllTodos()
+    if (!data.length) addTodo(Todo.of({ description: 'Welcome!' }))
+
     todos.value = Todo.map(data).sort(
       (a, b) => Number(b.created) - Number(a.created)
     )
+
     await Notification.requestPermission()
     navigator.serviceWorker.controller?.postMessage({
       type: 'registerTimer',

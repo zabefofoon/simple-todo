@@ -22,7 +22,7 @@ export class Setting {
       Tag.of({ label: 'Promise', color: '#eb4d4b' }),
     ]
     this.forms = setting?.forms || [
-      Form.of({ title: 'Basic', description: '' }),
+      Form.of({ title: 'Basic', description: 'Title:\n\nDescription:' }),
     ]
   }
 

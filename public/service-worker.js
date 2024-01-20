@@ -24,7 +24,7 @@ const registerTimer = (todos) => {
     if (time >= now) {
       const timer = setTimeout(() => {
         const body =
-          todo.description.length > 30
+          todo.description?.length > 30
             ? `${todo.description.slice(0, 30)}...`
             : todo.description
 

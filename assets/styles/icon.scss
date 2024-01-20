@@ -111,3 +111,11 @@
     'https://api.iconify.design/material-symbols/notifications-outline.svg'
   );
 }
+
+.icon-chevron-up {
+  @include generateIcon('https://api.iconify.design/mdi/chevron-up.svg');
+}
+
+.icon-chevron-down {
+  @include generateIcon('https://api.iconify.design/mdi/chevron-down.svg');
+}

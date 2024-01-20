@@ -30,7 +30,7 @@
       </button>
       <figcaption
         v-if="todo.upto"
-        class="w-full | absolute bottom-0 left-0 | border | py-1 px-0.5 | flex items-center gap-1 | text-[10px] lg:text-xs | bg-white">
+        class="w-full | absolute bottom-0 left-0 | border-t | py-1 px-0.5 | flex items-center gap-1 | text-[10px] lg:text-xs | bg-white">
         <i class="icon icon-timer"></i>
         <span>
           {{ todo.date?.replaceAll('-', '.').substring(2) }}

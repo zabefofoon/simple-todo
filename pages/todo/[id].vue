@@ -17,79 +17,93 @@
       </header>
     </template>
     <div class="p-4">
-      <div class="flex flex-col gap-2">
-        <div class="flex lg:gap-2">
-          <!-- <h4 class="text-sm">Deadline</h4> -->
-          <div class="flex items-center gap-1 | border">
-            <input
-              class="hidden"
-              :checked="upto"
-              @change="setUpto"
-              id="upTo"
-              type="checkbox" />
-            <label
-              for="upTo"
-              class="flex items-center gap-1.5 | p-2 | text-xs | cursor-pointer"
-              :class="upto ? 'text-black' : 'text-gray-300'">
-              <i class="icon icon-timer"></i>
-              <span>Upto</span>
-            </label>
-          </div>
-          <div v-if="upto" class="flex gap-1 lg:gap-2 | ml-auto lg:ml-0">
-            <input
-              :value="date"
-              class="w-fit | border | px-2 py-1 | bg-white | text-xs"
-              type="date"
-              @change="setDate" />
-            <input
-              :value="time"
-              class="w-fit | border | px-2 py-1 | bg-white | text-xs"
-              type="time"
-              @change="setTime" />
+      <div class="flex flex-col gap-6">
+        <textarea
+          ref="textArea"
+          :value="description"
+          class="border | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2"
+          placeholder="Description"
+          @input="resizeTextArea"
+          @change="setDescription" />
+        <div class="flex flex-col lg:flex-row gap-2 lg:items-center">
+          <div class="flex gap-2 flex-col lg:flex-row lg:items-center | w-full">
+            <ClientOnly>
+              <div class="flex gap-2">
+                <div class="w-full | relative">
+                  <label
+                    class="absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full bg-white">
+                    Form
+                  </label>
+                  <select
+                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border | bg-white"
+                    @change="changeForm">
+                    <option>None</option>
+                    <option
+                      v-for="form in settingStore.setting?.forms"
+                      :key="form.id"
+                      :value="form.id">
+                      {{ form.title }}
+                    </option>
+                  </select>
+                </div>
+                <div class="w-full | relative">
+                  <label
+                    class="flex items-center gap-0.5 | absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full bg-white">
+                    <div
+                      class="w-2 h-2"
+                      :style="{ background: tags[0]?.color }"></div>
+                    <span>Tag</span>
+                  </label>
+                  <select
+                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border | bg-white"
+                    :value="getSelectIndex(tags)"
+                    @change="setTag">
+                    <option :value="-1" label="none"></option>
+                    <option
+                      v-for="(tag, index) in settingStore.setting?.tags"
+                      :key="index"
+                      :value="index">
+                      {{ tag.label }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </ClientOnly>
+            <span class="hidden lg:block opacity-30">|</span>
+            <div class="flex items-center gap-1">
+              <input
+                class="hidden"
+                :checked="upto"
+                @change="setUpto"
+                id="upTo"
+                type="checkbox" />
+              <label
+                for="upTo"
+                class="flex items-center gap-1.5 | px-2 py-3 lg:py-2.5 | text-xs | border | cursor-pointer"
+                :style="{ opacity: upto ? '1' : '.4' }">
+                <i class="icon icon-timer"></i>
+                <span>Upto</span>
+              </label>
+              <div v-if="upto"
+                class="flex gap-1 lg:gap-2 | ml-auto lg:ml-0"
+                :style="{ opacity: upto ? '1' : '.4' }">
+                <input
+                  :value="date"
+                  class="w-fit | border | p-2 | bg-white | text-xs"
+                  type="date"
+                  @change="setDate" />
+                <input
+                  :value="time"
+                  class="w-fit | border | px-2 py-1 | bg-white | text-xs"
+                  type="time"
+                  @change="setTime" />
+              </div>
+            </div>
           </div>
           <button
             class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto"
             @click="save">
             <span class="text-white">Save</span>
-          </button>
-        </div>
-        <textarea
-          ref="textArea"
-          :value="description"
-          class="border | h-auto min-h-[300px] max-h-[50vh] resize-none | p-2"
-          placeholder="Description"
-          @input="resizeTextArea"
-          @change="setDescription" />
-        <div class="flex flex-wrap items-center gap-2">
-          <div
-            v-for="(tag, index) in tags"
-            :key="index"
-            class="flex items-center | border">
-            <input
-              :value="tag.color"
-              class="bg-white | p-0 | w-6 aspect-square"
-              type="color"
-              @change="setTag(index, 'color', $event)" />
-            <input
-              list="tags"
-              :value="tag.label"
-              class="bg-white | min-w-[16px] w-16 | py-1 px-2 | text-sm"
-              placeholder="Tag"
-              @change="setTag(index, 'label', $event)" />
-            <datalist id="tags">
-              <option v-for="tag in allTags" :key="tag" :value="tag">
-                {{ tag }}
-              </option>
-            </datalist>
-            <button class="flex pr-1" @click="deleteTag(index)">
-              <i class="icon icon-close"></i>
-            </button>
-          </div>
-          <button
-            class="flex items-center justify-center gap-1 | w-fit | px-2 py-1 | border border-dashed"
-            @click="addTag">
-            <i class="icon icon-add | text-md"></i>
-            <span class="text-sm">Tag</span>
           </button>
         </div>
       </div>
@@ -103,20 +117,20 @@
 </template>
 
 <script setup lang="ts">
-import todoApi from '~/api/todo.api'
 import { Tag } from '~/models/Tag'
 import { Todo } from '~/models/Todo'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
+import { useSettingStore } from '~/store/setting.store'
 
 const router = useRouter()
 const route = useRoute()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
+const settingStore = useSettingStore()
 
 const isEditMode = computed(() => !isNaN(Number(route.params.id)))
-
 
 const getToday = () => {
   const today = new Date()
@@ -161,16 +175,15 @@ const setDescription = (event: Event) => {
 }
 
 const tags = ref<Tag[]>([])
-const addTag = () => tags.value.push(Tag.of({ label: '', color: '' }))
-
-const setTag = (index: number, key: keyof Tag, event: Event) => {
+const setTag = (event: Event) => {
   const value = (<HTMLInputElement>event.target).value
-  tags.value[index][key] = value
+  const tag = settingStore.setting!.tags[Number(value)]
+  tags.value = [tag]
 }
-
-const deleteTag = (index: number) => {
-  tags.value.splice(index, 1)
-}
+const getSelectIndex = (data: Tag[]) =>
+  settingStore.setting?.tags.findIndex(
+    (tag) => tag.color === data?.[0]?.color && tag.label === data?.[0].label
+  )
 
 const save = async () => {
   const data: Partial<Todo> = {
@@ -192,7 +205,7 @@ const save = async () => {
   data.date = toValue(upto) ? toValue(date) : undefined
   data.time = toValue(upto) ? toValue(time) : undefined
 
-  data.tags = toRaw(toValue(tags)).filter((tag) => tag.label)
+  data.tags = deepClone(toValue(tags)).filter((tag) => tag?.label)
 
   toValue(isEditMode)
     ? await todoStore.updateTodo(Number(route.params.id), data)
@@ -213,20 +226,29 @@ const loadTodo = async () => {
       time.value = todo.time
     }
     setTimeout(() => resizeTextArea())
-    
+
     if (todo.expired) storageStore.addReadExpiredTodo(String(route.params.id))
   }
 }
 
+const changeForm = (event: Event) => {
+  if (
+    !confirm(
+      'Pressing the button will delete your written content. Do you want to proceed?'
+    )
+  )
+    return
+
+  const value = (<HTMLSelectElement>event.target).value
+  description.value =
+    value === 'None'
+      ? ''
+      : settingStore.setting?.forms.find((form) => form.id === value)
+          ?.description
+}
+
 onMounted(() => {
   if (toValue(isEditMode)) loadTodo()
-})
-
-const allTags = computed(() => {
-  const result = todoStore.todos?.flatMap((todo) =>
-    todo.tags.map((tag) => tag.label)
-  )
-  return [...new Set(result)]
 })
 </script>
 

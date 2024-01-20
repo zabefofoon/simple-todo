@@ -49,7 +49,7 @@
           </div>
           <button
             class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto"
-            @click="done">
+            @click="save">
             <span class="text-white">Save</span>
           </button>
         </div>
@@ -96,8 +96,8 @@
     </div>
     <button
       class="lg:hidden | w-[96vw] | bg-slate-800 | text-white rounded-full | py-3 lg:py-2 mx-auto mt-auto mb-4"
-      @click="done">
-      <span class="text-white">Done</span>
+      @click="save">
+      <span class="text-white">Save</span>
     </button>
   </NuxtLayout>
 </template>
@@ -117,7 +117,6 @@ const storageStore = useStorageStore()
 
 const isEditMode = computed(() => !isNaN(Number(route.params.id)))
 
-const textArea = ref<HTMLTextAreaElement>()
 
 const getToday = () => {
   const today = new Date()
@@ -129,6 +128,7 @@ const getToday = () => {
   return `${year}-${month}-${day}`
 }
 
+const textArea = ref<HTMLTextAreaElement>()
 const resizeTextArea = () => {
   if (!textArea.value) return
 
@@ -172,7 +172,7 @@ const deleteTag = (index: number) => {
   tags.value.splice(index, 1)
 }
 
-const done = async () => {
+const save = async () => {
   const data: Partial<Todo> = {
     description: toValue(description),
     upto: toValue(upto),
@@ -196,7 +196,7 @@ const done = async () => {
 
   toValue(isEditMode)
     ? await todoStore.updateTodo(Number(route.params.id), data)
-    : await todoApi.addTodo(<Todo>data)
+    : await todoStore.addTodo(<Todo>data)
   todoStore.getAllTodos(true)
   router.back()
 }

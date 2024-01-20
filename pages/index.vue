@@ -14,8 +14,8 @@
       </div>
       <div class="flex flex-col lg:flex-row gap-4 | p-2 lg:p-4">
         <div class="w-full | flex flex-col gap-4">
-          <ScheduledTodo />
           <RecentTodos />
+          <ScheduledTodo />
           <Summary class="hidden lg:flex" />
         </div>
         <Calendar />

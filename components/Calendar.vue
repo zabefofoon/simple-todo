@@ -46,7 +46,7 @@ import { useTodoStore } from '~/store/todo.store'
 const todoStore = useTodoStore()
 
 const date = ref(new Date())
-const attrs = ref([
+const attrs = ref<any>([
   {
     key: 'today',
     dates: new Date(),

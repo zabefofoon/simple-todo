@@ -1,15 +1,19 @@
 // db.ts
 import type { Table } from 'dexie'
 import Dexie from 'dexie'
-import {Todo} from '~/models/Todo'
+import type { Setting } from '~/models/Setting'
+import { Todo } from '~/models/Todo'
 
 export class MySubClassedDexie extends Dexie {
   todos!: Table<Todo>
+  setting!: Table<Setting>
 
   constructor() {
     super('SimpleTodo')
     this.version(1).stores({
-      todos: '++id, date, description, tags, time, created, upto, done, modified',
+      todos:
+        '++id, date, description, tags, time, created, upto, done, modified',
+      setting: '++id, theme, language, tags, forms, display',
     })
   }
 }

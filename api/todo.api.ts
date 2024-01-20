@@ -6,6 +6,7 @@ export const getAllTodos = () => {
 }
 
 export const getTodo = (id: number) => {
+  
   return db.todos.get(id)
 }
 

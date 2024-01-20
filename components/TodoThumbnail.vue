@@ -8,12 +8,11 @@
         @click.stop.prevent="emit('delete', todo.id || -1)">
         <i class="icon icon-close"></i>
       </button>
-      <div
-        class="flex gap-1 | absolute bottom-[5px] right-1.5 z-10">
+      <div class="flex gap-1 | absolute bottom-[5px] right-1 z-10">
         <span
           v-for="(tag, index) in todo.tags"
           :key="index"
-          class="text-white text-xs | px-1.5 py-.5 | rounded-full"
+          class="text-white text-[10px] lg:text-xs | px-1.5 py-.5 | rounded-full"
           :style="{ background: tag.color || 'black' }">
           #{{ tag.label }}
         </span>
@@ -31,9 +30,12 @@
       </button>
       <figcaption
         v-if="todo.upto"
-        class="w-full | absolute bottom-0 left-0 | border | p-1 | flex items-center gap-1 | text-xs | bg-white">
+        class="w-full | absolute bottom-0 left-0 | border | py-1 px-0.5 | flex items-center gap-1 | text-[10px] lg:text-xs | bg-white">
         <i class="icon icon-timer"></i>
-        <span>{{ todo.date }} {{ todo.time }}</span>
+        <span>
+          {{ todo.date?.replaceAll('-', '.').substring(2) }}
+          {{ todo.time }}
+        </span>
       </figcaption>
     </figure>
   </NuxtLink>

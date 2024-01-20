@@ -40,6 +40,10 @@
   @include generateIcon('https://api.iconify.design/mdi/arrow-up.svg');
 }
 
+.icon-arrow-down {
+  @include generateIcon('https://api.iconify.design/mdi/arrow-down.svg');
+}
+
 .icon-bars {
   @include generateIcon(
     'https://api.iconify.design/heroicons/bars-3-20-solid.svg'

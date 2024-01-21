@@ -3,14 +3,23 @@
     <nav
       class="absolute bottom-0 | lg:hidden | w-full | bg-white | transition-all"
       :class="isExpanded ? 'translate-y-full' : '-translate-y-0'">
-      <ul class="py-2">
+      <ul>
         <NuxtLink
           v-for="menu in menuStore.menus"
           :key="menu.code"
           :to="menu.href">
-          <li class="flex items-center justify-center gap-2 | py-1.5">
-            <i class="icon" :class="menu.icon"></i>
-            <span>{{ $t(menu.name) }}</span>
+          <li
+            class="flex items-center justify-center gap-2 | py-1.5"
+            :class="{ 'bg-slate-800': menu.href === route.path }">
+            <i
+              class="icon"
+              :class="[
+                menu.icon,
+                { 'text-white': menu.href === route.path },
+              ]"></i>
+            <span :class="{ 'text-white': menu.href === route.path }">{{
+              $t(menu.name)
+            }}</span>
           </li>
         </NuxtLink>
       </ul>
@@ -25,6 +34,8 @@ import { useScrollStore } from '~/store/scroll.store'
 defineProps<{
   isExpanded: boolean
 }>()
+
+const route = useRoute()
 
 const menuStore = useMenuStore()
 const scrollStore = useScrollStore()

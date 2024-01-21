@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-2 | flex-shrink-0 | lg:min-w-[300px] lg:w-[25vw] | p-2 lg:p-3 | border">
+    class="flex flex-col gap-2 | flex-shrink-0 | lg:min-w-[300px] lg:w-[25vw] | p-2 lg:p-3 | border rounded-lg">
     <div class="font-bold">
       <NuxtLink to="calender">{{ $t('Calender') }}</NuxtLink>
     </div>
@@ -28,7 +28,7 @@
                       ?.filter((todo) => todo.createdDate === data.day.id)
                       .slice(0, 3)"
                     :key="todo.id"
-                    class="flex | w-full overflow-hidden | border | p-0.5 | relative">
+                    class="flex | w-full overflow-hidden | border rounded-lg | p-0.5 | relative">
                     <span
                       class="truncate-2 text-[8px] md:text-sm"
                       v-html="todo.description?.replaceAll('\n', '<br/>')">

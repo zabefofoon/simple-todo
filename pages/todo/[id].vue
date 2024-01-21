@@ -21,7 +21,7 @@
         <textarea
           ref="textArea"
           :value="description"
-          class="border | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2"
+          class="border rounded-lg | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2"
           placeholder="Description"
           @input="resizeTextArea"
           @change="setDescription" />
@@ -35,7 +35,7 @@
                     {{ $t('Form') }}
                   </label>
                   <select
-                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border | bg-white"
+                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg | bg-white"
                     @change="changeForm">
                     <option value="None">{{ $t('None') }}</option>
                     <option
@@ -56,7 +56,7 @@
                     <span>{{ $t('Tag') }}</span>
                   </label>
                   <select
-                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border | bg-white"
+                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg | bg-white"
                     :value="getSelectIndex(tags)"
                     @change="setTag">
                     <option :value="-1">{{ $t('None') }}</option>
@@ -80,7 +80,7 @@
                 type="checkbox" />
               <label
                 for="upTo"
-                class="flex items-center gap-1.5 | px-2 py-3 pr-3 lg:py-2.5 | text-xs | border | cursor-pointer"
+                class="flex items-center gap-1.5 | px-2 py-3 pr-3 lg:py-2.5 | text-xs | border rounded-lg | cursor-pointer"
                 :style="{ opacity: upto ? '1' : '.4' }">
                 <i class="icon icon-timer"></i>
                 <span>{{ $t('Upto') }}</span>
@@ -91,12 +91,12 @@
                 :style="{ opacity: upto ? '1' : '.4' }">
                 <input
                   :value="date"
-                  class="w-fit | border | p-2 | bg-white | text-xs"
+                  class="w-fit | border rounded-lg | p-2 | bg-white | text-xs"
                   type="date"
                   @change="setDate" />
                 <input
                   :value="time"
-                  class="w-fit | border | px-2 py-1 | bg-white | text-xs"
+                  class="w-fit | border rounded-lg | px-2 py-1 | bg-white | text-xs"
                   type="time"
                   @change="setTime" />
               </div>

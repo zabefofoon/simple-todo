@@ -36,7 +36,7 @@
                       ?.filter((todo) => todo.createdDate === data.day.id)
                       .slice(0, 3)"
                     :key="todo.id"
-                    class="flex | w-full overflow-hidden | border | p-0.5 | relative">
+                    class="flex | w-full overflow-hidden | border rounded-lg | p-0.5 | relative">
                     <span
                       class="truncate-2 text-[8px] md:text-sm"
                       v-html="todo.description?.replaceAll('\n', '<br/>')">

@@ -1,6 +1,6 @@
 <template>
   <NuxtLink :to="`/todo/${todo.id}`">
-    <figure class="w-full h-full | flex gap-2 | border | relative">
+    <figure class="w-full h-full | flex gap-2 | border rounded-lg | relative">
       <div
         v-for="(tag, index) in todo.tags"
         :key="index"

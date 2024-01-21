@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full overflow-auto | flex flex-nowrap flex-col lg:flex-row gap-2">
+    class="w-full | flex flex-nowrap flex-col lg:flex-row gap-2">
     <template v-if="!resizing">
       <SummaryDones :key="donesKey" />
       <SummaryTags :key="tagsKey" />

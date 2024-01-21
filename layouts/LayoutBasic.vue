@@ -11,7 +11,7 @@
         @scroll="checkShowScrollTop">
         <slot />
       </main>
-      <nav class="relative | border">
+      <nav class="relative | border-t">
         <FloatingButtons
           :is-show-scroll-top="isShowScrollTop"
           @scroll-top="scrollTop">

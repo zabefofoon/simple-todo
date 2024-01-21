@@ -1,7 +1,7 @@
 <template>
   <NuxtLink :to="`/todo/${todo.id}`">
     <figure
-      class="thumbnail | relative | w-full aspect-square overflow-hidden | p-2 | border">
+      class="thumbnail | relative | w-full aspect-square overflow-hidden | p-2 | border rounded-lg">
       <button
         v-if="!hideDelete"
         class="close-button | flex | absolute top-1 right-1"

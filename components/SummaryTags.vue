@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-3 | w-full min-w-[200px] | border | p-2 lg:p-3">
+  <div class="flex flex-col gap-3 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3">
     <div class="font-bold">{{ $t('Tags') }}</div>
     <div class="h-full | flex items-center justify-center">
       <canvas ref="canvas" width="100%"></canvas>
@@ -34,7 +34,6 @@ onMounted(() => {
       labels: Object.keys(toValue(tagInfo)),
       datasets: [
         {
-          label: 'Data Set',
           data: Object.values(toValue(tagInfo)),
           backgroundColor: 'rgba(71, 85, 105, 0.2)', // 바의 배경색
           borderColor: 'rgba(71, 85, 105, 1)', // 바의 테두리 색

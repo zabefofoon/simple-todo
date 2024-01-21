@@ -58,9 +58,8 @@
           @done="todoStore.doneTodo" />
       </div>
       <div
-        v-else
-        class="h-full | flex flex-col gap-2 | p-4 | min-h-full"
-        :class="{ 'justify-center': !todos?.length }">
+        v-else-if="todos?.length"
+        class="flex flex-col gap-2 | p-4 | h-full">
         <TodoRow v-for="todo in todos" :key="todo.id" :todo="todo" />
       </div>
       <h3

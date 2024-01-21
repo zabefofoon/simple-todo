@@ -1,10 +1,9 @@
 <template>
-  <div class="flex flex-col gap-2 | border | p-2 lg:p-4">
+  <div class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4">
     <h3 class="font-bold">
       <span v-if="scheduledTodo">
-        {{ $t('ScheduledTodo') }}({{
-          scheduledTodo.date?.replaceAll('-', '.').substring(2)
-        }})
+        {{ $t('ScheduledTodo') }}
+        ({{ scheduledTodo.date?.replaceAll('-', '.').substring(2) }})
       </span>
       <span v-else>{{ $t('NoScheduled') }}</span>
     </h3>

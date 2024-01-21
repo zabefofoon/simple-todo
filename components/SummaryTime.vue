@@ -1,6 +1,6 @@
 <template>
   <!-- 12개월 동안 한달에 몇개 Todo -->
-  <div class="flex flex-col gap-2 | w-full min-w-[200px] | border | p-2 lg:p-3">
+  <div class="flex flex-col gap-2 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3">
     <div class="font-bold">{{ $t('Years') }}</div>
     <div class="h-full | flex items-center justify-center">
       <canvas ref="canvas" width="100%"></canvas>
@@ -41,7 +41,6 @@ onMounted(() => {
       labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
       datasets: [
         {
-          label: 'Data Set',
           data: toValue(data),
           backgroundColor: 'rgba(71, 85, 105, 0.2)', // 바의 배경색
           borderColor: 'rgba(71, 85, 105, 1)', // 바의 테두리 색

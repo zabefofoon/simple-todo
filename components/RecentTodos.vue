@@ -4,7 +4,7 @@
       <NuxtLink to="/todo">{{ $t('Recent') }}</NuxtLink>
     </div>
     <div
-      v-if="todoStore.todos?.length"
+      v-if="settingStore.setting?.display === 'thumbnail'"
       class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
       <TodoThumbnail
         v-for="todo in recentTodos"
@@ -13,14 +13,26 @@
         hide-delete
         @done="todoStore.doneTodo" />
     </div>
-    <p v-else class="text-center py-10">{{ $t('NoTodo') }}</p>
+    <div v-else class="flex flex-col gap-2">
+      <TodoRow
+        v-for="todo in recentTodos"
+        :key="todo.id"
+        :todo="todo"
+        hide-delete 
+        @done="todoStore.doneTodo" />
+      <p v-if="!recentTodos?.length" class="text-center py-10">
+        {{ $t('NoTodo') }}
+      </p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useSettingStore } from '~/store/setting.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const todoStore = useTodoStore()
+const settingStore = useSettingStore()
 
 const recentTodos = computed(() =>
   todoStore.todos

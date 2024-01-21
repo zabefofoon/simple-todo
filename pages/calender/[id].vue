@@ -16,12 +16,7 @@
 
     <div class="w-full h-full">
       <div
-        v-if="!todayTodos?.length"
-        class="w-full h-full | flex flex-col justify-center items-center">
-        Create Todo
-      </div>
-      <div
-        v-else
+        v-if="settingStore.setting?.display === 'thumbnail'"
         class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
         <TodoThumbnail
           v-for="todo in todayTodos"
@@ -29,6 +24,15 @@
           :todo="todo"
           @delete="todoStore.deleteTodo"
           @done="todoStore.doneTodo" />
+      </div>
+      <div
+        v-else
+        class="h-full | flex flex-col gap-2 | p-4 | min-h-full"
+        :class="{ 'justify-center': !todayTodos?.length }">
+        <TodoRow v-for="todo in todayTodos" :key="todo.id" :todo="todo" />
+        <p v-if="!todayTodos?.length" class="text-center py-10">
+          {{ $t('NoTodo') }}
+        </p>
       </div>
     </div>
     <template #actions>
@@ -45,10 +49,12 @@
 
 <script setup lang="ts">
 import { useTodoStore } from '~/store/todo.store'
+import { useSettingStore } from '~/store/setting.store'
 
 const route = useRoute()
 const router = useRouter()
 
+const settingStore = useSettingStore()
 const todoStore = useTodoStore()
 
 const todayTodos = computed(() =>

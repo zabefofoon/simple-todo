@@ -36,11 +36,14 @@
                       ?.filter((todo) => todo.createdDate === data.day.id)
                       .slice(0, 3)"
                     :key="todo.id"
-                    class="flex | w-full overflow-hidden | border">
+                    class="flex | w-full overflow-hidden | border | p-0.5 | relative">
                     <span
                       class="truncate-2 text-[8px] md:text-sm"
                       v-html="todo.description?.replaceAll('\n', '<br/>')">
                     </span>
+                    <div
+                      class="w-1 h-1 | absolute top-[.5px] left-[.5px] | rounded-full"
+                      :style="{ background: todo.tags[0]?.color }"></div>
                   </li>
                 </ul>
               </div>
@@ -59,7 +62,7 @@ import { useTodoStore } from '~/store/todo.store'
 const todoStore = useTodoStore()
 
 const date = ref(new Date())
-const attrs = ref([
+const attrs = ref<any>([
   {
     key: 'today',
     dates: new Date(),

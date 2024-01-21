@@ -25,13 +25,26 @@
           <option value="Done">{{ $t('Done') }}</option>
         </select>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
+      <div
+        v-if="settingStore.setting?.display === 'thumbnail'"
+        class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
         <TodoThumbnail
           v-for="todo in todos"
           :key="todo.id"
           :todo="todo"
           @delete="todoStore.deleteTodo"
           @done="todoStore.doneTodo" />
+      </div>
+      <div v-else class="flex flex-col gap-2 | p-4">
+        <TodoRow
+          v-for="todo in todos"
+          :key="todo.id"
+          :todo="todo"
+          @delete="todoStore.deleteTodo"
+          @done="todoStore.doneTodo" />
+        <p v-if="!todos?.length" class="text-center py-10">
+          {{ $t('NoTodo') }}
+        </p>
       </div>
     </div>
     <template #actions>
@@ -54,10 +67,12 @@
 <script setup lang="ts">
 import TodoThumbnail from '~/components/TodoThumbnail.vue'
 import { useTodoStore } from '~/store/todo.store'
+import { useSettingStore } from '~/store/setting.store'
 
 const router = useRouter()
 const route = useRoute()
 
+const settingStore = useSettingStore()
 const todoStore = useTodoStore()
 
 const todos = computed(() => {

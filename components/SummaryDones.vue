@@ -5,7 +5,7 @@
     <div class="relative">
       <div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
         <h3 class="absolute top-0 left-1/2 -translate-x-1/2 | text-xl">
-          {{ isNaN(ratio) ? 0 : ratio }}%
+          {{ isNaN(ratio) ? 0 : ratio.toFixed(1) }}%
         </h3>
       </div>
       <canvas ref="canvas" width="100%"></canvas>

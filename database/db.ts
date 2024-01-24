@@ -12,7 +12,7 @@ export class MySubClassedDexie extends Dexie {
     super('SimpleTodo')
     this.version(1).stores({
       todos:
-        '++id, date, description, tags, time, created, upto, done, modified',
+        '++id, date, description, tagId, time, created, upto, done, modified',
       setting: '++id, theme, language, tags, forms, display',
     })
   }

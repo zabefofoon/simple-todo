@@ -1,11 +1,11 @@
-import { Tag } from './Tag'
+import { useSettingStore } from '~/store/setting.store'
 
 export class Todo {
   id?: number
   upto?: boolean
   date?: string
   description?: string
-  tags: Tag[] = []
+  tagId?: string
   time?: string
   created?: number
   done?: boolean
@@ -26,11 +26,19 @@ export class Todo {
   }
 
   get uptoTime() {
-    return this.upto ? new Date(`${this.date!} ${this.time}`).getTime() : undefined
+    return this.upto
+      ? new Date(`${this.date!} ${this.time}`).getTime()
+      : undefined
   }
 
   get expired() {
     return this.uptoTime ? new Date().getTime() > this.uptoTime : false
+  }
+
+  get tag() {
+    const settingStore = useSettingStore()
+
+    return settingStore.setting?.tags.find((tag) => tag.id === this.tagId)
   }
 
   static of(todo: Partial<Todo>) {

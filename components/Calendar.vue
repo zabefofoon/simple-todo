@@ -24,19 +24,21 @@
               </h3>
               <ul class="flex flex-col gap-.5 | min-h-[40px]">
                 <li
-                    v-for="todo in todoStore.todos
-                      ?.filter((todo) => todo.createdDate === data.day.id)
-                      .slice(0, 3)"
-                    :key="todo.id"
-                    class="flex | w-full overflow-hidden | border rounded-lg | p-0.5 | relative">
-                    <span
-                      class="truncate-2 text-[8px] md:text-sm"
-                      v-html="todo.description?.replaceAll('\n', '<br/>')">
-                    </span>
-                    <div
-                      class="w-1 h-1 | absolute top-[.5px] left-[.5px] | rounded-full"
-                      :style="{ background: todo.tags[0]?.color }"></div>
-                  </li>
+                  v-for="todo in todoStore.todos
+                    ?.filter((todo) => todo.createdDate === data.day.id)
+                    .slice(0, 3)"
+                  :key="todo.id"
+                  class="flex | w-full overflow-hidden | border rounded-lg | p-0.5 | relative">
+                  <span
+                    class="truncate-2 text-[8px] md:text-sm"
+                    v-html="todo.description?.replaceAll('\n', '<br/>')">
+                  </span>
+                  <div
+                    class="w-1 h-1 | absolute top-[.5px] left-[.5px] | rounded-full"
+                    :style="{
+                      background: todo.tag?.color,
+                    }"></div>
+                </li>
               </ul>
             </div>
           </NuxtLink>
@@ -49,7 +51,9 @@
 <script setup lang="ts">
 import { Calendar } from 'v-calendar'
 import { useTodoStore } from '~/store/todo.store'
+import { useSettingStore } from '~/store/setting.store'
 
+const settingStore = useSettingStore()
 const todoStore = useTodoStore()
 
 const date = ref(new Date())

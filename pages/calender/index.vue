@@ -43,7 +43,9 @@
                     </span>
                     <div
                       class="w-1 h-1 | absolute top-[.5px] left-[.5px] | rounded-full"
-                      :style="{ background: todo.tags[0]?.color }"></div>
+                      :style="{
+                        background: todo.tag?.color,
+                      }"></div>
                   </li>
                 </ul>
               </div>
@@ -57,9 +59,11 @@
 
 <script setup lang="ts">
 import { Calendar } from 'v-calendar'
+import { useSettingStore } from '~/store/setting.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const todoStore = useTodoStore()
+const settingStore = useSettingStore()
 
 const date = ref(new Date())
 const attrs = ref<any>([

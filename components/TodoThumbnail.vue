@@ -10,11 +10,10 @@
       </button>
       <div class="flex gap-1 | absolute bottom-[5px] right-1 z-10">
         <span
-          v-for="(tag, index) in todo.tags"
-          :key="index"
+          v-if="todo.tag"
           class="text-white text-[10px] lg:text-xs | px-1.5 py-.5 | rounded-full"
-          :style="{ background: tag.color || 'black' }">
-          #{{ tag.label }}
+          :style="{ background: todo.tag?.color || 'black' }">
+          #{{ todo.tag?.label }}
         </span>
       </div>
       <div

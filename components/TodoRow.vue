@@ -1,17 +1,16 @@
 <template>
   <NuxtLink :to="`/todo/${todo.id}`">
     <figure class="w-full h-full | flex gap-2 | border rounded-lg | relative">
-      <div
-        v-for="(tag, index) in todo.tags"
-        :key="index"
-        class="w-20 h-full | flex items-center | border-r">
+      <div v-if="todo.tagId" class="w-20 h-full | flex items-center | border-r">
         <div
           class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-white text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | rounded-full"
-          :style="{ background: tag.color || 'black' }">
-          #{{ tag.label }}
+          :style="{
+            background: todo.tag?.color || 'black',
+          }">
+          #{{ todo.tag?.label }}
         </div>
       </div>
-      <div v-if="!todo.tags.length" class="w-20 h-full | flex items-center | border-r">
+      <div v-else class="w-20 h-full | flex items-center | border-r">
         <div
           class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | border rounded-full">
           memo
@@ -43,7 +42,10 @@
       </button>
       <button
         class="flex items-center | absolute top-1/2 -translate-y-1/2 z-10 | rounded-full"
-        :class="[todo.done ? 'bg-green-500' : 'border border-gray-200', hideDelete ? 'right-2' : 'right-8']"
+        :class="[
+          todo.done ? 'bg-green-500' : 'border border-gray-200',
+          hideDelete ? 'right-2' : 'right-8',
+        ]"
         @click.stop.prevent="emit('done', todo.id || -1, todo.done)">
         <i
           class="icon icon-check | text-sm"
@@ -55,6 +57,7 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
+import { useSettingStore } from '~/store/setting.store'
 
 defineProps<{
   todo: Todo
@@ -65,6 +68,8 @@ const emit = defineEmits<{
   (e: 'delete', id: number): void
   (e: 'done', id: number, done?: boolean): void
 }>()
+
+const settingStore = useSettingStore()
 </script>
 
 <style></style>

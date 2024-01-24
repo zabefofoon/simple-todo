@@ -50,20 +50,24 @@
                   <label
                     class="flex items-center gap-0.5 | absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full bg-white">
                     <div
-                      v-if="tags[0]?.color !== undefined"
+                      v-if="tagId"
                       class="w-2 h-2"
-                      :style="{ background: tags[0]?.color }"></div>
+                      :style="{
+                        background: settingStore.setting?.tags.find(
+                          (tag) => tag.id === tagId
+                        )?.color,
+                      }"></div>
                     <span>{{ $t('Tag') }}</span>
                   </label>
                   <select
                     class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg | bg-white"
-                    :value="getSelectIndex(tags)"
+                    :value="tagId"
                     @change="setTag">
-                    <option :value="-1">{{ $t('None') }}</option>
+                    <option :value="''">{{ $t('None') }}</option>
                     <option
-                      v-for="(tag, index) in settingStore.setting?.tags"
-                      :key="index"
-                      :value="index">
+                      v-for="tag in settingStore.setting?.tags"
+                      :key="tag.id"
+                      :value="tag.id">
                       {{ tag.label }}
                     </option>
                   </select>
@@ -176,16 +180,11 @@ const setDescription = (event: Event) => {
   description.value = value
 }
 
-const tags = ref<Tag[]>([])
+const tagId = ref<string>()
 const setTag = (event: Event) => {
   const value = (<HTMLInputElement>event.target).value
-  const tag = settingStore.setting!.tags[Number(value)]
-  tags.value = [tag]
+  tagId.value = value
 }
-const getSelectIndex = (data: Tag[]) =>
-  settingStore.setting?.tags.findIndex(
-    (tag) => tag.color === data?.[0]?.color && tag.label === data?.[0].label
-  )
 
 const save = async () => {
   const data: Partial<Todo> = {
@@ -207,7 +206,7 @@ const save = async () => {
   data.date = toValue(upto) ? toValue(date) : undefined
   data.time = toValue(upto) ? toValue(time) : undefined
 
-  data.tags = deepClone(toValue(tags)).filter((tag) => tag?.label)
+  data.tagId = toValue(tagId)
 
   toValue(isEditMode)
     ? await todoStore.updateTodo(Number(route.params.id), data)
@@ -220,7 +219,7 @@ const loadTodo = async () => {
   const todo = await todoStore.getTodo(Number(route.params.id))
   if (todo) {
     description.value = todo.description
-    tags.value = todo.tags || []
+    tagId.value = String(todo.tagId)
     upto.value = todo.upto || false
 
     if (toValue(upto)) {

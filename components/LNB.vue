@@ -8,18 +8,12 @@
           v-for="menu in menuStore.menus"
           :key="menu.code"
           :to="menu.href">
-          <li
-            class="flex items-center justify-center gap-2 | py-1.5"
-            :class="{ 'bg-slate-800': menu.href === route.path }">
-            <i
-              class="icon"
-              :class="[
-                menu.icon,
-                { 'text-white': menu.href === route.path },
-              ]"></i>
-            <span :class="{ 'text-white': menu.href === route.path }">{{
-              $t(menu.name)
-            }}</span>
+          <li class="flex items-center justify-center gap-2 | py-1.5">
+            <i class="icon" :class="menu.icon"></i>
+            <span> {{ $t(menu.name) }}</span>
+            <div
+                v-if="menu.href === route.path"
+                class="w-1 h-1 | bg-slate-800 rounded-full"></div>
           </li>
         </NuxtLink>
       </ul>

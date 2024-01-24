@@ -74,8 +74,10 @@
 <script setup lang="ts">
 import { Tag } from '~/models/Tag'
 import { useSettingStore } from '~/store/setting.store'
+import { useTodoStore } from '~/store/todo.store';
 import { deepClone } from '~/utils/etc'
 
+const todoStore = useTodoStore()
 const settingStore = useSettingStore()
 
 const changeOrder = (from: number, to: number) => {
@@ -92,6 +94,7 @@ const changeTag = (index: number, key: keyof Tag, event: Event) => {
   const tags = deepClone(settingStore.setting!.tags)
   tags[index][key] = (<HTMLInputElement>event.target).value
   settingStore.updateSetting('tags', tags)
+  todoStore.getAllTodos(true)
 }
 
 const removeTag = (index: number) => {

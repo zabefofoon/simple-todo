@@ -12,8 +12,10 @@
 <script setup lang="ts">
 import debounce from 'lodash.debounce'
 import { useTodoStore } from '~/store/todo.store'
+import { useSettingStore } from '~/store/setting.store'
 
 const todoStore = useTodoStore()
+const settingStore = useSettingStore()
 
 const resizing = ref(false)
 const checkResizing = (value: boolean) => (resizing.value = value)
@@ -34,13 +36,15 @@ const tagsKey = ref(0)
 const updateTags = () => tagsKey.value++
 const tags = computed(
   () =>
-    todoStore.todos
-      ?.flatMap((todo) => todo.tags)
-      .map((tag) => tag.label)
-      .reduce<Record<string, number>>((acc, current) => {
-        acc[current] = (acc[current] || 0) + 1
+  settingStore.setting?.tags.reduce<Record<string, number>>(
+      (acc, current) => {
+        acc[current.label] =
+          todoStore.todos?.filter((todo) => todo.tagId === current.id).length ||
+          0
         return acc
-      }, {}) || {}
+      },
+      {}
+    ) || {}
 )
 watch(tags, updateTags, { deep: true })
 

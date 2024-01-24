@@ -1,4 +1,7 @@
+import { generateUniqueId } from '../utils/etc'
+
 export class Tag {
+  id = generateUniqueId()
   color = ''
   label = ''
 

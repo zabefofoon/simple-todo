@@ -64,6 +64,9 @@
                     :value="tagId"
                     @change="setTag">
                     <option :value="''">{{ $t('None') }}</option>
+                    <option class="hidden" :value="'undefined'">
+                      {{ $t('None') }}
+                    </option>
                     <option
                       v-for="tag in settingStore.setting?.tags"
                       :key="tag.id"

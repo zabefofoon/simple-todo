@@ -44,7 +44,7 @@ onMounted(() => {
           data: toValue(data),
           backgroundColor: 'rgba(71, 85, 105, 0.2)', // 바의 배경색
           borderColor: 'rgba(71, 85, 105, 1)', // 바의 테두리 색
-          borderWidth: 0.5, // 테두리 두께
+          borderWidth: 1, // 테두리 두께
         },
       ],
     },

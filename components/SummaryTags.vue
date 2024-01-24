@@ -18,7 +18,7 @@ const canvas = ref<HTMLCanvasElement>()
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
 
-const tagInfo = computed(() => {
+const tagLength = computed(() => {
   return (
     settingStore.setting?.tags.reduce<Record<string, number>>(
       (acc, current) => {
@@ -32,17 +32,30 @@ const tagInfo = computed(() => {
   )
 })
 
+const tagColors = computed(() => {
+  return (
+    settingStore.setting?.tags.reduce<Record<string, string>>(
+      (acc, current) => {
+        acc[current.label] = `rgba(${current.color}, .5)`
+
+        return acc
+      },
+      {}
+    ) || {}
+  )
+})
+
 onMounted(() => {
   new Chart(toValue(canvas)!, {
     type: 'bar',
     data: {
-      labels: Object.keys(toValue(tagInfo)),
+      labels: Object.keys(toValue(tagLength)),
       datasets: [
         {
-          data: Object.values(toValue(tagInfo)),
-          backgroundColor: 'rgba(71, 85, 105, 0.2)', // 바의 배경색
-          borderColor: 'rgba(71, 85, 105, 1)', // 바의 테두리 색
-          borderWidth: 0.5, // 테두리 두께
+          data: Object.values(toValue(tagLength)),
+          backgroundColor: ['rgba(71, 85, 105, 0.2)'],
+          borderColor: Object.values(toValue(tagColors)),
+          borderWidth: 1
         },
       ],
     },

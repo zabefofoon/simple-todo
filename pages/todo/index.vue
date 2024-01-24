@@ -17,7 +17,7 @@
         </NuxtLink>
         <NotificationButton class="hidden lg:block" />
         <select
-          class="border | bg-white | p-1 ml-auto | text-xs"
+          class="border | bg-white | px-1 ml-auto | text-xs"
           :value="route.query.filter || 'All'"
           @change="changeFilter">
           <option value="All">{{ $t('All') }}</option>
@@ -35,7 +35,7 @@
           @delete="todoStore.deleteTodo"
           @done="todoStore.doneTodo" />
       </div>
-      <div v-else class="flex flex-col gap-2 | p-4">
+      <div v-else class="flex flex-col gap-2 | p-4 | lg:w-[96%]">
         <TodoRow
           v-for="todo in todos"
           :key="todo.id"

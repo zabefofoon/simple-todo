@@ -35,5 +35,6 @@
   "None": "None",
   "NoKeywords": "No keywords.",
   "EnterKeyword": "Enter your search keyword.",
-  "NoMatched": "No todos matched \"{0}\""
+  "NoMatched": "No todos matched \"{0}\"",
+  "downloadPwa": "Add to your home screen"
 }

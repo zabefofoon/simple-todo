@@ -37,11 +37,48 @@ export default defineNuxtConfig({
     filename: 'service-worker.js',
     manifest: {
       id: '/',
-      name: 'Nuxt Vite PWA',
-      short_name: 'NuxtVitePWA',
-      description: 'Simple Lotto PWA',
+      name: 'MEMOO',
+      short_name: 'MEMOO',
+      description: 'Simple memo webapp.',
       theme_color: '#ffffff',
-      display: 'standalone'
+      display: 'standalone',
+      icons: [
+        {
+          src: '48x48.ico',
+          sizes: '48x48',
+        },
+        {
+          src: '144x144.png',
+          sizes: '144x144',
+          type: 'image/png',
+        },
+        {
+          src: '192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: '512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+      ],
+      screenshots: [
+        {
+          src: 'screenshot-1.png',
+          sizes: '490x945',
+          label: 'screenshot',
+          form_factor: 'narrow',
+          type: 'image/png',
+        },
+        {
+          src: 'screenshot-2.png',
+          sizes: '1920x1080',
+          label: 'screenshot',
+          form_factor: 'wide',
+          type: 'image/png'
+        }
+      ],
     },
     devOptions: {
       enabled: true,

@@ -3,7 +3,14 @@
     class="flex-shrink-0 | hidden lg:block | w-[240px] h-full | border-r border-slate-200">
     <nav class="flex flex-col | h-full">
       <NuxtLink to="/">
-        <div class="py-4 | text-center font-bold">MEMOO</div>
+        <div
+          class="py-4 | text-center font-bold | flex justify-center items-center gap-1">
+          <img
+            class="w-[20px] aspect-square"
+            src="~/assets/images/logo-75x75.png"
+            alt="MEMOO" />
+          <span>MEMOO</span>
+        </div>
       </NuxtLink>
       <ul class="h-full">
         <ClientOnly>

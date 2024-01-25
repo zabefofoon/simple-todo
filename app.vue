@@ -1,5 +1,5 @@
 <template>
-  <VitePwaManifest/>
+  <VitePwaManifest />
   <NuxtPage />
 </template>
 <script setup lang="ts">
@@ -23,7 +23,7 @@ onMounted(() => {
   todoStore.getAllTodos()
   scrollStore.listenHistoryUpdate()
   storageStore.getReadExpiredTodo()
-  
+
   const channel = new BroadcastChannel('sw-messages')
   channel.addEventListener('message', (event) => {
     if (['notification', 'notificationclick'].includes(event.data?.type)) {

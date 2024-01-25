@@ -8,8 +8,16 @@
   </Transition>
   <header class="relative z-30 | lg:hidden">
     <div
-      class="flex items-center gap-1 | relative z-30 bg-white | px-4 py-2 | border-b">
-      <NuxtLink class="block | w-full | font-bold" to="/"> MEMOO </NuxtLink>
+      class="flex items-center gap-1.5 | relative z-30 bg-white | px-4 py-2 | border-b">
+      <NuxtLink class="block | w-full | font-bold" to="/">
+        <div class="flex items-center justify-center gap-1 | w-fit">
+          <img
+            class="w-[24px] aspect-square"
+            src="~/assets/images/logo-75x75.png"
+            alt="MEMOO" />
+          <span>MEMOO</span>
+        </div>
+      </NuxtLink>
       <NotificationButton />
       <button class="flex" @click="expand()">
         <i v-if="!isExpanded" class="icon icon-bars text-2xl"></i>

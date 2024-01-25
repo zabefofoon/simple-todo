@@ -22,6 +22,7 @@ export default defineNuxtConfig({
       meta: [{ name: 'google', content: 'notranslate' }],
     },
   },
+  plugins: ['~/plugins/dexie.client.ts'],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -76,9 +77,16 @@ export default defineNuxtConfig({
           sizes: '1920x1080',
           label: 'screenshot',
           form_factor: 'wide',
-          type: 'image/png'
-        }
+          type: 'image/png',
+        },
       ],
+    },
+    workbox: {
+      globDirectory: '.output/public/',
+      globPatterns: ['**/*.{json,ico,html,png,js,txt,css,svg}'],
+      swDest: '.output/public/sw.js',
+      swSrc: 'src/service-worker.js',
+      injectionPoint: 'injectionPoint',
     },
     devOptions: {
       enabled: true,

@@ -1,5 +1,5 @@
-import { db } from '~/database/db'
 import type { Todo } from '~/models/Todo'
+import { db } from '~/plugins/dexie.client'
 
 export const getAllTodos = () => {
   return db.todos.toArray()

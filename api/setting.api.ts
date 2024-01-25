@@ -1,5 +1,5 @@
-import { db } from '~/database/db'
-import type { Setting, Theme } from '~/models/Setting'
+import type { Setting } from '~/models/Setting'
+import { db } from '~/plugins/dexie.client'
 
 export const getSetting = () => {
   return db.setting.toArray()

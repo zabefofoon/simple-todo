@@ -32,7 +32,7 @@
           v-for="todo in todos"
           :key="todo.id"
           :todo="todo"
-          @delete="todoStore.deleteTodo"
+          @delete="deleteTodo"
           @done="todoStore.doneTodo" />
       </div>
       <div v-else class="flex flex-col gap-2 | p-4 | lg:w-[96%]">
@@ -40,7 +40,7 @@
           v-for="todo in todos"
           :key="todo.id"
           :todo="todo"
-          @delete="todoStore.deleteTodo"
+          @delete="deleteTodo"
           @done="todoStore.doneTodo" />
         <p v-if="!todos?.length" class="text-center py-10">
           {{ $t('NoTodo') }}
@@ -69,6 +69,8 @@ import TodoThumbnail from '~/components/TodoThumbnail.vue'
 import { useTodoStore } from '~/store/todo.store'
 import { useSettingStore } from '~/store/setting.store'
 
+const i18n = useI18n()
+
 const router = useRouter()
 const route = useRoute()
 
@@ -91,5 +93,9 @@ const changeFilter = (event: Event) => {
   if (value === 'All') router.replace({ query: { filter: undefined } })
   else if (value === 'Undone') router.replace({ query: { filter: 'Undone' } })
   else if (value === 'Done') router.replace({ query: { filter: 'Done' } })
+}
+
+const deleteTodo = (id: number) => {
+  if (confirm(i18n.t('ConfirmDelete'))) todoStore.deleteTodo(id)
 }
 </script>

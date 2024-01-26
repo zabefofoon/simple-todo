@@ -17,11 +17,11 @@
       </header>
     </template>
     <div class="p-4">
-      <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-6 lg:gap-2">
         <textarea
           ref="textArea"
           :value="description"
-          class="border rounded-lg | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2"
+          class="lg:order-2 | border rounded-lg | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2"
           placeholder="Description"
           @input="resizeTextArea"
           @change="setDescription" />
@@ -126,11 +126,12 @@
 </template>
 
 <script setup lang="ts">
-import { Tag } from '~/models/Tag'
 import { Todo } from '~/models/Todo'
+import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
-import { useSettingStore } from '~/store/setting.store'
+
+const i18n = useI18n()
 
 const router = useRouter()
 const route = useRoute()
@@ -251,9 +252,20 @@ const changeForm = (event: Event) => {
           ?.description
 }
 
+const beforeunloadHandler = (event: BeforeUnloadEvent) => event.preventDefault()
+
 onMounted(() => {
   if (toValue(isEditMode)) loadTodo()
+  window.addEventListener('beforeunload', beforeunloadHandler)
 })
+
+onBeforeUnmount(() =>
+  window.removeEventListener('beforeunload', beforeunloadHandler)
+)
+
+onBeforeRouteLeave((to, from, next) =>
+  next(confirm(i18n.t('ConfirmBeforeWriting')))
+)
 </script>
 
 <style></style>

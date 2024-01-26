@@ -37,5 +37,6 @@
   "EnterKeyword": "검색어를 입력하세요.",
   "NoMatched": "\"{0}\" 검색어가 없습니다.",
   "downloadPwa": "홈 화면에 추가하기",
-  "Update": "업데이트"
+  "Update": "업데이트",
+  "ConfirmBeforeWriting": "저장하지 않고 나가겠습니까?"
 }

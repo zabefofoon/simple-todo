@@ -1,5 +1,7 @@
 <template>
-  <NuxtLink :to="`/todo/${todo.id}`">
+  <NuxtLink
+    :to="`/todo/${todo.id}`"
+    v-long-click="() => emit('delete', Number(todo.id))">
     <figure class="w-full h-full | flex gap-2 | border rounded-lg | relative">
       <div v-if="todo.tagId" class="w-20 h-full | flex items-center | border-r">
         <div

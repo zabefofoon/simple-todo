@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       meta: [{ name: 'google', content: 'notranslate' }],
     },
   },
-  plugins: ['~/plugins/dexie.client.ts'],
+  plugins: ['~/plugins/dexie.client.ts', '~/plugins/longClick.directive.client.ts'],
   postcss: {
     plugins: {
       tailwindcss: {},

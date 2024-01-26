@@ -11,7 +11,7 @@
           v-for="todo in recentTodos"
           :key="todo.id"
           :todo="todo"
-          hide-delete
+          @delete="deleteTodo"
           @done="todoStore.doneTodo" />
       </div>
       <div v-else class="flex flex-col gap-2">
@@ -19,7 +19,7 @@
           v-for="todo in recentTodos"
           :key="todo.id"
           :todo="todo"
-          hide-delete
+          @delete="deleteTodo"
           @done="todoStore.doneTodo" />
         <p v-if="!recentTodos?.length" class="text-center py-10">
           {{ $t('NoTodo') }}
@@ -33,6 +33,8 @@
 import { useSettingStore } from '~/store/setting.store'
 import { useTodoStore } from '~/store/todo.store'
 
+const i18n = useI18n()
+
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
 
@@ -41,6 +43,10 @@ const recentTodos = computed(() =>
     ?.sort((a, b) => Number(b.modified) - Number(a.modified))
     .slice(0, 4)
 )
+
+const deleteTodo = (id: number) => {
+  if (confirm(i18n.t('ConfirmDelete'))) todoStore.deleteTodo(id)
+}
 </script>
 
 <style></style>

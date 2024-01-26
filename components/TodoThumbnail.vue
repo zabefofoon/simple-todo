@@ -1,5 +1,7 @@
 <template>
-  <NuxtLink :to="`/todo/${todo.id}`">
+  <NuxtLink
+    :to="`/todo/${todo.id}`"
+    v-long-click="() => emit('delete', Number(todo.id))">
     <figure
       class="thumbnail | relative | w-full aspect-square overflow-hidden | p-2 | border rounded-lg">
       <button
@@ -52,4 +54,8 @@ const emit = defineEmits<{
   (e: 'delete', id: number): void
   (e: 'done', id: number, done?: boolean): void
 }>()
+
+const test = (event: Event) => {
+  console.log(event)
+}
 </script>

@@ -42,8 +42,8 @@ const registerTimer = (todos) => {
           renotify: true,
           tag: 'simple-memo',
           timestamp: Math.floor(Date.now()),
-          icon: 'https://cheery-starlight-accc7e.netlify.app/32x32.ico',
-          badge: 'https://cheery-starlight-accc7e.netlify.app/48x48.ico',
+          icon: 'https://cheery-starlight-accc7e.netlify.app/48x48.ico',
+          badge: 'https://cheery-starlight-accc7e.netlify.app/32x32.ico',
           data: todo,
         })
 

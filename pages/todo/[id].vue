@@ -190,7 +190,10 @@ const setTag = (event: Event) => {
   tagId.value = value
 }
 
+const clickedSave = ref(false)
+const setClickedSave = (value: boolean) => (clickedSave.value = value)
 const save = async () => {
+  setClickedSave(true)
   const data: Partial<Todo> = {
     description: toValue(description),
     upto: toValue(upto),
@@ -264,7 +267,7 @@ onBeforeUnmount(() =>
 )
 
 onBeforeRouteLeave((to, from, next) =>
-  next(confirm(i18n.t('ConfirmBeforeWriting')))
+  toValue(clickedSave) ? next() : next(confirm(i18n.t('ConfirmBeforeWriting')))
 )
 </script>
 

@@ -41,9 +41,9 @@ const registerTimer = (todos) => {
           requireInteraction: true,
           renotify: true,
           tag: 'simple-memo',
-          icon: 'https://dummyimage.com/144x144/000/fff',
           timestamp: Math.floor(Date.now()),
-          badge: 'https://dummyimage.com/96x96/000/fff',
+          icon: 'https://cheery-starlight-accc7e.netlify.app/32x32.ico',
+          badge: 'https://cheery-starlight-accc7e.netlify.app/48x48.ico',
           data: todo,
         })
 

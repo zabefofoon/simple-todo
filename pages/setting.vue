@@ -18,6 +18,7 @@
       <SettingDisplay />
       <SettingTag />
       <SettingForm />
+      <SettingInit />
     </div>
   </NuxtLayout>
 </template>

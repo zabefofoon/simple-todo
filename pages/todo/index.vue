@@ -17,7 +17,7 @@
         </NuxtLink>
         <NotificationButton class="hidden lg:block" />
         <select
-          class="border | bg-white | px-1 ml-auto | text-xs"
+          class="border | bg-white | px-1 py-0.5 ml-auto | text-xs"
           :value="route.query.filter || 'All'"
           @change="changeFilter">
           <option value="All">{{ $t('All') }}</option>

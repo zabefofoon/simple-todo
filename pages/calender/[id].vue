@@ -16,7 +16,9 @@
 
     <div class="w-full h-full">
       <div
-        v-if="settingStore.setting?.display === 'thumbnail'"
+        v-if="
+          settingStore.setting?.display === 'thumbnail' && todayTodos?.length
+        "
         class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
         <TodoThumbnail
           v-for="todo in todayTodos"
@@ -26,14 +28,18 @@
           @done="todoStore.doneTodo" />
       </div>
       <div
-        v-else
+        v-if="
+          settingStore.setting?.display !== 'thumbnail' && todayTodos?.length
+        "
         class="h-full | flex flex-col gap-2 | p-4 | min-h-full"
         :class="{ 'justify-center': !todayTodos?.length }">
         <TodoRow v-for="todo in todayTodos" :key="todo.id" :todo="todo" />
-        <p v-if="!todayTodos?.length" class="text-center py-10">
-          {{ $t('NoTodo') }}
-        </p>
       </div>
+      <p
+        v-if="!todayTodos?.length"
+        class="flex items-center justify-center | h-full">
+        {{ $t('NoTodo') }}
+      </p>
     </div>
     <template #actions>
       <ClientOnly>

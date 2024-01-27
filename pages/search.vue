@@ -16,8 +16,8 @@
             @focus="showAddArea(true)"
             @keydown.enter="search" />
           <button
-            v-if="keyword"
-            class="flex | absolute right-8 top-1/2 -translate-y-1/2"
+            v-show="keyword"
+            class="flex | absolute right-7 top-1/2 -translate-y-1/2"
             @click="close()">
             <i class="icon icon-close | text-xl"></i>
           </button>

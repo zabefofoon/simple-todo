@@ -32,34 +32,53 @@ const tagLength = computed(() => {
   )
 })
 
-const tagColors = computed(() => {
-  return (
-    settingStore.setting?.tags.reduce<Record<string, string>>(
-      (acc, current) => {
-        acc[current.label] = `rgba(${current.color}, .5)`
+const doneLengthByTag = computed(
+  () =>
+    settingStore.setting?.tags.flatMap(
+      (tag) =>
+        todoStore.todos
+          ?.filter((todo) => todo.done)
+          .filter((todo) => todo.tagId === tag.id).length || 0
+    ) || []
+)
 
-        return acc
-      },
-      {}
-    ) || {}
-  )
-})
+const undoneLengthByTag = computed(
+  () =>
+    settingStore.setting?.tags.flatMap(
+      (tag) =>
+        todoStore.todos
+          ?.filter((todo) => !todo.done)
+          .filter((todo) => todo.tagId === tag.id).length || 0
+    ) || []
+)
 
 onMounted(() => {
   new Chart(toValue(canvas)!, {
     type: 'bar',
     data: {
-      labels: Object.keys(toValue(tagLength)),
+      labels: Object.keys(toValue(tagLength)).map((key) => `#${key}`),
       datasets: [
         {
-          data: Object.values(toValue(tagLength)),
-          backgroundColor: ['rgba(71, 85, 105, 0.2)'],
-          borderColor: Object.values(toValue(tagColors)),
-          borderWidth: 1
+          label: 'Undone',
+          backgroundColor: 'rgba(71, 85, 105, .3)',
+          borderColor: 'rgba(71, 85, 105, 1)',
+          borderWidth: 1,
+          data: toValue(undoneLengthByTag),
+        },
+        {
+          label: 'Done',
+          backgroundColor: 'rgba(34, 197, 94, .4)',
+          borderColor: 'rgba(71, 85, 105, 1)',
+          borderWidth: 1,
+          data: toValue(doneLengthByTag),
         },
       ],
     },
     options: {
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true },
+      },
       maintainAspectRatio: false, // false로 설정하면 canvas 크기가 변경됩니다.
       aspectRatio: 1, // 원하는 가로:세로 비율로 설정
       indexAxis: 'y',

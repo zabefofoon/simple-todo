@@ -23,7 +23,7 @@
           :value="description"
           class="lg:order-2 | border rounded-lg | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2"
           placeholder="Description"
-          @input="resizeTextArea"
+          @input="textAreaInputhandler"
           @change="setDescription" />
         <div class="flex flex-col lg:flex-row gap-2 lg:items-center">
           <div class="flex gap-2 flex-col lg:flex-row lg:items-center | w-full">
@@ -153,6 +153,10 @@ const getToday = () => {
 }
 
 const textArea = ref<HTMLTextAreaElement>()
+const textAreaInputhandler = () => {
+  checkChanged(true)
+  resizeTextArea()
+}
 const resizeTextArea = () => {
   if (!textArea.value) return
 
@@ -160,28 +164,35 @@ const resizeTextArea = () => {
   textArea.value.style.height = `${textArea.value.scrollHeight}px`
 }
 
+const isChanged = ref(false)
+const checkChanged = (value: boolean) => isChanged.value = value
+
 const upto = ref(false)
 const setUpto = (event: Event) => {
   const value = (<HTMLInputElement>event.target).checked
   upto.value = value
+  checkChanged(true)
 }
 
 const date = ref<string | undefined>(getToday()) //2024-01-03
 const setDate = (event: Event) => {
   const value = (<HTMLInputElement>event.target).value
   date.value = value
+  checkChanged(true)
 }
 
 const time = ref<string | undefined>('23:59') //12:36
 const setTime = (event: Event) => {
   const value = (<HTMLInputElement>event.target).value
   time.value = value
+  checkChanged(true)
 }
 
 const description = ref()
 const setDescription = (event: Event) => {
   const value = (<HTMLInputElement>event.target).value
   description.value = value
+  checkChanged(true)
 }
 
 const tagId = ref<string>()
@@ -266,9 +277,19 @@ onBeforeUnmount(() =>
   window.removeEventListener('beforeunload', beforeunloadHandler)
 )
 
-onBeforeRouteLeave((to, from, next) =>
-  toValue(clickedSave) ? next() : next(confirm(i18n.t('ConfirmBeforeWriting')))
-)
+onBeforeRouteLeave((to, from, next) => {
+  if (!toValue(isChanged)) {
+    next()
+    return
+  }
+
+  if (toValue(clickedSave)) {
+    next()
+    return
+  }
+
+  next(confirm(i18n.t('ConfirmBeforeWriting')))
+})
 </script>
 
 <style></style>

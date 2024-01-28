@@ -63,7 +63,7 @@ onMounted(() => {
     data: {
       labels: Array(12)
         .fill(0)
-        .map((item, index) => index),
+        .map((item, index) => index + 1),
       datasets: [
         {
           label: i18n.t('Undone'),

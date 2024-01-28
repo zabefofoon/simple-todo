@@ -1,6 +1,7 @@
 <template>
   <!-- 12개월 동안 한달에 몇개 Todo -->
-  <div class="flex flex-col gap-2 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3">
+  <div
+    class="flex flex-col gap-2 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3">
     <div class="font-bold">{{ $t('Years') }}</div>
     <div class="h-full | flex items-center justify-center">
       <canvas ref="canvas" width="100%"></canvas>
@@ -12,17 +13,39 @@
 import { Chart } from 'chart.js/auto'
 import { useTodoStore } from '~/store/todo.store'
 
+const i18n = useI18n()
+
 const todoStore = useTodoStore()
 
 const canvas = ref<HTMLCanvasElement>()
 
-const data = computed(() => {
+const doneTodos = computed(() => {
   const map =
     todoStore.todos
       ?.filter(
         (todo) =>
           new Date(todo.created || 0).getFullYear() === new Date().getFullYear()
       )
+      .filter((todo) => todo.done)
+      .map((todo) => new Date(todo.created || 0).getMonth())
+      .reduce<Record<string, number>>((acc, current) => {
+        acc[current] = (acc[current] || 0) + 1
+        return acc
+      }, {}) || {}
+
+  return Array(12)
+    .fill(0)
+    .map((item, index) => map[index])
+})
+
+const undoneTodos = computed(() => {
+  const map =
+    todoStore.todos
+      ?.filter(
+        (todo) =>
+          new Date(todo.created || 0).getFullYear() === new Date().getFullYear()
+      )
+      .filter((todo) => !todo.done)
       .map((todo) => new Date(todo.created || 0).getMonth())
       .reduce<Record<string, number>>((acc, current) => {
         acc[current] = (acc[current] || 0) + 1
@@ -38,17 +61,31 @@ onMounted(() => {
   new Chart(toValue(canvas)!, {
     type: 'bar',
     data: {
-      labels: Array(12).fill(0).map((item, index) => index),
+      labels: Array(12)
+        .fill(0)
+        .map((item, index) => index),
       datasets: [
         {
-          data: toValue(data),
-          backgroundColor: 'rgba(71, 85, 105, 0.2)', // 바의 배경색
-          borderColor: 'rgba(71, 85, 105, 1)', // 바의 테두리 색
-          borderWidth: 1, // 테두리 두께
+          label: i18n.t('Undone'),
+          backgroundColor: 'rgba(71, 85, 105, .3)',
+          borderColor: 'rgba(71, 85, 105, 1)',
+          borderWidth: 1,
+          data: toValue(undoneTodos),
+        },
+        {
+          label: i18n.t('Done'),
+          backgroundColor: 'rgba(34, 197, 94, .4)',
+          borderColor: 'rgba(71, 85, 105, 1)',
+          borderWidth: 1,
+          data: toValue(doneTodos),
         },
       ],
     },
     options: {
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true },
+      },
       maintainAspectRatio: false, // false로 설정하면 canvas 크기가 변경됩니다.
       aspectRatio: 1, // 원하는 가로:세로 비율로 설정
       plugins: {

@@ -33,7 +33,12 @@
         "
         class="h-full | flex flex-col gap-2 | p-4 | min-h-full"
         :class="{ 'justify-center': !todayTodos?.length }">
-        <TodoRow v-for="todo in todayTodos" :key="todo.id" :todo="todo" />
+        <TodoRow
+          v-for="todo in todayTodos"
+          :key="todo.id"
+          :todo="todo"
+          @delete="todoStore.deleteTodo"
+          @done="todoStore.doneTodo" />
       </div>
       <p
         v-if="!todayTodos?.length"

@@ -13,10 +13,12 @@ import { Chart } from 'chart.js/auto'
 import { useSettingStore } from '~/store/setting.store'
 import { useTodoStore } from '~/store/todo.store'
 
-const canvas = ref<HTMLCanvasElement>()
+const i18n = useI18n()
 
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
+
+const canvas = ref<HTMLCanvasElement>()
 
 const tagLength = computed(() => {
   return (
@@ -59,14 +61,14 @@ onMounted(() => {
       labels: Object.keys(toValue(tagLength)).map((key) => `#${key}`),
       datasets: [
         {
-          label: 'Undone',
+          label: i18n.t('Undone'),
           backgroundColor: 'rgba(71, 85, 105, .3)',
           borderColor: 'rgba(71, 85, 105, 1)',
           borderWidth: 1,
           data: toValue(undoneLengthByTag),
         },
         {
-          label: 'Done',
+          label: i18n.t('Done'),
           backgroundColor: 'rgba(34, 197, 94, .4)',
           borderColor: 'rgba(71, 85, 105, 1)',
           borderWidth: 1,

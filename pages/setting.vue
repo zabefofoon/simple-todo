@@ -11,14 +11,21 @@
       </NuxtLink>
       <NotificationButton />
     </div>
-    <div class="flex flex-col | p-4">
-      <SettingData />
-      <SettingLanguage />
-      <SettingTheme />
-      <SettingDisplay />
-      <SettingTag />
-      <SettingForm />
-      <SettingInit />
+    <div class="flex flex-col gap-4 | p-4">
+      <div class="flex flex-col | border rounded-lg | p-4 pb-0">
+        <h3 class="font-bold | pb-2">{{ $t('View') }}</h3>
+        <SettingLanguage />
+        <SettingTheme />
+        <SettingDisplay />
+        <SettingTag />
+        <SettingForm />
+      </div>
+      <div class="flex flex-col | border rounded-lg | p-4 pb-0">
+        <h3 class="font-bold | pb-2">{{ $t('Data') }}</h3>
+        <SettingDataExport />
+        <SettingDataImport />
+        <SettingInit />
+      </div>
     </div>
   </NuxtLayout>
 </template>

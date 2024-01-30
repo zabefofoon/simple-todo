@@ -39,5 +39,7 @@
   "downloadPwa": "Add to your home screen",
   "Update": "Update",
   "ConfirmBeforeWriting": "Are you sure you want to leave without saving?",
-  "ConfirmDelete": "Are you sure you want to delete?"
+  "ConfirmDelete": "Are you sure you want to delete?",
+  "View": "View",
+  "Data": "Data"
 }

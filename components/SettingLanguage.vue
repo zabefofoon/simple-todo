@@ -1,5 +1,5 @@
 <template>
-  <div class="flex | border-t border-b | py-3">
+  <div class="flex | border-b | py-3">
     <label class="lg:w-60 | text-sm">{{ $t('Language') }}</label>
     <ClientOnly>
       <select

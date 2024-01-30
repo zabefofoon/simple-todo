@@ -32,7 +32,7 @@ export class Setting {
 }
 
 export class Form {
-  id = generateUniqueId()
+  id?: string = generateUniqueId()
   title: string
   description: string
 

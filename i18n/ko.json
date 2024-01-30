@@ -39,5 +39,7 @@
   "downloadPwa": "홈 화면에 추가하기",
   "Update": "업데이트",
   "ConfirmBeforeWriting": "저장하지 않고 나가겠습니까?",
-  "ConfirmDelete": "삭제 하시겠습니까?"
+  "ConfirmDelete": "삭제 하시겠습니까?",
+  "View": "설정",
+  "Data": "데이터"
 }

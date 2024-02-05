@@ -64,21 +64,21 @@ onMounted(() => {
     data: {
       labels: Object.keys(toValue(tagLength))
         .map((key) => `#${key}`)
-        .slice(0, 4),
+        .slice(0, 3),
       datasets: [
         {
           label: i18n.t('Undone'),
           backgroundColor: 'rgba(71, 85, 105, .3)',
           borderColor: 'rgba(71, 85, 105, 1)',
           borderWidth: 1,
-          data: toValue(undoneLengthByTag).slice(0, 4),
+          data: toValue(undoneLengthByTag).slice(0, 3),
         },
         {
           label: i18n.t('Done'),
           backgroundColor: 'rgba(34, 197, 94, .4)',
           borderColor: 'rgba(71, 85, 105, 1)',
           borderWidth: 1,
-          data: toValue(doneLengthByTag).slice(0, 4),
+          data: toValue(doneLengthByTag).slice(0, 3),
         },
       ],
     },

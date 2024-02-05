@@ -54,8 +54,4 @@ const emit = defineEmits<{
   (e: 'delete', id: number): void
   (e: 'done', id: number, done?: boolean): void
 }>()
-
-const test = (event: Event) => {
-  console.log(event)
-}
 </script>

@@ -41,5 +41,7 @@
   "ConfirmBeforeWriting": "Are you sure you want to leave without saving?",
   "ConfirmDelete": "Are you sure you want to delete?",
   "View": "View",
-  "Data": "Data"
+  "Data": "Data",
+  "ConfirmApplyForm": "Pressing the button will delete your written content. Do you want to proceed?",
+  "ConfirmImport": "Existing data will be overwritten. Do you want to proceed?"
 }

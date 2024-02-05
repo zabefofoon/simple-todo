@@ -21,7 +21,7 @@ const settingStore = useSettingStore()
 const canvas = ref<HTMLCanvasElement>()
 
 const tagLength = computed(() => {
-  return (
+  const result =
     settingStore.setting?.tags.reduce<Record<string, number>>(
       (acc, current) => {
         acc[current.label] =
@@ -31,48 +31,54 @@ const tagLength = computed(() => {
       },
       {}
     ) || {}
+
+  return Object.entries(result)
+    .sort(([, countA], [, countB]) => countB - countA)
+    .reduce<Record<string, number>>((acc, [key, value]) => {
+      acc[key] = value
+      return acc
+    }, {})
+})
+
+const doneLengthByTag = computed(() => {
+  return Object.keys(toValue(tagLength)).flatMap(
+    (key) =>
+      todoStore.todos
+        ?.filter((todo) => todo.tag?.label === key)
+        .filter((todo) => todo.done).length
   )
 })
 
-const doneLengthByTag = computed(
-  () =>
-    settingStore.setting?.tags.flatMap(
-      (tag) =>
-        todoStore.todos
-          ?.filter((todo) => todo.done)
-          .filter((todo) => todo.tagId === tag.id).length || 0
-    ) || []
-)
-
-const undoneLengthByTag = computed(
-  () =>
-    settingStore.setting?.tags.flatMap(
-      (tag) =>
-        todoStore.todos
-          ?.filter((todo) => !todo.done)
-          .filter((todo) => todo.tagId === tag.id).length || 0
-    ) || []
-)
+const undoneLengthByTag = computed(() => {
+  return Object.keys(toValue(tagLength)).flatMap(
+    (key) =>
+      todoStore.todos
+        ?.filter((todo) => todo.tag?.label === key)
+        .filter((todo) => !todo.done).length
+  )
+})
 
 onMounted(() => {
   new Chart(toValue(canvas)!, {
     type: 'bar',
     data: {
-      labels: Object.keys(toValue(tagLength)).map((key) => `#${key}`),
+      labels: Object.keys(toValue(tagLength))
+        .map((key) => `#${key}`)
+        .slice(0, 4),
       datasets: [
         {
           label: i18n.t('Undone'),
           backgroundColor: 'rgba(71, 85, 105, .3)',
           borderColor: 'rgba(71, 85, 105, 1)',
           borderWidth: 1,
-          data: toValue(undoneLengthByTag),
+          data: toValue(undoneLengthByTag).slice(0, 4),
         },
         {
           label: i18n.t('Done'),
           backgroundColor: 'rgba(34, 197, 94, .4)',
           borderColor: 'rgba(71, 85, 105, 1)',
           borderWidth: 1,
-          data: toValue(doneLengthByTag),
+          data: toValue(doneLengthByTag).slice(0, 4),
         },
       ],
     },

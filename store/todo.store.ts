@@ -75,6 +75,15 @@ export const useTodoStore = defineStore('todo', () => {
     )
   })
 
+  const importTodos = (savedTodos: Todo[]) => {
+    const result = savedTodos.map((todo) => {
+      delete todo.id
+      return todo
+    })
+    todoApi.bulkAdd(result)
+    getAllTodos(true)
+  }
+
   return {
     todos,
     getAllTodos,
@@ -87,5 +96,7 @@ export const useTodoStore = defineStore('todo', () => {
 
     expiredTodos,
     hasUnCheckedTodos,
+
+    importTodos,
   }
 })

@@ -77,6 +77,8 @@ import { useSettingStore } from '~/store/setting.store'
 import { useTodoStore } from '~/store/todo.store';
 import { deepClone } from '~/utils/etc'
 
+const i18n = useI18n()
+
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
 
@@ -98,7 +100,7 @@ const changeTag = (index: number, key: keyof Tag, event: Event) => {
 }
 
 const removeTag = (index: number) => {
-  if (!confirm('Do you want to delete?')) return
+  if (!confirm(i18n.t('ConfirmDelete'))) return
 
   const tags = deepClone(settingStore.setting!.tags)
   tags.splice(index, 1)

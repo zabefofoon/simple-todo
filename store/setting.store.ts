@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { Setting } from '~/models/Setting'
+import { deepClone } from '~/utils/etc'
 import settingApi from '~/api/setting.api'
 
 export const useSettingStore = defineStore('setting', () => {
@@ -23,6 +24,21 @@ export const useSettingStore = defineStore('setting', () => {
     setting.value[key] = <never>value
   }
 
+  const importSetting = (savedSetting: Setting) => {
+    if (!setting.value) return
+    savedSetting.tags.forEach((tag) => {
+      const found = setting.value?.tags.find((item) => item.id === tag.id)
+      if (!found) setting.value?.tags.push(tag)
+    })
+
+    savedSetting.forms.forEach((tag) => {
+      const found = setting.value?.forms.find((item) => item.id === tag.id)
+      if (!found) setting.value?.forms.push(tag)
+    })
+
+    settingApi.setSetting(deepClone(setting.value))
+  }
+
   onBeforeMount(() => {
     initSetting()
   })
@@ -30,5 +46,6 @@ export const useSettingStore = defineStore('setting', () => {
   return {
     setting,
     updateSetting,
+    importSetting,
   }
 })

@@ -7,7 +7,7 @@
           <i class="icon icon-arrow-left"></i>
         </button>
         <div
-          class="w-full | text-lg truncate | cursor-pointer"
+          class="w-full lg:max-w-[50%] | text-lg truncate | cursor-pointer"
           @click="$router.back()">
           <span v-if="isEditMode">
             {{ description || $t('Todo') }}
@@ -17,14 +17,31 @@
       </header>
     </template>
     <div class="p-4">
-      <div class="flex flex-col gap-6 lg:gap-2">
+      <div class="flex flex-col gap-6 lg:gap-2 | relative">
         <textarea
           ref="textArea"
           :value="description"
-          class="lg:order-2 | border rounded-lg | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2"
+          class="lg:order-2 | border rounded-lg | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2 pt-6 lg:pt-2"
           placeholder="Description"
           @input="textAreaInputhandler"
           @change="setDescription" />
+        <div
+          class="w-full | px-2 | absolute top-1 right-0 | flex items-center justify-between">
+          <button
+            v-if="currentTodo"
+            class="flex lg:hidden | rounded-full"
+            :class="
+              currentTodo?.done ? 'bg-green-500' : 'border border-slate-400'
+            "
+            @click="done">
+            <i
+              class="icon icon-check text-sm"
+              :class="currentTodo?.done ? 'text-white' : 'text-slate-500'"></i>
+          </button>
+          <button class="flex lg:hidden" @click="deleteTodo">
+            <i class="icon icon-close | text-lg"></i>
+          </button>
+        </div>
         <div class="flex flex-col lg:flex-row gap-2 lg:items-center">
           <div class="flex gap-2 flex-col lg:flex-row lg:items-center | w-full">
             <ClientOnly>
@@ -110,6 +127,20 @@
             </div>
           </div>
           <button
+            v-if="currentTodo"
+            class="hidden lg:flex | rounded-full"
+            :class="
+              currentTodo?.done ? 'bg-green-500' : 'border border-slate-400'
+            "
+            @click="done">
+            <i
+              class="icon icon-check"
+              :class="currentTodo?.done ? 'text-white' : 'text-slate-500'"></i>
+          </button>
+          <button class="hidden lg:flex" @click="deleteTodo">
+            <i class="icon icon-close | text-xl"></i>
+          </button>
+          <button
             class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto"
             @click="save">
             <span class="text-white whitespace-nowrap">{{ $t('Save') }}</span>
@@ -140,7 +171,12 @@ const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 
-const isEditMode = computed(() => !isNaN(Number(route.params.id)))
+const currentTodo = ref<Todo>()
+const setCurrentTodo = (todo?: Todo) => (currentTodo.value = todo)
+
+const isEditMode = computed(() => {
+  return !isNaN(Number(route.params.id))
+})
 
 const getToday = () => {
   const today = new Date()
@@ -165,7 +201,7 @@ const resizeTextArea = () => {
 }
 
 const isChanged = ref(false)
-const checkChanged = (value: boolean) => isChanged.value = value
+const checkChanged = (value: boolean) => (isChanged.value = value)
 
 const upto = ref(false)
 const setUpto = (event: Event) => {
@@ -233,30 +269,25 @@ const save = async () => {
   router.back()
 }
 
-const loadTodo = async () => {
-  const todo = await todoStore.getTodo(Number(route.params.id))
-  if (todo) {
-    description.value = todo.description
-    tagId.value = String(todo.tagId)
-    upto.value = todo.upto || false
+const loadTodoData = async () => {
+  if (toValue(currentTodo)) {
+    description.value = toValue(currentTodo)?.description
+    tagId.value = String(toValue(currentTodo)?.tagId)
+    upto.value = toValue(currentTodo)?.upto || false
 
     if (toValue(upto)) {
-      date.value = todo.date
-      time.value = todo.time
+      date.value = toValue(currentTodo)?.date
+      time.value = toValue(currentTodo)?.time
     }
     setTimeout(() => resizeTextArea())
 
-    if (todo.expired) storageStore.addReadExpiredTodo(String(route.params.id))
+    if (toValue(currentTodo)?.expired)
+      storageStore.addReadExpiredTodo(String(route.params.id))
   }
 }
 
 const changeForm = (event: Event) => {
-  if (
-    !confirm(
-      'Pressing the button will delete your written content. Do you want to proceed?'
-    )
-  )
-    return
+  if (!confirm(i18n.t('ConfirmApplyForm'))) return
 
   const value = (<HTMLSelectElement>event.target).value
   description.value =
@@ -266,10 +297,28 @@ const changeForm = (event: Event) => {
           ?.description
 }
 
+const done = () => {
+  if (!currentTodo.value) return
+
+  todoStore.doneTodo(
+    Number(toValue(currentTodo)?.id),
+    toValue(currentTodo)?.done
+  )
+  currentTodo.value.done = !toValue(currentTodo)?.done
+}
+
+const deleteTodo = async () => {
+  if (!confirm(i18n.t('ConfirmDelete'))) return
+  await todoStore.deleteTodo(Number(toValue(currentTodo)?.id))
+  router.back()
+}
+
 const beforeunloadHandler = (event: BeforeUnloadEvent) => event.preventDefault()
 
-onMounted(() => {
-  if (toValue(isEditMode)) loadTodo()
+onMounted(async () => {
+  const result = await todoStore.getTodo(Number(route.params.id))
+  setCurrentTodo(result)
+  if (toValue(isEditMode)) loadTodoData()
   window.addEventListener('beforeunload', beforeunloadHandler)
 })
 

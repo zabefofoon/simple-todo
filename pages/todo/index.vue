@@ -78,13 +78,11 @@ const settingStore = useSettingStore()
 const todoStore = useTodoStore()
 
 const todos = computed(() => {
-  if (route.query.filter === 'Undone') {
-    return todoStore.todos?.filter((todo) => !todo.done)
-  } else if (route.query.filter === 'Done') {
-    return todoStore.todos?.filter((todo) => todo.done)
-  } else {
-    return todoStore.todos
-  }
+  if (route.query.filter === 'Undone')
+    todoStore.todos?.filter((todo) => !todo.done)
+  else if (route.query.filter === 'Done')
+    todoStore.todos?.filter((todo) => todo.done)
+  else return todoStore.todos?.sort((a, b) => (a?.created || 0) - (b?.created || 0))
 })
 
 const changeFilter = (event: Event) => {

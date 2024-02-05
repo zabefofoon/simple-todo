@@ -10,6 +10,7 @@
 </template>
 
 <script setup lang="ts">
+import type { SavedData } from '~/models/SavedData';
 import { useSettingStore } from '~/store/setting.store'
 import { useTodoStore } from '~/store/todo.store'
 
@@ -17,7 +18,7 @@ const todoStore = useTodoStore()
 const settingStore = useSettingStore()
 
 const getSerializedData = () => {
-  const data = {
+  const data: SavedData = {
     todos: todoStore.todos,
     setting: settingStore.setting,
   }

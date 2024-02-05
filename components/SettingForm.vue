@@ -37,9 +37,10 @@ import type { Form } from '~/models/Setting'
 import { useSettingStore } from '~/store/setting.store'
 
 const settingStore = useSettingStore()
+const i18n = useI18n()
 
 const removeForm = async (data: Form) => {
-  if (!confirm('Do you want to delete?')) return
+  if (!confirm(i18n.t('ConfirmDelete'))) return
 
   const forms = deepClone<Form[]>(settingStore.setting?.forms || [])
   const found = forms.findIndex((form) => form.id === data.id)

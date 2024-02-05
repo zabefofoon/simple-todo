@@ -41,5 +41,7 @@
   "ConfirmBeforeWriting": "저장하지 않고 나가겠습니까?",
   "ConfirmDelete": "삭제 하시겠습니까?",
   "View": "설정",
-  "Data": "데이터"
+  "Data": "데이터",
+  "ConfirmApplyForm": "버튼을 누르면 작성한 내용이 삭제됩니다. 진행 하시겠습니까?",
+  "ConfirmImport": "기존 데이터를 덮어쓰게 됩니다. 진행 하시겠습니까?"
 }

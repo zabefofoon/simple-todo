@@ -1,11 +1,6 @@
 <template>
   <NuxtLayout name="layout-basic">
-    <div
-      v-if="!todoStore.todos?.length"
-      class="w-full h-full | flex flex-col justify-center items-center">
-      Create Todo
-    </div>
-    <div v-else class="flex flex-col">
+    <div class="flex flex-col | h-full">
       <div
         class="sticky top-0 z-20 | flex items-center gap-1 | bg-white | px-4 py-2 | border-b">
         <NuxtLink class="w-full max-w-[33%] | relative" to="/search">
@@ -54,7 +49,9 @@
         </div>
       </div>
       <template v-if="settingStore.setting?.display === 'thumbnail'">
-        <p v-if="!todos?.length" class="w-full | text-center py-10">
+        <p
+          v-if="!todos?.length"
+          class="w-full h-full | flex items-center justify-center | text-center">
           {{ $t('NoTodo') }}
         </p>
         <div

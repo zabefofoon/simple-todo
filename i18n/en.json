@@ -8,7 +8,6 @@
   "NoTodo": "Has no Todo.",
   "NoScheduled": "No scheduled notifications.",
   "ScheduledTodo": "Scheduled notifications",
-  "Done": "Completed Todos",
   "Tags": "Tags",
   "Tag": "Tag",
   "Years": "Todos for this year",
@@ -43,5 +42,6 @@
   "View": "View",
   "Data": "Data",
   "ConfirmApplyForm": "Pressing the button will delete your written content. Do you want to proceed?",
-  "ConfirmImport": "Existing data will be overwritten. Do you want to proceed?"
+  "ConfirmImport": "Existing data will be overwritten. Do you want to proceed?",
+  "Filter": "Filter"
 }

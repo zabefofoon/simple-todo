@@ -46,20 +46,20 @@
       </template>
     </template>
     <div class="h-full | flex flex-col">
-      <div
-        v-if="settingStore.setting?.display === 'thumbnail'"
-        class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
-        <TodoThumbnail
-          v-for="todo in todos"
-          :key="todo.id"
-          :todo="todo"
-          hide-delete
-          @delete="todoStore.deleteTodo"
-          @done="todoStore.doneTodo" />
-      </div>
-      <div
-        v-else-if="todos?.length"
-        class="flex flex-col gap-2 | p-4 | h-full">
+      <template v-if="settingStore.setting?.display === 'thumbnail'">
+        <div
+          v-if="todos?.length"
+          class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
+          <TodoThumbnail
+            v-for="todo in todos"
+            :key="todo.id"
+            :todo="todo"
+            hide-delete
+            @delete="todoStore.deleteTodo"
+            @done="todoStore.doneTodo" />
+        </div>
+      </template>
+      <div v-else-if="todos?.length" class="flex flex-col gap-2 | p-4 | h-full">
         <TodoRow v-for="todo in todos" :key="todo.id" :todo="todo" />
       </div>
       <h3

@@ -8,7 +8,6 @@
   "NoTodo": "할 일을 등록해주세요.",
   "NoScheduled": "예약된 알림이 없습니다.",
   "ScheduledTodo": "예약된 알림",
-  "Done": "완료한 작업",
   "Tags": "태그",
   "Tag": "태그",
   "Years": "올해의 할 일",
@@ -43,5 +42,6 @@
   "View": "설정",
   "Data": "데이터",
   "ConfirmApplyForm": "버튼을 누르면 작성한 내용이 삭제됩니다. 진행 하시겠습니까?",
-  "ConfirmImport": "기존 데이터를 덮어쓰게 됩니다. 진행 하시겠습니까?"
+  "ConfirmImport": "기존 데이터를 덮어쓰게 됩니다. 진행 하시겠습니까?",
+  "Filter": "필터"
 }

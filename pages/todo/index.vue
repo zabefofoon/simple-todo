@@ -3,7 +3,7 @@
     <div class="flex flex-col | h-full">
       <div
         class="sticky top-0 z-20 | flex items-center gap-1 | bg-white | px-4 py-2 | border-b">
-        <NuxtLink class="w-full max-w-[33%] | relative" to="/search">
+        <NuxtLink class="w-full lg:w-[50%] mr-2 | relative" to="/search">
           <input
             class="w-full | px-3 py-1 | bg-slate-200 | rounded-full | text-sm"
             :placeholder="$t('Search')" />

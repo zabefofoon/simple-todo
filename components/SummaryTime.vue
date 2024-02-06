@@ -34,7 +34,7 @@ const selectOption = (event: Event) => {
 }
 
 onMounted(() => {
-  selectedOption.value = storageStore.getSummaryTimeType()
+  selectedOption.value = storageStore.getSummaryTimeType() || 'month'
 })
 </script>
 

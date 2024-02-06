@@ -10,7 +10,8 @@
   "ScheduledTodo": "예약된 알림",
   "Tags": "태그",
   "Tag": "태그",
-  "Years": "올해의 할 일",
+  "Years": "올 해의 할 일",
+  "Weeks": "이번주의 할 일",
   "All": "전체",
   "Undone": "진행 중",
   "Done": "완료",
@@ -43,5 +44,7 @@
   "Data": "데이터",
   "ConfirmApplyForm": "버튼을 누르면 작성한 내용이 삭제됩니다. 진행 하시겠습니까?",
   "ConfirmImport": "기존 데이터를 덮어쓰게 됩니다. 진행 하시겠습니까?",
-  "Filter": "필터"
+  "Filter": "필터",
+  "Month": "월 별",
+  "Week": "일 별"
 }

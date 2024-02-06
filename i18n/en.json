@@ -11,6 +11,7 @@
   "Tags": "Tags",
   "Tag": "Tag",
   "Years": "Todos for this year",
+  "Weeks": "Todos for this week",
   "All": "All",
   "Undone": "Incomplete",
   "Done": "Completed",
@@ -43,5 +44,7 @@
   "Data": "Data",
   "ConfirmApplyForm": "Pressing the button will delete your written content. Do you want to proceed?",
   "ConfirmImport": "Existing data will be overwritten. Do you want to proceed?",
-  "Filter": "Filter"
+  "Filter": "Filter",
+  "Month": "Month",
+  "Week": "Week"
 }

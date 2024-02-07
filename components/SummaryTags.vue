@@ -75,7 +75,7 @@ onMounted(() => {
         },
         {
           label: i18n.t('Done'),
-          backgroundColor: 'rgba(34, 197, 94, .4)',
+          backgroundColor: 'rgba(71, 85, 105, 1)',
           borderColor: 'rgba(71, 85, 105, 1)',
           borderWidth: 1,
           data: toValue(doneLengthByTag).slice(0, 3),

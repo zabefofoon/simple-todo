@@ -46,7 +46,7 @@ onMounted(() => {
       datasets: [
         {
           data: [toValue(undoneTodoLength), toValue(doneTodoLength)],
-          backgroundColor: ['rgba(71, 85, 105, .3)', 'rgba(34, 197, 94, .4)'],
+          backgroundColor: ['rgba(71, 85, 105, .3)', 'rgba(71, 85, 105, 1)'],
           borderColor: ['rgba(71, 85, 105, 1)', 'rgba(71, 85, 105, 1)'], // 바의 테두리 색
           borderWidth: 0.5, // 테두리 두께
         },

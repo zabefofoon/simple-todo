@@ -2,9 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 
-@import "icon";
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('~/assets/fonts/NotoSansKR-Bold.woff2') format('woff2'), /* 원하는 폰트 파일 형식을 지정합니다. */
+       url('~/assets/fonts/NotoSansKR-Bold.ttf') format('truetype'); /* 여러 형식의 폰트 파일을 지정할 수 있습니다. */
+  font-weight: bold; /* 해당 폰트의 두께를 지정합니다. */
+  font-style: normal; /* 해당 폰트의 스타일을 지정합니다. */
+}
+
+/* 필요에 따라 Regular 버전에 대해서도 같은 작업을 수행합니다. */
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('~/assets/fonts/NotoSansKR-Regular.woff2') format('woff2'),
+       url('~/assets/fonts/NotoSansKR-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import 'icon';
 
 * {
   font-family: 'Noto Sans KR', sans-serif;
@@ -31,6 +48,14 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+select {
+  appearance: none;
+  background: url('~/assets/images/icons/chevron-down.svg') no-repeat 95% 50%/15px
+    auto;
+  padding: 2px;
+  padding-right: 18px !important;
 }
 
 .truncate-2 {
@@ -64,4 +89,3 @@
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
   opacity: 0;
 }
-

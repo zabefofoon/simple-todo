@@ -81,9 +81,6 @@
                     :value="tagId"
                     @change="setTag">
                     <option :value="''">{{ $t('None') }}</option>
-                    <option class="hidden" :value="'undefined'">
-                      {{ $t('None') }}
-                    </option>
                     <option
                       v-for="tag in settingStore.setting?.tags"
                       :key="tag.id"
@@ -272,7 +269,7 @@ const save = async () => {
 const loadTodoData = async () => {
   if (toValue(currentTodo)) {
     description.value = toValue(currentTodo)?.description
-    tagId.value = String(toValue(currentTodo)?.tagId)
+    tagId.value = toValue(currentTodo)?.tagId ? String(toValue(currentTodo)?.tagId) : undefined
     upto.value = toValue(currentTodo)?.upto || false
 
     if (toValue(upto)) {

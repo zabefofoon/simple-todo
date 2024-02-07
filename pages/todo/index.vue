@@ -112,15 +112,15 @@ const todos = computed(() => {
   let result: Todo[] | undefined = undefined
   if (route.query.filter === 'Undone')
     result = todoStore.todos
-      ?.sort((a, b) => (a?.created || 0) - (b?.created || 0))
+      ?.sort((a, b) => (b?.created || 0) - (a?.created || 0))
       .filter((todo) => !todo.done)
   else if (route.query.filter === 'Done')
     result = todoStore.todos
-      ?.sort((a, b) => (a?.created || 0) - (b?.created || 0))
+      ?.sort((a, b) => (b?.created || 0) - (a?.created || 0))
       .filter((todo) => todo.done)
   else
     result = todoStore.todos?.sort(
-      (a, b) => (a?.created || 0) - (b?.created || 0)
+      (a, b) => (b?.created || 0) - (a?.created || 0)
     )
 
   return route.query.tag

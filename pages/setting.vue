@@ -24,7 +24,7 @@
         <h3 class="font-bold | pb-2">{{ $t('Data') }}</h3>
         <SettingDataExport />
         <SettingDataImport />
-        <SettingInit />
+        <SettingInit v-if="false" />
       </div>
     </div>
   </NuxtLayout>

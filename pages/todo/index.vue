@@ -19,7 +19,7 @@
           </label>
           <select
             id="filter"
-            class="border | bg-white | px-1 py-0.5 | text-xs"
+            class="border rounded-md | bg-white | px-1 py-0.5 | text-xs"
             :value="route.query.tag || 'All'"
             @change="changeTag">
             <option value="All">{{ $t('All') }}</option>
@@ -39,7 +39,7 @@
           </label>
           <select
             id="filter"
-            class="border | bg-white | px-1 py-0.5 | text-xs"
+            class="border rounded-md | bg-white | px-1 py-0.5 | text-xs"
             :value="route.query.filter || 'All'"
             @change="changeFilter">
             <option value="All">{{ $t('All') }}</option>

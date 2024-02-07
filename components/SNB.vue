@@ -4,7 +4,7 @@
     <nav class="flex flex-col | h-full">
       <NuxtLink to="/">
         <div
-          class="py-4 | text-center font-bold | flex justify-center items-center gap-1">
+          class="py-2.5 | text-center font-bold | flex justify-center items-center gap-1">
           <img
             class="w-[20px] aspect-square"
             src="~/assets/images/logo-75x75.png"
@@ -18,7 +18,7 @@
             v-for="menu in menuStore.menus"
             :key="menu.code"
             :to="menu.href">
-            <li class="relative | flex items-center gap-2 | py-1.5 px-3">
+            <li class="relative | flex items-center gap-2 | py-1.5 px-4">
               <i class="icon" :class="menu.icon"></i>
               <span>
                 {{ $t(menu.name) }}

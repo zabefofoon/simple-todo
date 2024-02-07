@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import storageApi from '~/api/storage.api'
+import type { Display, Language, Theme } from '~/models/Setting'
 import type { SummaryTimeType } from '~/models/Summary'
 
 export const useStorageStore = defineStore('storage', () => {
@@ -62,8 +63,25 @@ export const useStorageStore = defineStore('storage', () => {
 
   const getSummaryTimeType = () => storageApi.getLocalStorage('summaryTimeType')
 
-  const setSummaryTimeType = (type: SummaryTimeType) => {
+  const setSummaryTimeType = (type: SummaryTimeType) =>
     storageApi.setLocalStorage('summaryTimeType', type)
+
+  const getLanguage = () => storageApi.getLocalStorage('language') || 'en'
+  const setLanguage = (value: Language) =>
+    storageApi.setLocalStorage('language', value)
+
+  const theme = ref<Theme>('white')
+  const getTheme = () => storageApi.getLocalStorage('theme') || 'white'
+  const setTheme = (value: Theme) => {
+    storageApi.setLocalStorage('theme', value)
+    theme.value = value
+  }
+
+  const display = ref<Display>('thumbnail')
+  const getDisplay = () => storageApi.getLocalStorage('display') || 'thumbnail'
+  const setDisplay = (value: Display) => {
+    storageApi.setLocalStorage('display', value)
+    display.value = value
   }
 
   return {
@@ -78,5 +96,16 @@ export const useStorageStore = defineStore('storage', () => {
 
     getSummaryTimeType,
     setSummaryTimeType,
+
+    setLanguage,
+    getLanguage,
+
+    theme,
+    getTheme,
+    setTheme,
+
+    display,
+    getDisplay,
+    setDisplay,
   }
 })

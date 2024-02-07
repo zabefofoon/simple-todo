@@ -1,28 +1,25 @@
 <template>
   <div class="flex | border-b | py-3">
     <label class="lg:w-60 | text-sm">{{ $t('Theme') }}</label>
-    <ClientOnly>
-      <select
-        v-if="settingStore.setting"
-        :value="settingStore.setting.theme"
-        class="ml-auto lg:ml-0 | bg-white | text-sm"
-        @change="changeTheme">
-        <option value="white">{{ $t('White') }}</option>
-        <option value="dark">{{ $t('Dark') }}</option>
-      </select>
-    </ClientOnly>
+    <select
+      :value="storageStore.theme"
+      class="ml-auto lg:ml-0 | bg-white | text-sm"
+      @change="changeTheme">
+      <option value="white">{{ $t('White') }}</option>
+      <option value="dark">{{ $t('Dark') }}</option>
+    </select>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Theme } from '~/models/Setting'
-import { useSettingStore } from '~/store/setting.store'
+import { useStorageStore } from '~/store/storage.store'
 
-const settingStore = useSettingStore()
+const storageStore = useStorageStore()
 
 const changeTheme = (event: Event) => {
   const value = <Theme>(<HTMLSelectElement>event.target).value
-  settingStore.updateSetting('theme', value)
+  storageStore.setTheme(value)
 }
 </script>
 

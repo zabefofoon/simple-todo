@@ -1,18 +1,15 @@
 import { defineStore } from 'pinia'
+import settingApi from '~/api/setting.api'
 import { Setting } from '~/models/Setting'
 import { deepClone } from '~/utils/etc'
-import settingApi from '~/api/setting.api'
 
 export const useSettingStore = defineStore('setting', () => {
-  const i18n = useI18n()
-
   const setting = ref<Setting>()
 
   const initSetting = async () => {
     const [data] = await settingApi.getSetting()
     const result = Setting.of(data)
     settingApi.setSetting(result)
-    i18n.setLocale(data.language)
     setting.value = result
   }
   const updateSetting = async (

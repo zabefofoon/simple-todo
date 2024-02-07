@@ -6,17 +6,11 @@ export type Display = 'thumbnail' | 'row'
 
 export class Setting {
   id?: number
-  theme: Theme = 'white'
-  language: Language = 'en'
-  display: Display = 'thumbnail'
   tags: Tag[] = []
   forms: Form[] = []
 
   constructor(setting?: Partial<Setting>) {
     this.id = setting?.id
-    this.theme = setting?.theme || 'white'
-    this.language = setting?.language || 'en'
-    this.display = setting?.display || 'thumbnail'
     this.tags = setting?.tags || [
       Tag.of({ label: 'Work', color: '#4834d4' }),
       Tag.of({ label: 'Promise', color: '#eb4d4b' }),

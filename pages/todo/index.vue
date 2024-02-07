@@ -48,7 +48,7 @@
           </select>
         </div>
       </div>
-      <template v-if="settingStore.setting?.display === 'thumbnail'">
+      <template v-if="storageStore.display === 'thumbnail'">
         <p
           v-if="!todos?.length"
           class="w-full h-full | flex items-center justify-center | text-center">
@@ -96,9 +96,10 @@
 
 <script setup lang="ts">
 import TodoThumbnail from '~/components/TodoThumbnail.vue'
-import { useTodoStore } from '~/store/todo.store'
-import { useSettingStore } from '~/store/setting.store'
 import type { Todo } from '~/models/Todo'
+import { useSettingStore } from '~/store/setting.store'
+import { useStorageStore } from '~/store/storage.store'
+import { useTodoStore } from '~/store/todo.store'
 
 const i18n = useI18n()
 
@@ -106,6 +107,7 @@ const router = useRouter()
 const route = useRoute()
 
 const settingStore = useSettingStore()
+const storageStore = useStorageStore()
 const todoStore = useTodoStore()
 
 const todos = computed(() => {

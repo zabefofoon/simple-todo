@@ -10,10 +10,10 @@ export class MySubClassedDexie extends Dexie {
 
   constructor() {
     super('SimpleTodo')
-    this.version(1).stores({
+    this.version(1.1).stores({
       todos:
         '++id, date, description, tagId, time, created, upto, done, modified',
-      setting: '++id, theme, language, tags, forms, display',
+      setting: '++id, tags, forms',
     })
   }
 }
@@ -21,11 +21,9 @@ export class MySubClassedDexie extends Dexie {
 export const db = process.client ? new MySubClassedDexie() : null
 
 export default defineNuxtPlugin((nuxtApp) => {
-  
   return {
     provide: {
-      db
-    }
+      db,
+    },
   }
-
 })

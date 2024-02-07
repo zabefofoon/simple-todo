@@ -11,6 +11,13 @@ import { useTodoStore } from './store/todo.store'
 const todoStore = useTodoStore()
 const scrollStore = useScrollStore()
 const storageStore = useStorageStore()
+
+const i18n = useI18n()
+
+/* onBeforeMount(() => {
+  i18n.setLocale(storageStore.getLanguage())
+})
+ */
 onMounted(() => {
   todoStore.getAllTodos()
   scrollStore.listenHistoryUpdate()

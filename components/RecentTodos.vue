@@ -5,7 +5,7 @@
     </div>
     <ClientOnly>
       <div
-        v-if="settingStore.setting?.display === 'thumbnail'"
+        v-if="storageStore.display === 'thumbnail'"
         class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         <TodoThumbnail
           v-for="todo in recentTodos"
@@ -30,13 +30,13 @@
 </template>
 
 <script setup lang="ts">
-import { useSettingStore } from '~/store/setting.store'
+import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const i18n = useI18n()
 
 const todoStore = useTodoStore()
-const settingStore = useSettingStore()
+const storageStore = useStorageStore()
 
 const recentTodos = computed(() =>
   todoStore.todos

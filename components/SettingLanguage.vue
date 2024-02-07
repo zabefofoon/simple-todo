@@ -1,31 +1,28 @@
 <template>
   <div class="flex | border-b | py-3">
     <label class="lg:w-60 | text-sm">{{ $t('Language') }}</label>
-    <ClientOnly>
-      <select
-        v-if="settingStore.setting"
-        :value="settingStore.setting.language"
+    <select
+        :value="storageStore.getLanguage()"
         class="ml-auto lg:ml-0 | bg-white | text-sm"
         @change="changeLanguage">
         <option value="en">{{ $t('English') }}</option>
         <option value="ko">{{ $t('Korean') }}</option>
       </select>
-    </ClientOnly>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Language } from '~/models/Setting'
-import { useSettingStore } from '~/store/setting.store'
+import { useStorageStore } from '~/store/storage.store'
 
 const i18n = useI18n()
 
-const settingStore = useSettingStore()
+const storageStore = useStorageStore()
 
 const changeLanguage = (event: Event) => {
   const value = <Language>(<HTMLSelectElement>event.target).value
   i18n.setLocale(value)
-  settingStore.updateSetting('language', value)
+  storageStore.setLanguage(value)
 }
 </script>
 

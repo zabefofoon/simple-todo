@@ -21,7 +21,8 @@
         <textarea
           ref="textArea"
           :value="description"
-          class="lg:order-2 | border rounded-lg | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2 pt-6 lg:pt-2"
+          class="lg:order-2 | border rounded-lg | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2 lg:pt-2"
+          :class="{'pt-6': currentTodo}"
           placeholder="Description"
           @input="textAreaInputhandler"
           @change="setDescription" />
@@ -38,7 +39,7 @@
               class="icon icon-check text-sm"
               :class="currentTodo?.done ? 'text-white' : 'text-slate-500'"></i>
           </button>
-          <button class="flex lg:hidden" @click="deleteTodo">
+          <button v-if="currentTodo" class="flex lg:hidden" @click="deleteTodo">
             <i class="icon icon-close | text-lg"></i>
           </button>
         </div>
@@ -134,7 +135,7 @@
               class="icon icon-check"
               :class="currentTodo?.done ? 'text-white' : 'text-slate-500'"></i>
           </button>
-          <button class="hidden lg:flex" @click="deleteTodo">
+          <button v-if="currentTodo" class="hidden lg:flex" @click="deleteTodo">
             <i class="icon icon-close | text-xl"></i>
           </button>
           <button
@@ -269,7 +270,9 @@ const save = async () => {
 const loadTodoData = async () => {
   if (toValue(currentTodo)) {
     description.value = toValue(currentTodo)?.description
-    tagId.value = toValue(currentTodo)?.tagId ? String(toValue(currentTodo)?.tagId) : undefined
+    tagId.value = toValue(currentTodo)?.tagId
+      ? String(toValue(currentTodo)?.tagId)
+      : undefined
     upto.value = toValue(currentTodo)?.upto || false
 
     if (toValue(upto)) {

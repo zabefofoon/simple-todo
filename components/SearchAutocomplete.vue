@@ -1,5 +1,5 @@
 <template>
-  <div v-if="keywords?.length" class="p-2">
+  <div v-if="keywords?.length" class="py-2 px-6">
     <NuxtLink
       v-for="searchedKeyword in keywords?.slice(0, 10)"
       :key="searchedKeyword"

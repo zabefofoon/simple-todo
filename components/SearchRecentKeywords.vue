@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2">
+  <div class="py-2 px-6">
     <h3 v-if="!keywords?.length" class="text-center text-sm">
       {{ $t('NoKeywords') }}
     </h3>

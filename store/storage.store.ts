@@ -2,8 +2,13 @@ import { defineStore } from 'pinia'
 import storageApi from '~/api/storage.api'
 import type { Display, Language, Theme } from '~/models/Setting'
 import type { SummaryTimeType } from '~/models/Summary'
+import { getCookie } from 'h3'
+import { setCookie } from '~/utils/etc'
 
 export const useStorageStore = defineStore('storage', () => {
+  const i18n = useI18n()
+  const event = useRequestEvent()
+
   const removeKeywords = (keyword: string) => {
     let keywords = getRecentKeywords()
     keywords = keywords.filter((savedKeyword) => savedKeyword !== keyword)
@@ -66,21 +71,35 @@ export const useStorageStore = defineStore('storage', () => {
   const setSummaryTimeType = (type: SummaryTimeType) =>
     storageApi.setLocalStorage('summaryTimeType', type)
 
-  const getLanguage = () => storageApi.getLocalStorage('language') || 'en'
-  const setLanguage = (value: Language) =>
+  const language = ref<Theme>(
+    process.client
+      ? storageApi.getLocalStorage('language') || 'en'
+      : getCookie(event, 'i18n_redirected') || 'en'
+  )
+  const setLanguage = (value: Language) => {
     storageApi.setLocalStorage('language', value)
+    i18n.setLocale(value)
+  }
 
-  const theme = ref<Theme>('white')
-  const getTheme = () => storageApi.getLocalStorage('theme') || 'white'
+  const theme = ref<Theme>(
+    process.client
+      ? storageApi.getLocalStorage('theme') || 'white'
+      : getCookie(event, 'x-theme') || 'white'
+  )
   const setTheme = (value: Theme) => {
     storageApi.setLocalStorage('theme', value)
+    setCookie('x-theme', value, 30)
     theme.value = value
   }
 
-  const display = ref<Display>('thumbnail')
-  const getDisplay = () => storageApi.getLocalStorage('display') || 'thumbnail'
+  const display = ref<Display>(
+    process.client
+      ? storageApi.getLocalStorage('display') || 'thumbnail'
+      : getCookie(event, 'x-display') || 'thumbnail'
+  )
   const setDisplay = (value: Display) => {
     storageApi.setLocalStorage('display', value)
+    setCookie('x-display', value, 30)
     display.value = value
   }
 
@@ -97,15 +116,13 @@ export const useStorageStore = defineStore('storage', () => {
     getSummaryTimeType,
     setSummaryTimeType,
 
+    language,
     setLanguage,
-    getLanguage,
 
     theme,
-    getTheme,
     setTheme,
 
     display,
-    getDisplay,
     setDisplay,
   }
 })

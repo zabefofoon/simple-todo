@@ -2,7 +2,7 @@
   <div class="flex | border-b | py-3">
     <label class="lg:w-60 | text-sm">{{ $t('Display') }}</label>
     <select
-      :value="storageStore.display"
+      v-model="storageStore.display"
       class="ml-auto lg:ml-0 | bg-white | text-sm"
       @change="changeDisplay">
       <option value="thumbnail">{{ $t('Thumbnail') }}</option>

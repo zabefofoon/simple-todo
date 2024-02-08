@@ -2,28 +2,41 @@
   <div
     class="flex flex-col gap-2 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3">
     <div class="flex items-center">
-      <span v-if="selectedOption === 'month'" class="font-bold">
-        {{ $t('Years') }}
-      </span>
-      <span v-else class="font-bold">
-        {{ $t('Weeks') }}
-      </span>
-      <select
-        :value="selectedOption"
-        class="ml-auto | text-sm | bg-white"
-        @change="selectOption">
-        <option value="month">{{ $t('Month') }}</option>
-        <option value="week">{{ $t('Week') }}</option>
-      </select>
+      <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
+      <template v-else>
+        <span v-if="selectedOption === 'month'" class="font-bold">
+          {{ $t('Years') }}
+        </span>
+        <span v-else class="font-bold">
+          {{ $t('Weeks') }}
+        </span>
+        <select
+          :value="selectedOption"
+          class="ml-auto | text-sm | bg-white"
+          @change="selectOption">
+          <option value="month">{{ $t('Month') }}</option>
+          <option value="week">{{ $t('Week') }}</option>
+        </select>
+      </template>
     </div>
-    <SummaryTimeYear v-if="selectedOption === 'month'" />
-    <SummaryTimeMonth v-else />
+    <div
+      v-if="loadingStore.todoLoading"
+      class="w-full aspect-video lg:aspect-square | flex items-center justify-center">
+      <Spinner class="m-auto" />
+    </div>
+    <template v-else>
+      <SummaryTimeYear v-if="selectedOption === 'month'" />
+      <SummaryTimeMonth v-else />
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useStorageStore } from '~/store/storage.store'
 import type { SummaryTimeType } from '~/models/Summary'
+import { useLoadingStore } from '~/store/loading.store'
+import { useStorageStore } from '~/store/storage.store'
+
+const loadingStore = useLoadingStore()
 
 const storageStore = useStorageStore()
 const selectedOption = ref<SummaryTimeType>('month')

@@ -111,17 +111,10 @@ const todoStore = useTodoStore()
 const todos = computed(() => {
   let result: Todo[] | undefined = undefined
   if (route.query.filter === 'Undone')
-    result = todoStore.todos
-      ?.sort((a, b) => (b?.created || 0) - (a?.created || 0))
-      .filter((todo) => !todo.done)
+    result = todoStore.todos?.filter((todo) => !todo.done)
   else if (route.query.filter === 'Done')
-    result = todoStore.todos
-      ?.sort((a, b) => (b?.created || 0) - (a?.created || 0))
-      .filter((todo) => todo.done)
-  else
-    result = todoStore.todos?.sort(
-      (a, b) => (b?.created || 0) - (a?.created || 0)
-    )
+    result = todoStore.todos?.filter((todo) => todo.done)
+  else result = todoStore.todos
 
   return route.query.tag
     ? result?.filter((todo) => todo.tagId === route.query.tag)

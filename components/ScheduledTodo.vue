@@ -1,5 +1,9 @@
 <template>
-  <div class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4">
+  <div v-if="loadingStore.todoLoading" class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4">
+    <Skeletor class="w-1/4 h-[24px]"/>
+    <Skeletor class="w-full h-[24px]"/>
+  </div>
+  <div v-else class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4">
     <h3 class="font-bold">
       <span v-if="scheduledTodo">
         {{ $t('ScheduledTodo') }}
@@ -23,9 +27,11 @@
 </template>
 
 <script setup lang="ts">
+import { useLoadingStore } from '~/store/loading.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const todoStore = useTodoStore()
+const loadingStore = useLoadingStore()
 
 const scheduledTodo = computed(() => {
   return todoStore.todos

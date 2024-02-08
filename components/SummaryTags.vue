@@ -1,8 +1,16 @@
 <template>
   <div
     class="flex flex-col gap-3 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3">
-    <div class="font-bold">{{ $t('Tags') }}</div>
-    <div class="h-full | flex items-center justify-center">
+    <div class="font-bold">
+      <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
+      <span v-else> {{ $t('Tags') }}</span>
+    </div>
+    <div
+      v-show="loadingStore.todoLoading"
+      class="w-full aspect-video lg:aspect-square | flex items-center justify-center">
+      <Spinner />
+    </div>
+    <div v-show="!loadingStore.todoLoading" class="h-full lg:max-h-[60%] | my-auto | flex items-center justify-center">
       <canvas ref="canvas" width="100%"></canvas>
     </div>
   </div>
@@ -10,6 +18,7 @@
 
 <script setup lang="ts">
 import { Chart } from 'chart.js/auto'
+import { useLoadingStore } from '~/store/loading.store'
 import { useSettingStore } from '~/store/setting.store'
 import { useTodoStore } from '~/store/todo.store'
 
@@ -17,6 +26,7 @@ const i18n = useI18n()
 
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
+const loadingStore = useLoadingStore()
 
 const canvas = ref<HTMLCanvasElement>()
 

@@ -2,9 +2,11 @@ import { defineStore } from 'pinia'
 import todoApi from '~/api/todo.api'
 import { Todo } from '~/models/Todo'
 import { useStorageStore } from './storage.store'
+import { useLoadingStore } from './loading.store'
 
 export const useTodoStore = defineStore('todo', () => {
   const storageStore = useStorageStore()
+  const loadingStore = useLoadingStore()
 
   const todos = ref<Todo[]>()
 
@@ -13,17 +15,19 @@ export const useTodoStore = defineStore('todo', () => {
       return toValue(todos)
     }
 
-    const data = await todoApi.getAllTodos()
-    if (!data.length) addTodo(Todo.of({ description: 'Welcome!' }))
+    loadingStore.withTodoLoading(async () => {
+      const data = await todoApi.getAllTodos()
+      if (!data.length) addTodo(Todo.of({ description: 'Welcome!' }))
 
-    todos.value = Todo.map(data).sort(
-      (a, b) => Number(b.created) - Number(a.created)
-    )
+      todos.value = Todo.map(data).sort(
+        (a, b) => Number(b.created) - Number(a.created)
+      )
+    })
 
     await Notification.requestPermission()
     navigator.serviceWorker.controller?.postMessage({
       type: 'registerTimer',
-      todos: data.filter((todo) => todo.upto),
+      todos: todos.value?.filter((todo) => todo.upto) || [],
     })
 
     return toValue(todos)

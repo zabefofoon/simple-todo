@@ -1,11 +1,10 @@
 <template>
   <div
+    v-if="!resizing"
     class="w-full | flex flex-nowrap flex-col lg:flex-row gap-2">
-    <template v-if="!resizing">
-      <SummaryTags :key="tagsKey" />
-      <SummaryTime :key="donesKey"/>
-      <SummaryDones :key="donesKey" />
-    </template>
+    <SummaryTags :key="tagsKey" />
+    <SummaryTime :key="donesKey" />
+    <SummaryDones :key="donesKey" />
   </div>
 </template>
 
@@ -22,7 +21,7 @@ const checkResizing = (value: boolean) => (resizing.value = value)
 
 const resizeHandler = () => {
   checkResizing(true)
-  debounce(() => checkResizing(false), 100)()
+  debounce(() => checkResizing(false), 200)()
 }
 
 const donesKey = ref(0)
@@ -36,7 +35,7 @@ const tagsKey = ref(0)
 const updateTags = () => tagsKey.value++
 const tags = computed(
   () =>
-  settingStore.setting?.tags.reduce<Record<string, number>>(
+    settingStore.setting?.tags.reduce<Record<string, number>>(
       (acc, current) => {
         acc[current.label] =
           todoStore.todos?.filter((todo) => todo.tagId === current.id).length ||

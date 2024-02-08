@@ -1,25 +1,30 @@
 <template>
   <div
     class="flex flex-col gap-3 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3">
-    <h3 class="flex items-center">
+    <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
+    <h3 v-else class="flex items-center">
       <span class="font-bold">{{ $t('Done') }}</span>
-      <span class="ml-auto | text-sm">{{ isNaN(ratio) ? 0 : ratio.toFixed(1) }}%</span>
+      <span class="ml-auto | text-sm">
+        {{ isNaN(ratio) ? 0 : ratio.toFixed(1) }}%
+      </span>
     </h3>
-    <div class="relative">
-      <div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-        <h3 class="absolute top-0 left-1/2 -translate-x-1/2 | text-xl"></h3>
-      </div>
-      <canvas ref="canvas" width="100%"></canvas>
+    <div
+      v-show="loadingStore.todoLoading"
+      class="w-full aspect-square | flex items-center justify-center">
+      <Spinner class="m-auto" />
     </div>
+    <canvas v-show="!loadingStore.todoLoading" ref="canvas" width="100%"></canvas>
   </div>
 </template>
 
 <script setup lang="ts">
 import { Chart } from 'chart.js/auto'
+import { useLoadingStore } from '~/store/loading.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const i18n = useI18n()
 
+const loadingStore = useLoadingStore()
 const todoStore = useTodoStore()
 
 const canvas = ref<HTMLCanvasElement>()

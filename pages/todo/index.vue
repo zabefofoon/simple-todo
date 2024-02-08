@@ -2,14 +2,14 @@
   <NuxtLayout name="layout-basic">
     <div class="flex flex-col | h-full">
       <div
-        class="sticky top-0 z-20 | flex items-center gap-1 | bg-white | px-4 py-2 | border-b">
-        <NuxtLink class="w-full lg:w-[50%] mr-2 | relative" to="/search">
-          <input
-            class="w-full | px-3 py-1 | bg-slate-200 | rounded-full | text-sm"
-            :placeholder="$t('Search')" />
-          <i
-            class="icon icon-search | text-xl | absolute right-1 top-1/2 -translate-y-1/2"></i>
-        </NuxtLink>
+        class="sticky top-0 z-20 | flex items-center gap-1 | px-4 py-2 | border-b"
+        :class="
+          storageStore.getThemeClass(
+            'bg-white',
+            'bg-slate-900 border-slate-700'
+          )
+        ">
+        <SearchInputButton />
         <NotificationButton class="hidden lg:block" />
         <template v-if="loadingStore.todoLoading">
           <Skeletor class="w-[80px] h-[24px] | ml-auto" />
@@ -19,12 +19,24 @@
           <div class="ml-auto | relative">
             <label
               for="filter"
-              class="absolute top-0 left-0 -translate-y-1/2 | text-[8px] lg:text-[10px] | bg-white">
+              class="absolute top-0 left-0 -translate-y-1/2 | text-[8px] lg:text-[10px]"
+              :class="
+                storageStore.getThemeClass(
+                  'bg-white',
+                  'bg-slate-900 text-white'
+                )
+              ">
               {{ $t('Tag') }}
             </label>
             <select
               id="filter"
-              class="border rounded-md | bg-white | px-1 py-0.5 | text-xs"
+              class="border rounded-md | px-1 py-0.5 | text-xs"
+              :class="
+                storageStore.getThemeClass(
+                  'bg-white',
+                  'bg-slate-900 text-white | border-slate-700'
+                )
+              "
               :value="route.query.tag || 'All'"
               @change="changeTag">
               <option value="All">{{ $t('All') }}</option>
@@ -39,12 +51,24 @@
           <div class="lg:ml-2 | relative">
             <label
               for="filter"
-              class="absolute top-0 left-0 -translate-y-1/2 | text-[8px] lg:text-[10px] | bg-white">
+              class="absolute top-0 left-0 -translate-y-1/2 | text-[8px] lg:text-[10px]"
+              :class="
+                storageStore.getThemeClass(
+                  'bg-white',
+                  'bg-slate-900 text-white'
+                )
+              ">
               {{ $t('Filter') }}
             </label>
             <select
               id="filter"
-              class="border rounded-md | bg-white | px-1 py-0.5 | text-xs"
+              class="border rounded-md | px-1 py-0.5 | text-xs"
+              :class="
+                storageStore.getThemeClass(
+                  'bg-white',
+                  'bg-slate-900 text-white | border-slate-700'
+                )
+              "
               :value="route.query.filter || 'All'"
               @change="changeFilter">
               <option value="All">{{ $t('All') }}</option>
@@ -58,7 +82,8 @@
         <Spinner v-if="loadingStore.todoLoading" class="m-auto" />
         <p
           v-else
-          class="w-full | flex items-center justify-center | text-center">
+          class="w-full | flex items-center justify-center | text-center"
+          :class="storageStore.getThemeClass('', 'text-white')">
           {{ $t('NoTodo') }}
         </p>
       </div>

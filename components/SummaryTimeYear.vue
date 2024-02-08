@@ -7,11 +7,13 @@
 
 <script setup lang="ts">
 import { Chart } from 'chart.js/auto'
+import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const i18n = useI18n()
 
 const todoStore = useTodoStore()
+const storageStore = useStorageStore()
 
 const canvas = ref<HTMLCanvasElement>()
 
@@ -79,8 +81,30 @@ onMounted(() => {
     },
     options: {
       scales: {
-        x: { stacked: true },
-        y: { stacked: true },
+        x: {
+          stacked: true,
+          ticks: {
+            color: storageStore.getThemeClass('', 'white'),
+          },
+          grid: {
+            color: storageStore.getThemeClass(
+              'rgba(0, 0, 0, .1)',
+              'rgba(255, 255, 255, .1)'
+            ),
+          },
+        },
+        y: {
+          stacked: true,
+          ticks: {
+            color: storageStore.getThemeClass('', 'white'),
+          },
+          grid: {
+            color: storageStore.getThemeClass(
+              'rgba(0, 0, 0, .1)',
+              'rgba(255, 255, 255, .1)'
+            ),
+          },
+        },
       },
       maintainAspectRatio: false, // false로 설정하면 canvas 크기가 변경됩니다.
       aspectRatio: 1, // 원하는 가로:세로 비율로 설정

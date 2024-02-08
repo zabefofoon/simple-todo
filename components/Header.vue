@@ -8,20 +8,35 @@
   </Transition>
   <header class="relative z-30 | lg:hidden">
     <div
-      class="flex items-center gap-1.5 | relative z-30 bg-white | px-4 py-2 | border-b">
+      class="flex items-center gap-1.5 | relative z-30 | px-4 py-2 | border-b"
+      :class="storageStore.getThemeClass('bg-white', 'bg-slate-900 | border-slate-700')">
       <NuxtLink class="block | w-full | font-bold" to="/">
         <div class="flex items-center justify-center gap-1 | w-fit">
           <img
             class="w-[24px] aspect-square"
+            :class="
+              storageStore.getThemeClass(
+                '',
+                'border-2 border-white rounded-full'
+              )
+            "
             src="~/assets/images/logo-75x75.png"
             alt="MEMOO" />
-          <span>MEMOO</span>
+          <span :class="storageStore.getThemeClass('', 'text-white')">
+            MEMOO
+          </span>
         </div>
       </NuxtLink>
       <NotificationButton />
       <button class="flex" @click="expand()">
-        <i v-if="!isExpanded" class="icon icon-bars text-2xl"></i>
-        <i v-else class="icon icon-close text-2xl"></i>
+        <i
+          v-if="!isExpanded"
+          class="icon icon-bars text-2xl"
+          :class="storageStore.getThemeClass('', 'text-white')"></i>
+        <i
+          v-else
+          class="icon icon-close text-2xl"
+          :class="storageStore.getThemeClass('', 'text-white')"></i>
       </button>
     </div>
     <LNB :is-expanded="isExpanded" />
@@ -30,8 +45,10 @@
 
 <script setup lang="ts">
 import { useScrollStore } from '~/store/scroll.store'
+import { useStorageStore } from '~/store/storage.store'
 
 const scrollStore = useScrollStore()
+const storageStore = useStorageStore()
 
 const isExpanded = ref(false)
 const expand = (value?: boolean) => {

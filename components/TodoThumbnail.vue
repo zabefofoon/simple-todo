@@ -3,12 +3,15 @@
     :to="`/todo/${todo.id}`"
     v-long-click="() => emit('delete', Number(todo.id))">
     <figure
-      class="thumbnail | relative | w-full aspect-square overflow-hidden | p-2 | border rounded-lg">
+      class="thumbnail | relative | w-full aspect-square overflow-hidden | p-2 | border rounded-lg"
+      :class="storageStore.getThemeClass('', 'border-slate-700')">
       <button
         v-if="!hideDelete"
         class="close-button | flex | absolute top-1 right-1"
         @click.stop.prevent="emit('delete', todo.id || -1)">
-        <i class="icon icon-close"></i>
+        <i
+          class="icon icon-close"
+          :class="storageStore.getThemeClass('', 'text-white')"></i>
       </button>
       <div class="flex gap-1 | absolute bottom-[5px] right-1 z-10">
         <span
@@ -20,6 +23,7 @@
       </div>
       <div
         class="text-sm md:text-base | py-3"
+        :class="storageStore.getThemeClass('', 'text-white')"
         v-html="todo.description?.replaceAll('\n', '<br />')"></div>
       <button
         class="flex items-center | absolute left-1 top-1 z-10 | rounded-full"
@@ -31,9 +35,17 @@
       </button>
       <figcaption
         v-if="todo.upto"
-        class="w-full | absolute bottom-0 left-0 | border-t | py-1 px-0.5 | flex items-center gap-1 | text-[10px] lg:text-xs | bg-white">
-        <i class="icon icon-timer"></i>
-        <span>
+        class="w-full | absolute bottom-0 left-0 | border-t | py-1 px-0.5 | flex items-center gap-1 | text-[10px] lg:text-xs"
+        :class="
+          storageStore.getThemeClass(
+            'bg-white',
+            'bg-slate-900 border-slate-700'
+          )
+        ">
+        <i
+          class="icon icon-timer"
+          :class="storageStore.getThemeClass('', 'text-white')"></i>
+        <span :class="storageStore.getThemeClass('', 'text-white')">
           {{ todo.date?.replaceAll('-', '.').substring(2) }}
           {{ todo.time }}
         </span>
@@ -44,6 +56,7 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
+import { useStorageStore } from '~/store/storage.store'
 
 defineProps<{
   todo: Todo
@@ -54,4 +67,6 @@ const emit = defineEmits<{
   (e: 'delete', id: number): void
   (e: 'done', id: number, done?: boolean): void
 }>()
+
+const storageStore = useStorageStore()
 </script>

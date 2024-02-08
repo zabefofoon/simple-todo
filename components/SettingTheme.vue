@@ -1,12 +1,29 @@
 <template>
-  <div class="flex | border-b | py-3">
-    <label class="lg:w-60 | text-sm">{{ $t('Theme') }}</label>
+  <div
+    class="flex | border-b | py-3"
+    :class="storageStore.getThemeClass('', 'border-slate-700')">
+    <label
+      class="lg:w-60 | text-sm"
+      :class="storageStore.getThemeClass('', 'text-white')">
+      {{ $t('Theme') }}
+    </label>
     <select
       v-model="storageStore.theme"
-      class="ml-auto lg:ml-0 | bg-white | text-sm"
+      class="ml-auto lg:ml-0 | text-sm"
+      :class="
+        storageStore.getThemeClass('bg-white', 'dark | bg-slate-900 text-white')
+      "
       @change="changeTheme">
-      <option value="white">{{ $t('White') }}</option>
-      <option value="dark">{{ $t('Dark') }}</option>
+      <option
+        value="white"
+        :class="storageStore.getThemeClass('', 'text-white')">
+        {{ $t('White') }}
+      </option>
+      <option
+        value="dark"
+        :class="storageStore.getThemeClass('', 'text-white')">
+        {{ $t('Dark') }}
+      </option>
     </select>
   </div>
 </template>
@@ -14,7 +31,6 @@
 <script setup lang="ts">
 import type { Theme } from '~/models/Setting'
 import { useStorageStore } from '~/store/storage.store'
-import { setCookie } from '~/utils/etc'
 
 const storageStore = useStorageStore()
 

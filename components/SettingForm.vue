@@ -1,40 +1,70 @@
 <template>
   <div class="flex | py-3">
-    <div class="flex | lg:w-60 | text-sm">
-      <span>{{ $t('Form') }}</span>
+    <div class="flex gap-1 | lg:w-60 | text-sm">
+      <span :class="storageStore.getThemeClass('', 'text-white')">
+        {{ $t('Form') }}
+      </span>
       <NuxtLink to="/form/new">
         <button
           class="flex | h-fit | p-1 ml-auto lg:ml-0 | border border-dashed">
-          <i class="icon icon-add | text-md"></i>
+          <i
+            class="icon icon-add | text-md"
+            :class="storageStore.getThemeClass('', 'text-white')"></i>
         </button>
       </NuxtLink>
     </div>
     <div class="flex flex-col lg:gap-1 | ml-auto lg:ml-0">
-      <div
-        v-for="(form, index) in settingStore.setting?.forms"
-        class="flex items-center gap-0.5">
-        <button class="flex" @click="changeOrder(index, index - 1)">
-          <i class="icon icon-arrow-top | text-sm"></i>
-        </button>
-        <button class="flex" @click="changeOrder(index, index + 1)">
-          <i class="icon icon-arrow-down | text-sm"></i>
-        </button>
-        <NuxtLink :to="`/form/${form.id}`">
-          <button class="flex items-center gap-2 | border | pl-2 pr-1 py-0.5">
-            <span class="text-sm">{{ form.title }}</span>
-            <i class="icon icon-close" @click.prevent="removeForm(form)"></i>
-          </button>
-        </NuxtLink>
+      <div v-if="loadingStore.todoLoading">
+        <Skeletor
+          v-for="index in 2"
+          :key="index"
+          class="w-[100px] h-[28px] mb-1" />
       </div>
+      <template v-else>
+        <div
+          v-for="(form, index) in settingStore.setting?.forms"
+          class="flex items-center gap-0.5">
+          <button class="flex" @click="changeOrder(index, index - 1)">
+            <i
+              class="icon icon-arrow-top | text-sm"
+              :class="storageStore.getThemeClass('', 'text-white')"></i>
+          </button>
+          <button class="flex" @click="changeOrder(index, index + 1)">
+            <i
+              class="icon icon-arrow-down | text-sm"
+              :class="storageStore.getThemeClass('', 'text-white')"></i>
+          </button>
+          <NuxtLink :to="`/form/${form.id}`">
+            <button
+              class="flex items-center gap-2 | border | pl-2 pr-1 py-0.5"
+              :class="storageStore.getThemeClass('', 'border-slate-700')">
+              <span
+                class="text-sm"
+                :class="storageStore.getThemeClass('', 'text-white')">
+                {{ form.title }}
+              </span>
+              <i
+                class="icon icon-close"
+                :class="storageStore.getThemeClass('', 'text-white')"
+                @click.prevent="removeForm(form)"></i>
+            </button>
+          </NuxtLink>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Form } from '~/models/Setting'
+import { useLoadingStore } from '~/store/loading.store'
 import { useSettingStore } from '~/store/setting.store'
+import { useStorageStore } from '~/store/storage.store'
 
 const settingStore = useSettingStore()
+const storageStore = useStorageStore()
+const loadingStore = useLoadingStore()
+
 const i18n = useI18n()
 
 const removeForm = async (data: Form) => {

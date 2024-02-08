@@ -1,12 +1,27 @@
 <template>
-  <div class="flex | border-b | py-3">
-    <label class="lg:w-60 | text-sm">{{ $t('Display') }}</label>
+  <div
+    class="flex | border-b | py-3"
+    :class="storageStore.getThemeClass('', 'border-slate-700')">
+    <label
+      class="lg:w-60 | text-sm"
+      :class="storageStore.getThemeClass('', 'text-white')">
+      {{ $t('Display') }}
+    </label>
     <select
       v-model="storageStore.display"
-      class="ml-auto lg:ml-0 | bg-white | text-sm"
+      class="ml-auto lg:ml-0 | text-sm"
+      :class="
+        storageStore.getThemeClass('bg-white', 'dark | bg-slate-900 text-white')
+      "
       @change="changeDisplay">
-      <option value="thumbnail">{{ $t('Thumbnail') }}</option>
-      <option value="row">{{ $t('Row') }}</option>
+      <option
+        value="thumbnail"
+        :class="storageStore.getThemeClass('', 'text-white')">
+        {{ $t('Thumbnail') }}
+      </option>
+      <option value="row" :class="storageStore.getThemeClass('', 'text-white')">
+        {{ $t('Row') }}
+      </option>
     </select>
   </div>
 </template>

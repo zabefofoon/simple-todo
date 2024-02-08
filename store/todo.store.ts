@@ -27,7 +27,10 @@ export const useTodoStore = defineStore('todo', () => {
     await Notification.requestPermission()
     navigator.serviceWorker.controller?.postMessage({
       type: 'registerTimer',
-      todos: todos.value?.filter((todo) => todo.upto) || [],
+      todos:
+        todos.value
+          ?.filter((todo) => todo.upto)
+          .map((todo) => deepClone(todo)) || [],
     })
 
     return toValue(todos)

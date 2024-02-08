@@ -91,7 +91,8 @@ export const useStorageStore = defineStore('storage', () => {
     setCookie('x-theme', value, 30)
     theme.value = value
   }
-
+  const getThemeClass = (whiteClass: string, darkClass: string) => toValue(theme) === 'white' ? whiteClass :darkClass
+  
   const display = ref<Display>(
     process.client
       ? storageApi.getLocalStorage('display') || 'thumbnail'
@@ -121,6 +122,7 @@ export const useStorageStore = defineStore('storage', () => {
 
     theme,
     setTheme,
+    getThemeClass,
 
     display,
     setDisplay,

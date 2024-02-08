@@ -2,12 +2,16 @@
   <NuxtLayout name="layout-basic">
     <template #header>
       <header
-        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden">
+        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden"
+        :class="storageStore.getThemeClass('', 'border-slate-700')">
         <button class="flex" @click="router.back()">
-          <i class="icon icon-arrow-left"></i>
+          <i
+            class="icon icon-arrow-left"
+            :class="storageStore.getThemeClass('', 'text-white')"></i>
         </button>
         <div
           class="w-full | text-lg truncate | cursor-pointer"
+          :class="storageStore.getThemeClass('', 'text-white')"
           @click="router.back()">
           {{ route.params.id }}
         </div>
@@ -19,7 +23,9 @@
         <p
           v-if="!todayTodos?.length"
           class="flex items-center justify-center | h-full">
-          <span>{{ $t('NoTodo') }}</span>
+          <span :class="storageStore.getThemeClass('', 'text-white')">
+            {{ $t('NoTodo') }}
+          </span>
         </p>
         <template v-else>
           <div

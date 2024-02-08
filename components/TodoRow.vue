@@ -2,8 +2,13 @@
   <NuxtLink
     :to="`/todo/${todo.id}`"
     v-long-click="() => emit('delete', Number(todo.id))">
-    <figure class="w-full h-full | flex gap-2 | border rounded-lg | relative">
-      <div v-if="todo.tagId" class="w-20 h-full | flex items-center | border-r">
+    <figure
+      class="w-full h-full | flex gap-2 | border rounded-lg | relative"
+      :class="storageStore.getThemeClass('', 'border-slate-700')">
+      <div
+        v-if="todo.tagId"
+        class="w-20 h-full | flex items-center | border-r"
+        :class="storageStore.getThemeClass('', 'border-slate-700')">
         <div
           class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-white text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | rounded-full"
           :style="{
@@ -12,26 +17,35 @@
           #{{ todo.tag?.label }}
         </div>
       </div>
-      <div v-else class="w-20 h-full | flex items-center | border-r">
+      <div
+        v-else
+        class="w-20 h-full | flex items-center | border-r"
+        :class="storageStore.getThemeClass('', 'border-slate-700')">
         <div
-          class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | border rounded-full">
+          class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | border rounded-full"
+          :class="storageStore.getThemeClass('', 'text-white')">
           memo
         </div>
       </div>
       <div
         class="w-full overflow-hidden | py-2 | text-ellipsis whitespace-nowrap lg:whitespace-normal">
-        <span v-if="(todo.description?.length || 0) > 50">
+        <span
+          v-if="(todo.description?.length || 0) > 50"
+          :class="storageStore.getThemeClass('', 'text-white')">
           {{ todo.description?.slice(0, 50) }}...
         </span>
-        <span v-else>
+        <span v-else :class="storageStore.getThemeClass('', 'text-white')">
           {{ todo.description }}
         </span>
       </div>
       <figcaption
         v-if="todo.upto"
-        class="absolute right-0 top-0 -translate-y-1/2 | flex-shrink-0 w-fit | flex items-center gap-1 | text-[10px] lg:text-xs | bg-white">
-        <i class="icon icon-timer"></i>
-        <span>
+        class="absolute right-0 top-0 -translate-y-1/2 | flex-shrink-0 w-fit | flex items-center gap-1 | text-[10px] lg:text-xs"
+        :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')">
+        <i
+          class="icon icon-timer"
+          :class="storageStore.getThemeClass('', 'text-white')"></i>
+        <span :class="storageStore.getThemeClass('', 'text-white')">
           {{ todo.date?.replaceAll('-', '.').substring(2) }}
           {{ todo.time }}
         </span>
@@ -40,7 +54,9 @@
         v-if="!hideDelete"
         class="close-button | flex items-center | p-2"
         @click.stop.prevent="emit('delete', todo.id || -1)">
-        <i class="icon icon-close"></i>
+        <i
+          class="icon icon-close"
+          :class="storageStore.getThemeClass('', 'text-white')"></i>
       </button>
       <button
         class="flex items-center | absolute top-1/2 -translate-y-1/2 z-10 | rounded-full"
@@ -59,7 +75,7 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
-import { useSettingStore } from '~/store/setting.store'
+import { useStorageStore } from '~/store/storage.store'
 
 defineProps<{
   todo: Todo
@@ -71,7 +87,7 @@ const emit = defineEmits<{
   (e: 'done', id: number, done?: boolean): void
 }>()
 
-const settingStore = useSettingStore()
+const storageStore = useStorageStore()
 </script>
 
 <style></style>

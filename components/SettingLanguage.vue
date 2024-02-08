@@ -1,12 +1,25 @@
 <template>
-  <div class="flex | border-b | py-3">
-    <label class="lg:w-60 | text-sm">{{ $t('Language') }}</label>
+  <div
+    class="flex | border-b | py-3"
+    :class="storageStore.getThemeClass('', 'border-slate-700')">
+    <label
+      class="lg:w-60 | text-sm"
+      :class="storageStore.getThemeClass('', 'text-white')">
+      {{ $t('Language') }}
+    </label>
     <select
       :value="storageStore.language"
-      class="ml-auto lg:ml-0 | bg-white | text-sm"
+      class="ml-auto lg:ml-0 | text-sm"
+      :class="
+        storageStore.getThemeClass('bg-white', 'dark | bg-slate-900 text-white')
+      "
       @change="changeLanguage">
-      <option value="en">{{ $t('English') }}</option>
-      <option value="ko">{{ $t('Korean') }}</option>
+      <option value="en" :class="storageStore.getThemeClass('', 'text-white')">
+        {{ $t('English') }}
+      </option>
+      <option value="ko" :class="storageStore.getThemeClass('', 'text-white')">
+        {{ $t('Korean') }}
+      </option>
     </select>
   </div>
 </template>

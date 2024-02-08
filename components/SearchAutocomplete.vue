@@ -8,12 +8,14 @@
       class="w-full | flex items-center gap-2 | py-0.5">
       <span
         v-html="getHighlightedKeyword(searchedKeyword)"
-        class="truncate"></span>
+        class="truncate"
+        :class="storageStore.getThemeClass('', 'text-white')"></span>
     </NuxtLink>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const props = defineProps<{
@@ -21,6 +23,7 @@ const props = defineProps<{
 }>()
 
 const todoStore = useTodoStore()
+const storageStore = useStorageStore()
 
 const keywords = ref<string[]>()
 const setKeywords = (value?: string[]) => (keywords.value = value)

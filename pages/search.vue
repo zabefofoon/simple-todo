@@ -2,15 +2,24 @@
   <NuxtLayout name="layout-basic">
     <template #header>
       <div
-        class="sticky top-0 z-20 | flex items-center gap-2 | bg-white | px-2 py-2 | border-b">
+        class="sticky top-0 z-20 | flex items-center gap-2 | px-2 py-2 | border-b"
+        :class="storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')">
         <button class="flex" @click="$router.back()">
-          <i class="icon icon-arrow-left"></i>
+          <i
+            class="icon icon-arrow-left"
+            :class="storageStore.getThemeClass('', 'text-white')"></i>
         </button>
         <Skeletor v-if="loadingStore.todoLoading" class="w-full h-[32px]" />
         <div v-else class="input-wrap | w-full lg:max-w-[50%] | relative">
           <input
             ref="input"
-            class="w-full | px-3 py-1 | bg-slate-200 | rounded-full | text-sm"
+            class="w-full | px-3 py-1 | rounded-full | text-sm"
+            :class="
+              storageStore.getThemeClass(
+                'bg-slate-200',
+                'bg-slate-600 | text-white'
+              )
+            "
             :placeholder="$t('Search')"
             :value="keyword"
             @input="setKeyword"
@@ -20,17 +29,27 @@
             v-show="keyword"
             class="flex | absolute right-7 top-1/2 -translate-y-1/2"
             @click="close()">
-            <i class="icon icon-close | text-xl"></i>
+            <i
+              class="icon icon-close | text-xl"
+              :class="storageStore.getThemeClass('', 'text-white')"></i>
           </button>
           <button
             class="flex | absolute right-1.5 top-1/2 -translate-y-1/2"
             @click="search">
-            <i class="icon icon-search | text-xl"></i>
+            <i
+              class="icon icon-search | text-xl"
+              :class="storageStore.getThemeClass('', 'text-white')"></i>
           </button>
         </div>
         <div
           v-if="isShowAddArea"
-          class="w-full | absolute left-0 bottom-0 translate-y-full | border | bg-white">
+          class="w-full | absolute left-0 bottom-0 translate-y-full | border-t border-b"
+          :class="
+            storageStore.getThemeClass(
+              'bg-white',
+              'bg-slate-900 border-slate-700'
+            )
+          ">
           <SearchAutocomplete v-if="keyword" :keyword="keyword" />
           <SearchRecentKeywords v-else />
         </div>
@@ -70,10 +89,14 @@
         <h3
           v-if="!todos?.length"
           class="w-full h-full | flex items-center justify-center">
-          <span v-if="route.query.keyword">
+          <span
+            v-if="route.query.keyword"
+            :class="storageStore.getThemeClass('', 'text-white')">
             {{ $t('NoMatched', [route.query.keyword]) }}
           </span>
-          <span v-else>{{ $t('EnterKeyword') }}</span>
+          <span v-else :class="storageStore.getThemeClass('', 'text-white')">{{
+            $t('EnterKeyword')
+          }}</span>
         </h3>
       </template>
     </div>

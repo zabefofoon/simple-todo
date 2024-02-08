@@ -1,6 +1,10 @@
 <template>
   <div class="flex | py-3">
-    <label class="lg:w-60 | text-sm">{{ $t('Import') }}</label>
+    <label
+      class="lg:w-60 | text-sm"
+      :class="storageStore.getThemeClass('', 'text-white')">
+      {{ $t('Import') }}
+    </label>
     <button
       class="ml-auto lg:ml-0 px-4 py-0.5 | bg-slate-800 | text-sm text-white | rounded-full"
       @click="importData">
@@ -12,10 +16,13 @@
 <script setup lang="ts">
 import type { SavedData } from '~/models/SavedData'
 import { useSettingStore } from '~/store/setting.store'
+import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
+const storageStore = useStorageStore()
+
 const i18n = useI18n()
 const importData = () => {
   const element = document.createElement('input')

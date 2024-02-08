@@ -1,18 +1,26 @@
 <template>
   <div
-    class="flex flex-col gap-2 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3">
+    class="flex flex-col gap-2 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3"
+    :class="storageStore.getThemeClass('', 'border-slate-700')">
     <div class="flex items-center">
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
       <template v-else>
-        <span v-if="selectedOption === 'month'" class="font-bold">
+        <span
+          v-if="selectedOption === 'month'"
+          class="font-bold"
+          :class="storageStore.getThemeClass('', 'text-white')">
           {{ $t('Years') }}
         </span>
-        <span v-else class="font-bold">
+        <span
+          v-else
+          class="font-bold"
+          :class="storageStore.getThemeClass('', 'text-white')">
           {{ $t('Weeks') }}
         </span>
         <select
           :value="selectedOption"
-          class="ml-auto | text-sm | bg-white"
+          class="ml-auto | text-sm"
+          :class="storageStore.getThemeClass('bg-white', 'dark text-white')"
           @change="selectOption">
           <option value="month">{{ $t('Month') }}</option>
           <option value="week">{{ $t('Week') }}</option>

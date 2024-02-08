@@ -2,17 +2,24 @@
   <NuxtLayout name="layout-basic">
     <template #header>
       <header
-        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden">
+        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden"
+        :class="storageStore.getThemeClass('', 'border-slate-700')">
         <button class="flex" @click="$router.back()">
-          <i class="icon icon-arrow-left"></i>
+          <i
+            class="icon icon-arrow-left"
+            :class="storageStore.getThemeClass('', 'text-white')"></i>
         </button>
         <div
           class="w-full lg:max-w-[50%] | text-lg truncate | cursor-pointer"
           @click="$router.back()">
-          <span v-if="isEditMode">
+          <span
+            v-if="isEditMode"
+            :class="storageStore.getThemeClass('', 'text-white')">
             {{ description || $t('Todo') }}
           </span>
-          <span v-else>{{ $t('Todo') }}</span>
+          <span v-else :class="storageStore.getThemeClass('', 'text-white')">
+            {{ $t('Todo') }}
+          </span>
         </div>
       </header>
     </template>
@@ -28,7 +35,13 @@
             ref="textArea"
             :value="description"
             class="lg:order-2 | border rounded-lg | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2 lg:pt-2"
-            :class="{ 'pt-6': currentTodo }"
+            :class="[
+              { 'pt-6': currentTodo },
+              storageStore.getThemeClass(
+                '',
+                'bg-slate-900 text-white border-slate-700'
+              ),
+            ]"
             placeholder="Description"
             @input="textAreaInputhandler"
             @change="setDescription" />
@@ -44,14 +57,18 @@
               <i
                 class="icon icon-check text-sm"
                 :class="
-                  currentTodo?.done ? 'text-white' : 'text-slate-500'
+                  currentTodo?.done
+                    ? 'text-white'
+                    : storageStore.getThemeClass('text-slate-500', 'text-white')
                 "></i>
             </button>
             <button
               v-if="currentTodo"
               class="flex lg:hidden"
               @click="deleteTodo">
-              <i class="icon icon-close | text-lg"></i>
+              <i
+                class="icon icon-close | text-lg"
+                :class="storageStore.getThemeClass('', 'text-white')"></i>
             </button>
           </div>
           <div class="flex flex-col lg:flex-row gap-2 lg:items-center">
@@ -60,24 +77,47 @@
               <div class="flex gap-2">
                 <div class="w-full | relative">
                   <label
-                    class="absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full bg-white">
+                    class="absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full"
+                    :class="
+                      storageStore.getThemeClass(
+                        'bg-white',
+                        'bg-slate-900 text-white'
+                      )
+                    ">
                     {{ $t('Form') }}
                   </label>
                   <select
-                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg | bg-white"
+                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg"
+                    :class="
+                      storageStore.getThemeClass(
+                        'bg-white',
+                        'dark | bg-slate-900 | text-white | border-slate-700'
+                      )
+                    "
                     @change="changeForm">
-                    <option value="None">{{ $t('None') }}</option>
+                    <option
+                      value="None"
+                      :class="storageStore.getThemeClass('', 'text-white')">
+                      {{ $t('None') }}
+                    </option>
                     <option
                       v-for="form in settingStore.setting?.forms"
                       :key="form.id"
-                      :value="form.id">
+                      :value="form.id"
+                      :class="storageStore.getThemeClass('', 'text-white')">
                       {{ form.title }}
                     </option>
                   </select>
                 </div>
                 <div class="w-full | relative">
                   <label
-                    class="flex items-center gap-0.5 | absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full bg-white">
+                    class="flex items-center gap-0.5 | absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full"
+                    :class="
+                      storageStore.getThemeClass(
+                        'bg-white',
+                        'bg-slate-900 text-white'
+                      )
+                    ">
                     <div
                       v-if="tagId"
                       class="w-2 h-2"
@@ -86,17 +126,30 @@
                           (tag) => tag.id === tagId
                         )?.color,
                       }"></div>
-                    <span>{{ $t('Tag') }}</span>
+                    <span :class="storageStore.getThemeClass('', 'text-white')">
+                      {{ $t('Tag') }}
+                    </span>
                   </label>
                   <select
-                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg | bg-white"
+                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg"
                     :value="tagId"
+                    :class="
+                      storageStore.getThemeClass(
+                        'bg-white',
+                        'dark | bg-slate-900 | text-white | border-slate-700'
+                      )
+                    "
                     @change="setTag">
-                    <option :value="''">{{ $t('None') }}</option>
+                    <option
+                      :value="''"
+                      :class="storageStore.getThemeClass('', 'text-white')">
+                      {{ $t('None') }}
+                    </option>
                     <option
                       v-for="tag in settingStore.setting?.tags"
                       :key="tag.id"
-                      :value="tag.id">
+                      :value="tag.id"
+                      :class="storageStore.getThemeClass('', 'text-white')">
                       {{ tag.label }}
                     </option>
                   </select>
@@ -113,9 +166,14 @@
                 <label
                   for="upTo"
                   class="flex items-center gap-1.5 | px-2 py-3 pr-3 lg:py-2.5 | text-xs | border rounded-lg | cursor-pointer"
-                  :style="{ opacity: upto ? '1' : '.4' }">
-                  <i class="icon icon-timer"></i>
-                  <span>{{ $t('Upto') }}</span>
+                  :style="{ opacity: upto ? '1' : '.4' }"
+                  :class="storageStore.getThemeClass('', 'border-slate-700')">
+                  <i
+                    class="icon icon-timer"
+                    :class="storageStore.getThemeClass('', 'text-white')"></i>
+                  <span :class="storageStore.getThemeClass('', 'text-white')">
+                    {{ $t('Upto') }}
+                  </span>
                 </label>
                 <div
                   v-if="upto"
@@ -123,12 +181,24 @@
                   :style="{ opacity: upto ? '1' : '.4' }">
                   <input
                     :value="date"
-                    class="w-fit | border rounded-lg | p-2 | bg-white | text-xs"
+                    class="w-fit | border rounded-lg | p-2 | text-xs"
                     type="date"
+                    :class="
+                      storageStore.getThemeClass(
+                        'bg-white',
+                        'dark | bg-slate-900 text-white | border-slate-700'
+                      )
+                    "
                     @change="setDate" />
                   <input
                     :value="time"
-                    class="w-fit | border rounded-lg | px-2 py-1 | bg-white | text-xs"
+                    class="w-fit | border rounded-lg | px-2 py-1 | text-xs"
+                    :class="
+                      storageStore.getThemeClass(
+                        'bg-white',
+                        'dark | bg-slate-900 text-white | border-slate-700'
+                      )
+                    "
                     type="time"
                     @change="setTime" />
                 </div>
@@ -138,20 +208,29 @@
               v-if="currentTodo"
               class="hidden lg:flex | rounded-full"
               :class="
-                currentTodo?.done ? 'bg-green-500' : 'border border-slate-400'
+                currentTodo?.done
+                  ? 'bg-green-500'
+                  : storageStore.getThemeClass(
+                      'border border-slate-400',
+                      'border border-white'
+                    )
               "
               @click="done">
               <i
                 class="icon icon-check"
                 :class="
-                  currentTodo?.done ? 'text-white' : 'text-slate-500'
+                  currentTodo?.done
+                    ? 'text-white'
+                    : storageStore.getThemeClass('text-slate-500', 'text-white')
                 "></i>
             </button>
             <button
               v-if="currentTodo"
               class="hidden lg:flex"
               @click="deleteTodo">
-              <i class="icon icon-close | text-xl"></i>
+              <i
+                class="icon icon-close | text-xl"
+                :class="storageStore.getThemeClass('', 'text-white')"></i>
             </button>
             <button
               class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto"
@@ -233,7 +312,13 @@ const setDate = (event: Event) => {
   checkChanged(true)
 }
 
-const time = ref<string | undefined>('23:59') //12:36
+const getCurrentTime = () => {
+  const now = new Date()
+  const hours = now.getHours().toString().padStart(2, '0') // 현재 시간을 가져오고, 한 자리 수인 경우 앞에 0을 추가합니다.
+  const minutes = now.getMinutes().toString().padStart(2, '0') // 현재 분을 가져오고, 한 자리 수인 경우 앞에 0을 추가합니다.
+  return `${hours}:${minutes}`
+}
+const time = ref<string | undefined>(getCurrentTime()) //12:36
 const setTime = (event: Event) => {
   const value = (<HTMLInputElement>event.target).value
   time.value = value
@@ -334,9 +419,12 @@ const deleteTodo = async () => {
 const beforeunloadHandler = (event: BeforeUnloadEvent) => event.preventDefault()
 
 onMounted(async () => {
-  const result = await todoStore.getTodo(Number(route.params.id))
-  setCurrentTodo(result)
-  if (toValue(isEditMode)) loadTodoData()
+  if (route.params.id !== 'new') {
+    const result = await todoStore.getTodo(Number(route.params.id))
+    setCurrentTodo(result)
+    if (toValue(isEditMode)) loadTodoData()
+  }
+
   window.addEventListener('beforeunload', beforeunloadHandler)
 })
 

@@ -1,15 +1,25 @@
 <template>
-  <div v-if="loadingStore.todoLoading" class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4">
-    <Skeletor class="w-1/4 h-[24px]"/>
-    <Skeletor class="w-full h-[24px]"/>
+  <div
+    v-if="loadingStore.todoLoading"
+    class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4"
+    :class="storageStore.getThemeClass('', 'border-slate-700')">
+    <Skeletor class="w-1/4 h-[24px]" />
+    <Skeletor class="w-full h-[24px]" />
   </div>
-  <div v-else class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4">
+  <div
+    v-else
+    class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4"
+    :class="storageStore.getThemeClass('', 'border-slate-700')">
     <h3 class="font-bold">
-      <span v-if="scheduledTodo">
+      <span
+        v-if="scheduledTodo"
+        :class="storageStore.getThemeClass('', 'text-white')">
         {{ $t('ScheduledTodo') }}
         ({{ scheduledTodo.date?.replaceAll('-', '.').substring(2) }})
       </span>
-      <span v-else>{{ $t('NoScheduled') }}</span>
+      <span v-else :class="storageStore.getThemeClass('', 'text-white')">{{
+        $t('NoScheduled')
+      }}</span>
     </h3>
     <NuxtLink
       v-if="scheduledTodo?.description"
@@ -28,10 +38,12 @@
 
 <script setup lang="ts">
 import { useLoadingStore } from '~/store/loading.store'
+import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const todoStore = useTodoStore()
 const loadingStore = useLoadingStore()
+const storageStore = useStorageStore()
 
 const scheduledTodo = computed(() => {
   return todoStore.todos

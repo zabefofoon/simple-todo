@@ -1,17 +1,19 @@
 <template>
-  <div class="flex | w-screen h-dvh overflow-hidden">
+  <div
+    class="flex | w-screen h-dvh overflow-hidden"
+    :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')">
     <SNB />
     <div class="right-area | flex flex-col | h-full w-full overflow-hidden">
       <slot name="header"><Header /></slot>
       <main
         id="scroll-area"
         ref="scrollArea"
-        class="flex flex-col | relative | h-full"
+        class="flex flex-col | h-full"
         :class="lockScrollClass"
         @scroll="checkShowScrollTop">
         <slot />
       </main>
-      <nav class="relative | border-t">
+      <nav class="relative">
         <FloatingButtons
           :is-show-scroll-top="isShowScrollTop"
           @scroll-top="scrollTop">
@@ -25,8 +27,10 @@
 
 <script setup lang="ts">
 import { useScrollStore } from '~/store/scroll.store'
+import { useStorageStore } from '~/store/storage.store'
 
 const scrollStore = useScrollStore()
+const storageStore = useStorageStore()
 
 const scrollArea = ref<HTMLDivElement>()
 const scrollTop = () =>

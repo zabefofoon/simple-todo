@@ -1,10 +1,17 @@
 <template>
   <div
-    class="flex flex-col gap-3 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3">
+    class="flex flex-col gap-3 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3"
+    :class="storageStore.getThemeClass('', 'border-slate-700')">
     <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
     <h3 v-else class="flex items-center">
-      <span class="font-bold">{{ $t('Done') }}</span>
-      <span class="ml-auto | text-sm">
+      <span
+        class="font-bold"
+        :class="storageStore.getThemeClass('', 'text-white')">
+        {{ $t('Done') }}
+      </span>
+      <span
+        class="ml-auto | text-sm"
+        :class="storageStore.getThemeClass('', 'text-white')">
         {{ isNaN(ratio) ? 0 : ratio.toFixed(1) }}%
       </span>
     </h3>
@@ -13,19 +20,24 @@
       class="w-full aspect-square | flex items-center justify-center">
       <Spinner class="m-auto" />
     </div>
-    <canvas v-show="!loadingStore.todoLoading" ref="canvas" width="100%"></canvas>
+    <canvas
+      v-show="!loadingStore.todoLoading"
+      ref="canvas"
+      width="100%"></canvas>
   </div>
 </template>
 
 <script setup lang="ts">
 import { Chart } from 'chart.js/auto'
 import { useLoadingStore } from '~/store/loading.store'
+import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const i18n = useI18n()
 
 const loadingStore = useLoadingStore()
 const todoStore = useTodoStore()
+const storageStore = useStorageStore()
 
 const canvas = ref<HTMLCanvasElement>()
 
@@ -56,6 +68,9 @@ onMounted(() => {
           borderWidth: 0.5, // 테두리 두께
         },
       ],
+    },
+    options: {
+      color: storageStore.getThemeClass('', 'white'),
     },
   })
 })

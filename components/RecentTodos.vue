@@ -1,8 +1,13 @@
 <template>
-  <div class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-3">
+  <div
+    class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-3"
+    :class="storageStore.getThemeClass('', 'border-slate-700')">
     <div class="font-bold">
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
-      <NuxtLink v-else to="/todo">
+      <NuxtLink
+        v-else
+        to="/todo"
+        :class="storageStore.getThemeClass('', 'text-white')">
         {{ $t('Recent') }}
       </NuxtLink>
     </div>

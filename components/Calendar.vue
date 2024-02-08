@@ -1,14 +1,11 @@
 <template>
-  <div
-    class="flex flex-col gap-2 | flex-shrink-0 | lg:min-w-[300px] lg:w-[25vw] | p-2 lg:p-3 | border rounded-lg">
-    <div class="font-bold">
-      <NuxtLink to="calender">{{ $t('Calender') }}</NuxtLink>
-    </div>
+  <div>
     <Calendar
       expanded
       v-model="date"
       :attributes="attrs"
-      style="width: 100%; border: 0">
+      style="width: 100%; border: 0"
+      :class="storageStore.getThemeClass('', 'dark')">
       <template #day-content="data">
         <NuxtLink :to="`/calender/${data.day.id}`">
           <div
@@ -17,7 +14,12 @@
             <h3
               class="w-fit | px-1.5 py-.5 mx-auto | rounded-full | text-[12px] md:text-sm"
               :class="
-                data.attributes.length ? 'bg-slate-800 | text-white' : ''
+                data.attributes.length
+                  ? storageStore.getThemeClass(
+                      'bg-slate-800 | text-white',
+                      'bg-white text-slate-800'
+                    )
+                  : storageStore.getThemeClass('', 'text-white')
               ">
               {{ data.day.day }}
             </h3>
@@ -27,9 +29,11 @@
                   ?.filter((todo) => todo.createdDate === data.day.id)
                   .slice(0, 3)"
                 :key="todo.id"
-                class="flex | w-full overflow-hidden | border rounded-lg | p-0.5 | relative">
+                class="flex | w-full overflow-hidden | border rounded-lg | p-0.5 | relative"
+                :class="storageStore.getThemeClass('', 'border-slate-700')">
                 <span
                   class="truncate-2 text-[8px] md:text-sm"
+                  :class="storageStore.getThemeClass('', 'text-white')"
                   v-html="todo.description?.replaceAll('\n', '<br/>')">
                 </span>
                 <div
@@ -48,11 +52,11 @@
 
 <script setup lang="ts">
 import { Calendar } from 'v-calendar'
+import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
-import { useSettingStore } from '~/store/setting.store'
 
-const settingStore = useSettingStore()
 const todoStore = useTodoStore()
+const storageStore = useStorageStore()
 
 const date = ref(new Date())
 const attrs = ref<any>([
@@ -65,6 +69,30 @@ const attrs = ref<any>([
 
 <style scoped lang="scss">
 ::v-deep(.vc-container) {
+  &.dark {
+    background: transparent;
+
+    .vc-weeks {
+      .vc-day {
+        border-top: 1px solid rgba(51, 65, 85);
+      }
+    }
+
+    .vc-weekday {
+      color: white;
+    }
+
+    .vc-title {
+      span {
+        color: white;
+      }
+    }
+
+    .vc-base-icon {
+      stroke: white;
+    }
+  }
+
   .vc-weeks {
     margin-top: 20px;
     .vc-day {

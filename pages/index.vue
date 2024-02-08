@@ -25,18 +25,16 @@
       </div>
     </div>
     <template #actions>
-      <ClientOnly>
-        <NuxtLink
-          to="/search"
-          class="flex | bg-slate-800 rounded-full | text-white | p-2">
-          <i class="icon icon-search text-2xl text-white"></i>
-        </NuxtLink>
-        <NuxtLink
-          to="/todo/new"
-          class="flex | bg-slate-800 rounded-full | text-white | p-2">
-          <i class="icon icon-add text-2xl text-white"></i>
-        </NuxtLink>
-      </ClientOnly>
+      <NuxtLink
+        to="/search"
+        class="flex | bg-slate-800 rounded-full | text-white | p-2">
+        <i class="icon icon-search text-2xl text-white"></i>
+      </NuxtLink>
+      <NuxtLink
+        to="/todo/new"
+        class="flex | bg-slate-800 rounded-full | text-white | p-2">
+        <i class="icon icon-add text-2xl text-white"></i>
+      </NuxtLink>
     </template>
   </NuxtLayout>
 </template>

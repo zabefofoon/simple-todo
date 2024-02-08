@@ -3,29 +3,27 @@
     <div class="font-bold">
       <NuxtLink to="/todo">{{ $t('Recent') }}</NuxtLink>
     </div>
-    <ClientOnly>
-      <div
-        v-if="storageStore.display === 'thumbnail'"
-        class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-        <TodoThumbnail
-          v-for="todo in recentTodos"
-          :key="todo.id"
-          :todo="todo"
-          @delete="deleteTodo"
-          @done="todoStore.doneTodo" />
-      </div>
-      <div v-else class="flex flex-col gap-2">
-        <TodoRow
-          v-for="todo in recentTodos"
-          :key="todo.id"
-          :todo="todo"
-          @delete="deleteTodo"
-          @done="todoStore.doneTodo" />
-        <p v-if="!recentTodos?.length" class="text-center py-10">
-          {{ $t('NoTodo') }}
-        </p>
-      </div>
-    </ClientOnly>
+    <div
+      v-if="storageStore.display === 'thumbnail'"
+      class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+      <TodoThumbnail
+        v-for="todo in recentTodos"
+        :key="todo.id"
+        :todo="todo"
+        @delete="deleteTodo"
+        @done="todoStore.doneTodo" />
+    </div>
+    <div v-else class="flex flex-col gap-2">
+      <TodoRow
+        v-for="todo in recentTodos"
+        :key="todo.id"
+        :todo="todo"
+        @delete="deleteTodo"
+        @done="todoStore.doneTodo" />
+      <p v-if="!recentTodos?.length" class="text-center py-10">
+        {{ $t('NoTodo') }}
+      </p>
+    </div>
   </div>
 </template>
 

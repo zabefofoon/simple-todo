@@ -10,24 +10,22 @@
       </NuxtLink>
     </div>
     <div class="flex flex-col lg:gap-1 | ml-auto lg:ml-0">
-      <ClientOnly>
-        <div
-          v-for="(form, index) in settingStore.setting?.forms"
-          class="flex items-center gap-0.5">
-          <button class="flex" @click="changeOrder(index, index - 1)">
-            <i class="icon icon-arrow-top | text-sm"></i>
+      <div
+        v-for="(form, index) in settingStore.setting?.forms"
+        class="flex items-center gap-0.5">
+        <button class="flex" @click="changeOrder(index, index - 1)">
+          <i class="icon icon-arrow-top | text-sm"></i>
+        </button>
+        <button class="flex" @click="changeOrder(index, index + 1)">
+          <i class="icon icon-arrow-down | text-sm"></i>
+        </button>
+        <NuxtLink :to="`/form/${form.id}`">
+          <button class="flex items-center gap-2 | border | pl-2 pr-1 py-0.5">
+            <span class="text-sm">{{ form.title }}</span>
+            <i class="icon icon-close" @click.prevent="removeForm(form)"></i>
           </button>
-          <button class="flex" @click="changeOrder(index, index + 1)">
-            <i class="icon icon-arrow-down | text-sm"></i>
-          </button>
-          <NuxtLink :to="`/form/${form.id}`">
-            <button class="flex items-center gap-2 | border | pl-2 pr-1 py-0.5">
-              <span class="text-sm">{{ form.title }}</span>
-              <i class="icon icon-close" @click.prevent="removeForm(form)"></i>
-            </button>
-          </NuxtLink>
-        </div>
-      </ClientOnly>
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>

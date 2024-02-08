@@ -22,7 +22,7 @@
           ref="textArea"
           :value="description"
           class="lg:order-2 | border rounded-lg | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2 lg:pt-2"
-          :class="{'pt-6': currentTodo}"
+          :class="{ 'pt-6': currentTodo }"
           placeholder="Description"
           @input="textAreaInputhandler"
           @change="setDescription" />
@@ -45,53 +45,51 @@
         </div>
         <div class="flex flex-col lg:flex-row gap-2 lg:items-center">
           <div class="flex gap-2 flex-col lg:flex-row lg:items-center | w-full">
-            <ClientOnly>
-              <div class="flex gap-2">
-                <div class="w-full | relative">
-                  <label
-                    class="absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full bg-white">
-                    {{ $t('Form') }}
-                  </label>
-                  <select
-                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg | bg-white"
-                    @change="changeForm">
-                    <option value="None">{{ $t('None') }}</option>
-                    <option
-                      v-for="form in settingStore.setting?.forms"
-                      :key="form.id"
-                      :value="form.id">
-                      {{ form.title }}
-                    </option>
-                  </select>
-                </div>
-                <div class="w-full | relative">
-                  <label
-                    class="flex items-center gap-0.5 | absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full bg-white">
-                    <div
-                      v-if="tagId"
-                      class="w-2 h-2"
-                      :style="{
-                        background: settingStore.setting?.tags.find(
-                          (tag) => tag.id === tagId
-                        )?.color,
-                      }"></div>
-                    <span>{{ $t('Tag') }}</span>
-                  </label>
-                  <select
-                    class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg | bg-white"
-                    :value="tagId"
-                    @change="setTag">
-                    <option :value="''">{{ $t('None') }}</option>
-                    <option
-                      v-for="tag in settingStore.setting?.tags"
-                      :key="tag.id"
-                      :value="tag.id">
-                      {{ tag.label }}
-                    </option>
-                  </select>
-                </div>
+            <div class="flex gap-2">
+              <div class="w-full | relative">
+                <label
+                  class="absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full bg-white">
+                  {{ $t('Form') }}
+                </label>
+                <select
+                  class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg | bg-white"
+                  @change="changeForm">
+                  <option value="None">{{ $t('None') }}</option>
+                  <option
+                    v-for="form in settingStore.setting?.forms"
+                    :key="form.id"
+                    :value="form.id">
+                    {{ form.title }}
+                  </option>
+                </select>
               </div>
-            </ClientOnly>
+              <div class="w-full | relative">
+                <label
+                  class="flex items-center gap-0.5 | absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full bg-white">
+                  <div
+                    v-if="tagId"
+                    class="w-2 h-2"
+                    :style="{
+                      background: settingStore.setting?.tags.find(
+                        (tag) => tag.id === tagId
+                      )?.color,
+                    }"></div>
+                  <span>{{ $t('Tag') }}</span>
+                </label>
+                <select
+                  class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg | bg-white"
+                  :value="tagId"
+                  @change="setTag">
+                  <option :value="''">{{ $t('None') }}</option>
+                  <option
+                    v-for="tag in settingStore.setting?.tags"
+                    :key="tag.id"
+                    :value="tag.id">
+                    {{ tag.label }}
+                  </option>
+                </select>
+              </div>
+            </div>
             <span class="hidden lg:block opacity-30">|</span>
             <div class="flex items-center gap-1">
               <input

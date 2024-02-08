@@ -13,22 +13,20 @@
         </div>
       </NuxtLink>
       <ul class="h-full">
-        <ClientOnly>
-          <NuxtLink
-            v-for="menu in menuStore.menus"
-            :key="menu.code"
-            :to="menu.href">
-            <li class="relative | flex items-center gap-2 | py-1.5 px-4">
-              <i class="icon" :class="menu.icon"></i>
-              <span>
-                {{ $t(menu.name) }}
-              </span>
-              <div
-                v-if="menu.href === route.path"
-                class="w-1 h-1 | bg-slate-800 rounded-full"></div>
-            </li>
-          </NuxtLink>
-        </ClientOnly>
+        <NuxtLink
+          v-for="menu in menuStore.menus"
+          :key="menu.code"
+          :to="menu.href">
+          <li class="relative | flex items-center gap-2 | py-1.5 px-4">
+            <i class="icon" :class="menu.icon"></i>
+            <span>
+              {{ $t(menu.name) }}
+            </span>
+            <div
+              v-if="menu.href === route.path"
+              class="w-1 h-1 | bg-slate-800 rounded-full"></div>
+          </li>
+        </NuxtLink>
       </ul>
       <Footer />
     </nav>

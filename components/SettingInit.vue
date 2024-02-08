@@ -1,13 +1,11 @@
 <template>
   <div class="flex | py-3">
     <label class="lg:w-60 | text-sm">{{ $t('Update') }}</label>
-    <ClientOnly>
-      <button
-        class="ml-auto lg:ml-0 | flex | border border-red-500 rounded-full"
-        @click="updateVersion">
-        <span class="px-4 py-0.5 | text-sm text-red-500"> v0.0.0 </span>
-      </button>
-    </ClientOnly>
+    <button
+      class="ml-auto lg:ml-0 | flex | border border-red-500 rounded-full"
+      @click="updateVersion">
+      <span class="px-4 py-0.5 | text-sm text-red-500"> v0.0.0 </span>
+    </button>
   </div>
 </template>
 

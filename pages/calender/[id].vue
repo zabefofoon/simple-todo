@@ -43,13 +43,11 @@
       </p>
     </div>
     <template #actions>
-      <ClientOnly>
-        <NuxtLink
-          :to="`/todo/new?date=${route.params.id}`"
-          class="flex | bg-slate-800 rounded-full | p-2">
-          <i class="icon icon-add | text-white text-2xl"></i>
-        </NuxtLink>
-      </ClientOnly>
+      <NuxtLink
+        :to="`/todo/new?date=${route.params.id}`"
+        class="flex | bg-slate-800 rounded-full | p-2">
+        <i class="icon icon-add | text-white text-2xl"></i>
+      </NuxtLink>
     </template>
   </NuxtLayout>
 </template>

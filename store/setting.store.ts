@@ -30,19 +30,16 @@ export const useSettingStore = defineStore('setting', () => {
 
     savedSetting.forms.forEach((tag) => {
       const found = setting.value?.forms.find((item) => item.id === tag.id)
-      if (!found) setting.value?.forms.push(tag)
+      if (!found) setting.value!.forms.push(tag)
     })
 
     settingApi.setSetting(deepClone(setting.value))
   }
 
-  onBeforeMount(() => {
-    initSetting()
-  })
-
   return {
     setting,
     updateSetting,
     importSetting,
+    initSetting,
   }
 })

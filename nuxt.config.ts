@@ -82,6 +82,7 @@ export default defineNuxtConfig({
       ],
     },
     workbox: {
+      type: 'runtimeConfig',
       globDirectory: '.output/public/',
       globPatterns: ['**/*.{json,ico,html,png,js,txt,css,svg}'],
       swDest: '.output/public/sw.js',

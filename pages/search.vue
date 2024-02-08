@@ -6,7 +6,8 @@
         <button class="flex" @click="$router.back()">
           <i class="icon icon-arrow-left"></i>
         </button>
-        <div class="input-wrap | w-full lg:max-w-[50%] | relative">
+        <Skeletor v-if="loadingStore.todoLoading" class="w-full h-[32px]" />
+        <div v-else class="input-wrap | w-full lg:max-w-[50%] | relative">
           <input
             ref="input"
             class="w-full | px-3 py-1 | bg-slate-200 | rounded-full | text-sm"
@@ -46,37 +47,42 @@
       </template>
     </template>
     <div class="h-full | flex flex-col">
-      <template v-if="storageStore.display === 'thumbnail'">
+      <Spinner v-if="loadingStore.todoLoading" class="h-full" />
+      <template v-else>
+        <template v-if="storageStore.display === 'thumbnail'">
+          <div
+            v-if="todos?.length"
+            class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
+            <TodoThumbnail
+              v-for="todo in todos"
+              :key="todo.id"
+              :todo="todo"
+              hide-delete
+              @delete="todoStore.deleteTodo"
+              @done="todoStore.doneTodo" />
+          </div>
+        </template>
         <div
-          v-if="todos?.length"
-          class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
-          <TodoThumbnail
-            v-for="todo in todos"
-            :key="todo.id"
-            :todo="todo"
-            hide-delete
-            @delete="todoStore.deleteTodo"
-            @done="todoStore.doneTodo" />
+          v-else-if="todos?.length"
+          class="flex flex-col gap-2 | p-4 | h-full">
+          <TodoRow v-for="todo in todos" :key="todo.id" :todo="todo" />
         </div>
+        <h3
+          v-if="!todos?.length"
+          class="w-full h-full | flex items-center justify-center">
+          <span v-if="route.query.keyword">
+            {{ $t('NoMatched', [route.query.keyword]) }}
+          </span>
+          <span v-else>{{ $t('EnterKeyword') }}</span>
+        </h3>
       </template>
-      <div v-else-if="todos?.length" class="flex flex-col gap-2 | p-4 | h-full">
-        <TodoRow v-for="todo in todos" :key="todo.id" :todo="todo" />
-      </div>
-      <h3
-        v-if="!todos?.length"
-        class="w-full h-full | flex items-center justify-center">
-        <span v-if="route.query.keyword">
-          {{ $t('NoMatched', [route.query.keyword]) }}
-        </span>
-        <span v-else>{{ $t('EnterKeyword') }}</span>
-      </h3>
     </div>
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
-import { useSettingStore } from '~/store/setting.store'
+import { useLoadingStore } from '~/store/loading.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
@@ -85,7 +91,7 @@ const route = useRoute()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
-const settingStore = useSettingStore()
+const loadingStore = useLoadingStore()
 
 const input = ref<HTMLInputElement>()
 

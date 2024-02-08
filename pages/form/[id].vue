@@ -14,44 +14,53 @@
         </div>
       </header>
     </template>
-    <div class="p-4">
-      <div class="flex flex-col gap-2">
-        <div class="flex lg:gap-2">
-          <button
-            class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto">
-            <span class="text-white" @click="save">Save</span>
-          </button>
-        </div>
-        <input
-          ref="inputTitle"
-          placeholder="Title"
-          class="border | p-2"
-          :value="title"
-          @input="setTitle" />
-        <textarea
-          ref="textArea"
-          class="border | h-auto min-h-[300px] max-h-[50vh] resize-none | p-2"
-          placeholder="Description"
-          :value="description"
-          @change="setDescription"
-          @input="resizeTextArea" />
-      </div>
+    <div
+      v-if="loadingStore.todoLoading"
+      class="h-full | flex items-center justify-center">
+      <Spinner />
     </div>
-    <button
-      class="lg:hidden | w-[96vw] | bg-slate-800 | text-white rounded-full | py-3 lg:py-2 mx-auto mt-auto mb-4">
-      <span class="text-white" @click="save">Save</span>
-    </button>
+    <template v-else>
+      <div class="p-4">
+        <div class="flex flex-col gap-2">
+          <div class="flex lg:gap-2">
+            <button
+              class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto">
+              <span class="text-white" @click="save">Save</span>
+            </button>
+          </div>
+          <input
+            ref="inputTitle"
+            placeholder="Title"
+            class="border | p-2"
+            :value="title"
+            @input="setTitle" />
+          <textarea
+            ref="textArea"
+            class="border | h-auto min-h-[300px] max-h-[50vh] resize-none | p-2"
+            placeholder="Description"
+            :value="description"
+            @change="setDescription"
+            @input="resizeTextArea" />
+        </div>
+      </div>
+      <button
+        class="lg:hidden | w-[96vw] | bg-slate-800 | text-white rounded-full | py-3 lg:py-2 mx-auto mt-auto mb-4">
+        <span class="text-white" @click="save">Save</span>
+      </button>
+    </template>
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
 import { Form } from '~/models/Setting'
+import { useLoadingStore } from '~/store/loading.store'
 import { useSettingStore } from '~/store/setting.store'
 
 const route = useRoute()
 const router = useRouter()
 
 const settingStore = useSettingStore()
+const loadingStore = useLoadingStore()
 
 const textArea = ref<HTMLTextAreaElement>()
 const resizeTextArea = () => {

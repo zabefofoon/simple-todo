@@ -5,8 +5,8 @@
     <div class="font-bold">
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
       <span v-else :class="storageStore.getThemeClass('', 'text-white')">
-        {{ $t('Tags') }}</span
-      >
+        {{ $t('Tags') }}
+      </span>
     </div>
     <div
       v-show="loadingStore.todoLoading"
@@ -15,7 +15,7 @@
     </div>
     <div
       v-show="!loadingStore.todoLoading"
-      class="h-full lg:max-h-[60%] | my-auto | flex items-center justify-center">
+      class="h-full lg:max-h-[75%] | my-auto | flex items-center justify-center">
       <canvas ref="canvas" width="100%"></canvas>
     </div>
   </div>

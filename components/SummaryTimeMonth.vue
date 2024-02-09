@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full | flex items-center justify-center">
+  <div class="h-full lg:max-h-[75%] | my-auto | flex items-center justify-center">
     <canvas ref="canvas" width="100%"></canvas>
   </div>
 </template>

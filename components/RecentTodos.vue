@@ -11,7 +11,6 @@
         {{ $t('Recent') }}
       </NuxtLink>
     </div>
-    <!-- loadingStore.todoLoading -->
     <template v-if="loadingStore.todoLoading">
       <div
         v-if="storageStore.display === 'thumbnail'"

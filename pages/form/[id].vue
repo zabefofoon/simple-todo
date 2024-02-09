@@ -2,15 +2,24 @@
   <NuxtLayout name="layout-basic">
     <template #header>
       <header
-        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden">
+        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden"
+        :class="storageStore.getThemeClass('', 'border-slate-700')">
         <button class="flex" @click="$router.back()">
-          <i class="icon icon-arrow-left"></i>
+          <i
+            class="icon icon-arrow-left"
+            :class="storageStore.getThemeClass('', 'text-white')"></i>
         </button>
         <div
           class="w-full | text-lg truncate | cursor-pointer"
           @click="$router.back()">
-          <span v-if="isEditMode">{{ editForm?.title }}</span>
-          <span v-else>Form</span>
+          <span
+            v-if="isEditMode"
+            :class="storageStore.getThemeClass('', 'text-white')">
+            {{ editForm?.title }}
+          </span>
+          <span v-else :class="storageStore.getThemeClass('', 'text-white')">
+            Form
+          </span>
         </div>
       </header>
     </template>
@@ -32,11 +41,23 @@
             ref="inputTitle"
             placeholder="Title"
             class="border | p-2"
+            :class="
+              storageStore.getThemeClass(
+                '',
+                'bg-slate-900 | border-slate-700 | text-white'
+              )
+            "
             :value="title"
             @input="setTitle" />
           <textarea
             ref="textArea"
             class="border | h-auto min-h-[300px] max-h-[50vh] resize-none | p-2"
+            :class="
+              storageStore.getThemeClass(
+                '',
+                'bg-slate-900 | border-slate-700 | text-white'
+              )
+            "
             placeholder="Description"
             :value="description"
             @change="setDescription"
@@ -55,12 +76,14 @@
 import { Form } from '~/models/Setting'
 import { useLoadingStore } from '~/store/loading.store'
 import { useSettingStore } from '~/store/setting.store'
+import { useStorageStore } from '~/store/storage.store'
 
 const route = useRoute()
 const router = useRouter()
 
 const settingStore = useSettingStore()
 const loadingStore = useLoadingStore()
+const storageStore = useStorageStore()
 
 const textArea = ref<HTMLTextAreaElement>()
 const resizeTextArea = () => {

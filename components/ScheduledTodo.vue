@@ -17,18 +17,20 @@
         {{ $t('ScheduledTodo') }}
         ({{ scheduledTodo.date?.replaceAll('-', '.').substring(2) }})
       </span>
-      <span v-else :class="storageStore.getThemeClass('', 'text-white')">{{
-        $t('NoScheduled')
-      }}</span>
+      <span v-else :class="storageStore.getThemeClass('', 'text-white')">
+        {{ $t('NoScheduled') }}
+      </span>
     </h3>
     <NuxtLink
       v-if="scheduledTodo?.description"
       :to="`/todo/${scheduledTodo.id}`">
       <p>
-        <span v-if="scheduledTodo.description.length > 100">
+        <span
+          v-if="scheduledTodo.description.length > 100"
+          :class="storageStore.getThemeClass('', 'text-white')">
           {{ scheduledTodo.description.slice(0, 100) }}...
         </span>
-        <span v-else>
+        <span v-else :class="storageStore.getThemeClass('', 'text-white')">
           {{ scheduledTodo.description }}
         </span>
       </p>

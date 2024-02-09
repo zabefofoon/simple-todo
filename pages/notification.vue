@@ -2,7 +2,8 @@
   <NuxtLayout name="layout-basic">
     <template #header>
       <header
-        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden">
+        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden"
+        :class="storageStore.getThemeClass('', 'border-slate-700')">
         <button class="flex" @click="router.back()">
           <i
             class="icon icon-arrow-left"
@@ -33,7 +34,7 @@
             <li
               class="flex flex-col gap-0.5 | border-b | p-3 | text-sm lg:text-base"
               :class="{
-                [storageStore.getThemeClass('bg-gray-200', 'bg-gray-950')]:
+                [storageStore.getThemeClass('bg-gray-200', 'bg-gray-950 | border-slate-700')]:
                   checkRead(`${todo.id}`),
                 'opacity-30': checkRead(`${todo.id}`),
               }">

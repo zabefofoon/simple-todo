@@ -34,9 +34,12 @@
             <li
               class="flex flex-col gap-0.5 | border-b | p-3 | text-sm lg:text-base"
               :class="{
-                [storageStore.getThemeClass('bg-gray-200', 'bg-gray-950 | border-slate-700')]:
-                  checkRead(`${todo.id}`),
+                [storageStore.getThemeClass(
+                  'bg-gray-200',
+                  'bg-gray-950'
+                )]: checkRead(`${todo.id}`),
                 'opacity-30': checkRead(`${todo.id}`),
+                'border-slate-700': storageStore.theme === 'dark',
               }">
               <h4 class="relative | flex items-center gap-0.5 | font-bold">
                 <div

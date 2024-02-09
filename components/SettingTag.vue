@@ -53,7 +53,7 @@
               :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')"
               type="color"
               list="color-list"
-              @input="changeTag(index, 'color', $event)" />
+              @change="changeTag(index, 'color', $event)" />
             <datalist id="color-list">
               <option>#535c68</option>
               <option>#130f40</option>
@@ -83,7 +83,7 @@
                 )
               "
               placeholder="Tag"
-              @input="changeTag(index, 'label', $event)" />
+              @change="changeTag(index, 'label', $event)" />
             <button class="flex pr-1" @click="removeTag(index)">
               <i
                 class="icon icon-close"

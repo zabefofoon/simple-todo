@@ -10,10 +10,15 @@
     <nav class="flex flex-col | h-full">
       <NuxtLink to="/">
         <div
-          class="py-2.5 | text-center font-bold | flex justify-center items-center gap-1">
+          class="pt-8 | text-center font-bold | flex justify-center items-center gap-1">
           <img
             class="w-[20px] aspect-square"
-            :class="storageStore.getThemeClass('', 'w-[32px] border-white border-4 | rounded-full')"
+            :class="
+              storageStore.getThemeClass(
+                '',
+                'w-[32px] border-white border-4 | rounded-full'
+              )
+            "
             src="~/assets/images/logo-75x75.png"
             alt="MEMOO" />
           <span :class="storageStore.getThemeClass('', 'text-white')">
@@ -21,12 +26,18 @@
           </span>
         </div>
       </NuxtLink>
-      <ul class="h-full">
+      <ul class="h-full mt-8">
         <NuxtLink
           v-for="menu in menuStore.menus"
           :key="menu.code"
           :to="menu.href">
-          <li class="relative | flex items-center gap-2 | py-1.5 px-4">
+          <li
+            class="relative | flex items-center gap-2 | py-1.5 px-4"
+            :class="
+              menu.href === route.path
+                ? storageStore.getThemeClass('bg-slate-100', 'bg-slate-950')
+                : storageStore.getThemeClass('', '')
+            ">
             <i
               class="icon"
               :class="[
@@ -36,10 +47,6 @@
             <span :class="storageStore.getThemeClass('', 'text-white')">
               {{ $t(menu.name) }}
             </span>
-            <div
-              v-if="menu.href === route.path"
-              class="w-1 h-1 | rounded-full"
-              :class="storageStore.getThemeClass('bg-slate-800', 'bg-white')"></div>
           </li>
         </NuxtLink>
       </ul>

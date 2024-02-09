@@ -5,82 +5,29 @@
     :class="
       storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')
     ">
-    <NuxtLink to="/" class="w-full">
-      <li class="pb-1.5 pt-2.5">
-        <button class="relative | flex flex-col items-center gap-.5 | mx-auto">
-          <div
-            v-if="'/' === route.path"
-            class="absolute -top-1 | w-1 h-1 | rounded-full"
-            :class="
-              storageStore.getThemeClass('bg-slate-600', 'bg-white')
-            "></div>
+    <NuxtLink
+      v-for="menu in menus"
+      :key="menu.href"
+      :to="menu.href"
+      class="w-full">
+      <li>
+        <button
+          class="w-full | relative | flex flex-col items-center gap-.5 | mx-auto py-2.5"
+          :class="
+            menu.href === route.path
+              ? storageStore.getThemeClass('bg-slate-100', 'bg-gray-950')
+              : storageStore.getThemeClass('', '')
+          ">
           <i
-            class="icon icon-home | text-xl"
-            :class="storageStore.getThemeClass('', 'text-white')"></i>
+            class="icon text-xl"
+            :class="[
+              menu.icon,
+              storageStore.getThemeClass('', 'text-white'),
+            ]"></i>
           <span
             class="text-xs"
             :class="storageStore.getThemeClass('', 'text-white')">
-            {{ $t('Home') }}
-          </span>
-        </button>
-      </li>
-    </NuxtLink>
-    <NuxtLink to="/todo" class="w-full">
-      <li class="pb-1.5 pt-2.5">
-        <button class="relative | flex flex-col items-center gap-.5 | mx-auto">
-          <div
-            v-if="'/todo' === route.path"
-            class="absolute -top-1 | w-1 h-1 | rounded-full"
-            :class="
-              storageStore.getThemeClass('bg-slate-600', 'bg-white')
-            "></div>
-          <i
-            class="icon icon-file | text-xl"
-            :class="storageStore.getThemeClass('', 'text-white')"></i>
-          <span
-            class="text-xs"
-            :class="storageStore.getThemeClass('', 'text-white')">
-            {{ $t('Todo') }}
-          </span>
-        </button>
-      </li>
-    </NuxtLink>
-    <NuxtLink to="/calender" class="w-full">
-      <li class="pb-1.5 pt-2.5">
-        <button class="relative | flex flex-col items-center gap-.5 | mx-auto">
-          <div
-            v-if="'/calender' === route.path"
-            class="absolute -top-1 | w-1 h-1 | rounded-full"
-            :class="
-              storageStore.getThemeClass('bg-slate-600', 'bg-white')
-            "></div>
-          <i
-            class="icon icon-calender | text-xl"
-            :class="storageStore.getThemeClass('', 'text-white')"></i>
-          <span
-            class="text-xs"
-            :class="storageStore.getThemeClass('', 'text-white')">
-            {{ $t('Calender') }}
-          </span>
-        </button>
-      </li>
-    </NuxtLink>
-    <NuxtLink to="/setting" class="w-full">
-      <li class="pb-1.5 pt-2.5">
-        <button class="relative | flex flex-col items-center gap-.5 | mx-auto">
-          <div
-            v-if="'/setting' === route.path"
-            class="absolute -top-1 | w-1 h-1 | rounded-full"
-            :class="
-              storageStore.getThemeClass('bg-slate-600', 'bg-white')
-            "></div>
-          <i
-            class="icon icon-setting | text-xl"
-            :class="storageStore.getThemeClass('', 'text-white')"></i>
-          <span
-            class="text-xs"
-            :class="storageStore.getThemeClass('', 'text-white')">
-            {{ $t('Setting') }}
+            {{ menu.name }}
           </span>
         </button>
       </li>
@@ -90,9 +37,27 @@
 
 <script setup lang="ts">
 import { useStorageStore } from '~/store/storage.store'
+import { Menu } from '~/models/Menu'
+
+const i18n = useI18n()
 
 const route = useRoute()
 const storageStore = useStorageStore()
+
+const menus = ref([
+  Menu.of({ name: i18n.t('Home'), href: '/', icon: 'icon-home' }),
+  Menu.of({ name: i18n.t('Todo'), href: '/todo', icon: 'icon-file' }),
+  Menu.of({
+    name: i18n.t('Calender'),
+    href: '/calender',
+    icon: 'icon-calender',
+  }),
+  Menu.of({
+    name: i18n.t('Setting'),
+    href: '/setting',
+    icon: 'icon-setting',
+  }),
+])
 </script>
 
 <style></style>

@@ -98,7 +98,7 @@
             @delete="deleteTodo"
             @done="todoStore.doneTodo" />
         </div>
-        <div v-else class="flex flex-col gap-2 | p-4 | lg:w-[96%] h-full">
+        <div v-else class="flex flex-col gap-2 | p-4 | lg:w-[96%] h-auto">
           <TodoRow
             v-for="todo in todos"
             :key="todo.id"

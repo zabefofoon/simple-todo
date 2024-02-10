@@ -83,12 +83,75 @@ export default defineNuxtConfig({
       ],
     },
     workbox: {
-      type: 'runtimeConfig',
-      globDirectory: '.output/public/',
-      globPatterns: ['**/*.{json,ico,html,png,js,txt,css,svg}'],
-      swDest: '.output/public/sw.js',
-      swSrc: 'src/service-worker.js',
-      injectionPoint: 'injectionPoint',
+      runtimeCaching: [
+        // Cache assets
+        {
+          urlPattern: /\.(?:png|gif|jpg|jpeg|svg|css|js)$/,
+          handler: "CacheFirst",
+          options: {
+            cacheName: "assets-cache",
+            expiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+            },
+          },
+        },
+        // Cache images
+        {
+          urlPattern: "https://images.pexels.com/photos/.*",
+          handler: "CacheFirst",
+          method: "GET",
+        },
+        {
+          urlPattern: /\.(?:png|gif|jpg|jpeg)$/,
+          handler: "CacheFirst",
+          options: {
+            cacheName: "images-cache",
+            expiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+            },
+          },
+        },
+        // Cache fonts
+        {
+          urlPattern: "https://fonts.googleapis.com/.*",
+          handler: "CacheFirst",
+          method: "GET",
+        },
+        {
+          urlPattern: /\.(?:woff|woff2)$/,
+          handler: "CacheFirst",
+          options: {
+            cacheName: "fonts-cache",
+            expiration: {
+              maxEntries: 20,
+              maxAgeSeconds: 365 * 24 * 60 * 60, // 1 year
+            },
+          },
+        },
+        // Cache news items
+        {
+          urlPattern: "/news/:id",
+          handler: "NetworkFirst",
+          options: {
+            cacheName: "news-cache",
+            expiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 60 * 60, // 1 hour
+            },
+          },
+        },
+      ],
+    },
+    // workbox: {
+    //   globDirectory: '.output/public/',
+    //   globPatterns: ['**/*.{json,ico,html,png,js,txt,css,svg}'],
+    //   swDest: '.output/public/sw.js',
+    //   swSrc: 'src/service-worker.js'
+    // },
+    client: {
+      installPrompt: true,
     },
     devOptions: {
       enabled: true,

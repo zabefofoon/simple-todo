@@ -22,7 +22,7 @@ export const useTodoStore = defineStore('todo', () => {
       )
 
       if (!data.length) {
-        const defaultTodo = Todo.of({ description: 'Welcome!' })
+        const defaultTodo = Todo.of({ id: 1, description: 'Welcome!' })
         addTodo(defaultTodo)
         todos.value = [defaultTodo]
       }

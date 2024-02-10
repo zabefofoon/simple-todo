@@ -40,7 +40,7 @@ const registerTimer = (todos) => {
           body,
           requireInteraction: true,
           renotify: true,
-          tag: 'MAEMU',
+          tag: 'MEMOKU',
           timestamp: Math.floor(Date.now()),
           icon: 'https://cheery-starlight-accc7e.netlify.app/192x192.png',
           badge: 'https://cheery-starlight-accc7e.netlify.app/48x48.png',

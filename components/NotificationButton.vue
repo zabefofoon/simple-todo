@@ -1,6 +1,6 @@
 <template>
-  <NuxtLink to="/notification">
-    <button class="flex | relative">
+  <NuxtLink to="/notification" area-label="Notification">
+    <button class="flex | relative" name="Notification">
       <div
         v-if="todoStore.hasUnCheckedTodos"
         class="absolute top-[1px] left-[1px] | aspect-square w-2 | bg-red-500 | rounded-full"></div>

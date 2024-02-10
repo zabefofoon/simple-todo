@@ -7,7 +7,8 @@
       <NuxtLink
         v-else
         to="/todo"
-        :class="storageStore.getThemeClass('', 'text-white')">
+        :class="storageStore.getThemeClass('', 'text-white')"
+        area-label="RecentTodos">
         {{ $t('Recent') }}
       </NuxtLink>
     </div>

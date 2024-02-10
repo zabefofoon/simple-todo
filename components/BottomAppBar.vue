@@ -9,9 +9,11 @@
       v-for="menu in menus"
       :key="menu.href"
       :to="menu.href"
-      class="w-full">
+      class="w-full"
+      :area-label="menu.name">
       <li>
         <button
+          :name="menu.name"
           class="w-full | relative | flex flex-col items-center gap-.5 | mx-auto py-2.5"
           :class="
             menu.href === route.path

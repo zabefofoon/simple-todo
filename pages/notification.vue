@@ -4,7 +4,7 @@
       <header
         class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden"
         :class="storageStore.getThemeClass('', 'border-slate-700')">
-        <button class="flex" @click="router.back()">
+        <button class="flex" name="Back" @click="router.back()">
           <i
             class="icon icon-arrow-left"
             :class="storageStore.getThemeClass('', 'text-white')"></i>
@@ -30,14 +30,13 @@
           <NuxtLink
             v-for="todo in todoStore.expiredTodos?.slice(0, 30)"
             :key="todo.id"
-            :to="`/todo/${todo.id}`">
+            :to="`/todo/${todo.id}`"
+            :area-label="`Todo ${todo.id}`">
             <li
               class="flex flex-col gap-0.5 | border-b | p-3 | text-sm lg:text-base"
               :class="{
-                [storageStore.getThemeClass(
-                  'bg-gray-200',
-                  'bg-gray-950'
-                )]: checkRead(`${todo.id}`),
+                [storageStore.getThemeClass('bg-gray-200', 'bg-gray-950')]:
+                  checkRead(`${todo.id}`),
                 'opacity-30': checkRead(`${todo.id}`),
                 'border-slate-700': storageStore.theme === 'dark',
               }">

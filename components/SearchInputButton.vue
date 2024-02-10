@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink class="w-full max-w-[50%] | relative" to="/search">
+  <NuxtLink class="w-full max-w-[50%] | relative" to="/search" area-label="Search">
     <input
       class="w-full | px-3 py-1 | rounded-full | text-sm"
       :class="

@@ -1,7 +1,8 @@
 <template>
   <NuxtLink
     to="/todo/new"
-    class="flex | bg-slate-800 rounded-full | text-white | p-2">
+    class="flex | bg-slate-800 rounded-full | text-white | p-2"
+    area-label="New todo">
     <i class="icon icon-add text-2xl text-white"></i>
   </NuxtLink>
 </template>

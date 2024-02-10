@@ -4,7 +4,7 @@
       <header
         class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden"
         :class="storageStore.getThemeClass('', 'border-slate-700')">
-        <button class="flex" @click="router.back()">
+        <button name="Back" class="flex" @click="router.back()">
           <i
             class="icon icon-arrow-left"
             :class="storageStore.getThemeClass('', 'text-white')"></i>

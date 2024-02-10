@@ -9,6 +9,7 @@
     </label>
     <button
       class="ml-auto lg:ml-0 px-4 py-0.5 | bg-slate-800 | text-sm text-white | rounded-full"
+      name="Export"
       @click="exportData">
       {{ $t('Export') }}
     </button>

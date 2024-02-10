@@ -3,8 +3,13 @@
     <template #header>
       <div
         class="sticky top-0 z-20 | flex items-center gap-2 | px-2 py-2 | border-b"
-        :class="storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')">
-        <button class="flex" @click="$router.back()">
+        :class="
+          storageStore.getThemeClass(
+            'bg-white',
+            'bg-slate-900 border-slate-700'
+          )
+        ">
+        <button name="Back" class="flex" @click="$router.back()">
           <i
             class="icon icon-arrow-left"
             :class="storageStore.getThemeClass('', 'text-white')"></i>
@@ -27,6 +32,7 @@
             @keydown.enter="search" />
           <button
             v-show="keyword"
+            name="Close"
             class="flex | absolute right-7 top-1/2 -translate-y-1/2"
             @click="close()">
             <i
@@ -34,6 +40,7 @@
               :class="storageStore.getThemeClass('', 'text-white')"></i>
           </button>
           <button
+            name="Search"
             class="flex | absolute right-1.5 top-1/2 -translate-y-1/2"
             @click="search">
             <i

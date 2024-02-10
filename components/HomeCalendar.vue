@@ -5,7 +5,8 @@
     <div class="font-bold">
       <NuxtLink
         to="calender"
-        :class="storageStore.getThemeClass('', 'text-white')">
+        :class="storageStore.getThemeClass('', 'text-white')"
+        area-label="Calendar">
         {{ $t('Calender') }}
       </NuxtLink>
     </div>

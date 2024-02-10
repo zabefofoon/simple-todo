@@ -8,7 +8,7 @@
       )
     ">
     <nav class="flex flex-col | h-full">
-      <NuxtLink to="/">
+      <NuxtLink to="/" area-label="Home">
         <div
           class="pt-8 | text-center font-bold | flex justify-center items-center gap-1">
           <img
@@ -20,7 +20,7 @@
               )
             "
             src="~/assets/images/logo-75x75.png"
-            alt="MEMOKU" />
+            alt="memoku" />
           <span :class="storageStore.getThemeClass('', 'text-white')">
             MEMOKU
           </span>
@@ -30,7 +30,8 @@
         <NuxtLink
           v-for="menu in menuStore.menus"
           :key="menu.code"
-          :to="menu.href">
+          :to="menu.href"
+          :area-label="menu.name">
           <li
             class="relative | flex items-center gap-2 | py-1.5 px-4"
             :class="

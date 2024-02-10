@@ -23,7 +23,8 @@
     </h3>
     <NuxtLink
       v-if="scheduledTodo?.description"
-      :to="`/todo/${scheduledTodo.id}`">
+      :to="`/todo/${scheduledTodo.id}`"
+      area-label="ScheduledTodo">
       <p>
         <span
           v-if="scheduledTodo.description.length > 100"
@@ -49,8 +50,9 @@ const storageStore = useStorageStore()
 
 const scheduledTodo = computed(() => {
   return todoStore.todos
-    ?.filter((todo) => todo.uptoTime && todo.uptoTime > new Date().getTime())
-    ?.sort((a, b) => Number(a?.uptoTime || 0) - Number(b?.uptoTime || 0))
+    ?.filter((todo) => todo.upto)
+    .filter((todo) => Number(todo.uptoTime) > new Date().getTime())
+    .sort((a, b) => Number(a?.uptoTime || 0) - Number(b?.uptoTime || 0))
     .slice(0, 1)
     .at(0)
 })

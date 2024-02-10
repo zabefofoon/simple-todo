@@ -7,6 +7,7 @@
         {{ $t('Tag') }}
       </span>
       <button
+        name="Add tag"
         class="flex | w-fit h-fit | p-1 | border border-dashed"
         @click="addTag">
         <i
@@ -26,13 +27,13 @@
           v-for="(tag, index) in settingStore.setting?.tags"
           :key="index"
           class="flex items-center gap-0.5">
-          <button class="flex">
+          <button name="Move up" class="flex">
             <i
               class="icon icon-arrow-top | text-sm"
               :class="storageStore.getThemeClass('', 'text-white')"
               @click="changeOrder(index, index - 1)"></i>
           </button>
-          <button class="flex">
+          <button name="Move down" class="flex">
             <i
               class="icon icon-arrow-down | text-sm"
               :class="storageStore.getThemeClass('', 'text-white')"
@@ -84,7 +85,7 @@
               "
               placeholder="Tag"
               @change="changeTag(index, 'label', $event)" />
-            <button class="flex pr-1" @click="removeTag(index)">
+            <button name="Delete" class="flex pr-1" @click="removeTag(index)">
               <i
                 class="icon icon-close"
                 :class="storageStore.getThemeClass('', 'text-white')"></i>

@@ -1,12 +1,14 @@
 <template>
   <NuxtLink
     :to="`/todo/${todo.id}`"
+    :area-label="`Todo ${todo.id}`"
     v-long-click="() => emit('delete', Number(todo.id))">
     <figure
       class="thumbnail | relative | w-full aspect-square overflow-hidden | p-2 | border rounded-lg"
       :class="storageStore.getThemeClass('', 'border-slate-700')">
       <button
         v-if="!hideDelete"
+        name="Delete"
         class="close-button | flex | absolute top-1 right-1"
         @click.stop.prevent="emit('delete', todo.id || -1)">
         <i
@@ -26,6 +28,7 @@
         :class="storageStore.getThemeClass('', 'text-white')"
         v-html="todo.description?.replaceAll('\n', '<br />')"></div>
       <button
+        name="Check"
         class="flex items-center | absolute left-1 top-1 z-10 | rounded-full"
         :class="todo.done ? 'bg-green-500' : 'border border-gray-200'"
         @click.stop.prevent="emit('done', todo.id || -1, todo.done)">

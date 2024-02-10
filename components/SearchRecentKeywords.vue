@@ -8,7 +8,8 @@
       :key="keyword"
       :to="`/search?keyword=${keyword}`"
       replace
-      class="w-full | flex items-center gap-2 | py-0.5">
+      class="w-full | flex items-center gap-2 | py-0.5"
+      :area-label="`Search ${keyword}`">
       <i
         class="icon icon-close"
         :class="storageStore.getThemeClass('', 'text-white')"

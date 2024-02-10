@@ -4,7 +4,7 @@
       <header
         class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden"
         :class="storageStore.getThemeClass('', 'border-slate-700')">
-        <button class="flex" @click="$router.back()">
+        <button name="Back" class="flex" @click="$router.back()">
           <i
             class="icon icon-arrow-left"
             :class="storageStore.getThemeClass('', 'text-white')"></i>
@@ -49,6 +49,7 @@
             class="w-full | px-2 | absolute top-1 right-0 | flex items-center justify-between">
             <button
               v-if="currentTodo"
+              name="Check"
               class="flex lg:hidden | rounded-full"
               :class="
                 currentTodo?.done ? 'bg-green-500' : 'border border-slate-400'
@@ -64,6 +65,7 @@
             </button>
             <button
               v-if="currentTodo"
+              name="Delete"
               class="flex lg:hidden"
               @click="deleteTodo">
               <i
@@ -206,6 +208,7 @@
             </div>
             <button
               v-if="currentTodo"
+              name="Check"
               class="hidden lg:flex | rounded-full"
               :class="
                 currentTodo?.done
@@ -226,6 +229,7 @@
             </button>
             <button
               v-if="currentTodo"
+              name="Delete"
               class="hidden lg:flex"
               @click="deleteTodo">
               <i
@@ -233,6 +237,7 @@
                 :class="storageStore.getThemeClass('', 'text-white')"></i>
             </button>
             <button
+              name="Save"
               class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto"
               @click="save">
               <span class="text-white whitespace-nowrap">{{ $t('Save') }}</span>
@@ -241,6 +246,7 @@
         </div>
       </div>
       <button
+        name="Save"
         class="lg:hidden | w-[96vw] | bg-slate-800 | text-white rounded-full | py-3 lg:py-2 mx-auto mt-auto mb-4"
         @click="save">
         <span class="text-white">{{ $t('Save') }}</span>

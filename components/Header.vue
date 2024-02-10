@@ -10,7 +10,7 @@
     <div
       class="flex items-center gap-1.5 | relative z-30 | px-4 py-2 | border-b"
       :class="storageStore.getThemeClass('bg-white', 'bg-slate-900 | border-slate-700')">
-      <NuxtLink class="block | w-full | font-bold" to="/">
+      <NuxtLink class="block | w-full | font-bold" to="/" area-label="Home">
         <div class="flex items-center justify-center gap-1 | w-fit">
           <img
             class="w-[24px] aspect-square"
@@ -28,7 +28,7 @@
         </div>
       </NuxtLink>
       <NotificationButton />
-      <button class="flex" @click="expand()">
+      <button class="flex" name="menus" @click="expand()">
         <i
           v-if="!isExpanded"
           class="icon icon-bars text-2xl"

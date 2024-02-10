@@ -31,4 +31,10 @@ onMounted(() => {
     }
   })
 })
+
+useHead({
+  htmlAttrs: {
+    lang: storageStore.language || 'en'
+  }
+})
 </script>

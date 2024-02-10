@@ -1,6 +1,7 @@
 <template>
   <NuxtLink
     :to="`/todo/${todo.id}`"
+    :area-label="`Todo ${todo.id}`"
     v-long-click="() => emit('delete', Number(todo.id))">
     <figure
       class="w-full h-full | flex gap-2 | border rounded-lg | relative"
@@ -52,6 +53,7 @@
       </figcaption>
       <button
         v-if="!hideDelete"
+        nmae="Delete"
         class="close-button | flex items-center | p-2"
         @click.stop.prevent="emit('delete', todo.id || -1)">
         <i
@@ -59,6 +61,7 @@
           :class="storageStore.getThemeClass('', 'text-white')"></i>
       </button>
       <button
+        name="Check"
         class="flex items-center | absolute top-1/2 -translate-y-1/2 z-10 | rounded-full"
         :class="[
           todo.done ? 'bg-green-500' : 'border border-gray-200',

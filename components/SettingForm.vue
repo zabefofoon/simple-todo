@@ -4,8 +4,9 @@
       <span :class="storageStore.getThemeClass('', 'text-white')">
         {{ $t('Form') }}
       </span>
-      <NuxtLink to="/form/new">
+      <NuxtLink to="/form/new" area-label="New Form">
         <button
+          name="New form"
           class="flex | h-fit | p-1 ml-auto lg:ml-0 | border border-dashed">
           <i
             class="icon icon-add | text-md"
@@ -24,18 +25,25 @@
         <div
           v-for="(form, index) in settingStore.setting?.forms"
           class="flex items-center gap-0.5">
-          <button class="flex" @click="changeOrder(index, index - 1)">
+          <button
+            class="flex"
+            name="Move up"
+            @click="changeOrder(index, index - 1)">
             <i
               class="icon icon-arrow-top | text-sm"
               :class="storageStore.getThemeClass('', 'text-white')"></i>
           </button>
-          <button class="flex" @click="changeOrder(index, index + 1)">
+          <button
+            class="flex"
+            name="Move down"
+            @click="changeOrder(index, index + 1)">
             <i
               class="icon icon-arrow-down | text-sm"
               :class="storageStore.getThemeClass('', 'text-white')"></i>
           </button>
-          <NuxtLink :to="`/form/${form.id}`">
+          <NuxtLink :to="`/form/${form.id}`" area-label="New form">
             <button
+              name="Add form"
               class="flex items-center gap-2 | border | pl-2 pr-1 py-0.5"
               :class="storageStore.getThemeClass('', 'border-slate-700')">
               <span

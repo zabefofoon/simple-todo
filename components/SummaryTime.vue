@@ -5,19 +5,22 @@
     <div class="flex items-center">
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
       <template v-else>
-        <span
+        <label
           v-if="selectedOption === 'month'"
+          for="summary-select"
           class="font-bold"
           :class="storageStore.getThemeClass('', 'text-white')">
           {{ $t('Years') }}
-        </span>
-        <span
+        </label>
+        <label
           v-else
+          for="summary-select"
           class="font-bold"
           :class="storageStore.getThemeClass('', 'text-white')">
           {{ $t('Weeks') }}
-        </span>
+        </label>
         <select
+          id="summary-select"
           :value="selectedOption"
           class="ml-auto | text-sm"
           :class="storageStore.getThemeClass('bg-white', 'dark text-white')"

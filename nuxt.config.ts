@@ -20,6 +20,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       meta: [{ name: 'google', content: 'notranslate' }],
+      title: 'MAEMU'
     },
   },
   plugins: ['~/plugins/dexie.client.ts', '~/plugins/longClick.directive.client.ts'],
@@ -38,8 +39,8 @@ export default defineNuxtConfig({
     filename: 'service-worker.js',
     manifest: {
       id: '/',
-      name: 'MEMOO',
-      short_name: 'MEMOO',
+      name: 'MAEMU',
+      short_name: 'MAEMU',
       description: 'Simple memo webapp.',
       theme_color: '#ffffff',
       display: 'standalone',

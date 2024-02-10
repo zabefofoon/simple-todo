@@ -20,9 +20,9 @@
               )
             "
             src="~/assets/images/logo-75x75.png"
-            alt="MEMOO" />
+            alt="MAEMU" />
           <span :class="storageStore.getThemeClass('', 'text-white')">
-            MEMOO
+            MAEMU
           </span>
         </div>
       </NuxtLink>

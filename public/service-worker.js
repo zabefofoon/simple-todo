@@ -40,7 +40,7 @@ const registerTimer = (todos) => {
           body,
           requireInteraction: true,
           renotify: true,
-          tag: 'simple-memo',
+          tag: 'MAEMU',
           timestamp: Math.floor(Date.now()),
           icon: 'https://cheery-starlight-accc7e.netlify.app/192x192.png',
           badge: 'https://cheery-starlight-accc7e.netlify.app/48x48.png',

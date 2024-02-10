@@ -1,10 +1,11 @@
-import { skipWaiting, clientsClaim } from 'workbox-core'
+import { clientsClaim } from 'workbox-core'
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching'
 
-skipWaiting()
+self.skipWaiting()
 clientsClaim()
 cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST || [])
+
 
 /* // install event
 self.addEventListener('install', (e) => {
@@ -87,16 +88,6 @@ self.addEventListener('notificationclick', (event) => {
             })
           }, 1000)
         })
-    })
-  )
-})
-
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    fetch(event.request).catch(() => {
-      return new Response('오프라인 상태입니다. 인터넷 연결을 확인하세요.', {
-        headers: { 'Content-Type': 'text/html' },
-      })
     })
   )
 })

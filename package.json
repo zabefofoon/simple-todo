@@ -9,7 +9,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test:webkit": "npx playwright wk http://localhost:3000"
+    "test:webkit": "npx playwright wk http://localhost:3000",
+    "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
     "@nuxtjs/i18n": "^8.0.0",

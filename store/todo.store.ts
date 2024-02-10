@@ -3,6 +3,7 @@ import todoApi from '~/api/todo.api'
 import { Todo } from '~/models/Todo'
 import { useStorageStore } from './storage.store'
 import { useLoadingStore } from './loading.store'
+import { deepClone } from '~/utils/etc'
 
 export const useTodoStore = defineStore('todo', () => {
   const storageStore = useStorageStore()
@@ -22,15 +23,14 @@ export const useTodoStore = defineStore('todo', () => {
       todos.value = Todo.map(data).sort(
         (a, b) => Number(b.created) - Number(a.created)
       )
-    })
 
-    await Notification.requestPermission()
-    navigator.serviceWorker.controller?.postMessage({
-      type: 'registerTimer',
-      todos:
-        todos.value
-          ?.filter((todo) => todo.upto)
+      await Notification.requestPermission()
+      if (process.client)
+        navigator.serviceWorker.controller?.postMessage({
+          type: 'registerTimer',
+          todos: todos.value?.filter((todo) => todo.upto)
           .map((todo) => deepClone(todo)) || [],
+        })
     })
 
     return toValue(todos)

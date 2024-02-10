@@ -12,24 +12,34 @@ export const useTodoStore = defineStore('todo', () => {
   const todos = ref<Todo[]>()
 
   const getAllTodos = async (refresh?: boolean) => {
-    if (toValue(todos) && !refresh) {
-      return toValue(todos)
-    }
+    if (toValue(todos) && !refresh) return toValue(todos)
 
     loadingStore.withTodoLoading(async () => {
       const data = await todoApi.getAllTodos()
-      if (!data.length) addTodo(Todo.of({ description: 'Welcome!' }))
 
       todos.value = Todo.map(data).sort(
         (a, b) => Number(b.created) - Number(a.created)
       )
 
+      if (!data.length) {
+        const defaultTodo = Todo.of({ description: 'Welcome!' })
+        addTodo(defaultTodo)
+        todos.value = [defaultTodo]
+      }
+
       await Notification.requestPermission()
       if (process.client)
         navigator.serviceWorker.controller?.postMessage({
           type: 'registerTimer',
-          todos: todos.value?.filter((todo) => todo.upto)
-          .map((todo) => deepClone(todo)) || [],
+          todos:
+            todos.value
+              ?.filter((todo) => todo.upto)
+              .filter((todo) => {
+                const now = new Date()
+                const time = new Date(`${todo.date} ${todo.time}`)
+                return time >= now
+              })
+              .map((todo) => deepClone(todo)) || [],
         })
     })
 

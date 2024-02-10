@@ -20,10 +20,13 @@ export default defineNuxtConfig({
   app: {
     head: {
       meta: [{ name: 'google', content: 'notranslate' }],
-      title: 'MEMOKU'
+      title: 'MEMOKU',
     },
   },
-  plugins: ['~/plugins/dexie.client.ts', '~/plugins/longClick.directive.client.ts'],
+  plugins: [
+    '~/plugins/dexie.client.ts',
+    '~/plugins/longClick.directive.client.ts',
+  ],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -87,9 +90,9 @@ export default defineNuxtConfig({
         // Cache assets
         {
           urlPattern: /\.(?:png|gif|jpg|jpeg|svg|css|js)$/,
-          handler: "CacheFirst",
+          handler: 'CacheFirst',
           options: {
-            cacheName: "assets-cache",
+            cacheName: 'assets-cache',
             expiration: {
               maxEntries: 50,
               maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
@@ -98,15 +101,15 @@ export default defineNuxtConfig({
         },
         // Cache images
         {
-          urlPattern: "https://images.pexels.com/photos/.*",
-          handler: "CacheFirst",
-          method: "GET",
+          urlPattern: 'https://images.pexels.com/photos/.*',
+          handler: 'CacheFirst',
+          method: 'GET',
         },
         {
           urlPattern: /\.(?:png|gif|jpg|jpeg)$/,
-          handler: "CacheFirst",
+          handler: 'CacheFirst',
           options: {
-            cacheName: "images-cache",
+            cacheName: 'images-cache',
             expiration: {
               maxEntries: 50,
               maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
@@ -115,15 +118,15 @@ export default defineNuxtConfig({
         },
         // Cache fonts
         {
-          urlPattern: "https://fonts.googleapis.com/.*",
-          handler: "CacheFirst",
-          method: "GET",
+          urlPattern: 'https://fonts.googleapis.com/.*',
+          handler: 'CacheFirst',
+          method: 'GET',
         },
         {
           urlPattern: /\.(?:woff|woff2)$/,
-          handler: "CacheFirst",
+          handler: 'CacheFirst',
           options: {
-            cacheName: "fonts-cache",
+            cacheName: 'fonts-cache',
             expiration: {
               maxEntries: 20,
               maxAgeSeconds: 365 * 24 * 60 * 60, // 1 year
@@ -132,10 +135,10 @@ export default defineNuxtConfig({
         },
         // Cache news items
         {
-          urlPattern: "/news/:id",
-          handler: "NetworkFirst",
+          urlPattern: '/news/:id',
+          handler: 'NetworkFirst',
           options: {
-            cacheName: "news-cache",
+            cacheName: 'news-cache',
             expiration: {
               maxEntries: 50,
               maxAgeSeconds: 60 * 60, // 1 hour
@@ -144,12 +147,6 @@ export default defineNuxtConfig({
         },
       ],
     },
-    // workbox: {
-    //   globDirectory: '.output/public/',
-    //   globPatterns: ['**/*.{json,ico,html,png,js,txt,css,svg}'],
-    //   swDest: '.output/public/sw.js',
-    //   swSrc: 'src/service-worker.js'
-    // },
     client: {
       installPrompt: true,
     },

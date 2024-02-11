@@ -46,5 +46,7 @@
   "ConfirmImport": "Existing data will be overwritten. Do you want to proceed?",
   "Filter": "Filter",
   "Month": "Month",
-  "Week": "Week"
+  "Week": "Week",
+  "LeftHours": "{0}h left",
+  "LeftMinits": "{0}m left"
 }

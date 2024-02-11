@@ -4,7 +4,7 @@
     :area-label="`Todo ${todo.id}`"
     v-long-click="() => emit('delete', Number(todo.id))">
     <figure
-      class="w-full h-full | flex gap-2 | border rounded-lg | relative"
+      class="w-full h-full | flex gap-2 | border rounded-lg | relative | py-1"
       :class="storageStore.getThemeClass('', 'border-slate-700')">
       <div
         v-if="todo.tagId"
@@ -40,15 +40,19 @@
         </span>
       </div>
       <figcaption
-        v-if="todo.upto"
+        v-if="leftUptoMinits > 0"
         class="absolute right-0 top-0 -translate-y-1/2 | flex-shrink-0 w-fit | flex items-center gap-1 | text-[10px] lg:text-xs"
         :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')">
         <i
           class="icon icon-timer"
           :class="storageStore.getThemeClass('', 'text-white')"></i>
         <span :class="storageStore.getThemeClass('', 'text-white')">
-          {{ todo.date?.replaceAll('-', '.').substring(2) }}
-          {{ todo.time }}
+          <template v-if="leftUptoHours > 0">
+            {{ $t('LeftHours', [leftUptoHours]) }}
+          </template>
+          <template v-else>
+            {{ $t('LeftMinits', [leftUptoMinits]) }}
+          </template>
         </span>
       </figcaption>
       <button
@@ -60,6 +64,13 @@
           class="icon icon-close"
           :class="storageStore.getThemeClass('', 'text-white')"></i>
       </button>
+      <span
+        class="absolute left-0 top-0 -translate-y-1/2 | text-[10px] lg:text-xs"
+        :class="
+          storageStore.getThemeClass('bg-white', 'bg-slate-900 text-white')
+        ">
+        {{ todo.createdDate.replaceAll('-', '.').slice(2) }}
+      </span>
       <button
         name="Check"
         class="flex items-center | absolute top-1/2 -translate-y-1/2 z-10 | rounded-full"
@@ -80,7 +91,7 @@
 import type { Todo } from '~/models/Todo'
 import { useStorageStore } from '~/store/storage.store'
 
-defineProps<{
+const props = defineProps<{
   todo: Todo
   hideDelete?: boolean
 }>()
@@ -91,6 +102,29 @@ const emit = defineEmits<{
 }>()
 
 const storageStore = useStorageStore()
+
+const leftUptoHours = ref(0)
+const getLeftUptoHours = (todo: Todo) => {
+  const targetTime = new Date(`${todo.date!} ${todo.time}`).getTime()
+  const currentTime = new Date().getTime()
+  const timeDiff = targetTime - currentTime
+  leftUptoHours.value = Math.round(timeDiff / (1000 * 60 * 60))
+  return Math.round(timeDiff / (1000 * 60 * 60))
+}
+
+const leftUptoMinits = ref(0)
+const getLeftUptoMinits = (todo: Todo) => {
+  const targetTime = new Date(`${todo.date!} ${todo.time}`).getTime()
+  const currentTime = new Date().getTime()
+  const timeDiff = targetTime - currentTime
+  leftUptoMinits.value = Math.round(timeDiff / (1000 * 60))
+  return Math.round(timeDiff / (1000 * 60))
+}
+
+onMounted(() => {
+  getLeftUptoHours(props.todo)
+  getLeftUptoMinits(props.todo)
+})
 </script>
 
 <style></style>

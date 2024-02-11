@@ -142,27 +142,26 @@ const todos = computed(() => {
   else result = todoStore.todos
 
   return route.query.tag
-    ? result?.filter((todo) => todo.tagId === route.query.tag)
-    : result
+    ? result
+        ?.filter((todo) => todo.tagId === route.query.tag)
+        .sort((a, b) => b.created! - a.created!)
+    : result?.sort((a, b) => b.created! - a.created!)
 })
 
 const changeFilter = (event: Event) => {
   const value = (<HTMLSelectElement>event.target).value
+  let filter = undefined
+  if (value === 'All') filter = undefined
+  else if (value === 'Undone') filter = 'Undone'
+  else if (value === 'Done') filter = 'Done'
 
-  if (value === 'All')
-    router.replace({ query: { ...route.query, filter: undefined } })
-  else if (value === 'Undone')
-    router.replace({ query: { ...route.query, filter: 'Undone' } })
-  else if (value === 'Done')
-    router.replace({ query: { ...route.query, filter: 'Done' } })
+  router.replace({ query: { ...route.query, filter } })
 }
 
 const changeTag = (event: Event) => {
   const value = (<HTMLSelectElement>event.target).value
-
-  if (value === 'All')
-    router.replace({ query: { ...route.query, tag: undefined } })
-  else router.replace({ query: { ...route.query, tag: value } })
+  const tag = value === 'All' ? undefined : value
+  router.replace({ query: { ...route.query, tag } })
 }
 
 const deleteTodo = (id: number) => {

@@ -29,7 +29,7 @@ export const useTodoStore = defineStore('todo', () => {
 
       await Notification.requestPermission()
       if (process.client)
-        navigator.serviceWorker.controller?.postMessage({
+        navigator.serviceWorker?.controller?.postMessage({
           type: 'registerTimer',
           todos:
             todos.value

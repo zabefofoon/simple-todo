@@ -126,7 +126,6 @@ const changeTag = (index: number, key: keyof Tag, event: Event) => {
   const tags = deepClone(settingStore.setting!.tags)
   tags[index][key] = (<HTMLInputElement>event.target).value
   settingStore.updateSetting('tags', tags)
-  todoStore.getAllTodos(true)
 }
 
 const removeTag = (index: number) => {

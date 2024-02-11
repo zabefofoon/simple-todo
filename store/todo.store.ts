@@ -27,8 +27,9 @@ export const useTodoStore = defineStore('todo', () => {
         todos.value = [defaultTodo]
       }
 
-      await Notification.requestPermission()
-      if (process.client)
+      if (process.client) {
+        await Notification.requestPermission()
+
         navigator.serviceWorker?.controller?.postMessage({
           type: 'registerTimer',
           todos:
@@ -41,8 +42,9 @@ export const useTodoStore = defineStore('todo', () => {
               })
               .map((todo) => deepClone(todo)) || [],
         })
+      }
     })
-
+    loadingStore.setTodoLoading(false)
     return toValue(todos)
   }
 

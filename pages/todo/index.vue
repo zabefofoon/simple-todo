@@ -34,15 +34,20 @@
               :class="
                 storageStore.getThemeClass(
                   'bg-white',
-                  'bg-slate-900 text-white | border-slate-700'
+                  'dark | bg-slate-900 text-white | border-slate-700'
                 )
               "
               :value="route.query.tag || 'All'"
               @change="changeTag">
-              <option value="All">{{ $t('All') }}</option>
+              <option
+                :class="storageStore.getThemeClass('', 'text-white')"
+                value="All">
+                {{ $t('All') }}
+              </option>
               <option
                 v-for="tag in settingStore.setting?.tags"
                 :key="tag.id"
+                :class="storageStore.getThemeClass('', 'text-white')"
                 :value="tag.id">
                 {{ tag.label }}
               </option>
@@ -66,14 +71,26 @@
               :class="
                 storageStore.getThemeClass(
                   'bg-white',
-                  'bg-slate-900 text-white | border-slate-700'
+                  'dark | bg-slate-900 text-white | border-slate-700'
                 )
               "
               :value="route.query.filter || 'All'"
               @change="changeFilter">
-              <option value="All">{{ $t('All') }}</option>
-              <option value="Undone">{{ $t('Undone') }}</option>
-              <option value="Done">{{ $t('Done') }}</option>
+              <option
+                :class="storageStore.getThemeClass('', 'text-white')"
+                value="All">
+                {{ $t('All') }}
+              </option>
+              <option
+                :class="storageStore.getThemeClass('', 'text-white')"
+                value="Undone">
+                {{ $t('Undone') }}
+              </option>
+              <option
+                :class="storageStore.getThemeClass('', 'text-white')"
+                value="Done">
+                {{ $t('Done') }}
+              </option>
             </select>
           </div>
         </template>

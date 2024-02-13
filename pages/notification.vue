@@ -26,7 +26,7 @@
           :class="storageStore.getThemeClass('', 'text-white')">
           {{ $t('EmptyNotification') }}
         </div>
-        <ul v-else class="flex flex-col | w-full overflow-hidden">
+        <ul v-else class="flex flex-col | w-full h-full">
           <NuxtLink
             v-for="todo in todoStore.expiredTodos?.slice(0, 30)"
             :key="todo.id"

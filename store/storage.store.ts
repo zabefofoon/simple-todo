@@ -4,10 +4,12 @@ import type { Display, Language, Theme } from '~/models/Setting'
 import type { SummaryTimeType } from '~/models/Summary'
 import { getCookie } from 'h3'
 import { setCookie } from '~/utils/etc'
+import { useTodoStore } from './todo.store'
 
 export const useStorageStore = defineStore('storage', () => {
   const i18n = useI18n()
   const event = useRequestEvent()
+  const todoStore = useTodoStore()
 
   const removeKeywords = (keyword: string) => {
     let keywords = getRecentKeywords()
@@ -38,7 +40,7 @@ export const useStorageStore = defineStore('storage', () => {
     (readExpiredTodos.value = value)
 
   const getReadExpiredTodo = (): string[] => {
-    const saved = storageApi.getLocalStorage('readExpiredTodos') || '[]'
+    const saved = storageApi.getLocalStorage('readExpiredTodos') || []
     setReadExpiredTodos(saved)
     return JSON.parse(saved)
   }
@@ -52,7 +54,7 @@ export const useStorageStore = defineStore('storage', () => {
       readTodoIds.unshift(id)
     } else readTodoIds.unshift(id)
 
-    readTodoIds = readTodoIds.filter((_, index) => index < 10)
+    readTodoIds = readTodoIds.filter((_, index) => index < 30)
     setReadExpiredTodos(readTodoIds)
     storageApi.setLocalStorage('readExpiredTodos', JSON.stringify(readTodoIds))
   }
@@ -91,8 +93,9 @@ export const useStorageStore = defineStore('storage', () => {
     setCookie('x-theme', value, 30)
     theme.value = value
   }
-  const getThemeClass = (whiteClass: string, darkClass: string) => toValue(theme) === 'white' ? whiteClass :darkClass
-  
+  const getThemeClass = (whiteClass: string, darkClass: string) =>
+    toValue(theme) === 'white' ? whiteClass : darkClass
+
   const display = ref<Display>(
     process.client
       ? storageApi.getLocalStorage('display') || 'thumbnail'

@@ -1,15 +1,13 @@
+import { getCookie } from 'h3'
 import { defineStore } from 'pinia'
 import storageApi from '~/api/storage.api'
 import type { Display, Language, Theme } from '~/models/Setting'
 import type { SummaryTimeType } from '~/models/Summary'
-import { getCookie } from 'h3'
 import { setCookie } from '~/utils/etc'
-import { useTodoStore } from './todo.store'
 
 export const useStorageStore = defineStore('storage', () => {
   const i18n = useI18n()
   const event = useRequestEvent()
-  const todoStore = useTodoStore()
 
   const removeKeywords = (keyword: string) => {
     let keywords = getRecentKeywords()

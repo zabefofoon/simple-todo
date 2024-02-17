@@ -92,7 +92,7 @@ onMounted(() => {
   new Chart(toValue(canvas)!, {
     type: 'bar',
     data: {
-      labels: getWeekDays().map((item) => item.slice(2).replace('-', '.')),
+      labels: getWeekDays().map((item) => item.slice(2).replaceAll('-', '.')),
       datasets: [
         {
           label: i18n.t('Undone'),

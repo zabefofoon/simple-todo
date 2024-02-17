@@ -13,7 +13,7 @@
           class="w-full | text-lg truncate | cursor-pointer"
           :class="storageStore.getThemeClass('', 'text-white')"
           @click="router.back()">
-          {{ route.params.id }}
+          {{ route.params.id.replaceAll('-', '.') }}
         </div>
       </header>
     </template>

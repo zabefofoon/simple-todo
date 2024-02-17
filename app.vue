@@ -46,7 +46,7 @@ watch(
       if (process.client)
         document
           .querySelector('meta[name="theme-color"]')
-          ?.setAttribute('content', value === 'dark' ? '#020617' : '#ffffff')
+          ?.setAttribute('content', value === 'dark' ? '#0f172a' : '#ffffff')
     }),
   { immediate: true }
 )

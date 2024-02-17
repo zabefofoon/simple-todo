@@ -1,5 +1,5 @@
-export default defineNuxtRouteMiddleware(async (to) => {
-  if (process.client) {
+export default defineNuxtRouteMiddleware(() => {
+  /* if (process.client) {
     const cache = await caches.open('memoku-cache-3')
     const keys = await cache.keys()
 
@@ -8,7 +8,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
       if (path !== '/' && path !== to.path) cache.delete(key)
     })
 
-    const response = await fetch(to.path)
-    cache.put(to.path, response)
-  }
+    fetch(to.path).then((response) => cache.put(to.path, response))
+  } */
 })

@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware(async (to) => {
   if (process.client) {
-    const cache = await caches.open('memoku-cache-1')
+    const cache = await caches.open('memoku-cache-3')
     const keys = await cache.keys()
 
     keys.forEach((key) => {

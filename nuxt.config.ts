@@ -19,8 +19,18 @@ export default defineNuxtConfig({
   ],
   app: {
     head: {
-      meta: [{ name: 'google', content: 'notranslate' }],
+      meta: [{ name: 'google', content: 'notranslate' }, {name: 'theme-color', content: '#ffffff'}],
       title: 'MEMOKU',
+      link: [
+        { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
+        {
+          rel: 'icon',
+          href: '/favicon.svg',
+          sizes: 'any',
+          type: 'image/svg+xml',
+        },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon-180x180.png' },
+      ],
     },
   },
   plugins: [
@@ -45,27 +55,32 @@ export default defineNuxtConfig({
       name: 'MEMOKU',
       short_name: 'MEMOKU',
       description: 'Simple memo webapp.',
-      theme_color: '#ffffff',
+      start_url: '/',
+      theme_color: '#000000',
+      background_color: '#ffffff',
       display: 'standalone',
       icons: [
         {
-          src: '48x48.ico',
-          sizes: '48x48',
-        },
-        {
-          src: '144x144.png',
-          sizes: '144x144',
+          src: 'pwa-64x64.png',
+          sizes: '64x64',
           type: 'image/png',
         },
         {
-          src: '192x192.png',
+          src: 'pwa-192x192.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: '512x512.png',
+          src: 'pwa-512x512.png',
           sizes: '512x512',
           type: 'image/png',
+          purpose: 'any',
+        },
+        {
+          src: 'maskable-icon-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'maskable',
         },
       ],
       screenshots: [

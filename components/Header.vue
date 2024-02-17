@@ -20,7 +20,7 @@
                 'border-2 border-white rounded-full'
               )
             "
-            src="~/assets/images/logo-75x75.png"
+            src="~/assets/images/logo.svg"
             alt="MEMOKU" />
           <span :class="storageStore.getThemeClass('', 'text-white')">
             MEMOKU

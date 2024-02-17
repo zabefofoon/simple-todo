@@ -3,6 +3,7 @@
   <NuxtPage />
 </template>
 <script setup lang="ts">
+import type { Theme } from './models/Setting'
 import { Todo } from './models/Todo'
 import { useScrollStore } from './store/scroll.store'
 import { useSettingStore } from './store/setting.store'
@@ -37,4 +38,16 @@ useHead({
     lang: storageStore.language || 'en',
   },
 })
+
+watch(
+  () => storageStore.theme,
+  (value: Theme) =>
+    setTimeout(() => {
+      if (process.client)
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute('content', value === 'dark' ? '#020617' : '#ffffff')
+    }),
+  { immediate: true }
+)
 </script>

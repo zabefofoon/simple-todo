@@ -6,7 +6,7 @@ clientsClaim()
 cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST || [])
 
-const cacheName = 'memoku-cache-2'
+const cacheName = 'memoku-cache-3'
 const cacheUrl = ['/']
 
 self.addEventListener('install', (event) =>
@@ -54,8 +54,8 @@ const registerTimer = (todos) => {
           renotify: true,
           tag: 'MEMOKU',
           timestamp: Math.floor(Date.now()),
-          icon: 'https://cheery-starlight-accc7e.netlify.app/192x192.png',
-          badge: 'https://cheery-starlight-accc7e.netlify.app/48x48.png',
+          icon: 'https://memoku.netlify.app/192x192.png',
+          badge: 'https://memoku.netlify.app/48x48.png',
           data: todo,
         })
 

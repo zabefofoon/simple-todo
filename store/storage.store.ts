@@ -40,7 +40,7 @@ export const useStorageStore = defineStore('storage', () => {
     (readExpiredTodos.value = value)
 
   const getReadExpiredTodo = (): string[] => {
-    const saved = storageApi.getLocalStorage('readExpiredTodos') || []
+    const saved = storageApi.getLocalStorage('readExpiredTodos') || '[]'
     setReadExpiredTodos(saved)
     return JSON.parse(saved)
   }

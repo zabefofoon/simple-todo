@@ -6,22 +6,35 @@ clientsClaim()
 cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST || [])
 
+const cacheName = 'memoku-cache-1'
+const cacheUrl = ['/']
 
-/* // install event
-self.addEventListener('install', (e) => {
-  console.log('[Service Worker] installed')
-})
+self.addEventListener('install', (event) =>
+  event.waitUntil(
+    caches.open(cacheName).then((cache) => cache.addAll(cacheUrl))
+  )
+)
 
-// activate event
-self.addEventListener('activate', (e) => {
-  console.log('[Service Worker] actived', e)
-})
+self.addEventListener('fetch', (event) =>
+  event.respondWith(
+    caches
+      .match(event.request)
+      .then((response) => response ?? fetch(event.request))
+  )
+)
 
-// fetch event
-self.addEventListener('fetch', (e) => {
-  console.log('[Service Worker] fetched resource ' + e.request.url)
-})
- */
+self.addEventListener('activate', (event) =>
+  event.waitUntil(
+    caches.keys().then((cacheNames) =>
+      Promise.all(
+        cacheNames.map((name) => {
+          if (name !== cacheName) caches.delete(name)
+        })
+      )
+    )
+  )
+)
+
 const timers = []
 
 const registerTimer = (todos) => {

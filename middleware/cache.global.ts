@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to) => {
-  if (process.client) {
+  if (process.client && !navigator.onLine) {
     caches.open('memoku-cache-1').then((cache) => {
       cache.keys().then((keys) => {
         keys.forEach((key) => {
@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware((to) => {
           if (path !== '/' && path !== to.path) cache.delete(key)
         })
 
-        fetch(to.path).then((response) => cache.put(to.path, response))
+        fetch('/').then((response) => cache.put(to.path, response))
       })
     })
   }

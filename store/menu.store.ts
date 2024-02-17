@@ -21,7 +21,7 @@ export const useMenuStore = defineStore('menu', () => {
     Menu.of({
       code: 'guide',
       name: 'Guide',
-      href: '/',
+      href: 'https://zabefofoon.github.io/memoku-guide/',
       icon: 'icon-help',
       external: true,
     }),

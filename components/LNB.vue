@@ -10,7 +10,8 @@
         v-for="menu in menuStore.menus"
         :key="menu.code"
         :to="menu.href"
-        :area-label="menu.name">
+        :area-label="menu.name"
+        :target="menu.target">
         <li
           class="flex items-center justify-center gap-2 | py-2"
           :class="

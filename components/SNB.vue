@@ -31,7 +31,8 @@
           v-for="menu in menuStore.menus"
           :key="menu.code"
           :to="menu.href"
-          :area-label="menu.name">
+          :area-label="menu.name"
+          :target="menu.target">
           <li
             class="relative | flex items-center gap-2 | py-1.5 px-4"
             :class="

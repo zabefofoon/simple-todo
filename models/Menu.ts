@@ -9,6 +9,10 @@ export class Menu {
     Object.assign(this, menu)
   }
 
+  get target() {
+    return this.external ? '_blank' : '_self'
+  }
+
   static of(menu: Partial<Menu>) {
     return new Menu(menu)
   }

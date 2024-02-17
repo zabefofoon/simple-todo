@@ -7,7 +7,15 @@ cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST || [])
 
 const cacheName = 'memoku-cache-1'
-const cacheUrl = ['/']
+const cacheUrl = [
+  '/',
+  '/setting',
+  '/search',
+  '/notification',
+  '/todo/*',
+  '/form/*',
+  '/calender/*',
+]
 
 self.addEventListener('install', (event) =>
   event.waitUntil(

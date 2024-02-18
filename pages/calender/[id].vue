@@ -35,7 +35,7 @@
               v-for="todo in todayTodos"
               :key="todo.id"
               :todo="todo"
-              @delete="todoStore.deleteTodo"
+              @delete="deleteTodo"
               @done="todoStore.doneTodo" />
           </div>
           <div
@@ -46,7 +46,7 @@
               v-for="todo in todayTodos"
               :key="todo.id"
               :todo="todo"
-              @delete="todoStore.deleteTodo"
+              @delete="deleteTodo"
               @done="todoStore.doneTodo" />
           </div>
         </template>
@@ -63,6 +63,8 @@ import { useLoadingStore } from '~/store/loading.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
+const i18n = useI18n()
+
 const route = useRoute()
 const router = useRouter()
 
@@ -73,6 +75,10 @@ const loadingStore = useLoadingStore()
 const todayTodos = computed(() =>
   todoStore.todos?.filter((todo) => todo.createdDate === route.params.id)
 )
+
+const deleteTodo = (id: number) => {
+  if (confirm(i18n.t('ConfirmDelete'))) todoStore.deleteTodo(id)
+}
 </script>
 
 <style></style>

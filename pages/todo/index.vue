@@ -172,13 +172,13 @@ const changeFilter = (event: Event) => {
   else if (value === 'Undone') filter = 'Undone'
   else if (value === 'Done') filter = 'Done'
 
-  router.replace({ query: { ...route.query, filter } })
+  router.push({ query: { ...route.query, filter } })
 }
 
 const changeTag = (event: Event) => {
   const value = (<HTMLSelectElement>event.target).value
   const tag = value === 'All' ? undefined : value
-  router.replace({ query: { ...route.query, tag } })
+  router.push({ query: { ...route.query, tag } })
 }
 
 const deleteTodo = (id: number) => {

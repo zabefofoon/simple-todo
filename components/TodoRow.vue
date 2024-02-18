@@ -2,8 +2,8 @@
   <NuxtLink
     :to="`/todo/${todo.id}`"
     :area-label="`Todo ${todo.id}`"
-    v-long-click="() => bulkStore.turnOnBulkMode(todo.id)"
-    @click="route.query.bulk && bulkStore.add(todo.id)"
+    v-long-click="() => !route.query.bulk && bulkStore.turnOnBulkMode(todo.id)"
+    @mousedown="route.query.bulk && bulkStore.add(todo.id)"
     @contextmenu.prevent>
     <figure
       class="w-full h-full | flex gap-2 | border rounded-lg | relative | py-1"

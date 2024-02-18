@@ -6,9 +6,9 @@ export const useBulkStore = defineStore('bulk', () => {
   const router = useRouter()
 
   const isBulkMode = computed(() => route.query.bulk)
-  const turnOnBulkMode = (todoId?: number) => {
-    add(todoId)
-    router.push({ query: { bulk: 'true' } })
+  const turnOnBulkMode = async (todoId?: number) => {
+    await router.push({ query: { ...route.query, bulk: 'true' } })
+    setTimeout(() => (selectedTodoIds.value = [todoId]), 100)
   }
 
   const selectedTodoIds = ref<(number | undefined)[]>([])

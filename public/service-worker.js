@@ -6,7 +6,7 @@ clientsClaim()
 cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST || [])
 
-const cacheName = 'memoku-cache-1'
+const cacheName = 'memoku-cache-5'
 const cacheUrl = ['/']
 
 self.addEventListener('install', (event) =>
@@ -15,11 +15,13 @@ self.addEventListener('install', (event) =>
   )
 )
 
-self.addEventListener('fetch', (event) => event.respondWith(
-  caches
-    .match(event.request)
-    .then((response) => response ?? fetch(event.request))
-))
+self.addEventListener('fetch', (event) =>
+  event.respondWith(
+    caches
+      .match(event.request)
+      .then((response) => response ?? fetch(event.request))
+  )
+)
 
 self.addEventListener('activate', (event) =>
   event.waitUntil(

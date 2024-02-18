@@ -159,8 +159,12 @@ onMounted(() => {
   if (!route.query.keyword) toValue(input)?.focus()
 })
 
-const todos = ref<Todo[]>()
-const setTodos = (data?: Todo[]) => (todos.value = data)
+const todos = computed(
+  () =>
+    todoStore.todos?.filter((todo) =>
+      todo.description?.includes(String(route.query.keyword))
+    ) || []
+)
 
 watch(
   () => route.query.keyword,
@@ -168,10 +172,6 @@ watch(
     setTimeout(() => {
       if (!queryKeyword) return
       showAddArea(false)
-      const todos = todoStore.todos?.filter((todo) =>
-        todo.description?.includes(String(queryKeyword))
-      )
-      setTodos(todos)
 
       setKeyword(String(queryKeyword || ''))
     }),

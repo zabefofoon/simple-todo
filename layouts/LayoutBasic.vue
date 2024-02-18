@@ -2,6 +2,7 @@
   <div
     class="flex | w-screen h-dvh overflow-hidden"
     :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')">
+    <BulkButtons v-if="route.query.bulk" />
     <SNB />
     <div class="right-area | flex flex-col | h-full w-full overflow-hidden">
       <slot name="header"><Header /></slot>
@@ -15,6 +16,7 @@
       </main>
       <nav class="relative">
         <FloatingButtons
+          v-if="!route.query.bulk"
           :is-show-scroll-top="isShowScrollTop"
           @scroll-top="scrollTop">
           <slot name="actions" />
@@ -28,6 +30,8 @@
 <script setup lang="ts">
 import { useScrollStore } from '~/store/scroll.store'
 import { useStorageStore } from '~/store/storage.store'
+
+const route = useRoute()
 
 const scrollStore = useScrollStore()
 const storageStore = useStorageStore()

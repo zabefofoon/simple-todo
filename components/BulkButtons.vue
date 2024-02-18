@@ -1,0 +1,76 @@
+<template>
+  <div class="fixed bottom-20 lg:bottom-8 left-1/2 -translate-x-1/2 z-40">
+    <ul
+      class="flex items-center gap-2 lg:gap-3 | py-2 px-3 lg:px-4 | bg-slate-950 | rounded-full">
+      <li>
+        <button class="flex items-center gap-1" @click="router.back()">
+          <i class="icon icon-arrow-left | text-white"></i>
+          <span class="text-sm lg:text-sm | text-white whitespace-nowrap">
+            {{ $t('Close') }}
+          </span>
+        </button>
+      </li>
+      <span class="text-xs">|</span>
+      <li>
+        <button class="flex items-center gap-1.5" @click="bulkDone(true)">
+          <span
+            class="flex items-center justify-center | bg-green-500 | w-4 h-4 | rounded-full">
+            <i class="icon icon-check | text-white"></i>
+          </span>
+          <span class="text-sm lg:text-sm | text-white whitespace-nowrap">
+            {{ $t('Done') }}
+          </span>
+        </button>
+      </li>
+      <span class="text-xs">|</span>
+      <li>
+        <button class="flex items-center gap-1.5" @click="bulkDone(false)">
+          <span
+            class="flex items-center justify-center | border border-slate-500 | w-4 h-4 | rounded-full">
+            <i class="icon icon-check | text-white"></i>
+          </span>
+          <span class="text-sm lg:text-sm | text-white whitespace-nowrap">
+            {{ $t('Undone') }}
+          </span>
+        </button>
+      </li>
+      <span class="text-xs">|</span>
+      <li>
+        <button class="flex items-center gap-1" @click="bulkDelete()">
+          <i class="icon icon-close | text-white"></i>
+          <span class="text-sm lg:text-sm | text-white whitespace-nowrap">
+            {{ $t('Remove') }}
+          </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useBulkStore } from '~/store/bulk.store'
+import { useTodoStore } from '~/store/todo.store'
+
+const i18n = useI18n()
+
+const router = useRouter()
+const bulkStore = useBulkStore()
+const todoStore = useTodoStore()
+
+const bulkDone = async (done?: boolean) => {
+  if (confirm(i18n.t('bulkDone'))) {
+    await bulkStore.updateBulkTodos(done)
+    await todoStore.getAllTodos(true)
+    router.back()
+  }
+}
+const bulkDelete = async () => {
+  if (confirm(i18n.t('bulkDone'))) {
+    await bulkStore.deleteBulkTodos()
+    await todoStore.getAllTodos(true)
+    router.back()
+  }
+}
+</script>
+
+<style></style>

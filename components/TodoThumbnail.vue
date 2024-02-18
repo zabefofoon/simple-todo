@@ -2,10 +2,21 @@
   <NuxtLink
     :to="`/todo/${todo.id}`"
     :area-label="`Todo ${todo.id}`"
-    v-long-click="() => emit('delete', Number(todo.id))">
+    v-long-click="() => bulkStore.turnOnBulkMode(todo.id)"
+    @click="route.query.bulk && bulkStore.add(todo.id)"
+    @contextmenu.prevent>
     <figure
       class="thumbnail | relative | w-full aspect-square overflow-hidden | p-2 | border rounded-lg"
-      :class="storageStore.getThemeClass('', 'border-slate-700')">
+      :class="[
+        storageStore.getThemeClass(
+          bulkStore.selectedTodoIds.includes(todo.id)
+            ? 'border-orange-500'
+            : '',
+          bulkStore.selectedTodoIds.includes(todo.id)
+            ? 'border-orange-500'
+            : 'border-slate-700'
+        ),
+      ]">
       <div class="flex gap-1 | absolute bottom-[5px] right-1 z-10">
         <span
           v-if="todo.tag"
@@ -21,7 +32,7 @@
       <button
         name="Check"
         class="flex items-center | absolute left-1 top-1 z-10 | rounded-full"
-        :class="todo.done ? 'bg-green-500' : 'border border-gray-200'"
+        :class="[todo.done ? 'bg-green-500' : 'border border-gray-200']"
         @click.stop.prevent="emit('done', todo.id || -1, todo.done)">
         <i
           class="icon icon-check | text-sm"
@@ -68,6 +79,7 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
+import { useBulkStore } from '~/store/bulk.store'
 import { useStorageStore } from '~/store/storage.store'
 
 const props = defineProps<{
@@ -78,9 +90,13 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'delete', id: number): void
   (e: 'done', id: number, done?: boolean): void
+  (e: 'long-click', id: number): void
 }>()
 
+const route = useRoute()
+
 const storageStore = useStorageStore()
+const bulkStore = useBulkStore()
 
 const leftUptoHours = ref(0)
 const getLeftUptoHours = (todo: Todo) => {

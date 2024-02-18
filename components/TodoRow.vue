@@ -2,10 +2,21 @@
   <NuxtLink
     :to="`/todo/${todo.id}`"
     :area-label="`Todo ${todo.id}`"
-    v-long-click="() => emit('delete', Number(todo.id))">
+    v-long-click="() => bulkStore.turnOnBulkMode(todo.id)"
+    @click="route.query.bulk && bulkStore.add(todo.id)"
+    @contextmenu.prevent>
     <figure
       class="w-full h-full | flex gap-2 | border rounded-lg | relative | py-1"
-      :class="storageStore.getThemeClass('', 'border-slate-700')">
+      :class="[
+        storageStore.getThemeClass(
+          bulkStore.selectedTodoIds.includes(todo.id)
+            ? 'border-orange-500'
+            : '',
+          bulkStore.selectedTodoIds.includes(todo.id)
+            ? 'border-orange-500'
+            : 'border-slate-700'
+        ),
+      ]">
       <div
         v-if="todo.tagId"
         class="w-20 h-full | flex items-center | border-r"
@@ -59,7 +70,9 @@
         v-if="!hideDelete"
         nmae="Delete"
         class="close-button | flex items-center | p-2"
-        @click.stop.prevent="emit('delete', todo.id || -1)">
+        @click.stop.prevent="
+          !route.query.builk && emit('delete', todo.id || -1)
+        ">
         <i
           class="icon icon-close"
           :class="storageStore.getThemeClass('', 'text-white')"></i>
@@ -78,7 +91,9 @@
           todo.done ? 'bg-green-500' : 'border border-gray-200',
           hideDelete ? 'right-2' : 'right-8',
         ]"
-        @click.stop.prevent="emit('done', todo.id || -1, todo.done)">
+        @click.stop.prevent="
+          !route.query.builk && emit('done', todo.id || -1, todo.done)
+        ">
         <i
           class="icon icon-check | text-sm"
           :class="todo.done ? 'text-white' : 'text-gray-300'"></i>
@@ -89,6 +104,7 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
+import { useBulkStore } from '~/store/bulk.store'
 import { useStorageStore } from '~/store/storage.store'
 
 const props = defineProps<{
@@ -101,7 +117,10 @@ const emit = defineEmits<{
   (e: 'done', id: number, done?: boolean): void
 }>()
 
+const route = useRoute()
+
 const storageStore = useStorageStore()
+const bulkStore = useBulkStore()
 
 const leftUptoHours = ref(0)
 const getLeftUptoHours = (todo: Todo) => {

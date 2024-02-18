@@ -48,5 +48,8 @@
   "Month": "Month",
   "Week": "Week",
   "LeftHours": "{0}h left",
-  "LeftMinits": "{0}m left"
+  "LeftMinits": "{0}m left",
+  "Remove": "Remove",
+  "Close": "Close",
+  "bulkDone": "Do you want to apply it all?"
 }

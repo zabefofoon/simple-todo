@@ -8,20 +8,20 @@ export default defineNuxtPlugin((nuxtApp) => {
           event.preventDefault()
           event.stopPropagation()
           value(event)
-        }, 1000) // 1000 milliseconds (1 second) for long click
+        }, 500) // 1000 milliseconds (1 second) for long click
       })
 
-      el.addEventListener('pointerup', () => {
+      el.addEventListener('pointerup', (event: Event) => {
+        event.preventDefault()
+        event.stopPropagation()
         clearTimeout(timeout)
       })
 
-      el.addEventListener('pointerleave', () => {
+      el.addEventListener('pointerleave', (event: Event) => {
+        event.preventDefault()
+        event.stopPropagation()
         clearTimeout(timeout)
       })
-    },
-    getSSRProps(binding, vnode) {
-      // you can provide SSR-specific props here
-      return {}
     },
   })
 })

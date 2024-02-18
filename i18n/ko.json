@@ -48,5 +48,8 @@
   "Month": "월 별",
   "Week": "일 별",
   "LeftHours": "{0}시간 남음",
-  "LeftMinits": "{0}분 남음"
+  "LeftMinits": "{0}분 남음",
+  "Remove": "삭제",
+  "Close": "나가기",
+  "bulkDone": "전체 적용하시겠습니까?"
 }

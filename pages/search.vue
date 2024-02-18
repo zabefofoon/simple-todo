@@ -84,14 +84,19 @@
               :key="todo.id"
               :todo="todo"
               hide-delete
-              @delete="todoStore.deleteTodo"
+              @delete="deleteTodo"
               @done="todoStore.doneTodo" />
           </div>
         </template>
         <div
           v-else-if="todos?.length"
           class="flex flex-col gap-2 | p-4 | h-full">
-          <TodoRow v-for="todo in todos" :key="todo.id" :todo="todo" />
+          <TodoRow
+            v-for="todo in todos"
+            :key="todo.id"
+            :todo="todo"
+            @delete="deleteTodo"
+            @done="todoStore.doneTodo" />
         </div>
         <h3
           v-if="!todos?.length"
@@ -115,6 +120,8 @@ import type { Todo } from '~/models/Todo'
 import { useLoadingStore } from '~/store/loading.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
+
+const i18n = useI18n()
 
 const router = useRouter()
 const route = useRoute()
@@ -170,4 +177,8 @@ watch(
     }),
   { immediate: true }
 )
+
+const deleteTodo = (id: number) => {
+  if (confirm(i18n.t('ConfirmDelete'))) todoStore.deleteTodo(id)
+}
 </script>

@@ -11,6 +11,10 @@
     <div class="h-full | lg:px-4">
       <Calendar />
     </div>
+    <template #actions>
+      <FloatingButtonsSearch />
+      <FloatingButtonsNew />
+    </template>
   </NuxtLayout>
 </template>
 

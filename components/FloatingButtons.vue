@@ -4,7 +4,7 @@
     <button
       v-if="isShowScrollTop && $route.name !== 'todo-id'"
       name="ScrollTop"
-      class="flex items-center justify-center | aspect-square overflow-hidden | bg-slate-800 rounded-full | text-white | p-2"
+      class="flex items-center justify-center | aspect-square overflow-hidden | bg-slate-800 rounded-full | p-2"
       @click="$emit('scrollTop')">
       <i class="icon icon-arrow-top | text-xl text-white"></i>
     </button>

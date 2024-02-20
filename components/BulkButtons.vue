@@ -1,11 +1,11 @@
 <template>
   <div class="fixed bottom-20 lg:bottom-8 left-1/2 -translate-x-1/2 z-40">
     <ul
-      class="flex items-center gap-2 lg:gap-3 | py-2 px-3 lg:px-4 | bg-slate-950 | rounded-full">
+      class="flex items-center gap-1 lg:gap-3 | py-3 px-3 lg:px-4 | bg-slate-950 | rounded-full">
       <li>
         <button class="flex items-center gap-1" @click="router.back()">
           <i class="icon icon-arrow-left | text-white"></i>
-          <span class="text-sm lg:text-sm | text-white whitespace-nowrap">
+          <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
             {{ $t('Close') }}
           </span>
         </button>
@@ -17,7 +17,7 @@
             class="flex items-center justify-center | bg-green-500 | w-4 h-4 | rounded-full">
             <i class="icon icon-check | text-white"></i>
           </span>
-          <span class="text-sm lg:text-sm | text-white whitespace-nowrap">
+          <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
             {{ $t('Done') }}
           </span>
         </button>
@@ -29,7 +29,7 @@
             class="flex items-center justify-center | border border-slate-500 | w-4 h-4 | rounded-full">
             <i class="icon icon-check | text-white"></i>
           </span>
-          <span class="text-sm lg:text-sm | text-white whitespace-nowrap">
+          <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
             {{ $t('Undone') }}
           </span>
         </button>
@@ -38,7 +38,7 @@
       <li>
         <button class="flex items-center gap-1" @click="bulkDelete()">
           <i class="icon icon-close | text-white"></i>
-          <span class="text-sm lg:text-sm | text-white whitespace-nowrap">
+          <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
             {{ $t('Remove') }}
           </span>
         </button>

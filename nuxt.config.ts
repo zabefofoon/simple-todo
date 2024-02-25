@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   css: ['~/assets/styles/style.scss', 'v-calendar/style.css'],
   modules: [
     '@vite-pwa/nuxt',
+    'nuxt-gtag',
     '@nuxtjs/i18n',
     [
       '@pinia/nuxt',
@@ -17,6 +18,9 @@ export default defineNuxtConfig({
       },
     ],
   ],
+  gtag: {
+    id: 'G-R5C8GX5QQN'
+  },
   app: {
     head: {
       meta: [{ name: 'google', content: 'notranslate' }, {name: 'theme-color', content: '#ffffff'}],

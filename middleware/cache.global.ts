@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware((to) => {
   if (process.client && !navigator.onLine) {
-    caches.open('memoku-cache-6').then((cache) => {
+    caches.open('memoku-cache-7').then((cache) => {
       cache.keys().then((keys) => {
         keys.forEach((key) => {
           const path = key.url.replace(location.origin, '')

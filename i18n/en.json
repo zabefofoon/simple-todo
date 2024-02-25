@@ -51,5 +51,7 @@
   "LeftMinits": "{0}m left",
   "Remove": "Remove",
   "Close": "Close",
-  "bulkDone": "Do you want to apply it all?"
+  "bulkDone": "Do you want to apply it all?",
+  "Title": "Title",
+  "Description": "Description"
 }

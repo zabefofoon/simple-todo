@@ -6,7 +6,7 @@ clientsClaim()
 cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST || [])
 
-const cacheName = 'memoku-cache-7'
+const cacheName = 'memoku-cache-8'
 const cacheUrl = ['/']
 
 self.addEventListener('install', (event) =>

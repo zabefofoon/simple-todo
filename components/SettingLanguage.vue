@@ -8,7 +8,7 @@
       {{ $t('Language') }}
     </label>
     <select
-      :value="storageStore.language"
+      v-model="storageStore.language"
       class="ml-auto lg:ml-0 | text-sm"
       :class="
         storageStore.getThemeClass('bg-white', 'dark | bg-slate-900 text-white')

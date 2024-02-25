@@ -71,12 +71,13 @@ export const useStorageStore = defineStore('storage', () => {
   const setSummaryTimeType = (type: SummaryTimeType) =>
     storageApi.setLocalStorage('summaryTimeType', type)
 
-  const language = ref<Theme>(
+  const language = ref<Language>(
     process.client
       ? storageApi.getLocalStorage('language') || 'en'
       : getCookie(event, 'i18n_redirected') || 'en'
   )
   const setLanguage = (value: Language) => {
+    language.value = value
     storageApi.setLocalStorage('language', value)
     i18n.setLocale(value)
   }

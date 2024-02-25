@@ -51,5 +51,7 @@
   "LeftMinits": "{0}분 남음",
   "Remove": "삭제",
   "Close": "나가기",
-  "bulkDone": "전체 적용하시겠습니까?"
+  "bulkDone": "전체 적용하시겠습니까?",
+  "Title": "제목",
+  "Description": "내용"
 }

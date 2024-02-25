@@ -35,12 +35,12 @@
             <button
               name="Save"
               class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto">
-              <span class="text-white" @click="save">Save</span>
+              <span class="text-white" @click="save">{{ $t('Save') }}</span>
             </button>
           </div>
           <input
             ref="inputTitle"
-            placeholder="Title"
+            :placeholder="$t('Title')"
             class="border | p-2"
             :class="
               storageStore.getThemeClass(
@@ -59,7 +59,7 @@
                 'bg-slate-900 | border-slate-700 | text-white'
               )
             "
-            placeholder="Description"
+            :placeholder="$t('Description')"
             :value="description"
             @change="setDescription"
             @input="resizeTextArea" />
@@ -68,7 +68,7 @@
       <button
         name="Save"
         class="lg:hidden | w-[96vw] | bg-slate-800 | text-white rounded-full | py-3 lg:py-2 mx-auto mt-auto mb-4">
-        <span class="text-white" @click="save">Save</span>
+        <span class="text-white" @click="save">{{ $t('Save') }}</span>
       </button>
     </template>
   </NuxtLayout>

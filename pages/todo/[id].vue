@@ -42,7 +42,7 @@
                 'bg-slate-900 text-white border-slate-700'
               ),
             ]"
-            placeholder="Description"
+            :placeholder="$t('Description')"
             @input="textAreaInputhandler"
             @change="setDescription" />
           <div

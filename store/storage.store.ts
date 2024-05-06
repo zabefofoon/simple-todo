@@ -1,3 +1,4 @@
+import { getCookie } from 'h3'
 import { defineStore } from 'pinia'
 import storageApi from '~/api/storage.api'
 import type { Display, Language, Theme } from '~/models/Setting'
@@ -7,6 +8,7 @@ export const useStorageStore = defineStore(
   'storage',
   () => {
     const i18n = useI18n()
+    const event = useRequestEvent()
 
     const removeKeywords = (keyword: string) => {
       let keywords = getRecentKeywords()
@@ -83,12 +85,19 @@ export const useStorageStore = defineStore(
       i18n.setLocale(value)
     }
 
-    const theme = ref<Theme>('white')
-    const setTheme = (value: Theme) => (theme.value = value)
-
+    const theme = ref<Theme>(
+      process.client
+        ? storageApi.getLocalStorage('theme') || 'white'
+        : getCookie(event, 'x-theme') || 'white'
+    )
+    const setTheme = (value: Theme) => {
+      storageApi.setLocalStorage('theme', value)
+      setCookie('x-theme', value, 30)
+      theme.value = value
+    }
     const getThemeClass = (whiteClass: string, darkClass: string) =>
       toValue(theme) === 'white' ? whiteClass : darkClass
-
+  
     const display = ref<Display>('thumbnail')
     const setDisplay = (value: Display) => (display.value = value)
 
@@ -118,7 +127,7 @@ export const useStorageStore = defineStore(
   },
   {
     persist: {
-      paths: ['language', 'theme', 'display'],
+      paths: ['language', 'display'],
     },
   }
 )

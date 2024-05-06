@@ -6,7 +6,7 @@ clientsClaim()
 cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST || [])
 
-const cacheName = 'memoku-cache-8'
+const cacheName = 'memoku-cache-9'
 const cacheUrl = ['/']
 
 self.addEventListener('install', (event) =>
@@ -43,7 +43,8 @@ const registerTimer = (todos) => {
   todos.forEach((todo) => {
     const now = new Date()
     const time = new Date(`${todo.date} ${todo.time}`)
-    if (time >= now) {
+
+    if (time >= now && time - now < 86400000) {
       const timer = setTimeout(() => {
         const body =
           todo.description?.length > 30

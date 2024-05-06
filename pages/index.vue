@@ -35,8 +35,6 @@
 import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
-
-if (process.client) alert(storageStore.theme)
 </script>
 
 <style></style>

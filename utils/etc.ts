@@ -14,7 +14,7 @@ export const sleep = (time: number) =>
 export const deepClone = <T>(data: T): T => JSON.parse(JSON.stringify(data))
 
 export const getCookie = (name: string) => {
-  const cookieString = document.cookie
+  const cookieString = decodeURIComponent(document.cookie)
   const cookies = cookieString.split(';')
 
   for (let i = 0; i < cookies.length; i++) {
@@ -35,4 +35,12 @@ export const setCookie = (name: string, value: string, days: number) => {
     expires = '; expires=' + date.toUTCString()
   }
   document.cookie = name + '=' + value + expires + '; path=/'
+}
+
+export default {
+  generateUniqueId,
+  sleep,
+  deepClone,
+  getCookie,
+  setCookie,
 }

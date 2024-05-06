@@ -17,6 +17,7 @@ export default defineNuxtConfig({
         ],
       },
     ],
+    '@pinia-plugin-persistedstate/nuxt',
   ],
   gtag: {
     id: 'G-R5C8GX5QQN'

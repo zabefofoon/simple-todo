@@ -1,4 +1,5 @@
 import { getCookie } from 'h3'
+import etcUtil from '~/utils/etc'
 
 import en from './en.json'
 import ko from './ko.json'
@@ -13,8 +14,8 @@ export default defineI18nConfig(() => {
       { code: 'ko', iso: 'ko-KR', name: '한국어' },
     ],
     locale: process.client
-      ? localStorage.getItem('language')?.replace(/[\'|\"]/g, '') || 'en'
-      : getCookie(event, 'i18n_redirected'),
+      ? JSON.parse(etcUtil.getCookie('storage') || '{}')?.language || 'en'
+      : JSON.parse(getCookie(event, 'storage') || '{}')?.language || 'en',
     messages: {
       'en-US': en,
       'ko-KR': ko,

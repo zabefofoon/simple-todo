@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     'nuxt-gtag',
     '@nuxtjs/i18n',
+    '@nuxtjs/device',
     [
       '@pinia/nuxt',
       {

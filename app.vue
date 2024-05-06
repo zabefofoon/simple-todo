@@ -1,6 +1,8 @@
 <template>
   <VitePwaManifest />
   <NuxtPage />
+  <AddHomeScreenGuideIos v-if="isSafari" />
+  <AddHomeScreenGuideAndroid v-else />
 </template>
 <script setup lang="ts">
 import type { Theme } from './models/Setting'
@@ -50,4 +52,6 @@ watch(
     }),
   { immediate: true }
 )
+
+const { isSafari } = useDevice()
 </script>

@@ -195,6 +195,11 @@ export default defineNuxtConfig({
       ],
       categories: ['entertainment', 'lifestyle', 'social'],
       display_override: ['window-controls-overlay', 'standalone'],
+      orientation: 'portrait',
+      launch_handler: {
+        client_mode: ['focus-existing', 'auto'],
+      },
+      prefer_related_applications: true
     },
     workbox: {
       globDirectory: '.output/public/',

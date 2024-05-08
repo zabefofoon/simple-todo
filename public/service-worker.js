@@ -108,5 +108,13 @@ self.addEventListener('notificationclick', (event) => {
 })
 
 self.addEventListener('push', (event) => {
-  console.log('event: ', event)
+  self.registration.showNotification('Check!', {
+    body: event.data.text(),
+    requireInteraction: true,
+    renotify: true,
+    tag: 'MEMOKU',
+    timestamp: Math.floor(Date.now()),
+    icon: 'https://memoku.netlify.app/192x192.png',
+    badge: 'https://memoku.netlify.app/48x48.png'
+  })
 })

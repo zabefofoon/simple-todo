@@ -72,14 +72,19 @@ if (process.client && 'serviceWorker' in navigator && route.query.dev) {
       const pushSubscription = await registration.pushManager.subscribe(
         subscribeOptions
       )
-      const res = await $fetch(import.meta.env.VITE_ALARM_SERVER, {
-        method: 'post',
-        body: {
-          mid,
-          pushSubscription,
-        },
-      })
-      console.log(res)
+      try {
+        const res = await $fetch(import.meta.env.VITE_ALARM_SERVER, {
+          method: 'post',
+          body: {
+            mid,
+            pushSubscription,
+          },
+          timeout: 1000
+        })
+        console.log(res)
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 }

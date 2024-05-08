@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to) => {
-  if (process.client) {
+  if (process.client && window.caches) {
     caches.open('memoku-cache-12').then((cache) => {
       cache.keys().then((keys) => {
         keys.forEach((key) => {

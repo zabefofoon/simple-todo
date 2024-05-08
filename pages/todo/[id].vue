@@ -373,6 +373,12 @@ const save = async () => {
     ? await todoStore.updateTodo(Number(route.params.id), data)
     : await todoStore.addTodo(<Todo>data)
   todoStore.getAllTodos(true)
+
+  if (upto.value) {
+    const isAfter = new Date(`${date.value} ${time.value}`) > new Date()
+    if (isAfter) registAlarm()
+  }
+
   router.back()
 }
 
@@ -420,6 +426,39 @@ const deleteTodo = async () => {
   if (!confirm(i18n.t('ConfirmDelete'))) return
   await todoStore.deleteTodo(Number(toValue(currentTodo)?.id))
   router.back()
+}
+
+const registAlarm = async () => {
+  if (!('serviceWorker' in navigator) || !route.query.dev) return
+
+  const permission = await Notification.requestPermission()
+  if (permission === 'granted') {
+    const mid = storageStore.getUniqueId()
+      ? storageStore.getUniqueId()
+      : storageStore.setUniqueId()
+
+    const registrations = await navigator.serviceWorker.getRegistrations()
+    for (const registration of registrations) {
+      const pushSubscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: import.meta.env.VITE_VAPID_PUBLIC_KEY, // 발급받은 vapid public key
+      })
+      try {
+        const res = await $fetch(import.meta.env.VITE_ALARM_SERVER, {
+          method: 'post',
+          body: {
+            mid,
+            pushSubscription,
+            time: `${date.value} ${time.value}`
+          },
+          timeout: 1000,
+        })
+        console.log(res)
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
 }
 
 const beforeunloadHandler = (event: BeforeUnloadEvent) => event.preventDefault()

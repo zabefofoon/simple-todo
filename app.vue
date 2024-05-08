@@ -54,38 +54,4 @@ watch(
     }),
   { immediate: true }
 )
-
-if (process.client && 'serviceWorker' in navigator && route.query.dev) {
-  const permission = await Notification.requestPermission()
-  if (permission === 'granted') {
-    const mid = storageStore.getUniqueId()
-      ? storageStore.getUniqueId()
-      : storageStore.setUniqueId()
-
-    const registrations = await navigator.serviceWorker.getRegistrations()
-    for (const registration of registrations) {
-      const subscribeOptions = {
-        userVisibleOnly: true,
-        applicationServerKey: import.meta.env.VITE_VAPID_PUBLIC_KEY, // 발급받은 vapid public key
-      }
-
-      const pushSubscription = await registration.pushManager.subscribe(
-        subscribeOptions
-      )
-      try {
-        const res = await $fetch(import.meta.env.VITE_ALARM_SERVER, {
-          method: 'post',
-          body: {
-            mid,
-            pushSubscription,
-          },
-          timeout: 1000
-        })
-        console.log(res)
-      } catch (e) {
-        console.error(e)
-      }
-    }
-  }
-}
 </script>

@@ -4,17 +4,13 @@
     <button
       name="Update"
       class="ml-auto lg:ml-0 | flex | border border-red-500 rounded-full"
-      @click="updateVersion">
+      @click="initServiceWorker">
       <span class="px-4 py-0.5 | text-sm text-red-500"> v0.0.0 </span>
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-const updateVersion = () => {
-  initServiceWorker()
-}
-
 const initServiceWorker = async () => {
   if ('serviceWorker' in navigator) {
     const registrations = await navigator.serviceWorker.getRegistrations()

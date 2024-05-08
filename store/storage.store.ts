@@ -97,10 +97,16 @@ export const useStorageStore = defineStore(
     }
     const getThemeClass = (whiteClass: string, darkClass: string) =>
       toValue(theme) === 'white' ? whiteClass : darkClass
-  
+
     const display = ref<Display>('thumbnail')
     const setDisplay = (value: Display) => (display.value = value)
 
+    const getUniqueId = () => storageApi.getLocalStorage('mid')
+    const setUniqueId = () => {
+      const mid = etc.generateLongUniqueId()
+      storageApi.setLocalStorage('mid', mid)
+      return mid
+    }
     return {
       addRecentKeywords,
       getRecentKeywords,
@@ -123,6 +129,9 @@ export const useStorageStore = defineStore(
 
       display,
       setDisplay,
+
+      getUniqueId,
+      setUniqueId,
     }
   },
   {

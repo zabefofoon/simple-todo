@@ -12,6 +12,8 @@ import { useSettingStore } from './store/setting.store'
 import { useStorageStore } from './store/storage.store'
 import { useTodoStore } from './store/todo.store'
 
+const { isSafari } = useDevice()
+const route = useRoute()
 const todoStore = useTodoStore()
 const scrollStore = useScrollStore()
 const storageStore = useStorageStore()
@@ -53,5 +55,32 @@ watch(
   { immediate: true }
 )
 
-const { isSafari } = useDevice()
+if (process.client && 'serviceWorker' in navigator && route.query.dev) {
+  const permission = await Notification.requestPermission()
+  if (permission === 'granted') {
+    const mid = storageStore.getUniqueId()
+      ? storageStore.getUniqueId()
+      : storageStore.setUniqueId()
+
+    const registrations = await navigator.serviceWorker.getRegistrations()
+    for (const registration of registrations) {
+      const subscribeOptions = {
+        userVisibleOnly: true,
+        applicationServerKey: import.meta.env.VITE_VAPID_PUBLIC_KEY, // 발급받은 vapid public key
+      }
+
+      const pushSubscription = await registration.pushManager.subscribe(
+        subscribeOptions
+      )
+      const res = await $fetch(import.meta.env.VITE_ALARM_SERVER, {
+        method: 'post',
+        body: {
+          mid,
+          pushSubscription,
+        },
+      })
+      console.log(res)
+    }
+  }
+}
 </script>

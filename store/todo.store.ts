@@ -28,20 +28,22 @@ export const useTodoStore = defineStore('todo', () => {
       }
 
       if (process.client) {
-        await Notification.requestPermission()
+        if (Notification.permission !== 'granted')
+          await Notification.requestPermission()
 
-        navigator.serviceWorker?.controller?.postMessage({
-          type: 'registerTimer',
-          todos:
-            todos.value
-              ?.filter((todo) => todo.upto)
-              .filter((todo) => {
-                const now = new Date()
-                const time = new Date(`${todo.date} ${todo.time}`)
-                return time >= now
-              })
-              .map((todo) => deepClone(todo)) || [],
-        })
+        if (Notification.permission)
+          navigator.serviceWorker?.controller?.postMessage({
+            type: 'registerTimer',
+            todos:
+              todos.value
+                ?.filter((todo) => todo.upto)
+                .filter((todo) => {
+                  const now = new Date()
+                  const time = new Date(`${todo.date} ${todo.time}`)
+                  return time >= now
+                })
+                .map((todo) => deepClone(todo)) || [],
+          })
       }
     })
     loadingStore.setTodoLoading(false)

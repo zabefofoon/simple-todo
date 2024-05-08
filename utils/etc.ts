@@ -8,6 +8,13 @@ export const generateUniqueId = (): string => {
   return uId.rnd()
 }
 
+export const generateLongUniqueId = (): string => {
+  const uId = new ShortUniqueId({
+    length: 30,
+  })
+  return uId.rnd()
+}
+
 export const sleep = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time))
 
@@ -39,6 +46,7 @@ export const setCookie = (name: string, value: string, days: number) => {
 
 export default {
   generateUniqueId,
+  generateLongUniqueId,
   sleep,
   deepClone,
   getCookie,

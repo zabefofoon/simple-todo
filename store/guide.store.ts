@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import etcUtil from '~/utils/etc'
 
 export const useGuideStore = defineStore(
   'guide',
@@ -23,6 +24,9 @@ export const useGuideStore = defineStore(
   {
     persist: {
       paths: ['isShowAddGuide', 'isShowAddHomeGuide'],
+      storage: persistedState.cookiesWithOptions({
+        expires: etcUtil.getCookieExpires(),
+      }),
     },
   }
 )

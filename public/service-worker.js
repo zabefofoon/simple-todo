@@ -73,7 +73,7 @@ const registerTimer = (todos) => {
 }
 
 self.addEventListener('message', ({ data }) => {
-  if (data.type === 'registerTimer') registerTimer(data.todos)
+  // if (data.type === 'registerTimer') registerTimer(data.todos)
 })
 
 self.addEventListener('notificationclick', (event) => {

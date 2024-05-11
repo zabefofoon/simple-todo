@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import storageApi from '~/api/storage.api'
 import type { Display, Language, Theme } from '~/models/Setting'
 import type { SummaryTimeType } from '~/models/Summary'
+import etcUtil from '~/utils/etc'
 
 export const useStorageStore = defineStore(
   'storage',
@@ -137,6 +138,9 @@ export const useStorageStore = defineStore(
   {
     persist: {
       paths: ['language', 'display'],
+      storage: persistedState.cookiesWithOptions({
+        expires: etcUtil.getCookieExpires(),
+      }),
     },
   }
 )

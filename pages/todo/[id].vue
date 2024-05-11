@@ -261,6 +261,7 @@ import { useLoadingStore } from '~/store/loading.store'
 import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
+import { useAlarmStore } from '~/store/alarm.store'
 
 const i18n = useI18n()
 
@@ -271,6 +272,7 @@ const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 const loadingStore = useLoadingStore()
+const alarmStore = useAlarmStore()
 
 const currentTodo = ref<Todo>()
 const setCurrentTodo = (todo?: Todo) => (currentTodo.value = todo)
@@ -372,11 +374,11 @@ const save = async () => {
   toValue(isEditMode)
     ? await todoStore.updateTodo(Number(route.params.id), data)
     : await todoStore.addTodo(<Todo>data)
-  todoStore.getAllTodos(true)
+  await todoStore.getAllTodos(true)
 
   if (upto.value) {
     const isAfter = new Date(`${date.value} ${time.value}`) > new Date()
-    if (isAfter) registAlarm()
+    if (isAfter) registAlarm(data)
   }
 
   router.back()
@@ -428,12 +430,12 @@ const deleteTodo = async () => {
   router.back()
 }
 
-const registAlarm = async () => {
-  if (!('serviceWorker' in navigator) || !route.query.dev) return
+const registAlarm = async (todo: Partial<Todo>) => {
+  if (!('serviceWorker' in navigator)) return
 
   const permission = await Notification.requestPermission()
   if (permission === 'granted') {
-    const mid = storageStore.getUniqueId()
+    const deviceId = storageStore.getUniqueId()
       ? storageStore.getUniqueId()
       : storageStore.setUniqueId()
 
@@ -444,14 +446,16 @@ const registAlarm = async () => {
         applicationServerKey: import.meta.env.VITE_VAPID_PUBLIC_KEY, // 발급받은 vapid public key
       })
       try {
-        const res = await $fetch(import.meta.env.VITE_ALARM_SERVER, {
-          method: 'post',
-          body: {
-            mid,
-            pushSubscription,
-            time: `${date.value} ${time.value}`
-          },
-          timeout: 1000,
+        const todoId = isEditMode.value
+          ? Number(route.params.id)
+          : todoStore.todos?.[0]?.id || 1
+
+        const res = await alarmStore.registAlarm({
+          date: new Date(`${date.value} ${time.value}`),
+          text: todo.description!.slice(0, 30),
+          todoId,
+          deviceId,
+          pushSubscription,
         })
         console.log(res)
       } catch (e) {

@@ -44,6 +44,13 @@ export const setCookie = (name: string, value: string, days: number) => {
   document.cookie = name + '=' + value + expires + '; path=/'
 }
 
+const getCookieExpires = () => {
+  const expires = new Date()
+  expires.setFullYear(expires.getFullYear() + 10)
+  return expires
+  
+}
+
 export default {
   generateUniqueId,
   generateLongUniqueId,
@@ -51,4 +58,5 @@ export default {
   deepClone,
   getCookie,
   setCookie,
+  getCookieExpires
 }

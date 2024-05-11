@@ -449,7 +449,7 @@ const registAlarm = async (todo: Partial<Todo>) => {
         const todoId = isEditMode.value
           ? Number(route.params.id)
           : todoStore.todos?.[0]?.id || 1
-        alert(new Date(`${date.value} ${time.value}`))
+        
         const res = await alarmStore.registAlarm({
           date: new Date(`${date.value} ${time.value}`),
           text: todo.description!.slice(0, 30),

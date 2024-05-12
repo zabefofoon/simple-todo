@@ -9,7 +9,7 @@
     </label>
     <span
       v-if="isGrantedNotification"
-      class="ml-auto lg:ml-0 px-4 py-0.5 | text-sm"
+      class="ml-auto lg:ml-0 px-4 py-0.5 lg:px-0 | text-sm"
       :class="storageStore.getThemeClass('', 'text-white')"
       name="Export">
       On

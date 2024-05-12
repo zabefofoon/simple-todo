@@ -17,6 +17,7 @@
           :class="storageStore.getThemeClass('', 'text-white')">
           {{ $t('View') }}
         </h3>
+        <SettingPermissions/>
         <SettingLanguage />
         <SettingTheme />
         <SettingDisplay />

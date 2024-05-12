@@ -58,5 +58,8 @@
   "IosAddHome1": "Tab button in toolbar.",
   "IosAddHome2": "Tab 'Add to Dock'. (or 'Add to Home Screen')",
   "AndroidAddHome1": "Please click on the 'Add to Home Screen' in the address bar.",
-  "AddHome": "Add it to your home screen and use it like an app!"
+  "AddHome": "Add it to your home screen and use it like an app!",
+  "OFF": "Off",
+  "ON": "On",
+  "NotificationNotice": "Please grant permission for notifications for MEMOKU."
 }

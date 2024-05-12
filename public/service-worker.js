@@ -6,7 +6,7 @@ clientsClaim()
 cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST || [])
 
-const cacheName = 'memoku-cache-12'
+const cacheName = 'memoku-cache-13'
 const cacheUrl = ['/']
 
 self.addEventListener('install', (event) =>
@@ -67,7 +67,7 @@ self.addEventListener('notificationclick', (event) => {
               type: 'notificationclick',
               todoId: event.notification.data.todoId,
             })
-          }, 1000)
+          }, 7000)
         })
     })
   )

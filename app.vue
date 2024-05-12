@@ -36,6 +36,7 @@ onMounted(() => {
     }
     if (event.data?.type === 'notificationclick') {
       navigateTo(`/todo/${event.data.todoId}`)
+      alarmStore.addNewAlarm(event.data.todoId)
       alarmStore.addReadNewAlarm(event.data.todoId)
     }
   })

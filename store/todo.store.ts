@@ -27,24 +27,8 @@ export const useTodoStore = defineStore('todo', () => {
         todos.value = [defaultTodo]
       }
 
-      if (process.client) {
-        if (Notification.permission !== 'granted')
-          await Notification.requestPermission()
-
-        if (Notification.permission)
-          navigator.serviceWorker?.controller?.postMessage({
-            type: 'registerTimer',
-            todos:
-              todos.value
-                ?.filter((todo) => todo.upto)
-                .filter((todo) => {
-                  const now = new Date()
-                  const time = new Date(`${todo.date} ${todo.time}`)
-                  return time >= now
-                })
-                .map((todo) => deepClone(todo)) || [],
-          })
-      }
+      if (process.client && Notification.permission !== 'granted')
+        await Notification.requestPermission()
     })
     loadingStore.setTodoLoading(false)
     return toValue(todos)
@@ -67,34 +51,16 @@ export const useTodoStore = defineStore('todo', () => {
     return await todoApi.addTodo(todo)
   }
 
-  const refreshTodo = (todo: Todo) => {
-    const found = todos.value?.findIndex(
-      (savedTodo) => savedTodo.id === todo.id
-    )
-    todos.value?.splice(Number(found), 1)
-    todos.value?.push(todo)
+  const refreshTodo = (todoId: number) => {
+    const found = todos.value?.findIndex((savedTodo) => savedTodo.id === todoId)
+    const spliced = todos.value?.splice(Number(found), 1)
+    if (spliced?.[0]) todos.value?.push(spliced[0])
   }
 
   const getTodo = async (id: number) => {
     const data = await todoApi.getTodo(id)
     return data ? Todo.of(data) : undefined
   }
-
-  const expiredTodos = computed(() =>
-    toValue(todos)
-      ?.filter((todo) => todo.expired)
-      .sort(
-        (a, b) =>
-          new Date(`${b.date} ${b.time}`).getTime() -
-          new Date(`${a.date} ${a.time}`).getTime()
-      )
-  )
-
-  const hasUnCheckedTodos = computed(() => {
-    return !!toValue(expiredTodos)?.find(
-      (todo) => !storageStore.readExpiredTodos?.includes(String(todo.id))
-    )
-  })
 
   const importTodos = (savedTodos: Todo[]) => {
     const result = savedTodos.map((todo) => {
@@ -114,9 +80,6 @@ export const useTodoStore = defineStore('todo', () => {
     addTodo,
     getTodo,
     refreshTodo,
-
-    expiredTodos,
-    hasUnCheckedTodos,
 
     importTodos,
   }

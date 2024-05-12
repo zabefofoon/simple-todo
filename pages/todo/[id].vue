@@ -376,9 +376,16 @@ const save = async () => {
     : await todoStore.addTodo(<Todo>data)
   await todoStore.getAllTodos(true)
 
-  if (upto.value) {
-    const isAfter = new Date(`${date.value} ${time.value}`) > new Date()
-    if (isAfter) registAlarm(data)
+  if (isChanged.value) {
+    if (upto.value) {
+      const isAfter = new Date(`${date.value} ${time.value}`) > new Date()
+      if (isAfter) registAlarm(data)
+
+      if (isEditMode.value) {
+        alarmStore.removeNewAlarm(Number(route.params.id))
+        alarmStore.removeReadNewAlarms(Number(route.params.id))
+      }
+    } else unregistAlarm(Number(route.params.id))
   }
 
   router.back()
@@ -397,9 +404,6 @@ const loadTodoData = async () => {
       time.value = toValue(currentTodo)?.time
     }
     setTimeout(() => resizeTextArea())
-
-    if (toValue(currentTodo)?.expired)
-      storageStore.addReadExpiredTodo(String(route.params.id))
   }
 }
 
@@ -449,12 +453,12 @@ const registAlarm = async (todo: Partial<Todo>) => {
         const todoId = isEditMode.value
           ? Number(route.params.id)
           : todoStore.todos?.[0]?.id || 1
-        
+
         const res = await alarmStore.registAlarm({
           date: new Date(`${date.value} ${time.value}`),
           text: todo.description!.slice(0, 30),
-          todoId,
           deviceId,
+          todoId,
           pushSubscription,
         })
         console.log(res)
@@ -463,6 +467,10 @@ const registAlarm = async (todo: Partial<Todo>) => {
       }
     }
   }
+}
+
+const unregistAlarm = async (todoId: number) => {
+  return await alarmStore.unregistAlarm(storageStore.getUniqueId(), todoId)
 }
 
 const beforeunloadHandler = (event: BeforeUnloadEvent) => event.preventDefault()

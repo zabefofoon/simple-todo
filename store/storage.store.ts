@@ -35,45 +35,6 @@ export const useStorageStore = defineStore(
       return JSON.parse(saved)
     }
 
-    const readExpiredTodos = ref<string[]>()
-    const setReadExpiredTodos = (value: string[]) =>
-      (readExpiredTodos.value = value)
-
-    const getReadExpiredTodo = (): string[] => {
-      const saved = storageApi.getLocalStorage('readExpiredTodos') || '[]'
-      setReadExpiredTodos(saved)
-      return JSON.parse(saved)
-    }
-
-    const addReadExpiredTodo = (id: string) => {
-      if (!id) return
-
-      let readTodoIds = getReadExpiredTodo()
-      if (readTodoIds.includes(id)) {
-        readTodoIds = readTodoIds.filter((readTodoId) => readTodoId !== id)
-        readTodoIds.unshift(id)
-      } else readTodoIds.unshift(id)
-
-      readTodoIds = readTodoIds.filter((_, index) => index < 30)
-      setReadExpiredTodos(readTodoIds)
-      storageApi.setLocalStorage(
-        'readExpiredTodos',
-        JSON.stringify(readTodoIds)
-      )
-    }
-
-    const removeReadExpiredTodo = (id?: string) => {
-      if (!id) return
-      const readTodoIds = getReadExpiredTodo().filter(
-        (readTodoId) => readTodoId !== id
-      )
-      setReadExpiredTodos(readTodoIds)
-      storageApi.setLocalStorage(
-        'readExpiredTodos',
-        JSON.stringify(readTodoIds)
-      )
-    }
-
     const getSummaryTimeType = () =>
       storageApi.getLocalStorage('summaryTimeType')
 
@@ -112,11 +73,6 @@ export const useStorageStore = defineStore(
       addRecentKeywords,
       getRecentKeywords,
       removeKeywords,
-
-      readExpiredTodos,
-      getReadExpiredTodo,
-      addReadExpiredTodo,
-      removeReadExpiredTodo,
 
       getSummaryTimeType,
       setSummaryTimeType,

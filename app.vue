@@ -6,18 +6,19 @@
 </template>
 <script setup lang="ts">
 import type { Theme } from './models/Setting'
-import { Todo } from './models/Todo'
+import { useAlarmStore } from './store/alarm.store'
 import { useScrollStore } from './store/scroll.store'
 import { useSettingStore } from './store/setting.store'
 import { useStorageStore } from './store/storage.store'
 import { useTodoStore } from './store/todo.store'
 
 const { isSafari } = useDevice()
-const route = useRoute()
+
 const todoStore = useTodoStore()
 const scrollStore = useScrollStore()
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
+const alarmStore = useAlarmStore()
 
 onBeforeMount(() => {
   settingStore.initSetting()
@@ -26,13 +27,16 @@ onBeforeMount(() => {
 onMounted(() => {
   todoStore.getAllTodos()
   scrollStore.listenHistoryUpdate()
-  storageStore.getReadExpiredTodo()
 
   const channel = new BroadcastChannel('sw-messages')
   channel.addEventListener('message', (event) => {
-    if (['notification', 'notificationclick'].includes(event.data?.type)) {
-      storageStore.removeReadExpiredTodo(String(event.data.todo?.id))
-      todoStore.refreshTodo(Todo.of(event.data.todo))
+    if (event.data?.type === 'notification') {
+      alarmStore.removeReadNewAlarms(event.data.todoId)
+      alarmStore.addNewAlarm(event.data.todoId)
+    }
+    if (event.data?.type === 'notificationclick') {
+      navigateTo(`/todo/${event.data.todoId}`)
+      alarmStore.addReadNewAlarm(event.data.todoId)
     }
   })
 })

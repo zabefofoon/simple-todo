@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.netlify.memoku.twa",
+      "sha256_cert_fingerprints": [
+        "36:8B:88:B4:35:99:71:43:2D:18:63:69:0F:9B:30:C1:50:2E:6B:4F:A1:13:24:D7:7C:A7:3B:6E:14:7F:8A:B2"
+      ]
+    }
+  }
+]

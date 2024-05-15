@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
       if (path !== '/' && path !== to.path) cache.delete(key)
     })
 
-    const response = await fetch('/', {cache: 'only-if-cached', mode: 'same-origin'})
+    const response = await fetch('/', {cache: 'force-cache'})
     cache.put(to.path, response)
   }
 })

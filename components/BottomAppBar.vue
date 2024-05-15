@@ -14,23 +14,25 @@
       <li>
         <button
           :name="menu.name"
-          class="w-full | relative | flex flex-col items-center gap-.5 | mx-auto py-2.5"
+          class="w-full | mx-auto py-2.5"
           :class="
             menu.href === route.path
               ? storageStore.getThemeClass('bg-slate-100', 'bg-gray-950')
               : storageStore.getThemeClass('', '')
           ">
-          <i
-            class="icon text-xl"
-            :class="[
-              menu.icon,
-              storageStore.getThemeClass('', 'text-white'),
-            ]"></i>
-          <span
-            class="text-xs"
-            :class="storageStore.getThemeClass('', 'text-white')">
-            {{ menu.name }}
-          </span>
+          <div class="safe-area | flex flex-col items-center gap-.5 | w-full">
+            <i
+              class="icon text-xl"
+              :class="[
+                menu.icon,
+                storageStore.getThemeClass('', 'text-white'),
+              ]"></i>
+            <span
+              class="text-xs"
+              :class="storageStore.getThemeClass('', 'text-white')">
+              {{ menu.name }}
+            </span>
+          </div>
         </button>
       </li>
     </NuxtLink>
@@ -62,4 +64,9 @@ const menus = ref([
 ])
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.safe-area {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+</style>

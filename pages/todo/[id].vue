@@ -454,14 +454,13 @@ const registAlarm = async (todo: Partial<Todo>) => {
           ? Number(route.params.id)
           : todoStore.todos?.[0]?.id || 1
 
-        const res = await alarmStore.registAlarm({
+        await alarmStore.registAlarm({
           date: new Date(`${date.value} ${time.value}`),
           text: todo.description!.slice(0, 30),
           deviceId,
           todoId,
           pushSubscription,
         })
-        console.log(res)
       } catch (e) {
         console.error(e)
       }

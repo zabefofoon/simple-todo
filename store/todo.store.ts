@@ -3,11 +3,12 @@ import todoApi from '~/api/todo.api'
 import { Todo } from '~/models/Todo'
 import { useStorageStore } from './storage.store'
 import { useLoadingStore } from './loading.store'
-import { deepClone } from '~/utils/etc'
+import { useAlarmStore } from './alarm.store'
 
 export const useTodoStore = defineStore('todo', () => {
   const storageStore = useStorageStore()
   const loadingStore = useLoadingStore()
+  const alarmStore = useAlarmStore()
 
   const todos = ref<Todo[]>()
 
@@ -40,6 +41,10 @@ export const useTodoStore = defineStore('todo', () => {
   }
 
   const deleteTodo = async (id: number) => {
+    const found = todos.value?.find((savedTodo) => savedTodo.id === id)
+    const isAlarm = found?.upto && new Date(`${found.date} ${found.time}`) > new Date()
+    if (isAlarm) alarmStore.unregistAlarm(storageStore.getUniqueId(), id)
+
     await todoApi.deleteTodo(id)
     getAllTodos(true)
   }

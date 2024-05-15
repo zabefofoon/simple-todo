@@ -1,15 +1,16 @@
 <template>
   <ul
     v-if="$route.name !== 'todo-id'"
-    class="flex lg:hidden justify-around | border-t"
+    class="safe-area | flex lg:hidden justify-around | border-t"
     :class="
-      storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')
+      storageStore.getThemeClass('bg-gray-300', 'bg-slate-950 border-slate-700')
     ">
     <NuxtLink
       v-for="menu in menus"
       :key="menu.href"
       :to="menu.href"
       class="w-full"
+      :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')"
       :area-label="menu.name">
       <li>
         <button
@@ -20,7 +21,7 @@
               ? storageStore.getThemeClass('bg-slate-100', 'bg-gray-950')
               : storageStore.getThemeClass('', '')
           ">
-          <div class="safe-area | flex flex-col items-center gap-.5 | w-full">
+          <div class="flex flex-col items-center gap-.5 | w-full">
             <i
               class="icon text-xl"
               :class="[

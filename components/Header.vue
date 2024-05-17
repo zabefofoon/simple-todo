@@ -27,6 +27,7 @@
           </span>
         </div>
       </NuxtLink>
+      <DarkModeButton/>
       <NotificationButton />
       <button class="flex" name="menus" @click="expand()">
         <i

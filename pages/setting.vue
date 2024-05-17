@@ -6,6 +6,7 @@
         storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')
       ">
       <SearchInputButton />
+      <DarkModeButton/>
       <NotificationButton />
     </div>
     <div class="flex flex-col gap-4 | p-4">

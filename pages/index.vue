@@ -10,6 +10,7 @@
           )
         ">
         <SearchInputButton />
+        <DarkModeButton/>
         <NotificationButton />
       </div>
       <div class="flex flex-col lg:flex-row gap-4 | px-2 py-4 lg:p-4">

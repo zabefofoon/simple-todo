@@ -2,7 +2,12 @@ import type { Setting } from '~/models/Setting'
 import { db } from '~/plugins/dexie.client'
 
 export const getSetting = () => {
-  return db!.setting.toArray()
+  try {
+    return db!.setting.toArray()
+  } catch (e) {
+    alert(useI18n().t('BrowserNotice'))
+    return undefined
+  }
 }
 
 export const setSetting = (setting: Setting) => {

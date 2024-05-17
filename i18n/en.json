@@ -61,5 +61,6 @@
   "AddHome": "Add it to your home screen and use it like an app!",
   "OFF": "Off",
   "ON": "On",
-  "NotificationNotice": "Please grant permission for notifications for MEMOKU."
+  "NotificationNotice": "Please grant permission for notifications for MEMOKU.",
+  "BrowserNotice": "This browser is not supported. Please use Chrome or Safari."
 }

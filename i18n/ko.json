@@ -61,5 +61,6 @@
   "AddHome": "홈 화면에 추가하여, 앱처럼 사용하세요!",
   "OFF": "꺼짐",
   "ON": "켜짐",
-  "NotificationNotice": "앱의 알림 권한을 승인해주세요."
+  "NotificationNotice": "앱의 알림 권한을 승인해주세요.",
+  "BrowserNotice": "이 브라우저로는 사용할 수 없습니다. 크롬이나 사파리로 이용 부탁드립니다."
 }

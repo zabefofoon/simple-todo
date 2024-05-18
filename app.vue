@@ -13,12 +13,16 @@ import { useStorageStore } from './store/storage.store'
 import { useTodoStore } from './store/todo.store'
 
 const { isSafari } = useDevice()
-
+const i18n = useI18n()
 const todoStore = useTodoStore()
 const scrollStore = useScrollStore()
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 const alarmStore = useAlarmStore()
+
+if (process.client && (!window.localStorage || !window.indexedDB)) {
+  alert(i18n.t('BrowserNotice'))
+}
 
 onBeforeMount(() => {
   settingStore.initSetting()

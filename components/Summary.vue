@@ -12,9 +12,11 @@
 import debounce from 'lodash.debounce'
 import { useTodoStore } from '~/store/todo.store'
 import { useSettingStore } from '~/store/setting.store'
+import { useStorageStore } from '~/store/storage.store'
 
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
+const storageStore = useStorageStore()
 
 const resizing = ref(false)
 const checkResizing = (value: boolean) => (resizing.value = value)
@@ -46,6 +48,13 @@ const tags = computed(
     ) || {}
 )
 watch(tags, updateTags, { deep: true })
+watch(
+  () => storageStore.theme,
+  () => {
+    updateDones()
+    updateTags()
+  }
+)
 
 onMounted(() => {
   window.addEventListener('resize', resizeHandler)

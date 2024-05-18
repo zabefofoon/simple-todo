@@ -69,6 +69,12 @@ export const useStorageStore = defineStore(
       storageApi.setLocalStorage('mid', mid)
       return mid
     }
+
+    const getCookiesAccepted = () =>
+      storageApi.getLocalStorage('cookiesAccepted') === 'true'
+    const setCookiesAccepted = () =>
+      storageApi.setLocalStorage('cookiesAccepted', 'true')
+      
     return {
       addRecentKeywords,
       getRecentKeywords,
@@ -89,6 +95,9 @@ export const useStorageStore = defineStore(
 
       getUniqueId,
       setUniqueId,
+
+      getCookiesAccepted,
+      setCookiesAccepted,
     }
   },
   {

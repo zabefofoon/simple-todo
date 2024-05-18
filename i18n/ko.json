@@ -62,5 +62,8 @@
   "OFF": "꺼짐",
   "ON": "켜짐",
   "NotificationNotice": "앱의 알림 권한을 승인해주세요.",
-  "BrowserNotice": "이 브라우저로는 사용할 수 없습니다. 크롬이나 사파리로 이용 부탁드립니다."
+  "BrowserNotice": "이 브라우저로는 사용할 수 없습니다. 크롬이나 사파리로 이용 부탁드립니다.",
+  "CookiesAcceptNotice": "이 사이트는 쿠키를 사용합니다.<br />계속 사용하려면 동의해주세요.",
+  "AcceptAll": "모두 동의합니다",
+  "AcceptPartial": "광고 저장소에만 동의합니다"
 }

@@ -1,6 +1,10 @@
 <template>
   <VitePwaManifest />
   <NuxtPage />
+  <ClientOnly>
+    <CookiePopup />
+  </ClientOnly>
+
   <AddHomeScreenGuideIos v-if="isSafari" />
   <AddHomeScreenGuideAndroid v-else />
 </template>

@@ -62,5 +62,8 @@
   "OFF": "Off",
   "ON": "On",
   "NotificationNotice": "Please grant permission for notifications for MEMOKU.",
-  "BrowserNotice": "This browser is not supported. Please use Chrome or Safari."
+  "BrowserNotice": "This browser is not supported. Please use Chrome or Safari.",
+  "CookiesAcceptNotice": "This site uses cookies.<br />Please consent to continue using the site.",
+  "AcceptAll": "Accept all cookies",
+  "AcceptPartial": "Accept only ad storage"
 }

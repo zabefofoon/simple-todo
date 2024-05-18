@@ -20,7 +20,7 @@ const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 const alarmStore = useAlarmStore()
 
-if (process.client && typeof localStorage !== 'undefined' || !localStorage) { 
+if (process.client && (typeof window === 'undefined' || typeof localStorage === 'undefined' || !localStorage)) { 
   alert(i18n.t('BrowserNotice'))
 }
 

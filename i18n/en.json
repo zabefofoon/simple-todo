@@ -63,7 +63,9 @@
   "ON": "On",
   "NotificationNotice": "Please grant permission for notifications for MEMOKU.",
   "BrowserNotice": "This browser is not supported. Please use Chrome or Safari.",
-  "CookiesAcceptNotice": "This site uses cookies.<br />Please consent to continue using the site.",
+  "CookiesAcceptNotice": "MEMOKU uses cookies to provide services, improve service quality, and analyze traffic. With your consent, cookies will also be used to serve ads and to personalize the content and ads you see. Learn more.",
   "AcceptAll": "Accept all cookies",
-  "AcceptPartial": "Accept only ad storage"
+  "AcceptPartial": "Accept only ad storage",
+  "ShowPrivacyPolicy": "View privacy policy",
+  "AgreeLater": "Accept later"
 }

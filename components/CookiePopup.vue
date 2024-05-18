@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="!cookiesAccepted"
-    class="fixed bottom-0 left-0 z-50 | w-full | px-4 py-8 | text-center border-t"
+    class="flex flex-col gap-2 | fixed bottom-0 left-0 z-50 | w-full | px-4 py-8 | text-center border-t"
     :class="
       storageStore.getThemeClass(
         'bg-white border-slate-300',
@@ -9,9 +9,16 @@
       )
     ">
     <p
-      class="text-sm lg:text-md"
+      class="text-sm lg:text-md | max-w-[300px] | mx-auto"
       :class="storageStore.getThemeClass('', 'text-white')"
       v-html="$t('CookiesAcceptNotice')"></p>
+    <NuxtLink
+      to="https://memoku.netlify.app/privacy-policy.html"
+      target="_blank"
+      class="underline | text-sm lg:text-md"
+      :class="storageStore.getThemeClass('', 'text-white')">
+      {{ $t('ShowPrivacyPolicy') }}
+    </NuxtLink>
     <div class="flex gap-3 justify-center | w-full | mt-4">
       <button
         class="bg-slate-500 | text-white text-sm lg:text-md | px-4 py-2"
@@ -20,8 +27,8 @@
       </button>
       <button
         class="bg-slate-500 | text-white text-sm lg:text-md | px-4 py-2"
-        @click="consentGrantedAdStorage">
-        {{ $t('AcceptPartial') }}
+        @click="setCookiesAccepted(true)">
+        {{ $t('AgreeLater') }}
       </button>
     </div>
   </div>
@@ -47,12 +54,12 @@ const allConsentGranted = () => {
   setCookieConsent()
 }
 
-const consentGrantedAdStorage = () => {
-  gtag('consent', 'update', {
-    ad_storage: 'granted',
-  })
-  setCookieConsent()
-}
+// const consentGrantedAdStorage = () => {
+//   gtag('consent', 'update', {
+//     ad_storage: 'granted',
+//   })
+//   setCookieConsent()
+// }
 
 const setCookieConsent = () => {
   setCookiesAccepted(true)

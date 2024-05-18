@@ -44,7 +44,7 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Memoku is a memo web app designed for efficient task management. It features a simple UI and dark mode for an enhanced user experience. Key functionalities include task creation, tag-based task management, push notifications, offline usage, date-based task organization, and task analysis. With Memoku, you can systematically manage your tasks anytime, anywhere, and ensure you never miss important deadlines.' },
         { name: 'og:title', content: 'MEMOKU: A free, offline-capable, sleek web app for simple note-taking.' },
         { name: 'og:description', content: 'Memoku is a memo web app designed for efficient task management. It features a simple UI and dark mode for an enhanced user experience. Key functionalities include task creation, tag-based task management, push notifications, offline usage, date-based task organization, and task analysis. With Memoku, you can systematically manage your tasks anytime, anywhere, and ensure you never miss important deadlines.' },
-        { name: 'og:image', content: '/ogImage.png' },
+        { name: 'og:image', content: 'https://memoku.netlify.app/ogImage.png' },
       ],
       title:
         'MEMOKU: A free, offline-capable, sleek web app for simple note-taking.',

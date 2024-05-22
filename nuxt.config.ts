@@ -24,14 +24,18 @@ export default defineNuxtConfig({
     id: 'G-R5C8GX5QQN',
     initCommands: [
       // Setup up consent mode
-      ['consent', 'default', {
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        ad_storage: 'denied',
-        analytics_storage: 'denied',
-        wait_for_update: 500,
-      }]
-    ]
+      [
+        'consent',
+        'default',
+        {
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          ad_storage: 'denied',
+          analytics_storage: 'denied',
+          wait_for_update: 500,
+        },
+      ],
+    ],
   },
   app: {
     head: {
@@ -41,14 +45,33 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#ffffff' },
         { name: 'msapplication-TileColor', content: '#ffffff' },
         { name: 'msapplication-TileImage', content: '/ms-icon-144x144.png' },
-        { name: 'description', content: 'Memoku is a memo web app designed for efficient task management. It features a simple UI and dark mode for an enhanced user experience. Key functionalities include task creation, tag-based task management, push notifications, offline usage, date-based task organization, and task analysis. With Memoku, you can systematically manage your tasks anytime, anywhere, and ensure you never miss important deadlines.' },
-        { name: 'keywords', content: 'web, simple, todo, todolist, reminder, remind, memo, app, application, nuxt3, pwa, offline, free, online' },
+        {
+          name: 'description',
+          content:
+            'Memoku is a memo web app designed for efficient task management. It features a simple UI and dark mode for an enhanced user experience. Key functionalities include task creation, tag-based task management, push notifications, offline usage, date-based task organization, and task analysis. With Memoku, you can systematically manage your tasks anytime, anywhere, and ensure you never miss important deadlines.',
+        },
+        {
+          name: 'keywords',
+          content:
+            'web, simple, todo, todolist, reminder, remind, memo, app, application, nuxt3, pwa, offline, free, online',
+        },
         { property: 'og:site_name', content: 'MEMOKU' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://memoku.netlify.app/' },
-        { property: 'og:title', content: 'MEMOKU: A free, offline-capable, sleek web app for simple note-taking.' },
-        { property: 'og:description', content: 'Memoku is a memo web app designed for efficient task management. It features a simple UI and dark mode for an enhanced user experience. Key functionalities include task creation, tag-based task management, push notifications, offline usage, date-based task organization, and task analysis. With Memoku, you can systematically manage your tasks anytime, anywhere, and ensure you never miss important deadlines.' },
-        { property: 'og:image', content: 'https://memoku.netlify.app/ogImage.png' },
+        {
+          property: 'og:title',
+          content:
+            'MEMOKU: A free, offline-capable, sleek web app for simple note-taking.',
+        },
+        {
+          property: 'og:description',
+          content:
+            'Memoku is a memo web app designed for efficient task management. It features a simple UI and dark mode for an enhanced user experience. Key functionalities include task creation, tag-based task management, push notifications, offline usage, date-based task organization, and task analysis. With Memoku, you can systematically manage your tasks anytime, anywhere, and ensure you never miss important deadlines.',
+        },
+        {
+          property: 'og:image',
+          content: 'https://memoku.netlify.app/ogImage.png',
+        },
       ],
       title:
         'MEMOKU: A free, offline-capable, sleek web app for simple note-taking.',
@@ -195,6 +218,12 @@ export default defineNuxtConfig({
           type: 'image/png',
           density: '4.0',
         },
+        {
+          src: '/android-icon-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+          purpose: 'maskable',
+        },
       ],
       screenshots: [
         {
@@ -218,7 +247,7 @@ export default defineNuxtConfig({
       launch_handler: {
         client_mode: ['focus-existing', 'auto'],
       },
-      prefer_related_applications: true
+      prefer_related_applications: true,
     },
     workbox: {
       globDirectory: '.output/public/',

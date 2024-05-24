@@ -89,5 +89,12 @@
   "AnalisysDescription": "Analisys",
   "AnalisysDescriptionGuide": "Provides statistics by simply analyzing your tasks.",
   "OfflineDescription": "Offline",
-  "OfflineDescriptionGuide": "Catch up on your tasks even when you're offline with our app."
+  "OfflineDescriptionGuide": "Catch up on your tasks even when you're offline with our app.",
+  "Sunday": "Sun",
+  "Monday": "Mon",
+  "Tuesday": "Tue",
+  "Wednesday": "Wed",
+  "Thursday": "Thu",
+  "Friday": "Fri",
+  "Saturday": "Sat"
 }

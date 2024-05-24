@@ -89,5 +89,12 @@
   "AnalisysDescription": "분석",
   "AnalisysDescriptionGuide": "간단하게 작업을 분석하여 통계를 제공합니다.",
   "OfflineDescription": "오프라인",
-  "OfflineDescriptionGuide": "MEMOKU는 오프라인일 때에도 작업을 계속할 수 있습니다."
+  "OfflineDescriptionGuide": "MEMOKU는 오프라인일 때에도 작업을 계속할 수 있습니다.",
+  "Sunday": "일",
+  "Monday": "월",
+  "Tuesday": "화",
+  "Wednesday": "수",
+  "Thursday": "목",
+  "Friday": "금",
+  "Saturday": "토"
 }

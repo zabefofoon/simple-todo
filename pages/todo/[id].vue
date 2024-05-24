@@ -25,16 +25,15 @@
     </template>
     <div
       v-if="loadingStore.todoLoading"
-      class="h-full | flex items-center justify-center">
+      class="lg:h-full | flex items-center justify-center">
       <Spinner />
     </div>
     <template v-else>
-      <div class="p-4">
-        <div class="flex flex-col gap-6 lg:gap-2 | relative">
+      <div class="h-full | p-4">
+        <div class="h-full flex flex-col gap-6 lg:gap-2 | relative">
           <textarea
-            ref="textArea"
             :value="description"
-            class="lg:order-2 | border rounded-lg | h-auto min-h-[60vh] max-h-[60vh] resize-none | p-2 lg:pt-2"
+            class="lg:order-2 | border rounded-lg | h-[92%] min-h-[60vh] max-h-[60vh] lg:max-h-screen resize-none | p-2 lg:pt-2"
             :class="[
               { 'pt-6': currentTodo },
               storageStore.getThemeClass(
@@ -43,7 +42,7 @@
               ),
             ]"
             :placeholder="$t('Description')"
-            @input="textAreaInputhandler"
+            @input="checkChanged(true)"
             @change="setDescription" />
           <div
             class="w-full | px-2 | absolute top-1 right-0 | flex items-center justify-between">
@@ -291,18 +290,6 @@ const getToday = () => {
   return `${year}-${month}-${day}`
 }
 
-const textArea = ref<HTMLTextAreaElement>()
-const textAreaInputhandler = () => {
-  checkChanged(true)
-  resizeTextArea()
-}
-const resizeTextArea = () => {
-  if (!textArea.value) return
-
-  textArea.value.style.height = `0px`
-  textArea.value.style.height = `${textArea.value.scrollHeight}px`
-}
-
 const isChanged = ref(false)
 const checkChanged = (value: boolean) => (isChanged.value = value)
 
@@ -403,7 +390,6 @@ const loadTodoData = async () => {
       date.value = toValue(currentTodo)?.date
       time.value = toValue(currentTodo)?.time
     }
-    setTimeout(() => resizeTextArea())
   }
 }
 
@@ -474,6 +460,14 @@ const unregistAlarm = async (todoId: number) => {
 
 const beforeunloadHandler = (event: BeforeUnloadEvent) => event.preventDefault()
 
+const saveByKey = (event: KeyboardEvent) => {
+  if (event.ctrlKey && event.code === 'KeyS') {
+    event.preventDefault()
+    ;(<HTMLTextAreaElement>event.target)?.blur?.()
+    setTimeout(() => save(), 100)
+  }
+}
+
 onMounted(async () => {
   if (route.params.id !== 'new') {
     const result = await todoStore.getTodo(Number(route.params.id))
@@ -482,11 +476,13 @@ onMounted(async () => {
   }
 
   window.addEventListener('beforeunload', beforeunloadHandler)
+  window.addEventListener('keydown', saveByKey)
 })
 
-onBeforeUnmount(() =>
+onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', beforeunloadHandler)
-)
+  window.removeEventListener('keydown', saveByKey)
+})
 
 onBeforeRouteLeave((to, from, next) => {
   if (!toValue(isChanged)) {

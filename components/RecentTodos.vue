@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-3"
+    class="lg:h-full | overflow-auto | flex flex-col gap-2 | border rounded-lg | p-2 lg:p-3"
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <div class="font-bold">
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
@@ -62,7 +62,7 @@ const loadingStore = useLoadingStore()
 const recentTodos = computed(() =>
   todoStore.todos
     ?.sort((a, b) => Number(b.modified) - Number(a.modified))
-    .slice(0, 4)
+    .slice(0, 12)
 )
 
 const deleteTodo = (id: number) => {

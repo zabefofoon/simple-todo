@@ -10,8 +10,9 @@
           )
         ">
         <SearchInputButton />
-        <DarkModeButton class="hidden lg:flex"/>
+        <DarkModeButton class="hidden lg:flex" />
         <NotificationButton class="hidden lg:block" />
+        <ChangeDisplayButton class="hidden lg:flex" />
         <template v-if="loadingStore.todoLoading">
           <Skeletor class="w-[80px] h-[24px] | ml-auto" />
           <Skeletor class="w-[80px] h-[24px]" />

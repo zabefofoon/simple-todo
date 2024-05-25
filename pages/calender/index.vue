@@ -8,6 +8,7 @@
       <SearchInputButton />
       <DarkModeButton/>
       <NotificationButton />
+      <ChangeDisplayButton/>
     </div>
     <div class="h-full | lg:px-4">
       <Calendar />

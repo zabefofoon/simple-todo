@@ -9,7 +9,12 @@
   <header class="relative z-30 | lg:hidden">
     <div
       class="flex items-center gap-1.5 | relative z-30 | px-4 py-2 | border-b"
-      :class="storageStore.getThemeClass('bg-white', 'bg-slate-900 | border-slate-700')">
+      :class="
+        storageStore.getThemeClass(
+          'bg-white',
+          'bg-slate-900 | border-slate-700'
+        )
+      ">
       <NuxtLink class="block | w-full | font-bold" to="/" area-label="Home">
         <div class="flex items-center justify-center gap-1 | w-fit">
           <img
@@ -27,8 +32,9 @@
           </span>
         </div>
       </NuxtLink>
-      <DarkModeButton/>
+      <DarkModeButton />
       <NotificationButton />
+      <ChangeDisplayButton />
       <button class="flex" name="menus" @click="expand()">
         <i
           v-if="!isExpanded"

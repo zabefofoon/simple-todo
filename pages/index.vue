@@ -17,8 +17,8 @@
       <div
         class="lg:h-[94.5%] | flex flex-col lg:flex-row gap-4 | px-2 py-4 lg:p-4">
         <div class="w-full h-full | flex flex-col gap-4">
-          <RecentTodos />
           <ScheduledTodo />
+          <RecentTodos />
           <Summary class="hidden lg:flex" />
         </div>
         <div class="flex flex-col gap-4 | h-full">

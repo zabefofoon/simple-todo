@@ -298,6 +298,8 @@ const setUpto = (event: Event) => {
   const value = (<HTMLInputElement>event.target).checked
   upto.value = value
   checkChanged(true)
+  date.value = getToday()
+  time.value = getCurrentTime()
 }
 
 const date = ref<string | undefined>(getToday()) //2024-01-03
@@ -305,6 +307,7 @@ const setDate = (event: Event) => {
   const value = (<HTMLInputElement>event.target).value
   date.value = value
   checkChanged(true)
+
 }
 
 const getCurrentTime = () => {

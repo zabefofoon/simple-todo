@@ -17,7 +17,7 @@
         <h3
           class="font-bold | pb-2"
           :class="storageStore.getThemeClass('', 'text-white')">
-          {{ $t('View') }}
+          {{ i18n.t('View') }}
         </h3>
         <SettingPermissions/>
         <SettingLanguage />
@@ -32,7 +32,7 @@
         <h3
           class="font-bold | pb-2"
           :class="storageStore.getThemeClass('', 'text-white')">
-          {{ $t('Data') }}
+          {{ i18n.t('Data') }}
         </h3>
         <SettingDataExport />
         <SettingDataImport />
@@ -45,7 +45,7 @@
 <script setup lang="ts">
 import { useStorageStore } from '~/store/storage.store'
 
+const i18n = useI18n()
+
 const storageStore = useStorageStore()
 </script>
-
-<style></style>

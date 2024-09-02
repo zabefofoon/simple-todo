@@ -11,24 +11,24 @@
     <p
       class="text-sm lg:text-md | max-w-[300px] | mx-auto"
       :class="storageStore.getThemeClass('', 'text-white')"
-      v-html="$t('CookiesAcceptNotice')"></p>
+      v-html="i18n.t('CookiesAcceptNotice')"></p>
     <NuxtLink
       to="https://memoku.netlify.app/privacy-policy.html"
       target="_blank"
       class="underline | text-sm lg:text-md"
       :class="storageStore.getThemeClass('', 'text-white')">
-      {{ $t('ShowPrivacyPolicy') }}
+      {{ i18n.t('ShowPrivacyPolicy') }}
     </NuxtLink>
     <div class="flex gap-3 justify-center | w-full | mt-4">
       <button
         class="bg-slate-500 | text-white text-sm lg:text-md | px-4 py-2"
         @click="allConsentGranted">
-        {{ $t('AcceptAll') }}
+        {{ i18n.t('AcceptAll') }}
       </button>
       <button
         class="bg-slate-500 | text-white text-sm lg:text-md | px-4 py-2"
         @click="setCookiesAccepted(true)">
-        {{ $t('AgreeLater') }}
+        {{ i18n.t('AgreeLater') }}
       </button>
     </div>
   </div>
@@ -39,6 +39,7 @@ import { useStorageStore } from '~/store/storage.store'
 
 const { gtag } = useGtag()
 const storageStore = useStorageStore()
+const i18n = useI18n()
 
 const cookiesAccepted = ref(false)
 const setCookiesAccepted = (value: boolean) => (cookiesAccepted.value = value)

@@ -13,7 +13,7 @@
           v-if="day"
           class="text-[1.5cqh]"
           :class="storageStore.getThemeClass('', 'text-white')">
-          ({{ $t(day) }})
+          ({{ i18n.t(day) }})
         </span>
       </div>
       <span
@@ -29,6 +29,7 @@
 import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
+const i18n = useI18n()
 
 const currentYear = ref('')
 const setYear = () => {
@@ -79,5 +80,3 @@ onMounted(() => {
   }, 1000)
 })
 </script>
-
-<style></style>

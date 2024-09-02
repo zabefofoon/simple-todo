@@ -5,7 +5,7 @@
     <label
       class="lg:w-60 | text-sm"
       :class="storageStore.getThemeClass('', 'text-white')">
-      {{ $t('Notification') }}
+      {{ i18n.t('Notification') }}
     </label>
     <span
       v-if="isGrantedNotification"
@@ -19,7 +19,7 @@
       class="ml-auto lg:ml-0 px-4 py-0.5 | bg-red-500 | text-sm text-white | rounded-full"
       name="Export"
       @click="requestNofification">
-      {{ $t('OFF') }}
+      {{ i18n.t('OFF') }}
     </button>
   </div>
 </template>
@@ -46,5 +46,3 @@ const requestNofification = async () => {
   if (permission !== 'granted') alert(i18n.t('NotificationNotice'))
 }
 </script>
-
-<style></style>

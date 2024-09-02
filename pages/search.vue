@@ -25,7 +25,7 @@
                 'bg-slate-600 | text-white'
               )
             "
-            :placeholder="$t('Search')"
+            :placeholder="i18n.t('Search')"
             :value="keyword"
             @input="setKeyword"
             @focus="showAddArea(true)"
@@ -104,10 +104,10 @@
           <span
             v-if="route.query.keyword"
             :class="storageStore.getThemeClass('', 'text-white')">
-            {{ $t('NoMatched', [route.query.keyword]) }}
+            {{ i18n.t('NoMatched', [route.query.keyword]) }}
           </span>
           <span v-else :class="storageStore.getThemeClass('', 'text-white')">{{
-            $t('EnterKeyword')
+            i18n.t('EnterKeyword')
           }}</span>
         </h3>
       </template>

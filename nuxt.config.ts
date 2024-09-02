@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   css: ['~/assets/styles/style.scss', 'v-calendar/style.css'],
+
   modules: [
     '@vite-pwa/nuxt',
     'nuxt-gtag',
@@ -20,6 +21,7 @@ export default defineNuxtConfig({
     ],
     '@pinia-plugin-persistedstate/nuxt',
   ],
+
   gtag: {
     id: 'G-R5C8GX5QQN',
     initCommands: [
@@ -37,6 +39,7 @@ export default defineNuxtConfig({
       ],
     ],
   },
+
   app: {
     head: {
       meta: [
@@ -148,19 +151,23 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   plugins: [
     '~/plugins/dexie.client.ts',
     '~/plugins/longClick.directive.client.ts',
   ],
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
+
   i18n: {
     vueI18n: './i18n/i18n.config.ts', // if you are using custom path, default
   },
+
   pwa: {
     registerType: 'autoUpdate',
     strategies: 'injectManifest',
@@ -265,7 +272,10 @@ export default defineNuxtConfig({
       navigateFallbackAllowlist: [/^index.html$/],
     },
   },
+
   experimental: {
     payloadExtraction: false,
   },
+
+  compatibilityDate: '2024-09-15',
 })

@@ -96,5 +96,6 @@
   "Wednesday": "Wed",
   "Thursday": "Thu",
   "Friday": "Fri",
-  "Saturday": "Sat"
+  "Saturday": "Sat",
+  "weekOfMonth": "{week} week"
 }

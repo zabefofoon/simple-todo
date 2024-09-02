@@ -33,7 +33,7 @@ const doneTodos = computed(() => {
 
   return Array(12)
     .fill(0)
-    .map((item, index) => map[index])
+    .map((_, index) => map[index])
 })
 
 const undoneTodos = computed(() => {
@@ -52,7 +52,7 @@ const undoneTodos = computed(() => {
 
   return Array(12)
     .fill(0)
-    .map((item, index) => map[index])
+    .map((_, index) => map[index])
 })
 
 onMounted(() => {
@@ -61,7 +61,7 @@ onMounted(() => {
     data: {
       labels: Array(12)
         .fill(0)
-        .map((item, index) => index + 1),
+        .map((_, index) => index + 1),
       datasets: [
         {
           label: i18n.t('Undone'),
@@ -117,5 +117,3 @@ onMounted(() => {
   })
 })
 </script>
-
-<style></style>

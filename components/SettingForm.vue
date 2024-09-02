@@ -2,7 +2,7 @@
   <div class="flex | py-3">
     <div class="flex gap-1 | lg:w-60 | text-sm">
       <span :class="storageStore.getThemeClass('', 'text-white')">
-        {{ $t('Form') }}
+        {{ i18n.t('Form') }}
       </span>
       <NuxtLink to="/form/new" area-label="New Form">
         <button
@@ -95,5 +95,3 @@ const changeOrder = (from: number, to: number) => {
   settingStore.updateSetting('forms', forms)
 }
 </script>
-
-<style></style>

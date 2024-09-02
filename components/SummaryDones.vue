@@ -7,7 +7,7 @@
       <span
         class="font-bold"
         :class="storageStore.getThemeClass('', 'text-white')">
-        {{ $t('Done') }}
+        {{ i18n.t('Done') }}
       </span>
       <span
         class="ml-auto | text-sm"
@@ -75,5 +75,3 @@ onMounted(() => {
   })
 })
 </script>
-
-<style></style>

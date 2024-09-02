@@ -3,13 +3,13 @@
     <label
       class="lg:w-60 | text-sm"
       :class="storageStore.getThemeClass('', 'text-white')">
-      {{ $t('Import') }}
+      {{ i18n.t('Import') }}
     </label>
     <button
       class="ml-auto lg:ml-0 px-4 py-0.5 | bg-slate-800 | text-sm text-white | rounded-full"
       name="Import"
       @click="importData">
-      {{ $t('Import') }}
+      {{ i18n.t('Import') }}
     </button>
   </div>
 </template>
@@ -48,5 +48,3 @@ const importData = () => {
   document.body.removeChild(element)
 }
 </script>
-
-<style></style>

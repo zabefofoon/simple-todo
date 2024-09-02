@@ -25,6 +25,10 @@
 * {
   font-family: 'Noto Sans KR', sans-serif;
   color: rgb(71 85 105);
+
+  > * {
+    color: inherit;
+  }
 }
 
 /* width */

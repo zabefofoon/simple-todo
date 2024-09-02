@@ -63,5 +63,3 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', resizeHandler)
 })
 </script>
-
-<style></style>

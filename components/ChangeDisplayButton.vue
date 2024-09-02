@@ -22,5 +22,3 @@ import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
 </script>
-
-<style></style>

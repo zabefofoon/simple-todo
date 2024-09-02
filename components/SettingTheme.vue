@@ -5,7 +5,7 @@
     <label
       class="lg:w-60 | text-sm"
       :class="storageStore.getThemeClass('', 'text-white')">
-      {{ $t('Theme') }}
+      {{ i18n.t('Theme') }}
     </label>
     <select
       v-model="storageStore.theme"
@@ -17,12 +17,12 @@
       <option
         value="white"
         :class="storageStore.getThemeClass('', 'text-white')">
-        {{ $t('White') }}
+        {{ i18n.t('White') }}
       </option>
       <option
         value="dark"
         :class="storageStore.getThemeClass('', 'text-white')">
-        {{ $t('Dark') }}
+        {{ i18n.t('Dark') }}
       </option>
     </select>
   </div>
@@ -33,11 +33,10 @@ import type { Theme } from '~/models/Setting'
 import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
+const i18n = useI18n()
 
 const changeTheme = (event: Event) => {
   const value = <Theme>(<HTMLSelectElement>event.target).value
   storageStore.setTheme(value)
 }
 </script>
-
-<style></style>

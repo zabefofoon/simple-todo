@@ -26,7 +26,7 @@
               storageStore.getThemeClass('', 'text-white'),
             ]"></i>
           <span :class="storageStore.getThemeClass('', 'text-white')">
-            {{ $t(menu.name) }}
+            {{ i18n.t(menu.name) }}
           </span>
         </li>
       </NuxtLink>
@@ -77,10 +77,9 @@ const route = useRoute()
 const menuStore = useMenuStore()
 const scrollStore = useScrollStore()
 const storageStore = useStorageStore()
+const i18n = useI18n()
 
 onBeforeUnmount(() => {
   scrollStore.lockScroll(false)
 })
 </script>
-
-<style></style>

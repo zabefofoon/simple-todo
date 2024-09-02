@@ -5,7 +5,7 @@
     <div class="font-bold">
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
       <span v-else :class="storageStore.getThemeClass('', 'text-white')">
-        {{ $t('Tags') }}
+        {{ i18n.t('Tags') }}
       </span>
     </div>
     <div
@@ -138,5 +138,3 @@ onMounted(() => {
   })
 })
 </script>
-
-<style></style>

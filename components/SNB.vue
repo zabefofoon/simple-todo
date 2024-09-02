@@ -47,7 +47,7 @@
                 storageStore.getThemeClass('', 'text-white'),
               ]"></i>
             <span :class="storageStore.getThemeClass('', 'text-white')">
-              {{ $t(menu.name) }}
+              {{ i18n.t(menu.name) }}
             </span>
           </li>
         </NuxtLink>
@@ -63,8 +63,7 @@ import { useStorageStore } from '~/store/storage.store'
 
 const menuStore = useMenuStore()
 const storageStore = useStorageStore()
+const i18n = useI18n()
 
 const route = useRoute()
 </script>
-
-<style></style>

@@ -1,7 +1,7 @@
 <template>
   <div class="py-2 px-4">
     <h3 v-if="!keywords?.length" class="text-center text-sm">
-      {{ $t('NoKeywords') }}
+      {{ i18n.t('NoKeywords') }}
     </h3>
     <NuxtLink
       v-for="keyword in keywords?.slice(0, 10)"
@@ -27,6 +27,8 @@
 import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
+const i18n = useI18n()
+
 const keywords = ref<string[]>()
 const setKeywords = (value?: string[]) => (keywords.value = value)
 const removeKeyword = (keyword: string) => {

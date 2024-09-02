@@ -1,6 +1,6 @@
 <template>
   <div
-    class="lg:h-full max-h-[100vw] | overflow-auto | flex flex-col gap-2 | border rounded-lg | p-2 lg:p-3"
+    class="lg:h-full max-h-[100vw] | overflow-auto | flex flex-col gap-5 | border rounded-lg | p-2 lg:p-3"
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <div class="font-bold">
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
@@ -9,7 +9,7 @@
         to="/todo"
         :class="storageStore.getThemeClass('', 'text-white')"
         area-label="RecentTodos">
-        {{ $t('Recent') }}
+        {{ i18n.t('Recent') }}
       </NuxtLink>
     </div>
     <template v-if="loadingStore.todoLoading">
@@ -41,7 +41,7 @@
           @delete="deleteTodo"
           @done="todoStore.doneTodo" />
         <p v-if="!recentTodos?.length" class="text-center py-10">
-          {{ $t('NoTodo') }}
+          {{ i18n.t('NoTodo') }}
         </p>
       </div>
     </template>
@@ -69,5 +69,3 @@ const deleteTodo = (id: number) => {
   if (confirm(i18n.t('ConfirmDelete'))) todoStore.deleteTodo(id)
 }
 </script>
-
-<style></style>

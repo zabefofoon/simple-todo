@@ -5,7 +5,7 @@
       :class="
         storageStore.getThemeClass('bg-slate-200', 'bg-slate-600 | text-white')
       "
-      :placeholder="$t('Search')" />
+      :placeholder="i18n.t('Search')" />
     <i
       class="icon icon-search | text-xl | absolute right-1 top-1/2 -translate-y-1/2"
       :class="storageStore.getThemeClass('', 'text-white')"></i>
@@ -16,6 +16,5 @@
 import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
+const i18n = useI18n()
 </script>
-
-<style></style>

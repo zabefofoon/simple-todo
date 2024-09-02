@@ -5,13 +5,13 @@
     <label
       class="lg:w-60 | text-sm"
       :class="storageStore.getThemeClass('', 'text-white')">
-      {{ $t('Export') }}
+      {{ i18n.t('Export') }}
     </label>
     <button
       class="ml-auto lg:ml-0 px-4 py-0.5 | bg-slate-800 | text-sm text-white | rounded-full"
       name="Export"
       @click="exportData">
-      {{ $t('Export') }}
+      {{ i18n.t('Export') }}
     </button>
   </div>
 </template>
@@ -25,6 +25,7 @@ import { useTodoStore } from '~/store/todo.store'
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
 const storageStore = useStorageStore()
+const i18n = useI18n()
 
 const getSerializedData = () => {
   const data: SavedData = {
@@ -49,5 +50,3 @@ const exportData = () => {
   document.body.removeChild(element)
 }
 </script>
-
-<style></style>

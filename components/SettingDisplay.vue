@@ -5,7 +5,7 @@
     <label
       class="lg:w-60 | text-sm"
       :class="storageStore.getThemeClass('', 'text-white')">
-      {{ $t('Display') }}
+      {{ i18n.t('Display') }}
     </label>
     <select
       v-model="storageStore.display"
@@ -17,10 +17,10 @@
       <option
         value="thumbnail"
         :class="storageStore.getThemeClass('', 'text-white')">
-        {{ $t('Thumbnail') }}
+        {{ i18n.t('Thumbnail') }}
       </option>
       <option value="row" :class="storageStore.getThemeClass('', 'text-white')">
-        {{ $t('Row') }}
+        {{ i18n.t('Row') }}
       </option>
     </select>
   </div>
@@ -31,11 +31,10 @@ import type { Display } from '~/models/Setting'
 import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
+const i18n = useI18n()
 
 const changeDisplay = (event: Event) => {
   const value = <Display>(<HTMLSelectElement>event.target).value
   storageStore.setDisplay(value)
 }
 </script>
-
-<style></style>

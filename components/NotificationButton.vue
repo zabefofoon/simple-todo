@@ -18,5 +18,3 @@ import { useStorageStore } from '~/store/storage.store'
 const storageStore = useStorageStore()
 const alarmStore = useAlarmStore()
 </script>
-
-<style></style>

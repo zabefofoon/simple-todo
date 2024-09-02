@@ -10,14 +10,14 @@
           for="summary-select"
           class="font-bold"
           :class="storageStore.getThemeClass('', 'text-white')">
-          {{ $t('Years') }}
+          {{ i18n.t('Years') }}
         </label>
         <label
           v-else
           for="summary-select"
           class="font-bold"
           :class="storageStore.getThemeClass('', 'text-white')">
-          {{ $t('Weeks') }}
+          {{ i18n.t('Weeks') }}
         </label>
         <select
           id="summary-select"
@@ -25,8 +25,8 @@
           class="ml-auto | text-sm"
           :class="storageStore.getThemeClass('bg-white', 'dark text-white')"
           @change="selectOption">
-          <option value="month">{{ $t('Month') }}</option>
-          <option value="week">{{ $t('Week') }}</option>
+          <option value="month">{{ i18n.t('Month') }}</option>
+          <option value="week">{{ i18n.t('Week') }}</option>
         </select>
       </template>
     </div>
@@ -48,6 +48,7 @@ import { useLoadingStore } from '~/store/loading.store'
 import { useStorageStore } from '~/store/storage.store'
 
 const loadingStore = useLoadingStore()
+const i18n = useI18n()
 
 const storageStore = useStorageStore()
 const selectedOption = ref<SummaryTimeType>('month')
@@ -61,5 +62,3 @@ onMounted(() => {
   selectedOption.value = storageStore.getSummaryTimeType() || 'month'
 })
 </script>
-
-<style></style>

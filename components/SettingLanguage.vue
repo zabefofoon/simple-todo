@@ -5,7 +5,7 @@
     <label
       class="lg:w-60 | text-sm"
       :class="storageStore.getThemeClass('', 'text-white')">
-      {{ $t('Language') }}
+      {{ i18n.t('Language') }}
     </label>
     <select
       v-model="storageStore.language"
@@ -15,10 +15,10 @@
       "
       @change="changeLanguage">
       <option value="en" :class="storageStore.getThemeClass('', 'text-white')">
-        {{ $t('English') }}
+        {{ i18n.t('English') }}
       </option>
       <option value="ko" :class="storageStore.getThemeClass('', 'text-white')">
-        {{ $t('Korean') }}
+        {{ i18n.t('Korean') }}
       </option>
     </select>
   </div>
@@ -29,11 +29,10 @@ import type { Language } from '~/models/Setting'
 import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
+const i18n = useI18n()
 
 const changeLanguage = (event: Event) => {
   const value = <Language>(<HTMLSelectElement>event.target).value
   storageStore.setLanguage(value)
 }
 </script>
-
-<style></style>

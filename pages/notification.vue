@@ -13,7 +13,7 @@
           class="w-full | text-lg truncate | cursor-pointer"
           :class="storageStore.getThemeClass('', 'text-white')"
           @click="router.back()">
-          {{ $t('Notification') }}
+          {{ i18n.t('Notification') }}
         </div>
       </header>
     </template>
@@ -24,7 +24,7 @@
           v-if="!alarms?.length"
           class="w-full h-full | flex items-center justify-center"
           :class="storageStore.getThemeClass('', 'text-white')">
-          {{ $t('EmptyNotification') }}
+          {{ i18n.t('EmptyNotification') }}
         </div>
         <ul v-else class="flex flex-col | w-full h-full">
           <NuxtLink
@@ -78,6 +78,7 @@ import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const router = useRouter()
+const i18n = useI18n()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
@@ -97,5 +98,3 @@ const alarms = computed(() => {
   )
 })
 </script>
-
-<style></style>

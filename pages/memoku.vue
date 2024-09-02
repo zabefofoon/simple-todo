@@ -23,10 +23,10 @@
         v-model="storageStore.language"
         @change="changeLanguage">
         <option value="en">
-          {{ $t('English') }}
+          {{ i18n.t('English') }}
         </option>
         <option value="ko">
-          {{ $t('Korean') }}
+          {{ i18n.t('Korean') }}
         </option>
       </select>
     </div>
@@ -45,15 +45,15 @@
           class="flex gap-1.5 | text-sm | absolute top-0 left-0 -translate-y-[100%]">
           <span
             class="text-white text-sm lg:text-md | rounded-full | px-1.5 py-0.5 | bg-[#eb4d4b]">
-            #{{ $t('TodoList') }}
+            #{{ i18n.t('TodoList') }}
           </span>
           <span
             class="text-white text-sm lg:text-md | rounded-full | px-1.5 py-0.5 bg-[#4834d4]">
-            #{{ $t('Reminder') }}
+            #{{ i18n.t('Reminder') }}
           </span>
           <span
             class="text-white text-sm lg:text-md | rounded-full | px-1.5 py-0.5 bg-[#6ab04c]">
-            #{{ $t('TaskManager') }}
+            #{{ i18n.t('TaskManager') }}
           </span>
         </h2>
         <h1
@@ -66,12 +66,12 @@
       class="flex flex-col items-center justify-center | aspect-[1/1] lg:aspect-[30/9]">
       <p
         class="relative z-1 | mt-8 px-8 | text-lg lg:text-2xl text-center | lg:w-[800px] leading-relaxed">
-        {{ $t('Induce1') }}
+        {{ i18n.t('Induce1') }}
       </p>
       <NuxtLink
         to="/"
         class="relative z-1 text-white lg:text-xl | rounded-full | mt-8 px-8 py-2 bg-slate-800">
-        {{ $t('Induce2') }}
+        {{ i18n.t('Induce2') }}
       </NuxtLink>
     </section>
     <section
@@ -84,13 +84,13 @@
             class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
             <i class="icon icon-post flex-shrink-0 | text-white"></i>
             <span class="text-white" property="name">{{
-              $t('EasyMemoDescription')
+              i18n.t('EasyMemoDescription')
             }}</span>
           </div>
           <div
             class="text-center lg:text-[18px] text-white"
             property="description">
-            {{ $t('EasyMemoDescriptionGuide') }}
+            {{ i18n.t('EasyMemoDescriptionGuide') }}
           </div>
         </li>
         <li
@@ -100,13 +100,13 @@
             class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
             <i class="icon icon-notification flex-shrink-0 | text-white"></i>
             <span class="text-white" property="name">{{
-              $t('NotificationDescription')
+              i18n.t('NotificationDescription')
             }}</span>
           </div>
           <div
             class="text-center lg:text-[18px] text-white"
             property="description">
-            {{ $t('NotificationDescriptionDescription') }}
+            {{ i18n.t('NotificationDescriptionDescription') }}
           </div>
         </li>
         <li
@@ -116,13 +116,13 @@
             class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
             <i class="icon icon-tag flex-shrink-0 | text-white"></i>
             <span class="text-white" property="name">{{
-              $t('TagDescription')
+              i18n.t('TagDescription')
             }}</span>
           </div>
           <div
             class="text-center lg:text-[18px] text-white"
             property="description">
-            {{ $t('TagDescriptionGuide') }}
+            {{ i18n.t('TagDescriptionGuide') }}
           </div>
         </li>
         <li
@@ -132,13 +132,13 @@
             class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
             <i class="icon icon-date flex-shrink-0 | text-white"></i>
             <span class="text-white" property="name">{{
-              $t('DateDescription')
+              i18n.t('DateDescription')
             }}</span>
           </div>
           <div
             class="text-center lg:text-[18px] text-white"
             property="description">
-            {{ $t('DateDescriptionGuide') }}
+            {{ i18n.t('DateDescriptionGuide') }}
           </div>
         </li>
         <li
@@ -148,13 +148,13 @@
             class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
             <i class="icon icon-theme flex-shrink-0 | text-white"></i>
             <span class="text-white" property="name">{{
-              $t('ThemeDescription')
+              i18n.t('ThemeDescription')
             }}</span>
           </div>
           <div
             class="text-center lg:text-[18px] text-white"
             property="description">
-            {{ $t('ThemeDescriptionGuide') }}
+            {{ i18n.t('ThemeDescriptionGuide') }}
           </div>
         </li>
         <li
@@ -164,13 +164,13 @@
             class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
             <i class="icon icon-chart flex-shrink-0 | text-white"></i>
             <span class="text-white" property="name">{{
-              $t('AnalisysDescription')
+              i18n.t('AnalisysDescription')
             }}</span>
           </div>
           <div
             class="text-center lg:text-[18px] text-white"
             property="description">
-            {{ $t('AnalisysDescriptionGuide') }}
+            {{ i18n.t('AnalisysDescriptionGuide') }}
           </div>
         </li>
         <li
@@ -180,13 +180,13 @@
             class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
             <i class="icon icon-offline flex-shrink-0 | text-white"></i>
             <span class="text-white" property="name">{{
-              $t('OfflineDescription')
+              i18n.t('OfflineDescription')
             }}</span>
           </div>
           <div
             class="text-center lg:text-[18px] text-white"
             property="description">
-            {{ $t('OfflineDescriptionGuide') }}
+            {{ i18n.t('OfflineDescriptionGuide') }}
           </div>
         </li>
       </ul>
@@ -202,15 +202,15 @@
       </div>
       <div class="flex flex-col gap-3 | w-full | px-8">
         <h3 class="text-2xl lg:text-3xl leading-normal | lg:w-1/2">
-          {{ $t('Induce3') }}
+          {{ i18n.t('Induce3') }}
         </h3>
         <p class="text-lg lg:text-xl leading-normal | lg:w-1/2">
-          {{ $t('Induce4') }}
+          {{ i18n.t('Induce4') }}
         </p>
         <NuxtLink
           to="/"
           class="lg:w-fit | relative z-1 text-white lg:text-xl text-center | rounded-full | mt-4 px-8 py-2 bg-slate-800">
-          {{ $t('Induce5') }}
+          {{ i18n.t('Induce5') }}
         </NuxtLink>
       </div>
     </section>
@@ -219,13 +219,13 @@
     <h2 class="flex items-center gap-2">
       <span class="text-white" property="name">MEMOKU</span>
       <span class="hidden lg:inline ml-auto | text-xs text-white"
-        >#{{ $t('TodoList') }}</span
+        >#{{ i18n.t('TodoList') }}</span
       >
       <span class="hidden lg:inline text-xs text-white"
-        >#{{ $t('Reminder') }}
+        >#{{ i18n.t('Reminder') }}
       </span>
       <span class="hidden lg:inline text-xs text-white"
-        >#{{ $t('TaskManager') }}
+        >#{{ i18n.t('TaskManager') }}
       </span>
     </h2>
     <div class="flex items-center gap-3">
@@ -250,6 +250,7 @@ import type { Language } from '~/models/Setting'
 import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
+const i18n = useI18n()
 
 const changeLanguage = (event: Event) => {
   const value = <Language>(<HTMLSelectElement>event.target).value

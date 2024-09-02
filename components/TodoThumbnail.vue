@@ -66,10 +66,10 @@
           :class="storageStore.getThemeClass('', 'text-white')"></i>
         <span :class="storageStore.getThemeClass('', 'text-white')">
           <template v-if="leftUptoHours > 0">
-            {{ $t('LeftHours', [leftUptoHours]) }}
+            {{ i18n.t('LeftHours', [leftUptoHours]) }}
           </template>
           <template v-else>
-            {{ $t('LeftMinits', [leftUptoMinits]) }}
+            {{ i18n.t('LeftMinits', [leftUptoMinits]) }}
           </template>
         </span>
       </figcaption>
@@ -97,6 +97,7 @@ const route = useRoute()
 
 const storageStore = useStorageStore()
 const bulkStore = useBulkStore()
+const i18n = useI18n()
 
 const leftUptoHours = ref(0)
 const getLeftUptoHours = (todo: Todo) => {

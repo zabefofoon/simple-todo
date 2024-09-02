@@ -13,7 +13,7 @@
           class="w-full | text-lg truncate | cursor-pointer"
           :class="storageStore.getThemeClass('', 'text-white')"
           @click="router.back()">
-          {{ route.params.id.replaceAll('-', '.') }}
+          {{ route.params.id.toString().replaceAll('-', '.') }}
         </div>
       </header>
     </template>
@@ -24,7 +24,7 @@
           v-if="!todayTodos?.length"
           class="flex items-center justify-center | h-full">
           <span :class="storageStore.getThemeClass('', 'text-white')">
-            {{ $t('NoTodo') }}
+            {{ i18n.t('NoTodo') }}
           </span>
         </p>
         <template v-else>
@@ -80,5 +80,3 @@ const deleteTodo = (id: number) => {
   if (confirm(i18n.t('ConfirmDelete'))) todoStore.deleteTodo(id)
 }
 </script>
-
-<style></style>

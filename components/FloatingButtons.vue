@@ -21,5 +21,3 @@ const emit = defineEmits<{
 }>()
 
 </script>
-
-<style></style>

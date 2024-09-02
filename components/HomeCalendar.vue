@@ -7,7 +7,7 @@
       :class="storageStore.getThemeClass('', 'text-white')"
       area-label="Calendar"
       class="font-bold">
-      {{ $t('Calender') }}
+      {{ i18n.t('Calender') }}
     </NuxtLink>
     <Calendar />
   </div>
@@ -17,4 +17,5 @@
 import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
+const i18n = useI18n()
 </script>

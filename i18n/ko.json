@@ -96,5 +96,6 @@
   "Wednesday": "수",
   "Thursday": "목",
   "Friday": "금",
-  "Saturday": "토"
+  "Saturday": "토",
+  "weekOfMonth": "{week}주차"
 }

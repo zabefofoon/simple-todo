@@ -6,7 +6,7 @@
         <button class="flex items-center gap-1" @click="router.back()">
           <i class="icon icon-arrow-left | text-white"></i>
           <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
-            {{ $t('Close') }}
+            {{ i18n.t('Close') }}
           </span>
         </button>
       </li>
@@ -18,7 +18,7 @@
             <i class="icon icon-check | text-white"></i>
           </span>
           <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
-            {{ $t('Done') }}
+            {{ i18n.t('Done') }}
           </span>
         </button>
       </li>
@@ -30,7 +30,7 @@
             <i class="icon icon-check | text-white"></i>
           </span>
           <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
-            {{ $t('Undone') }}
+            {{ i18n.t('Undone') }}
           </span>
         </button>
       </li>
@@ -39,7 +39,7 @@
         <button class="flex items-center gap-1" @click="bulkDelete()">
           <i class="icon icon-close | text-white"></i>
           <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
-            {{ $t('Remove') }}
+            {{ i18n.t('Remove') }}
           </span>
         </button>
       </li>
@@ -72,5 +72,3 @@ const bulkDelete = async () => {
   }
 }
 </script>
-
-<style></style>

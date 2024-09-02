@@ -7,7 +7,7 @@ export const useSettingStore = defineStore('setting', () => {
   const setting = ref<Setting>()
 
   const initSetting = async () => {
-    const [data] = await settingApi.getSetting()
+    const [data] = await settingApi.getSetting()!
     const result = Setting.of(data)
     settingApi.setSetting(result)
     setting.value = result

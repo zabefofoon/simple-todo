@@ -18,83 +18,8 @@
           <Skeletor class="w-[80px] h-[24px]" />
         </template>
         <template v-else>
-          <div class="ml-auto | relative">
-            <label
-              for="filter"
-              class="absolute top-0 left-0 -translate-y-1/2 | text-[8px] lg:text-[10px]"
-              :class="
-                storageStore.getThemeClass(
-                  'bg-white',
-                  'bg-slate-900 text-white'
-                )
-              ">
-              {{ $t('Tag') }}
-            </label>
-            <select
-              id="filter"
-              class="border rounded-md | px-1 py-0.5 | text-xs"
-              :class="
-                storageStore.getThemeClass(
-                  'bg-white',
-                  'dark | bg-slate-900 text-white | border-slate-700'
-                )
-              "
-              :value="route.query.tag || 'All'"
-              @change="changeTag">
-              <option
-                :class="storageStore.getThemeClass('', 'text-white')"
-                value="All">
-                {{ $t('All') }}
-              </option>
-              <option
-                v-for="tag in settingStore.setting?.tags"
-                :key="tag.id"
-                :class="storageStore.getThemeClass('', 'text-white')"
-                :value="tag.id">
-                {{ tag.label }}
-              </option>
-            </select>
-          </div>
-          <div class="lg:ml-2 | relative">
-            <label
-              for="filter"
-              class="absolute top-0 left-0 -translate-y-1/2 | text-[8px] lg:text-[10px]"
-              :class="
-                storageStore.getThemeClass(
-                  'bg-white',
-                  'bg-slate-900 text-white'
-                )
-              ">
-              {{ $t('Filter') }}
-            </label>
-            <select
-              id="filter"
-              class="border rounded-md | px-1 py-0.5 | text-xs"
-              :class="
-                storageStore.getThemeClass(
-                  'bg-white',
-                  'dark | bg-slate-900 text-white | border-slate-700'
-                )
-              "
-              :value="route.query.filter || 'All'"
-              @change="changeFilter">
-              <option
-                :class="storageStore.getThemeClass('', 'text-white')"
-                value="All">
-                {{ $t('All') }}
-              </option>
-              <option
-                :class="storageStore.getThemeClass('', 'text-white')"
-                value="Undone">
-                {{ $t('Undone') }}
-              </option>
-              <option
-                :class="storageStore.getThemeClass('', 'text-white')"
-                value="Done">
-                {{ $t('Done') }}
-              </option>
-            </select>
-          </div>
+          <TodoTagSelector class="ml-auto" />
+          <TodoStatusSelector class="lg:ml-2" />
         </template>
       </div>
       <div v-if="!todos?.length" class="flex | h-full">
@@ -103,27 +28,80 @@
           v-else
           class="w-full | flex items-center justify-center | text-center"
           :class="storageStore.getThemeClass('', 'text-white')">
-          {{ $t('NoTodo') }}
+          {{ i18n.t('NoTodo') }}
         </p>
       </div>
       <template v-else>
-        <div
-          v-if="storageStore.display === 'thumbnail'"
-          class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
-          <TodoThumbnail
-            v-for="todo in todos"
-            :key="todo.id"
-            :todo="todo"
-            @delete="deleteTodo"
-            @done="todoStore.doneTodo" />
-        </div>
-        <div v-else class="flex flex-col gap-2 | p-4 | lg:w-[96%] h-auto">
-          <TodoRow
-            v-for="todo in todos"
-            :key="todo.id"
-            :todo="todo"
-            @delete="deleteTodo"
-            @done="todoStore.doneTodo" />
+        <div class="p-2 lg:p-4">
+          <template v-for="tag in settingStore.setting?.tags" :key="tag.id">
+            <div
+              v-if="matchedTodos(tag.label).length"
+              class="mb-4 lg:mb-8 rounded-lg border"
+              :class="[storageStore.getThemeClass('', 'border-slate-700'), ,]">
+              <div
+                class="p-2 lg:p-4 | font-bold | flex items-center gap-1.5"
+                :class="storageStore.getThemeClass('', 'text-white')">
+                <NuxtLink :to="`/todo/tag/${tag.id}`">
+                  #{{ tag.label }}
+                  <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
+                </NuxtLink>
+              </div>
+              <div
+                v-if="storageStore.display === 'thumbnail'"
+                class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-2 lg:p-4">
+                <TodoThumbnail
+                  v-for="todo in matchedTodos(tag.label)"
+                  :key="todo.id"
+                  :todo="todo"
+                  @delete="deleteTodo"
+                  @done="todoStore.doneTodo" />
+              </div>
+              <div
+                v-else
+                class="flex flex-col gap-2 | p-2 lg:p-4 | lg:w-[96%] h-auto">
+                <TodoRow
+                  v-for="todo in matchedTodos(tag.label)"
+                  :key="todo.id"
+                  :todo="todo"
+                  @delete="deleteTodo"
+                  @done="todoStore.doneTodo" />
+              </div>
+            </div>
+          </template>
+          <div
+            v-if="matchedTodos().length"
+            class="mb-4 lg:mb-8 rounded-lg border"
+            :class="[storageStore.getThemeClass('', 'border-slate-700')]">
+            <div
+              v-if="!route.query.tag"
+              class="p-2 lg:p-4 | font-bold | flex items-center gap-1.5"
+              :class="storageStore.getThemeClass('', 'text-white')">
+              <NuxtLink :to="`/todo/tag/memo`">
+                #memo
+                <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
+              </NuxtLink>
+            </div>
+            <div
+              v-if="storageStore.display === 'thumbnail'"
+              class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-2 lg:p-4">
+              <TodoThumbnail
+                v-for="todo in matchedTodos()"
+                :key="todo.id"
+                :todo="todo"
+                @delete="deleteTodo"
+                @done="todoStore.doneTodo" />
+            </div>
+            <div
+              v-else
+              class="flex flex-col gap-2 | p-2 lg:p-4 | lg:w-[96%] h-auto">
+              <TodoRow
+                v-for="todo in matchedTodos()"
+                :key="todo.id"
+                :todo="todo"
+                @delete="deleteTodo"
+                @done="todoStore.doneTodo" />
+            </div>
+          </div>
         </div>
       </template>
     </div>
@@ -135,22 +113,20 @@
 </template>
 
 <script setup lang="ts">
-import TodoThumbnail from '~/components/TodoThumbnail.vue'
 import type { Todo } from '~/models/Todo'
 import { useLoadingStore } from '~/store/loading.store'
-import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
+import { useSettingStore } from '~/store/setting.store'
 
 const i18n = useI18n()
 
-const router = useRouter()
 const route = useRoute()
 
-const settingStore = useSettingStore()
 const storageStore = useStorageStore()
 const todoStore = useTodoStore()
 const loadingStore = useLoadingStore()
+const settingStore = useSettingStore()
 
 const todos = computed(() => {
   let result: Todo[] | undefined = undefined
@@ -162,28 +138,24 @@ const todos = computed(() => {
 
   return route.query.tag
     ? result
-        ?.filter((todo) => todo.tagId === route.query.tag)
+        ?.filter(
+          (todo) =>
+            todo.tagId === route.query.tag ||
+            (!todo.tag && route.query.tag === 'memo')
+        )
         .sort((a, b) => b.created! - a.created!)
     : result?.sort((a, b) => b.created! - a.created!)
 })
 
-const changeFilter = (event: Event) => {
-  const value = (<HTMLSelectElement>event.target).value
-  let filter = undefined
-  if (value === 'All') filter = undefined
-  else if (value === 'Undone') filter = 'Undone'
-  else if (value === 'Done') filter = 'Done'
-
-  router.push({ query: { ...route.query, filter } })
-}
-
-const changeTag = (event: Event) => {
-  const value = (<HTMLSelectElement>event.target).value
-  const tag = value === 'All' ? undefined : value
-  router.push({ query: { ...route.query, tag } })
-}
-
 const deleteTodo = (id: number) => {
   if (confirm(i18n.t('ConfirmDelete'))) todoStore.deleteTodo(id)
+}
+
+const matchedTodos = (label?: string) => {
+  return (
+    todos.value?.filter(({ tag }) => tag?.label === label).slice(0, 6) ??
+    todos.value?.filter(({ tag }) => !tag).slice(0, 6) ??
+    []
+  )
 }
 </script>

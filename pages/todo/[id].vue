@@ -15,10 +15,10 @@
           <span
             v-if="isEditMode"
             :class="storageStore.getThemeClass('', 'text-white')">
-            {{ description || $t('Todo') }}
+            {{ description || i18n.t('Todo') }}
           </span>
           <span v-else :class="storageStore.getThemeClass('', 'text-white')">
-            {{ $t('Todo') }}
+            {{ i18n.t('Todo') }}
           </span>
         </div>
       </header>
@@ -41,7 +41,7 @@
                 'bg-slate-900 text-white border-slate-700'
               ),
             ]"
-            :placeholder="$t('Description')"
+            :placeholder="i18n.t('Description')"
             @input="checkChanged(true)"
             @change="setDescription" />
           <div
@@ -85,7 +85,7 @@
                         'bg-slate-900 text-white'
                       )
                     ">
-                    {{ $t('Form') }}
+                    {{ i18n.t('Form') }}
                   </label>
                   <select
                     class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg"
@@ -99,7 +99,7 @@
                     <option
                       value="None"
                       :class="storageStore.getThemeClass('', 'text-white')">
-                      {{ $t('None') }}
+                      {{ i18n.t('None') }}
                     </option>
                     <option
                       v-for="form in settingStore.setting?.forms"
@@ -128,7 +128,7 @@
                         )?.color,
                       }"></div>
                     <span :class="storageStore.getThemeClass('', 'text-white')">
-                      {{ $t('Tag') }}
+                      {{ i18n.t('Tag') }}
                     </span>
                   </label>
                   <select
@@ -144,7 +144,7 @@
                     <option
                       :value="''"
                       :class="storageStore.getThemeClass('', 'text-white')">
-                      {{ $t('None') }}
+                      {{ i18n.t('None') }}
                     </option>
                     <option
                       v-for="tag in settingStore.setting?.tags"
@@ -173,7 +173,7 @@
                     class="icon icon-timer"
                     :class="storageStore.getThemeClass('', 'text-white')"></i>
                   <span :class="storageStore.getThemeClass('', 'text-white')">
-                    {{ $t('Upto') }}
+                    {{ i18n.t('Upto') }}
                   </span>
                 </label>
                 <div
@@ -239,7 +239,7 @@
               name="Save"
               class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto"
               @click="save">
-              <span class="text-white whitespace-nowrap">{{ $t('Save') }}</span>
+              <span class="text-white whitespace-nowrap">{{ i18n.t('Save') }}</span>
             </button>
           </div>
         </div>
@@ -248,7 +248,7 @@
         name="Save"
         class="lg:hidden | w-[96vw] | bg-slate-800 | text-white rounded-full | py-3 lg:py-2 mx-auto mt-auto mb-4"
         @click="save">
-        <span class="text-white">{{ $t('Save') }}</span>
+        <span class="text-white">{{ i18n.t('Save') }}</span>
       </button>
     </template>
   </NuxtLayout>
@@ -487,7 +487,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', saveByKey)
 })
 
-onBeforeRouteLeave((to, from, next) => {
+onBeforeRouteLeave((_, __, next) => {
   if (!toValue(isChanged)) {
     next()
     return
@@ -501,5 +501,3 @@ onBeforeRouteLeave((to, from, next) => {
   next(confirm(i18n.t('ConfirmBeforeWriting')))
 })
 </script>
-
-<style></style>

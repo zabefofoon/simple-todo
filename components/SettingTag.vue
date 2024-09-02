@@ -4,7 +4,7 @@
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <div class="flex gap-1 | lg:w-60 | text-sm">
       <span :class="storageStore.getThemeClass('', 'text-white')">
-        {{ $t('Tag') }}
+        {{ i18n.t('Tag') }}
       </span>
       <button
         name="Add tag"
@@ -107,7 +107,6 @@ import { deepClone } from '~/utils/etc'
 
 const i18n = useI18n()
 
-const todoStore = useTodoStore()
 const settingStore = useSettingStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()

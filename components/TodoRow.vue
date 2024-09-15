@@ -21,13 +21,14 @@
         v-if="todo.tagId"
         class="w-20 h-full | flex items-center | border-r"
         :class="storageStore.getThemeClass('', 'border-slate-700')">
-        <div
+        <NuxtLink
+          :to="`/todo/tag/${todo.tag.id}`"
           class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-white text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | rounded-full"
           :style="{
             background: todo.tag?.color || 'black',
           }">
           #{{ todo.tag?.label }}
-        </div>
+        </NuxtLink>
       </div>
       <div
         v-else

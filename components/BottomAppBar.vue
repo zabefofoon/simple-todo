@@ -1,6 +1,5 @@
 <template>
   <ul
-    v-if="$route.name !== 'todo-id'"
     class="safe-area | flex lg:hidden justify-around | border-t"
     :class="
       storageStore.getThemeClass('bg-gray-300', 'bg-slate-950 border-slate-700')

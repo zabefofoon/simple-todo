@@ -21,7 +21,17 @@
           @scroll-top="scrollTop">
           <slot name="actions" />
         </FloatingButtons>
-        <BottomAppBar />
+        <BottomAppBar
+          v-if="
+            ![
+              'todo-id',
+              'todo-tag-id',
+              'calender-id',
+              'search',
+              'notification',
+              'form-id',
+            ].includes((route.name ?? '')?.toString())
+          " />
       </nav>
     </div>
   </div>

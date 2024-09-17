@@ -117,10 +117,11 @@
             gap="10px"
             drag-free>
             <UICarouselSlide
-              v-for="image in currentTodo?.images"
+              v-for="(image, index) in currentTodo?.images"
               :key="image"
               class="w-[200px] h-[200px] | border rounded-lg overflow-hidden | relative | cursor-grab"
-              :class="storageStore.getThemeClass('', 'border-slate-700')">
+              :class="storageStore.getThemeClass('', 'border-slate-700')"
+              @click="showImageModal(index)">
               <img
                 class="w-full h-full | object-cover object-center"
                 :src="image" />
@@ -132,10 +133,11 @@
             perview="auto"
             gap="6px">
             <UICarouselSlide
-              v-for="image in currentTodo?.images"
+              v-for="(image, index) in currentTodo?.images"
               :key="image"
               class="w-[80px] h-[80px] | border rounded-lg overflow-hidden | relative"
-              :class="storageStore.getThemeClass('', 'border-slate-700')">
+              :class="storageStore.getThemeClass('', 'border-slate-700')"
+              @click="showImageModal(index)">
               <img
                 class="w-full h-full | object-cover object-center"
                 :src="image" />
@@ -148,10 +150,12 @@
 </template>
 
 <script setup lang="ts">
+import TodoImageModal from '~/components/TodoImageModal.vue'
 import { Todo } from '~/models/Todo'
 import { useLoadingStore } from '~/store/loading.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
+import { useModal } from 'vue-final-modal'
 
 const i18n = useI18n()
 
@@ -203,14 +207,50 @@ const getLeftUptoMinits = () => {
   return Math.round(timeDiff / (1000 * 60))
 }
 
+const {
+  open: openImageModal,
+  close: closeImageModal,
+  patchOptions: patchImageModal,
+} = useModal({
+  component: TodoImageModal,
+  attrs: {
+    onClose: () => {
+      history.back()
+    },
+  },
+})
+
+const showImageModal = (index: number) => {
+  navigateTo({
+    query: {
+      image: index,
+    },
+  })
+}
+
 onMounted(async () => {
   if (route.params.id !== 'new') {
     const result = await todoStore.getTodo(Number(route.params.id))
     setCurrentTodo(result)
   }
 })
+
 watch(currentTodo, () => {
   getLeftUptoHours()
   getLeftUptoMinits()
 })
+
+watch(
+  () => route.query.image,
+  (isShow) => {
+    isShow ? openImageModal() : closeImageModal()
+    if (isShow)
+      patchImageModal({
+        attrs: {
+          todo: currentTodo.value,
+          startIndex: Number(isShow),
+        },
+      })
+  }
+)
 </script>

@@ -18,3 +18,26 @@
   opacity: 0;
   top: -10px !important;
 }
+
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.slide-up-enter-from,
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translate(0, 15px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 300ms ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+

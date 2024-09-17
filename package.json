@@ -41,6 +41,7 @@
     "short-unique-id": "^5.0.3",
     "store2": "^2.14.2",
     "v-calendar": "^3.1.2",
+    "vue-final-modal": "^4.5.5",
     "web-push": "^3.6.7"
   }
 }

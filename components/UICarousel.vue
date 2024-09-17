@@ -10,7 +10,11 @@
       <div
         ref="emblaContainer"
         class="embla__container"
-        :style="{ gap, flexDirection: vertical ? 'column' : 'row', height: vertical ? `100%` : 'auto' }">
+        :style="{
+          gap,
+          flexDirection: vertical ? 'column' : 'row',
+          height: vertical ? `100%` : 'auto',
+        }">
         <slot :perview="perview" />
       </div>
     </div>
@@ -55,17 +59,6 @@ const emit = defineEmits<{
 // CarouselSlide 내부에서 스타일을 조정하기 위한 provide
 provide('perview', props.perview)
 provide('startIndex', props.startIndex)
-
-onMounted(() => {
-  if (props.useDots) addDotBtnsAndClickHandlers(dotsNode.value!)
-  if (props.useCounter) updateSelectedSnapDisplay(counterNode.value!)
-
-  toValue(emblaApi)?.on('select', (event) => {
-    const index = event.selectedScrollSnap() || 0
-    emit('change', index)
-    setCurrentIndex(index)
-  })
-})
 
 const dotsNode = ref<HTMLDivElement>()
 const counterNode = ref<HTMLDivElement>()
@@ -153,19 +146,41 @@ const updateSelectedSnapDisplay = (snapDisplay: HTMLElement) => {
       .off('reInit', updateSnapDisplay)
 }
 
+
+const trackPos = ref<string>('')
+
+onMounted(() => {
+  if (props.useDots) addDotBtnsAndClickHandlers(dotsNode.value!)
+  if (props.useCounter) updateSelectedSnapDisplay(counterNode.value!)
+
+  toValue(emblaApi)?.on('select', (event) => {
+    const index = event.selectedScrollSnap() || 0
+    emit('change', index)
+    setCurrentIndex(index)
+  })
+
+  toValue(emblaApi)?.on('slidesInView', () => {
+    const el = emblaRef.value?.getElementsByClassName('embla__container')[0] as HTMLDivElement
+    if (el) trackPos.value = el.style.transform
+  })
+})
+
+onBeforeUnmount(() => {
+  const el = emblaRef.value?.getElementsByClassName('embla__container')[0] as HTMLDivElement
+  if (el) el.style.transform = trackPos.value
+})
+
 watch(
   () => props.startIndex,
   (index) => emblaApi.value?.scrollTo(index || 0)
 )
 
-if (import.meta.client) {
-  watch(
-    () => [props.useDots, dotsNode.value],
-    () => {
-      if (props.useDots && dotsNode.value) {
-        addDotBtnsAndClickHandlers(dotsNode.value)
-      }
+watch(
+  () => [props.useDots, dotsNode.value],
+  () => {
+    if (props.useDots && dotsNode.value) {
+      addDotBtnsAndClickHandlers(dotsNode.value)
     }
-  )
-}
+  }
+)
 </script>

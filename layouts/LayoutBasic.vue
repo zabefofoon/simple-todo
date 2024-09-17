@@ -36,9 +36,14 @@
       </nav>
     </div>
   </div>
+  <ClientOnly>
+    <ModalsContainer />
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">
+import { ModalsContainer } from 'vue-final-modal'
+
 import { useScrollStore } from '~/store/scroll.store'
 import { useStorageStore } from '~/store/storage.store'
 

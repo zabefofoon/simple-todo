@@ -191,7 +191,7 @@
       <div class="flex gap-4 | h-full | overflow-hidden">
         <textarea
           :value="description"
-          class="w-full h-full | border rounded-lg | resize-none | p-2 lg:pt-2"
+          class="w-full h-full | border rounded-lg focus-visible:outline-0 focus-visible:border-orange-200 | resize-none | p-2 lg:pt-2"
           :class="[
             { 'pt-6': todo },
             storageStore.getThemeClass(
@@ -202,7 +202,9 @@
           :placeholder="i18n.t('Description')"
           @input="emit('changed')"
           @change="emit('set-description', $event)" />
-        <div class="h-full | p-3 | border rounded-lg">
+        <div
+          class="h-full | p-3 | border rounded-lg"
+          :class="storageStore.getThemeClass('', 'border-slate-700')">
           <UICarousel
             class="h-full"
             vertical

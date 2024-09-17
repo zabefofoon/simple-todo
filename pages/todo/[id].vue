@@ -63,17 +63,15 @@
     <template v-else>
       <div class="h-full | p-3 lg:p-4">
         <div class="h-full flex flex-col | relative">
-          <textarea
-            disabled
-            :value="currentTodo?.description"
-            class="lg:order-2 | border rounded-lg | h-[100%] resize-none | p-2"
+          <div
+            class="whitespace-pre | border rounded-lg | h-[100%] resize-none | p-2"
             :class="[
               storageStore.getThemeClass(
                 '',
                 'bg-slate-900 text-white border-slate-700'
               ),
             ]"
-            :placeholder="i18n.t('Description')" />
+            v-html="currentTodo?.description"></div>
           <div class="absolute bottom-2.5 left-3">
             <figcaption
               v-if="leftUptoMinits > 0"

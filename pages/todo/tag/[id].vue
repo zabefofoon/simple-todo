@@ -38,7 +38,7 @@
             @delete="deleteTodo"
             @done="todoStore.doneTodo" />
         </div>
-        <div v-else class="flex flex-col gap-2 | lg:w-[96%] h-auto">
+        <div v-else class="flex flex-col gap-2 | h-auto">
           <TodoRow
             v-for="todo in filterTodosByDays(day)"
             :key="todo.id"

@@ -58,7 +58,7 @@
               </div>
               <div
                 v-else
-                class="flex flex-col gap-2 | p-2 lg:p-4 | lg:w-[96%] h-auto">
+                class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
                 <TodoRow
                   v-for="todo in matchedTodos(tag.label)"
                   :key="todo.id"
@@ -93,7 +93,7 @@
             </div>
             <div
               v-else
-              class="flex flex-col gap-2 | p-2 lg:p-4 | lg:w-[96%] h-auto">
+              class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
               <TodoRow
                 v-for="todo in matchedTodos()"
                 :key="todo.id"

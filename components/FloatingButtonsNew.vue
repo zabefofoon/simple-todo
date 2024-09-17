@@ -45,8 +45,8 @@ const i18n = useI18n()
 
 const to = computed(() =>
   route.name === 'calender-id'
-    ? `/todo/new?date=${route.params.id}`
-    : '/todo/new'
+    ? `/todo/edit/new?date=${route.params.id}`
+    : '/todo/edit/new'
 )
 </script>
 

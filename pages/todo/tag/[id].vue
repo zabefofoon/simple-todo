@@ -1,25 +1,11 @@
 <template>
   <NuxtLayout name="layout-basic">
     <template #header>
-      <header
-        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden"
-        :class="storageStore.getThemeClass('', 'border-slate-700')">
-        <button name="Back" class="flex" @click="router.back()">
-          <i
-            class="icon icon-arrow-left"
-            :class="storageStore.getThemeClass('', 'text-white')"></i>
-        </button>
-        <ClientOnly>
-          <div
-            class="w-full | text-lg truncate | cursor-pointer"
-            :class="storageStore.getThemeClass('', 'text-white')"
-            @click="router.back()">
-            #{{ matchedTag }}
-          </div>
-        </ClientOnly>
-
-        <TodoStatusSelector class="lg:ml-2" />
-      </header>
+      <ClientOnly>
+        <HeaderInner :label="`#${matchedTag ?? 'memo'}`">
+          <TodoStatusSelector class="lg:ml-2" />
+        </HeaderInner>
+      </ClientOnly>
     </template>
     <div v-if="!todos?.length" class="flex | h-full">
       <Spinner v-if="loadingStore.todoLoading" class="m-auto" />
@@ -79,7 +65,6 @@ import { useTodoStore } from '~/store/todo.store'
 import dayjs from 'dayjs'
 
 const route = useRoute()
-const router = useRouter()
 const i18n = useI18n()
 
 const loadingStore = useLoadingStore()
@@ -88,10 +73,8 @@ const storageStore = useStorageStore()
 const todoStore = useTodoStore()
 
 const matchedTag = computed(() => {
-  return (
-    settingStore.setting?.tags.find((tag) => tag.id === route.params.id)
-      ?.label ?? 'memo'
-  )
+  return settingStore.setting?.tags.find((tag) => tag.id === route.params.id)
+    ?.label
 })
 
 const todos = computed(() => {
@@ -145,6 +128,10 @@ const filterTodosByDays = (day: string) => {
 
 const dayToTitle = (day: string) => {
   const splited = day.slice(2).split('-')
-  return `${splited[0]}.${splited[1]} ${i18n.t('weekOfMonth', {week: splited[2]})}` 
+  const year = splited[0].padStart(2, '0')
+  const month = splited[1].padStart(2, '0')
+  return `${year}.${month} ${i18n.t('weekOfMonth', {
+    week: splited[2],
+  })}`
 }
 </script>

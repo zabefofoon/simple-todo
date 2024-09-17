@@ -97,5 +97,7 @@
   "Thursday": "목",
   "Friday": "금",
   "Saturday": "토",
-  "weekOfMonth": "{week}주차"
+  "weekOfMonth": "{week}주차",
+  "DoEdit": "수정하기",
+  "DoDelete": "삭제하기"
 }

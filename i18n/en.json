@@ -97,5 +97,7 @@
   "Thursday": "Thu",
   "Friday": "Fri",
   "Saturday": "Sat",
-  "weekOfMonth": "{week} week"
+  "weekOfMonth": "{week} week",
+  "DoEdit": "Edit",
+  "DoDelete": "Delete"
 }

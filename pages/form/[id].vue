@@ -1,27 +1,7 @@
 <template>
   <NuxtLayout name="layout-basic">
     <template #header>
-      <header
-        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden"
-        :class="storageStore.getThemeClass('', 'border-slate-700')">
-        <button name="Back" class="flex" @click="$router.back()">
-          <i
-            class="icon icon-arrow-left"
-            :class="storageStore.getThemeClass('', 'text-white')"></i>
-        </button>
-        <div
-          class="w-full | text-lg truncate | cursor-pointer"
-          @click="$router.back()">
-          <span
-            v-if="isEditMode"
-            :class="storageStore.getThemeClass('', 'text-white')">
-            {{ editForm?.title }}
-          </span>
-          <span v-else :class="storageStore.getThemeClass('', 'text-white')">
-            Form
-          </span>
-        </div>
-      </header>
+      <HeaderInner label="Form"/>
     </template>
     <div
       v-if="loadingStore.todoLoading"

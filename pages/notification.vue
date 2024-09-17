@@ -1,21 +1,7 @@
 <template>
   <NuxtLayout name="layout-basic">
     <template #header>
-      <header
-        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden"
-        :class="storageStore.getThemeClass('', 'border-slate-700')">
-        <button class="flex" name="Back" @click="router.back()">
-          <i
-            class="icon icon-arrow-left"
-            :class="storageStore.getThemeClass('', 'text-white')"></i>
-        </button>
-        <div
-          class="w-full | text-lg truncate | cursor-pointer"
-          :class="storageStore.getThemeClass('', 'text-white')"
-          @click="router.back()">
-          {{ i18n.t('Notification') }}
-        </div>
-      </header>
+      <HeaderInner :label="i18n.t('Notification')" />
     </template>
     <div class="w-full h-full | flex flex-col lg:flex-row gap-4">
       <Spinner v-if="loadingStore.todoLoading" class="w-full h-full" />

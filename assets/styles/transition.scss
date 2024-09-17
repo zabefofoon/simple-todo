@@ -1,0 +1,20 @@
+.select-options-bottom-enter-active,
+.select-options-bottom-leave-active {
+  transition: opacity 150ms ease, bottom 150ms ease;
+}
+
+.select-options-bottom-enter-from,
+.select-options-bottom-leave-to {
+  opacity: 0;
+  bottom: 10px !important;
+}
+
+.select-options-top-enter-active,
+.select-options-top-leave-active {
+  transition: opacity 150ms ease, top 150ms ease;
+}
+.select-options-top-enter-from,
+.select-options-top-leave-to {
+  opacity: 0;
+  top: -10px !important;
+}

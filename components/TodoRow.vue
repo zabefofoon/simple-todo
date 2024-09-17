@@ -18,7 +18,7 @@
         ),
       ]">
       <div
-        v-if="todo.tagId"
+        v-if="todo.tag?.id"
         class="w-20 h-full | flex items-center | border-r"
         :class="storageStore.getThemeClass('', 'border-slate-700')">
         <NuxtLink

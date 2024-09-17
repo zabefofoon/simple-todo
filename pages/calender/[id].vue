@@ -1,21 +1,7 @@
 <template>
   <NuxtLayout name="layout-basic">
     <template #header>
-      <header
-        class="flex items-center gap-3 | py-2 px-4 | border-b | overflow-hidden"
-        :class="storageStore.getThemeClass('', 'border-slate-700')">
-        <button name="Back" class="flex" @click="router.back()">
-          <i
-            class="icon icon-arrow-left"
-            :class="storageStore.getThemeClass('', 'text-white')"></i>
-        </button>
-        <div
-          class="w-full | text-lg truncate | cursor-pointer"
-          :class="storageStore.getThemeClass('', 'text-white')"
-          @click="router.back()">
-          {{ route.params.id.toString().replaceAll('-', '.') }}
-        </div>
-      </header>
+      <HeaderInner :label="route.params.id.toString().replaceAll('-', '.')"/>
     </template>
     <div class="w-full h-full">
       <Spinner v-if="loadingStore.todoLoading" class="h-full" />

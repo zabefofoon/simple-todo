@@ -25,6 +25,7 @@
           v-if="
             ![
               'todo-id',
+              'todo-edit-id',
               'todo-tag-id',
               'calender-id',
               'search',

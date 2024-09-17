@@ -10,6 +10,7 @@ export class Todo {
   created?: number
   done?: boolean
   modified?: number
+  images?: string[]
 
   constructor(todo: Partial<Todo>) {
     Object.assign(this, todo)

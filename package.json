@@ -35,6 +35,8 @@
     "chart.js": "^4.4.1",
     "dayjs": "^1.11.13",
     "dexie": "^3.2.4",
+    "embla-carousel-autoplay": "^8.3.0",
+    "embla-carousel-vue": "^8.3.0",
     "lodash.debounce": "^4.0.8",
     "short-unique-id": "^5.0.3",
     "store2": "^2.14.2",

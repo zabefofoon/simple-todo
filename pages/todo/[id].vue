@@ -61,10 +61,10 @@
       <Spinner />
     </div>
     <template v-else>
-      <div class="h-full | p-3 lg:p-4">
-        <div class="h-full flex flex-col | relative">
+      <div class="flex flex-col lg:flex-row gap-3 | h-full | p-3 lg:p-4">
+        <div class="w-full h-full flex flex-col | relative">
           <div
-            class="whitespace-pre | border rounded-lg | h-[100%] resize-none | p-2"
+            class="whitespace-pre-wrap | border rounded-lg | h-full resize-none | p-2"
             :class="[
               storageStore.getThemeClass(
                 '',
@@ -105,6 +105,42 @@
               #{{ currentTodo?.tag?.label }}
             </NuxtLink>
           </div>
+        </div>
+        <div
+          v-if="currentTodo?.images?.length"
+          class="lg:h-full | p-3 | border rounded-lg"
+          :class="storageStore.getThemeClass('', 'border-slate-700')">
+          <UICarousel
+            class="h-full hidden lg:block"
+            vertical
+            perview="auto"
+            gap="10px"
+            drag-free>
+            <UICarouselSlide
+              v-for="image in currentTodo?.images"
+              :key="image"
+              class="w-[200px] h-[200px] | border rounded-lg overflow-hidden | relative | cursor-grab"
+              :class="storageStore.getThemeClass('', 'border-slate-700')">
+              <img
+                class="w-full h-full | object-cover object-center"
+                :src="image" />
+            </UICarouselSlide>
+          </UICarousel>
+          <UICarousel
+            class="w-full lg:hidden"
+            drag-free
+            perview="auto"
+            gap="6px">
+            <UICarouselSlide
+              v-for="image in currentTodo?.images"
+              :key="image"
+              class="w-[80px] h-[80px] | border rounded-lg overflow-hidden | relative"
+              :class="storageStore.getThemeClass('', 'border-slate-700')">
+              <img
+                class="w-full h-full | object-cover object-center"
+                :src="image" />
+            </UICarouselSlide>
+          </UICarousel>
         </div>
       </div>
     </template>

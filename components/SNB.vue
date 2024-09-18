@@ -19,7 +19,7 @@
               storageStore.getThemeClass('', 'invert contrast-100 grayscale')
             "
             src="~/assets/images/logo.svg"
-            alt="memoku" />
+            alt="MEMOKU" />
           <Transition name="fade">
             <span
               v-if="storageStore.isSNBExpanded"

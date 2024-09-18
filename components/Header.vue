@@ -9,14 +9,11 @@
         )
       ">
       <NuxtLink class="block | w-full | font-bold" to="/" area-label="Home">
-        <div class="flex items-center justify-center gap-1 | w-fit">
+        <div class="flex items-center justify-center gap-1.5 | w-fit">
           <img
-            class="w-[24px] aspect-square"
+            class="w-[20px] aspect-square"
             :class="
-              storageStore.getThemeClass(
-                '',
-                'border-2 border-white rounded-full'
-              )
+              storageStore.getThemeClass('', 'invert contrast-100 grayscale')
             "
             src="~/assets/images/logo.svg"
             alt="MEMOKU" />

@@ -6,9 +6,9 @@
         storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')
       ">
       <SearchInputButton />
-      <DarkModeButton/>
+      <DarkModeButton />
+      <ChangeDisplayButton />
       <NotificationButton />
-      <ChangeDisplayButton/>
     </div>
     <div class="h-full | lg:px-4">
       <Calendar />

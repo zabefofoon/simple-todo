@@ -26,8 +26,8 @@
         </div>
       </NuxtLink>
       <DarkModeButton />
-      <NotificationButton />
       <ChangeDisplayButton />
+      <NotificationButton />
     </div>
   </header>
 </template>

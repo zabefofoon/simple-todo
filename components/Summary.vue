@@ -49,10 +49,12 @@ const tags = computed(
 )
 watch(tags, updateTags, { deep: true })
 watch(
-  () => storageStore.theme,
+  () => [storageStore.theme, storageStore.isSNBExpanded],
   () => {
-    updateDones()
-    updateTags()
+    setTimeout(() => {
+      updateDones()
+      updateTags()
+    }, 150)
   }
 )
 

@@ -11,8 +11,8 @@
         ">
         <SearchInputButton />
         <DarkModeButton class="hidden lg:flex" />
-        <NotificationButton class="hidden lg:block" />
         <ChangeDisplayButton class="hidden lg:flex" />
+        <NotificationButton class="hidden lg:block" />
         <template v-if="loadingStore.todoLoading">
           <Skeletor class="w-[80px] h-[24px] | ml-auto" />
           <Skeletor class="w-[80px] h-[24px]" />
@@ -32,7 +32,7 @@
         </p>
       </div>
       <template v-else>
-        <div class="p-2 lg:p-4">
+        <div class="p-2 lg:p-4 | grid xl:grid-cols-2 gap-4">
           <template v-for="tag in settingStore.setting?.tags" :key="tag.id">
             <div
               v-if="matchedTodos(tag.label).length"

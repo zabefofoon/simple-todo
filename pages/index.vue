@@ -11,8 +11,8 @@
         ">
         <SearchInputButton />
         <DarkModeButton />
-        <NotificationButton />
         <ChangeDisplayButton/>
+        <NotificationButton />
       </div>
       <div
         class="lg:h-[94.5%] | flex flex-col lg:flex-row gap-4 | px-2 py-4 lg:p-4">

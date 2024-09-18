@@ -74,7 +74,11 @@ export const useStorageStore = defineStore(
       storageApi.getLocalStorage('cookiesAccepted') === 'true'
     const setCookiesAccepted = () =>
       storageApi.setLocalStorage('cookiesAccepted', 'true')
-      
+
+    const isSNBExpanded = ref(true)
+    const expandSNB = (value?: boolean) => {
+      isSNBExpanded.value = value != null ? value : !isSNBExpanded.value
+    }
     return {
       addRecentKeywords,
       getRecentKeywords,
@@ -98,11 +102,14 @@ export const useStorageStore = defineStore(
 
       getCookiesAccepted,
       setCookiesAccepted,
+
+      isSNBExpanded,
+      expandSNB,
     }
   },
   {
     persist: {
-      paths: ['language', 'display'],
+      paths: ['language', 'display', 'isSNBExpanded'],
       storage: persistedState.cookiesWithOptions({
         expires: etcUtil.getCookieExpires(),
       }),

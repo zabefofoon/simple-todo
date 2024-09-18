@@ -108,7 +108,7 @@
         </div>
         <div
           v-if="currentTodo?.images?.length"
-          class="lg:h-full | p-3 | border rounded-lg"
+          class="lg:h-full | p-3 mb-4 lg:mb-0 | border rounded-lg"
           :class="storageStore.getThemeClass('', 'border-slate-700')">
           <UICarousel
             class="h-full hidden lg:block"

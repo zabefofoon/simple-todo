@@ -23,7 +23,7 @@
           id="summary-select"
           :value="selectedOption"
           class="ml-auto | text-sm"
-          :class="storageStore.getThemeClass('bg-white', 'dark text-white')"
+          :class="storageStore.getThemeClass('bg-white', 'dark text-white bg-slate-900')"
           @change="selectOption">
           <option value="month">{{ i18n.t('Month') }}</option>
           <option value="week">{{ i18n.t('Week') }}</option>

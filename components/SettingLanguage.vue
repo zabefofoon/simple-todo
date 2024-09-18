@@ -15,13 +15,13 @@
       "
       @change="changeLanguage">
       <option value="en" :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('English') }}
+        English
       </option>
       <option value="ko" :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('Korean') }}
+        한국어
       </option>
       <option value="jp" :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('Japanese') }}
+        日本語
       </option>
     </select>
   </div>

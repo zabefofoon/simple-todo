@@ -23,13 +23,13 @@
         v-model="storageStore.language"
         @change="changeLanguage">
         <option value="en">
-          {{ i18n.t('English') }}
+          English
         </option>
         <option value="ko">
-          {{ i18n.t('Korean') }}
+          한국어
         </option>
         <option value="jp">
-          {{ i18n.t('Japanese') }}
+          日本語
         </option>
       </select>
     </div>

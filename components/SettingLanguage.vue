@@ -20,6 +20,9 @@
       <option value="ko" :class="storageStore.getThemeClass('', 'text-white')">
         {{ i18n.t('Korean') }}
       </option>
+      <option value="jp" :class="storageStore.getThemeClass('', 'text-white')">
+        {{ i18n.t('Japanese') }}
+      </option>
     </select>
   </div>
 </template>

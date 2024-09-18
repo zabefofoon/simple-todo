@@ -28,6 +28,9 @@
         <option value="ko">
           {{ i18n.t('Korean') }}
         </option>
+        <option value="jp">
+          {{ i18n.t('Japanese') }}
+        </option>
       </select>
     </div>
   </header>

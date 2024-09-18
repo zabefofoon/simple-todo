@@ -295,13 +295,74 @@ const fileChangeHandler = (event: Event): void => {
       const reader = new FileReader()
 
       reader.onload = (e: ProgressEvent<FileReader>) => {
-        const result = e.target?.result?.toString() ?? ''
-        if (result) images.value.push(result)
+        const result = e.target?.result as string
+
+        if (result) {
+          const img = new Image()
+          img.src = result
+          img.onload = () => {
+            const canvas = document.createElement('canvas')
+            const maxWidth = 800 // 원하는 최대 가로 크기
+            const maxHeight = 600 // 원하는 최대 세로 크기
+
+            let width = img.width
+            let height = img.height
+
+            // 이미지 크기를 유지하면서 비율에 맞게 리사이즈
+            if (width > height) {
+              if (width > maxWidth) {
+                height = (height * maxWidth) / width
+                width = maxWidth
+              }
+            } else {
+              if (height > maxHeight) {
+                width = (width * maxHeight) / height
+                height = maxHeight
+              }
+            }
+
+            // Canvas에 크기 조정된 이미지를 그림
+            canvas.width = width
+            canvas.height = height
+
+            const ctx = canvas.getContext('2d')
+
+            if (ctx) {
+              ctx.drawImage(img, 0, 0, width, height)
+
+              // 압축된 이미지를 Blob 형태로 변환 (품질을 지정 가능)
+              canvas.toBlob(
+                (blob) => {
+                  if (blob) {
+                    // Blob을 Base64로 변환
+                    const blobToBase64 = (blob: Blob): Promise<string> => {
+                      return new Promise((resolve, reject) => {
+                        const reader = new FileReader()
+                        reader.onloadend = () => {
+                          resolve(reader.result as string)
+                        }
+                        reader.onerror = reject
+                        reader.readAsDataURL(blob) // Blob을 Base64로 변환
+                      })
+                    }
+
+                    // Base64로 변환된 결과 처리
+                    blobToBase64(blob).then((base64String) => {
+                      console.log('Base64 String:', base64String) // Base64로 변환된 이미지 출력
+                      // 여기서 Base64 이미지를 처리 (예: 업로드, 미리보기 등)
+                      images.value.push(base64String)
+                    })
+                  }
+                },
+                'image/webp', // 원본 이미지와 동일한 형식 유지 (JPEG, PNG 등)
+                0.8 // 이미지 품질 (0.0 ~ 1.0)
+              )
+            }
+          }
+        }
       }
 
       reader.readAsDataURL(file) // 이미지를 Base64 URL로 변환하여 미리보기
-    } else {
-      alert('이미지 파일을 선택해주세요.')
     }
   })
 }

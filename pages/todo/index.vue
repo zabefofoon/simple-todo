@@ -32,7 +32,7 @@
         </p>
       </div>
       <template v-else>
-        <div class="p-2 lg:p-4 | grid xl:grid-cols-2 gap-4">
+        <div class="p-2 lg:p-4 | xl:grid xl:grid-cols-2 xl:gap-4">
           <template v-for="tag in settingStore.setting?.tags" :key="tag.id">
             <div
               v-if="matchedTodos(tag.label).length"

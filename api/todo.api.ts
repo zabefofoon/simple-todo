@@ -3,7 +3,12 @@ import { db } from '~/plugins/dexie.client'
 
 export const getAllTodos = () => {
   try {
-    return db!.todos.toArray()
+    return db!.todos.toArray().then((todos) => {
+      return todos.map((todo) => {
+        const { images, ...rest } = todo
+        return rest
+      })
+    })
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
   }

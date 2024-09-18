@@ -18,7 +18,7 @@ export class MySubClassedDexie extends Dexie {
   }
 }
 
-export const db = process.client ? new MySubClassedDexie() : null
+export const db = import.meta.client ? new MySubClassedDexie() : null
 
 export default defineNuxtPlugin((nuxtApp) => {
   return {

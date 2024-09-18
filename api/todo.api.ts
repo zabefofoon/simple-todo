@@ -3,12 +3,16 @@ import { db } from '~/plugins/dexie.client'
 
 export const getAllTodos = () => {
   try {
-    return db!.todos.toArray().then((todos) => {
-      return todos.map((todo) => {
-        const { images, ...rest } = todo
-        return rest
+    return db!.todos
+      .toCollection()
+      .primaryKeys()
+      .then((keys) => {
+        return db!.todos
+          .where('id')
+          .anyOf(keys)
+          .filter((todo) => delete todo.images)
+          .toArray()
       })
-    })
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
   }

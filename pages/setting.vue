@@ -6,9 +6,9 @@
         storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')
       ">
       <SearchInputButton />
-      <DarkModeButton/>
+      <DarkModeButton />
       <NotificationButton />
-      <ChangeDisplayButton/>
+      <ChangeDisplayButton />
     </div>
     <div class="flex flex-col gap-4 | p-4">
       <div
@@ -19,7 +19,7 @@
           :class="storageStore.getThemeClass('', 'text-white')">
           {{ i18n.t('View') }}
         </h3>
-        <SettingPermissions/>
+        <SettingPermissions />
         <SettingLanguage />
         <SettingTheme />
         <SettingDisplay />
@@ -37,6 +37,11 @@
         <SettingDataExport />
         <SettingDataImport />
         <SettingInit v-if="false" />
+      </div>
+      <div
+        class="flex flex-col | border rounded-lg"
+        :class="storageStore.getThemeClass('', 'border-slate-700')">
+        <Footer />
       </div>
     </div>
   </NuxtLayout>

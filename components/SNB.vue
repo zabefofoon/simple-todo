@@ -52,7 +52,6 @@
           </li>
         </NuxtLink>
       </ul>
-      <Footer />
     </nav>
   </aside>
 </template>

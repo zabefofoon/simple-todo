@@ -4,7 +4,7 @@
       <span :class="storageStore.getThemeClass('', 'text-white')">
         {{ i18n.t('Form') }}
       </span>
-      <NuxtLink to="/form/new" area-label="New Form">
+      <NuxtLink to="/setting?form=new" area-label="New Form">
         <button
           name="New form"
           class="flex | h-fit | p-1 ml-auto lg:ml-0 | border border-dashed">
@@ -41,7 +41,7 @@
               class="icon icon-arrow-down | text-sm"
               :class="storageStore.getThemeClass('', 'text-white')"></i>
           </button>
-          <NuxtLink :to="`/form/${form.id}`" area-label="New form">
+          <NuxtLink :to="`/setting?form=${form.id}`" area-label="New form">
             <button
               name="Add form"
               class="flex items-center gap-2 | border | pl-2 pr-1 py-0.5"

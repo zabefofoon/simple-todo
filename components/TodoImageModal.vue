@@ -1,7 +1,10 @@
 <template>
   <UIModal
-    content-class="rounded-lg"
-    display-directive="show"
+    modal-name="TodoImageModal"
+    :content-class="`p-2 lg:p-4 | rounded-lg | w-[92vw] max-w-[800px] ${storageStore.getThemeClass(
+      'bg-white',
+      'bg-slate-800'
+    )}`"
     @close="emit('close')">
     <UICarousel use-dots gap="6px" :start-index="startIndex">
       <UICarouselSlide
@@ -18,9 +21,10 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
+import { useStorageStore } from '~/store/storage.store'
 
 defineProps<{
-  todo: Todo
+  todo?: Todo
   startIndex: number
 }>()
 
@@ -28,7 +32,5 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-onBeforeUnmount(() => {
-  console.log('fdsa')
-})
+const storageStore = useStorageStore()
 </script>

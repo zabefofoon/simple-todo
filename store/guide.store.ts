@@ -9,8 +9,7 @@ export const useGuideStore = defineStore(
 
     const isShowAddHomeGuide = ref(true)
     const showAddHomeGuide = (value: boolean) => {
-        isShowAddHomeGuide.value = value
-        console.log(value)
+      isShowAddHomeGuide.value = value
     }
 
     return {

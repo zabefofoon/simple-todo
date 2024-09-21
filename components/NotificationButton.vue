@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink to="/notification" area-label="Notification">
+  <NuxtLink to="?notification=true" area-label="Notification">
     <button class="flex | relative" name="Notification">
       <div
         v-if="alarmStore.hasUnReadNewAlarms"

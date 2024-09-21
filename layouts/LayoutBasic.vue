@@ -4,8 +4,8 @@
     :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')">
     <BulkButtons v-if="route.query.bulk" />
     <SNB />
-    <div class="right-area | flex flex-col | h-full w-full overflow-hidden">
-      <slot name="header"><Header /></slot>
+    <div class="flex flex-col | h-full w-full overflow-hidden">
+      <slot name="header"><Header v-if="settingStore.screen !== 'lg'" /></slot>
       <main
         id="scroll-area"
         ref="scrollArea"
@@ -21,18 +21,7 @@
           @scroll-top="scrollTop">
           <slot name="actions" />
         </FloatingButtons>
-        <BottomAppBar
-          v-if="
-            ![
-              'todo-id',
-              'todo-edit-id',
-              'todo-tag-id',
-              'calender-id',
-              'search',
-              'notification',
-              'form-id',
-            ].includes((route.name ?? '')?.toString())
-          " />
+        <BottomAppBar v-if="settingStore.screen !== 'lg'" />
       </nav>
     </div>
   </div>
@@ -42,15 +31,24 @@
 </template>
 
 <script setup lang="ts">
-import { ModalsContainer } from 'vue-final-modal'
+import { ModalsContainer, useModal } from 'vue-final-modal'
+import NotificationModal from '~/components/NotificationModal.vue'
+import SearchModal from '~/components/SearchModal.vue'
+import TodoCalendarModal from '~/components/TodoCalendarModal.vue'
+import TodoDetailModal from '~/components/TodoDetailModal.vue'
+import TodoEditModal from '~/components/TodoEditModal.vue'
+import TodoFormModal from '~/components/TodoFormModal.vue'
+import TodoTagsModal from '~/components/TodoTagsModal.vue'
 
 import { useScrollStore } from '~/store/scroll.store'
+import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 
 const route = useRoute()
 
 const scrollStore = useScrollStore()
 const storageStore = useStorageStore()
+const settingStore = useSettingStore()
 
 const scrollArea = ref<HTMLDivElement>()
 const scrollTop = () =>
@@ -71,4 +69,118 @@ const lockScrollClass = computed(() =>
 onMounted(() => {
   checkShowScrollTop()
 })
+
+const { open: openTodoDetailModal, close: closeTodoDetailModal } = useModal({
+  component: TodoDetailModal,
+  attrs: {
+    onClose: () => {
+      history.back()
+    },
+  },
+})
+watch(
+  () => route.query.todo,
+  (todo) => {
+    todo ? openTodoDetailModal() : closeTodoDetailModal()
+  },
+  { immediate: true }
+)
+
+const { open: openTodoEditMoal, close: closeTodoEditMoal } = useModal({
+  component: TodoEditModal,
+  attrs: {
+    onClose: () => {
+      history.back()
+    },
+  },
+})
+watch(
+  () => route.query.edit,
+  (edit) => {
+    edit ? openTodoEditMoal() : closeTodoEditMoal()
+  },
+  { immediate: true }
+)
+
+const { open: openTodoTagsMoal, close: closeTodoTagsMoal } = useModal({
+  component: TodoTagsModal,
+  attrs: {
+    onClose: () => {
+      history.back()
+    },
+  },
+})
+watch(
+  () => route.query.tags,
+  (tags) => {
+    tags ? openTodoTagsMoal() : closeTodoTagsMoal()
+  },
+  { immediate: true }
+)
+
+const { open: openTodoCalendarMoal, close: closeTodoCalendarMoal } = useModal({
+  component: TodoCalendarModal,
+  attrs: {
+    onClose: () => {
+      history.back()
+    },
+  },
+})
+watch(
+  () => route.query.calendar,
+  (calendar) => {
+    calendar ? openTodoCalendarMoal() : closeTodoCalendarMoal()
+  },
+  { immediate: true }
+)
+
+const { open: openTodoFormModal, close: closeTodoFormModal } = useModal({
+  component: TodoFormModal,
+  attrs: {
+    onClose: () => {
+      history.back()
+    },
+  },
+})
+watch(
+  () => route.query.form,
+  (form) => {
+    form ? openTodoFormModal() : closeTodoFormModal()
+  },
+  { immediate: true }
+)
+
+const { open: openSearchModal, close: closeSearchModal } = useModal({
+  component: SearchModal,
+  attrs: {
+    onClose: () => {
+      history.back()
+    },
+  },
+})
+watch(
+  () => route.query.search,
+  (search) => {
+    search === 'true' ? openSearchModal() : closeSearchModal()
+  },
+  { immediate: true }
+)
+
+const { open: openNotificationModal, close: closeNotificationModal } = useModal(
+  {
+    component: NotificationModal,
+    attrs: {
+      onClose: () => {
+        history.back()
+      },
+    },
+  }
+)
+watch(
+  () => route.query.notification,
+  (notification) => {
+    notification === 'true' ? openNotificationModal() : closeNotificationModal()
+  },
+  { immediate: true }
+)
 </script>

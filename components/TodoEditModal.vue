@@ -1,8 +1,16 @@
 <template>
-  <NuxtLayout name="layout-basic">
-    <template #header>
-      <HeaderInner :label="description || i18n.t('Todo')" />
-    </template>
+  <UIModal
+    modal-name="TodoEditModal"
+    class="lg:w-[calc(100vw-240px)] | ml-auto"
+    :content-class="`w-full h-full | ${storageStore.getThemeClass(
+      'bg-white',
+      'bg-slate-900'
+    )}`"
+    overlay-class="ml-auto"
+    hide-close
+    :content-transition="settingStore.screen === 'lg' ? 'none' : 'slide-right'"
+    @close="emit('close')">
+    <HeaderInner :label="description || i18n.t('Todo')" />
     <div
       v-if="loadingStore.todoLoading"
       class="lg:h-full | flex items-center justify-center">
@@ -17,7 +25,7 @@
         multiple
         @change="fileChangeHandler" />
       <TodoFormPC
-        class="hidden lg:block"
+        v-if="settingStore.screen === 'lg'"
         :todo="currentTodo"
         :description="description"
         :tag-id="tagId"
@@ -38,6 +46,7 @@
         @add-image="addImage"
         @delete-image="deleteImage" />
       <TodoFormMobile
+        v-else
         :todo="currentTodo"
         :description="description"
         :tag-id="tagId"
@@ -58,16 +67,20 @@
         @add-image="addImage"
         @delete-image="deleteImage" />
     </template>
-  </NuxtLayout>
+  </UIModal>
 </template>
 
 <script setup lang="ts">
 import { Todo } from '~/models/Todo'
+import { useAlarmStore } from '~/store/alarm.store'
 import { useLoadingStore } from '~/store/loading.store'
 import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
-import { useAlarmStore } from '~/store/alarm.store'
+
+const emit = defineEmits<{
+  (e: 'close' | 'update'): void
+}>()
 
 const i18n = useI18n()
 
@@ -83,7 +96,7 @@ const alarmStore = useAlarmStore()
 const currentTodo = ref<Todo>()
 const setCurrentTodo = (todo?: Todo) => (currentTodo.value = todo)
 
-const isEditMode = computed(() => !isNaN(Number(route.params.id)))
+const isEditMode = computed(() => !isNaN(Number(route.query.edit)))
 
 const getToday = () => {
   const today = new Date()
@@ -167,7 +180,7 @@ const save = async () => {
   data.tagId = toValue(tagId)
 
   toValue(isEditMode)
-    ? await todoStore.updateTodo(Number(route.params.id), data)
+    ? await todoStore.updateTodo(Number(route.query.edit), data)
     : await todoStore.addTodo(<Todo>data)
   await todoStore.getAllTodos(true)
 
@@ -177,12 +190,13 @@ const save = async () => {
       if (isAfter) registAlarm(data)
 
       if (isEditMode.value) {
-        alarmStore.removeNewAlarm(Number(route.params.id))
-        alarmStore.removeReadNewAlarms(Number(route.params.id))
+        alarmStore.removeNewAlarm(Number(route.query.edit))
+        alarmStore.removeReadNewAlarms(Number(route.query.edit))
       }
-    } else unregistAlarm(Number(route.params.id))
+    } else if (route.query.edit !== 'new')
+      unregistAlarm(Number(route.query.edit))
   }
-
+  emit('update')
   router.back()
 }
 
@@ -227,7 +241,7 @@ const done = () => {
 const deleteTodo = async () => {
   if (!confirm(i18n.t('ConfirmDelete'))) return
   await todoStore.deleteTodo(Number(toValue(currentTodo)?.id))
-  router.back()
+  router.go(-2)
 }
 
 const registAlarm = async (todo: Partial<Todo>) => {
@@ -247,7 +261,7 @@ const registAlarm = async (todo: Partial<Todo>) => {
       })
       try {
         const todoId = isEditMode.value
-          ? Number(route.params.id)
+          ? Number(route.query.edit)
           : todoStore.todos?.[0]?.id || 1
 
         await alarmStore.registAlarm({
@@ -348,7 +362,6 @@ const fileChangeHandler = (event: Event): void => {
 
                     // Base64로 변환된 결과 처리
                     blobToBase64(blob).then((base64String) => {
-                      console.log('Base64 String:', base64String) // Base64로 변환된 이미지 출력
                       // 여기서 Base64 이미지를 처리 (예: 업로드, 미리보기 등)
                       images.value.push(base64String)
                     })
@@ -372,11 +385,13 @@ const deleteImage = (index: number) => {
 }
 
 onMounted(async () => {
-  if (route.params.id !== 'new') {
-    const result = await todoStore.getTodo(Number(route.params.id))
+  if (route.query.edit !== 'new') {
+    const result = await todoStore.getTodo(Number(route.query.edit))
     setCurrentTodo(result)
     if (toValue(isEditMode)) loadTodoData()
   }
+
+  if (route.query.tags) tagId.value = route.query.tags.toString()
 
   window.addEventListener('beforeunload', beforeunloadHandler)
   window.addEventListener('keydown', saveByKey)

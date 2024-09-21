@@ -1,8 +1,15 @@
 <template>
-  <NuxtLayout name="layout-basic">
-    <template #header>
-      <HeaderInner label="Form"/>
-    </template>
+  <UIModal
+    class="lg:w-[calc(100vw-240px)] | ml-auto"
+    :content-class="`w-full h-full | ${storageStore.getThemeClass(
+      'bg-white',
+      'bg-slate-900'
+    )}`"
+    overlay-class="ml-auto"
+    hide-close
+    :content-transition="settingStore.screen === 'lg' ? 'none' : 'slide-right'"
+    @close="emit('close')">
+    <HeaderInner label="Form" />
     <div
       v-if="loadingStore.todoLoading"
       class="h-full | flex items-center justify-center">
@@ -51,7 +58,7 @@
         <span class="text-white" @click="save">{{ i18n.t('Save') }}</span>
       </button>
     </template>
-  </NuxtLayout>
+  </UIModal>
 </template>
 
 <script setup lang="ts">
@@ -59,6 +66,10 @@ import { Form } from '~/models/Setting'
 import { useLoadingStore } from '~/store/loading.store'
 import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
+
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
 
 const route = useRoute()
 const router = useRouter()
@@ -92,9 +103,9 @@ const setDescription = (value: string | Event) => {
       : value
 }
 
-const isEditMode = computed(() => route.params.id !== 'new')
+const isEditMode = computed(() => route.query.form !== 'new')
 const editForm = computed(() =>
-  settingStore.setting?.forms.find((form) => form.id === route.params.id)
+  settingStore.setting?.forms.find((form) => form.id === route.query.form)
 )
 
 const inputTitle = ref<HTMLInputElement>()
@@ -113,7 +124,7 @@ const save = async () => {
   const forms = deepClone<Form[]>(settingStore.setting?.forms || [])
 
   if (toValue(isEditMode)) {
-    const found = forms.find((form) => form.id === route.params.id)
+    const found = forms.find((form) => form.id === route.query.form)
     if (!found) return
     found.title = toValue(title)
     found.description = toValue(description)

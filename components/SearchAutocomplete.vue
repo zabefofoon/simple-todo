@@ -3,7 +3,7 @@
     <NuxtLink
       v-for="searchedKeyword in keywords?.slice(0, 10)"
       :key="searchedKeyword"
-      :to="`/search?keyword=${searchedKeyword}`"
+      :to="`${route.path}?search=true&keyword=${searchedKeyword}`"
       replace
       class="w-full | flex items-center gap-2 | py-0.5"
       :area-label="`Search ${searchedKeyword}`">
@@ -22,6 +22,8 @@ import { useTodoStore } from '~/store/todo.store'
 const props = defineProps<{
   keyword: string
 }>()
+
+const route = useRoute()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()

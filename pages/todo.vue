@@ -41,7 +41,7 @@
               <div
                 class="p-2 lg:p-4 | font-bold | flex items-center gap-1.5"
                 :class="storageStore.getThemeClass('', 'text-white')">
-                <NuxtLink :to="`/todo/tag/${tag.id}`">
+                <NuxtLink :to="`${route.path}?tags=${tag.id}`">
                   #{{ tag.label }}
                   <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
                 </NuxtLink>
@@ -56,9 +56,7 @@
                   @delete="deleteTodo"
                   @done="todoStore.doneTodo" />
               </div>
-              <div
-                v-else
-                class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
+              <div v-else class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
                 <TodoRow
                   v-for="todo in matchedTodos(tag.label)"
                   :key="todo.id"
@@ -76,7 +74,7 @@
               v-if="!route.query.tag"
               class="p-2 lg:p-4 | font-bold | flex items-center gap-1.5"
               :class="storageStore.getThemeClass('', 'text-white')">
-              <NuxtLink :to="`/todo/tag/memo`">
+              <NuxtLink :to="`${route.path}?tags=memo`">
                 #memo
                 <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
               </NuxtLink>
@@ -91,9 +89,7 @@
                 @delete="deleteTodo"
                 @done="todoStore.doneTodo" />
             </div>
-            <div
-              v-else
-              class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
+            <div v-else class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
               <TodoRow
                 v-for="todo in matchedTodos()"
                 :key="todo.id"
@@ -106,7 +102,6 @@
       </template>
     </div>
     <template #actions>
-      <FloatingButtonsSearch />
       <FloatingButtonsNew />
     </template>
   </NuxtLayout>
@@ -115,9 +110,9 @@
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
 import { useLoadingStore } from '~/store/loading.store'
+import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
-import { useSettingStore } from '~/store/setting.store'
 
 const i18n = useI18n()
 

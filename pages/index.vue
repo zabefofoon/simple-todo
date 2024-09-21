@@ -11,7 +11,7 @@
         ">
         <SearchInputButton />
         <DarkModeButton />
-        <ChangeDisplayButton/>
+        <ChangeDisplayButton />
         <NotificationButton />
       </div>
       <div
@@ -19,13 +19,13 @@
         <div class="w-full h-full | flex flex-col gap-4">
           <ScheduledTodo />
           <RecentTodos />
-          <Summary class="hidden lg:flex" />
+          <Summary v-if="settingStore.screen === 'lg'" class="hidden lg:flex" />
         </div>
         <div class="flex flex-col gap-4 | h-full">
-          <Clock/>
+          <Clock />
           <HomeCalendar />
         </div>
-        <div class="w-full | lg:hidden">
+        <div v-if="settingStore.screen !== 'lg'" class="w-full | lg:hidden">
           <Summary />
         </div>
       </div>
@@ -38,7 +38,9 @@
 </template>
 
 <script setup lang="ts">
+import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
+const settingStore = useSettingStore()
 </script>

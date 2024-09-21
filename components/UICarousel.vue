@@ -6,7 +6,7 @@
       class="embla__viewport"
       :style="{ height: vertical ? '100%' : 'auto' }"
       @mousedown.stop
-      @touchstart.stop>
+      @touchstart.stop.passive>
       <div
         ref="emblaContainer"
         class="embla__container"
@@ -146,7 +146,6 @@ const updateSelectedSnapDisplay = (snapDisplay: HTMLElement) => {
       .off('reInit', updateSnapDisplay)
 }
 
-
 const trackPos = ref<string>('')
 
 onMounted(() => {
@@ -160,13 +159,17 @@ onMounted(() => {
   })
 
   toValue(emblaApi)?.on('slidesInView', () => {
-    const el = emblaRef.value?.getElementsByClassName('embla__container')[0] as HTMLDivElement
+    const el = emblaRef.value?.getElementsByClassName(
+      'embla__container'
+    )[0] as HTMLDivElement
     if (el) trackPos.value = el.style.transform
   })
 })
 
 onBeforeUnmount(() => {
-  const el = emblaRef.value?.getElementsByClassName('embla__container')[0] as HTMLDivElement
+  const el = emblaRef.value?.getElementsByClassName(
+    'embla__container'
+  )[0] as HTMLDivElement
   if (el) el.style.transform = trackPos.value
 })
 

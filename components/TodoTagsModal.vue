@@ -1,12 +1,18 @@
 <template>
-  <NuxtLayout name="layout-basic">
-    <template #header>
-      <ClientOnly>
-        <HeaderInner :label="`#${matchedTag ?? 'memo'}`">
-          <TodoStatusSelector class="lg:ml-2" />
-        </HeaderInner>
-      </ClientOnly>
-    </template>
+  <UIModal
+    modal-name="TodoTagsModal"
+    class="lg:w-[calc(100vw-240px)] | ml-auto"
+    :content-class="`w-full h-full | ${storageStore.getThemeClass(
+      'bg-white',
+      'bg-slate-900'
+    )}`"
+    overlay-class="ml-auto"
+    hide-close
+    :content-transition="settingStore.screen === 'lg' ? 'none' : 'slide-right'"
+    @close="emit('close')">
+    <HeaderInner :label="`#${matchedTag ?? 'memo'}`">
+      <TodoStatusSelector class="lg:ml-2" />
+    </HeaderInner>
     <div v-if="!todos?.length" class="flex | h-full">
       <Spinner v-if="loadingStore.todoLoading" class="m-auto" />
       <p
@@ -17,7 +23,7 @@
       </p>
     </div>
 
-    <div v-else class="mb-4 lg:mb-8 p-2 lg:p-4 | flex flex-col gap-4">
+    <div v-else class="p-2 lg:p-4 | flex flex-col gap-4 | overflow-auto">
       <div
         v-for="day in days"
         :key="day"
@@ -48,11 +54,11 @@
         </div>
       </div>
     </div>
-    <template #actions>
+    <nav class="fixed right-4 bottom-4 z-10">
       <FloatingButtonsSearch />
       <FloatingButtonsNew />
-    </template>
-  </NuxtLayout>
+    </nav>
+  </UIModal>
 </template>
 
 <script setup lang="ts">
@@ -64,6 +70,10 @@ import { useTodoStore } from '~/store/todo.store'
 
 import dayjs from 'dayjs'
 
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
+
 const route = useRoute()
 const i18n = useI18n()
 
@@ -73,7 +83,7 @@ const storageStore = useStorageStore()
 const todoStore = useTodoStore()
 
 const matchedTag = computed(() => {
-  return settingStore.setting?.tags.find((tag) => tag.id === route.params.id)
+  return settingStore.setting?.tags.find((tag) => tag.id === route.query.tags)
     ?.label
 })
 
@@ -88,8 +98,8 @@ const todos = computed(() => {
   return result
     ?.filter(
       (todo) =>
-        todo.tagId === route.params.id ||
-        (!todo.tag && route.params.id === 'memo')
+        todo.tagId === route.query.tags ||
+        (!todo.tag && route.query.tags === 'memo')
     )
     .sort((a, b) => b.created! - a.created!)
 })

@@ -1,27 +1,23 @@
 <template>
   <VueFinalModal
-    class="flex justify-center items-center !z-40"
+    class="flex justify-center items-center"
     :class="{ 'opacity-0': isPageSiped }"
     :content-class="computedContentClass"
-    overlay-class="!z-40"
-    :content-transition="isPageSiped ? 'none' : contentTransition ?? 'slide-up'"
-    :overlay-transiton="isPageSiped ? 'none' : 'fade'"
-    :display-directive="displayDirective"
+    :overlay-class="overlayClass"
+    :content-transition="
+      settingStore.isTouchCanceled ? 'none' : contentTransition ?? 'slide-up'
+    "
+    :overlay-transiton="settingStore.isTouchCanceled ? 'none' : 'fade'"
     @update:model-value="emit('close')">
     <template #default>
-      <div
-        class="h-full"
-        @touchstart.prevent
-        @touchmove.prevent
-        @touchend.prevent>
+      <div class="h-full">
         <button
           v-if="!hideClose"
           class="absolute right-[16px] top-[16px] lg:right-1 lg:top-1 z-10 | flex | rounded-full p-0.5"
-          :class="storageStore.getThemeClass('bg-white', 'bg-slate-800 text-white')"
-          @click="emit('close')"
-          @touchstart.stop
-          @touchmove.stop
-          @touchend.stop>
+          :class="
+            storageStore.getThemeClass('bg-white', 'bg-slate-800 text-white')
+          "
+          @click="emit('close')">
           <i class="icon icon-close"></i>
         </button>
         <div v-if="title" class="flex items-start | mb-[30px]">
@@ -29,11 +25,7 @@
             {{ title }}
           </h2>
         </div>
-        <div
-          class="relative | h-fit"
-          @touchstart.stop
-          @touchmove.stop
-          @touchend.stop>
+        <div class="relative | h-full | flex flex-col">
           <slot />
         </div>
       </div>
@@ -43,60 +35,47 @@
 
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal'
+import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 
 const props = defineProps<{
   title?: string
   contentClass?: string
+  overlayClass?: string
   contentTransition?: string
   hideClose?: boolean
-  displayDirective?: 'if' | 'show' | 'visible'
+  modalName: string
 }>()
 
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const { isIos } = useDevice()
+const route = useRoute()
 
 const storageStore = useStorageStore()
+const settingStore = useSettingStore()
 
-const touchstartXs = ref<number[]>([0, 0, 0])
-const isPageSiped = ref(false)
+const isPageSiped = ref(settingStore.isSiped)
+const setPageSiped = (value: boolean) => (isPageSiped.value = value)
 
 const computedContentClass = computed<string>(() => {
-  return `!z-50 | flex flex-col justify-center | relative | p-2 lg:p-4 | ${storageStore.getThemeClass(
-    'bg-white',
-    'bg-slate-800'
-  )} lg:rounded-lg | w-[92vw] max-w-[800px] | ${props.contentClass}`
+  return `!z-50 | flex flex-col justify-center | relative | ${props.contentClass}`
 })
 
-const touchmoveHandler = ({ changedTouches }: TouchEvent): void => {
-  if (changedTouches[0].clientX < 7) {
-    touchstartXs.value.push(changedTouches[0].clientX)
-    if (touchstartXs.value.length > 3) {
-      touchstartXs.value = touchstartXs.value.slice(1)
-    }
-  }
-}
-
-const touchendHandler = (): void => {
-  if (touchstartXs.value[2] - touchstartXs.value[0] > 1) {
-    isPageSiped.value = true
-  }
-}
-
 onMounted(() => {
-  if (isIos) {
-    window.addEventListener('touchmove', touchmoveHandler, { passive: true })
-    window.addEventListener('touchend', touchendHandler, { passive: true })
-  }
+  settingStore.pushCurrentModal(props.modalName)
 })
 
 onBeforeUnmount(() => {
-  if (isIos) {
-    window.removeEventListener('touchmove', touchmoveHandler)
-    window.removeEventListener('touchend', touchendHandler)
-  }
+  settingStore.popCurrentModal()
 })
+
+watch(
+  () => settingStore.isSiped,
+  (value) => {
+    if (props.modalName === settingStore.currentModals.at(-1))
+      setPageSiped(value)
+  }
+)
 </script>

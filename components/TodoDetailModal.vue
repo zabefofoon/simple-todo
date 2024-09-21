@@ -1,67 +1,77 @@
 <template>
-  <NuxtLayout name="layout-basic">
-    <template #header>
-      <HeaderInner :label="currentTodo?.description || i18n.t('Todo')">
-        <ClientOnly>
-          <div class="flex items-center gap-1.5">
-            <button
-              v-if="currentTodo"
-              name="Check"
-              class="flex | rounded-full"
+  <UIModal
+    modal-name="TodoDetailModal"
+    class="lg:w-[calc(100vw-240px)] | ml-auto"
+    :content-class="`w-full h-full | ${storageStore.getThemeClass(
+      'bg-white',
+      'bg-slate-900'
+    )}`"
+    overlay-class="ml-auto"
+    hide-close
+    :content-transition="settingStore.screen === 'lg' ? 'none' : 'slide-right'"
+    @close="emit('close')">
+    <HeaderInner :label="currentTodo?.description || i18n.t('Todo')">
+      <ClientOnly>
+        <div class="flex items-center gap-1.5">
+          <button
+            v-if="currentTodo"
+            name="Check"
+            class="flex | rounded-full"
+            :class="
+              currentTodo?.done
+                ? 'bg-green-500'
+                : storageStore.getThemeClass(
+                    'border border-slate-400',
+                    'border border-white'
+                  )
+            "
+            @click="done">
+            <i
+              class="icon icon-check"
               :class="
                 currentTodo?.done
-                  ? 'bg-green-500'
-                  : storageStore.getThemeClass(
-                      'border border-slate-400',
-                      'border border-white'
-                    )
-              "
-              @click="done">
-              <i
-                class="icon icon-check"
-                :class="
-                  currentTodo?.done
-                    ? 'text-white'
-                    : storageStore.getThemeClass('text-slate-500', 'text-white')
-                "></i>
-            </button>
-            <UISelector>
-              <template #button="{ showOptions }">
-                <button
-                  class="flex"
-                  :class="storageStore.getThemeClass('', 'text-white')"
-                  @click="showOptions()">
-                  <i class="icon icon-overflow-vertical | text-xl"></i>
+                  ? 'text-white'
+                  : storageStore.getThemeClass('text-slate-500', 'text-white')
+              "></i>
+          </button>
+          <UISelector>
+            <template #button="{ showOptions }">
+              <button
+                class="flex"
+                :class="storageStore.getThemeClass('', 'text-white')"
+                @click="showOptions()">
+                <i class="icon icon-overflow-vertical | text-xl"></i>
+              </button>
+            </template>
+            <template #options="{ showOptions }">
+              <div
+                class="flex flex-col gap-1.5 | p-2 | rounded-lg overflow-hidden | whitespace-nowrap"
+                :class="storageStore.getThemeClass('', 'text-white')">
+                <NuxtLink
+                  :to="editUrl"
+                  class="flex items-center gap-1"
+                  @click="showOptions(false)">
+                  <i class="icon icon-post"></i>
+                  <span class="text-sm">{{ i18n.t('DoEdit') }}</span>
+                </NuxtLink>
+                <button class="flex items-center gap-1" @click="deleteTodo()">
+                  <i class="icon icon-close"></i>
+                  <span class="text-sm">{{ i18n.t('DoDelete') }}</span>
                 </button>
-              </template>
-              <template #options>
-                <div
-                  class="flex flex-col gap-1.5 | p-2 | rounded-lg overflow-hidden | whitespace-nowrap"
-                  :class="storageStore.getThemeClass('', 'text-white')">
-                  <NuxtLink
-                    :to="`/todo/edit/${route.params.id}`"
-                    class="flex items-center gap-1">
-                    <i class="icon icon-post"></i>
-                    <span class="text-sm">{{ i18n.t('DoEdit') }}</span>
-                  </NuxtLink>
-                  <button class="flex items-center gap-1" @click="deleteTodo()">
-                    <i class="icon icon-close"></i>
-                    <span class="text-sm">{{ i18n.t('DoDelete') }}</span>
-                  </button>
-                </div>
-              </template>
-            </UISelector>
-          </div>
-        </ClientOnly>
-      </HeaderInner>
-    </template>
+              </div>
+            </template>
+          </UISelector>
+        </div>
+      </ClientOnly>
+    </HeaderInner>
     <div
       v-if="loadingStore.todoLoading"
       class="lg:h-full | flex items-center justify-center">
       <Spinner />
     </div>
     <template v-else>
-      <div class="flex flex-col lg:flex-row gap-3 | h-full | p-3 lg:p-4">
+      <div
+        class="safe-area-bottom flex flex-col lg:flex-row gap-3 | h-full | p-3 lg:p-4">
         <div class="w-full h-full flex flex-col | relative">
           <div
             class="whitespace-pre-wrap | border rounded-lg | overflow-auto h-full resize-none | p-2"
@@ -97,7 +107,7 @@
 
             <NuxtLink
               v-if="currentTodo?.tag?.id"
-              :to="`/todo/tag/${currentTodo?.tag.id}`"
+              :to="`/?tags=${currentTodo?.tag.id}`"
               class="w-fit | whitespace-nowrap text-white text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | rounded-full"
               :style="{
                 background: currentTodo?.tag?.color || 'black',
@@ -111,6 +121,7 @@
           class="lg:h-full | p-3 mb-4 lg:mb-0 | border rounded-lg"
           :class="storageStore.getThemeClass('', 'border-slate-700')">
           <UICarousel
+            v-if="settingStore.screen === 'lg'"
             class="h-full hidden lg:block"
             vertical
             perview="auto"
@@ -128,6 +139,7 @@
             </UICarouselSlide>
           </UICarousel>
           <UICarousel
+            v-else
             class="w-full lg:hidden"
             drag-free
             perview="auto"
@@ -146,16 +158,21 @@
         </div>
       </div>
     </template>
-  </NuxtLayout>
+  </UIModal>
 </template>
 
 <script setup lang="ts">
+import { useModal } from 'vue-final-modal'
 import TodoImageModal from '~/components/TodoImageModal.vue'
 import { Todo } from '~/models/Todo'
 import { useLoadingStore } from '~/store/loading.store'
+import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
-import { useModal } from 'vue-final-modal'
+
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
 
 const i18n = useI18n()
 
@@ -165,6 +182,7 @@ const route = useRoute()
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
+const settingStore = useSettingStore()
 
 const currentTodo = ref<Todo>()
 const setCurrentTodo = (todo?: Todo) => (currentTodo.value = todo)
@@ -214,6 +232,8 @@ const {
 } = useModal({
   component: TodoImageModal,
   attrs: {
+    todo: currentTodo.value,
+    startIndex: 0,
     onClose: () => {
       history.back()
     },
@@ -222,15 +242,25 @@ const {
 
 const showImageModal = (index: number) => {
   navigateTo({
+    path: route.path,
     query: {
+      ...route.query,
       image: index,
     },
   })
 }
 
+const editUrl = computed(() => {
+  const query = routerUtil.queryToString(route.query)
+  const path = route.path
+  return !query
+    ? `${path}?edit=${currentTodo.value?.id}`
+    : `${path}?${query}&edit=${currentTodo.value?.id}`
+})
+
 onMounted(async () => {
-  if (route.params.id !== 'new') {
-    const result = await todoStore.getTodo(Number(route.params.id))
+  if (route.query.todo !== 'new') {
+    const result = await todoStore.getTodo(Number(route.query.todo))
     setCurrentTodo(result)
   }
 })
@@ -251,6 +281,17 @@ watch(
           startIndex: Number(isShow),
         },
       })
+  }
+)
+
+watch(
+  () => route.query.edit,
+  async (edit) => {
+    if (!edit) {
+      await sleep(150)
+      const result = await todoStore.getTodo(Number(route.query.todo))
+      setCurrentTodo(result)
+    }
   }
 )
 </script>

@@ -1,8 +1,8 @@
 <template>
   <ul
-    class="safe-area | flex lg:hidden justify-around | border-t"
+    class="safe-area-bottom | flex lg:hidden justify-around | border-t"
     :class="
-      storageStore.getThemeClass('bg-gray-300', 'bg-slate-950 border-slate-700')
+      storageStore.getThemeClass('bg-white', 'bg-slate-950 border-slate-700')
     ">
     <NuxtLink
       v-for="menu in menus"
@@ -40,8 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { useStorageStore } from '~/store/storage.store'
 import { Menu } from '~/models/Menu'
+import { useStorageStore } from '~/store/storage.store'
 
 const i18n = useI18n()
 
@@ -63,10 +63,3 @@ const menus = ref([
   }),
 ])
 </script>
-
-<style lang="scss" scoped>
-.safe-area {
-  padding-bottom: constant(safe-area-inset-bottom);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-</style>

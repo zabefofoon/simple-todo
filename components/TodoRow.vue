@@ -1,6 +1,6 @@
 <template>
   <NuxtLink
-    :to="`/todo/${todo.id}`"
+    :to="url"
     :area-label="`Todo ${todo.id}`"
     v-long-click="() => !route.query.bulk && bulkStore.turnOnBulkMode(todo.id)"
     @mousedown="route.query.bulk && bulkStore.add(todo.id)"
@@ -22,7 +22,7 @@
         class="w-20 h-full | flex items-center | border-r"
         :class="storageStore.getThemeClass('', 'border-slate-700')">
         <NuxtLink
-          :to="`/todo/tag/${todo.tag.id}`"
+          :to="`/?tags=${todo.tag.id}`"
           class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-white text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | rounded-full"
           :style="{
             background: todo.tag?.color || 'black',
@@ -141,6 +141,14 @@ const getLeftUptoMinits = (todo: Todo) => {
   leftUptoMinits.value = Math.round(timeDiff / (1000 * 60))
   return Math.round(timeDiff / (1000 * 60))
 }
+
+const url = computed(() => {
+  const query = routerUtil.queryToString(route.query)
+  const path = route.path
+  return !query
+    ? `${path}?todo=${props.todo.id}`
+    : `${path}?${query}&todo=${props.todo.id}`
+})
 
 onMounted(() => {
   getLeftUptoHours(props.todo)

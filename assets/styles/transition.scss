@@ -19,7 +19,6 @@
   top: -10px !important;
 }
 
-
 .slide-up-enter-active,
 .slide-up-leave-active {
   transition: opacity 300ms ease, transform 300ms ease;
@@ -31,6 +30,16 @@
   transform: translate(0, 15px);
 }
 
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: transform 300ms ease;
+}
+
+.slide-right-enter-from,
+.slide-right-leave-to {
+  transform: translate(100%);
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 300ms ease;
@@ -39,6 +48,4 @@
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  position: absolute;
 }
-

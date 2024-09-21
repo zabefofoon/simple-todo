@@ -1,8 +1,17 @@
 <template>
-  <NuxtLayout name="layout-basic">
-    <template #header>
-      <HeaderInner :label="route.params.id.toString().replaceAll('-', '.')"/>
-    </template>
+  <UIModal
+    modal-name="TodoCalendarModal"
+    class="lg:w-[calc(100vw-240px)] | ml-auto"
+    :content-class="`w-full h-full | ${storageStore.getThemeClass(
+      'bg-white',
+      'bg-slate-900'
+    )}`"
+    :content-transition="settingStore.screen === 'lg' ? 'none' : 'slide-right'"
+    overlay-class="ml-auto"
+    hide-close
+    @close="emit('close')">
+    <HeaderInner
+      :label="route.query.calendar?.toString().replaceAll('-', '.') ?? ''" />
     <div class="w-full h-full">
       <Spinner v-if="loadingStore.todoLoading" class="h-full" />
       <template v-else>
@@ -38,28 +47,33 @@
         </template>
       </template>
     </div>
-    <template #actions>
+    <nav class="fixed right-4 bottom-4 z-10">
       <FloatingButtonsNew />
-    </template>
-  </NuxtLayout>
+    </nav>
+  </UIModal>
 </template>
 
 <script setup lang="ts">
 import { useLoadingStore } from '~/store/loading.store'
+import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
+
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
 
 const i18n = useI18n()
 
 const route = useRoute()
-const router = useRouter()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
+const settingStore = useSettingStore()
 
 const todayTodos = computed(() =>
-  todoStore.todos?.filter((todo) => todo.createdDate === route.params.id)
+  todoStore.todos?.filter((todo) => todo.createdDate === route.query.calendar)
 )
 
 const deleteTodo = (id: number) => {

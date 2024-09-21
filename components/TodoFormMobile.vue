@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 justify-center | p-4 lg:hidden">
+  <div class="h-full overflow-auto | flex flex-col gap-2 justify-start | p-4">
     <!-- 양식 & 태그 -->
     <div class="flex gap-2">
       <!-- 양식 -->

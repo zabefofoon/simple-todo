@@ -43,11 +43,12 @@ const loading = useLoadingStore()
 const guideStore = useGuideStore()
 const i18n = useI18n()
 
-const to = computed(() =>
-  route.name === 'calender-id'
-    ? `/todo/edit/new?date=${route.params.id}`
-    : '/todo/edit/new'
-)
+const to = computed(() => {
+  const query = routerUtil.queryToString(route.query)
+  return route.name === 'calender'
+    ? `${route.path}?${query}&edit=new&date=${route.query.calendar}`
+    : `${route.path}?${query}&edit=new`
+})
 </script>
 
 <style scoped lang="scss">

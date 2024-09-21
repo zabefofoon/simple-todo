@@ -23,6 +23,7 @@ const scrollStore = useScrollStore()
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 const alarmStore = useAlarmStore()
+const { isIos } = useDevice()
 
 onBeforeMount(() => {
   settingStore.initSetting()
@@ -46,6 +47,55 @@ onMounted(() => {
       }, 2000)
     }
   })
+
+  if (window.innerWidth < 1024) settingStore.setScreen('sm')
+  else settingStore.setScreen('lg')
+  window.addEventListener('resize', () => {
+    if (window.innerWidth < 1024) settingStore.setScreen('sm')
+    else settingStore.setScreen('lg')
+  })
+
+  if (isIos) {
+    let sipedTimer: NodeJS.Timeout
+    let touchCancelTimer: NodeJS.Timeout
+    let siped = false
+
+    window.addEventListener(
+      'touchmove',
+      ({ changedTouches }: TouchEvent) => {
+        if (changedTouches[0].clientX < 0) siped = true
+      },
+      { passive: true }
+    )
+
+    window.addEventListener(
+      'touchend',
+      () => {
+        if (siped) {
+          settingStore.setIsSiped(true)
+          clearTimeout(sipedTimer)
+          sipedTimer = setTimeout(() => {
+            settingStore.setIsSiped(false)
+            siped = false
+          }, 1000)
+        }
+      },
+      { passive: true }
+    )
+
+    window.addEventListener(
+      'touchcancel',
+      () => {
+        settingStore.setIsTouchCanceled(true)
+        clearTimeout(touchCancelTimer)
+        touchCancelTimer = setTimeout(
+          () => settingStore.setIsTouchCanceled(false),
+          1000
+        )
+      },
+      { passive: true }
+    )
+  }
 })
 
 useHead({
@@ -58,7 +108,7 @@ watch(
   () => storageStore.theme,
   (value: Theme) =>
     setTimeout(() => {
-      if (process.client)
+      if (import.meta.client)
         document
           .querySelector('meta[name="theme-color"]')
           ?.setAttribute('content', value === 'dark' ? '#0f172a' : '#ffffff')

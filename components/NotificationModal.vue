@@ -1,8 +1,17 @@
 <template>
-  <NuxtLayout name="layout-basic">
-    <template #header>
-      <HeaderInner :label="i18n.t('Notification')" />
-    </template>
+  <UIModal
+    modal-name="NotificationModal"
+    class="lg:w-[calc(100vw-240px)] | ml-auto"
+    :content-class="`w-full h-full | ${storageStore.getThemeClass(
+      'bg-white',
+      'bg-slate-900'
+    )}`"
+    overlay-class="ml-auto"
+    hide-close
+    :content-transition="settingStore.screen === 'lg' ? 'none' : 'slide-right'"
+    @close="emit('close')">
+    <HeaderInner :label="i18n.t('Notification')" />
+
     <div class="w-full h-full | flex flex-col lg:flex-row gap-4">
       <Spinner v-if="loadingStore.todoLoading" class="w-full h-full" />
       <template v-else>
@@ -16,7 +25,7 @@
           <NuxtLink
             v-for="todo in alarms"
             :key="todo.id"
-            :to="`/todo/${todo.id}`"
+            :to="getUrl(todo)"
             :area-label="`Todo ${todo.id}`"
             @click="alarmStore.addReadNewAlarm(todo.id!)">
             <li
@@ -53,21 +62,28 @@
         </ul>
       </template>
     </div>
-  </NuxtLayout>
+  </UIModal>
 </template>
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
 import { useAlarmStore } from '~/store/alarm.store'
 import { useLoadingStore } from '~/store/loading.store'
+import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
+
 const i18n = useI18n()
+const route = useRoute()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
+const settingStore = useSettingStore()
 const alarmStore = useAlarmStore()
 const checkRead = (id: number) => alarmStore.readNewAlarms?.includes(id)
 
@@ -82,4 +98,11 @@ const alarms = computed(() => {
       .slice(0, 30)
   )
 })
+
+const getUrl = (todo: Todo) => {
+  const query = routerUtil.queryToString(route.query)
+  return !query
+    ? `${route.path}?todo=${todo?.id}`
+    : `${route.path}?${query}&todo=${todo?.id}`
+}
 </script>

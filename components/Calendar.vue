@@ -7,7 +7,9 @@
       style="width: 100%; border: 0"
       :class="storageStore.getThemeClass('', 'dark')">
       <template #day-content="data">
-        <NuxtLink :to="`/calender/${data.day.id}`" :area-label="data.day.id">
+        <NuxtLink
+          :to="`${route.path}?calendar=${data.day.id}`"
+          :area-label="data.day.id">
           <div
             v-if="!data.day.inNextMonth"
             class="flex flex-col gap-2 | px-0.5 py-2">
@@ -57,6 +59,8 @@ import { useTodoStore } from '~/store/todo.store'
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
+
+const route = useRoute()
 
 const date = ref(new Date())
 const attrs = ref<any>([

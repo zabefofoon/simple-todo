@@ -6,7 +6,7 @@
     <NuxtLink
       v-for="keyword in keywords?.slice(0, 10)"
       :key="keyword"
-      :to="`/search?keyword=${keyword}`"
+      :to="`${route.path}/?search=true&keyword=${keyword}`"
       replace
       class="w-full | flex items-center gap-2 | py-0.5"
       :area-label="`Search ${keyword}`">
@@ -25,6 +25,8 @@
 
 <script setup lang="ts">
 import { useStorageStore } from '~/store/storage.store'
+
+const route = useRoute()
 
 const storageStore = useStorageStore()
 const i18n = useI18n()

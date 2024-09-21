@@ -1,7 +1,11 @@
 <template>
-  <NuxtLink class="w-full max-w-[50%] | relative" to="/search" area-label="Search">
+  <NuxtLink
+    class="w-full max-w-[50%] | relative"
+    :to="`${route.path}?search=true`"
+    area-label="Search">
     <input
-      class="w-full | px-3 py-1 | rounded-full | text-sm"
+      readonly
+      class="w-full | px-3 py-1 | rounded-full | text-sm focus:border-0 focus:outline-0"
       :class="
         storageStore.getThemeClass('bg-slate-200', 'bg-slate-600 | text-white')
       "
@@ -17,4 +21,6 @@ import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
 const i18n = useI18n()
+
+const route = useRoute()
 </script>

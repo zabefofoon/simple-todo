@@ -39,8 +39,8 @@
 </template>
 
 <script setup lang="ts">
-import { useStorageStore } from '~/store/storage.store'
 import { useSettingStore } from '~/store/setting.store'
+import { useStorageStore } from '~/store/storage.store'
 
 const route = useRoute()
 const i18n = useI18n()
@@ -49,7 +49,7 @@ const settingStore = useSettingStore()
 
 const changeTag = (event: Event) => {
   const value = (<HTMLSelectElement>event.target).value
-  
-  value === 'All' ? navigateTo(`/todo/tag`) : navigateTo(`/todo/tag/${value}`)
+
+  value === 'All' ? navigateTo(`/todo/tag`) : navigateTo(`/?tags=${value}`)
 }
 </script>

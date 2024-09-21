@@ -36,10 +36,38 @@ export const useSettingStore = defineStore('setting', () => {
     settingApi.setSetting(deepClone(setting.value))
   }
 
+  const screen = ref<'lg' | 'sm'>('sm')
+  const setScreen = (value: 'lg' | 'sm') => (screen.value = value)
+
+  const isSiped = ref(false)
+  const setIsSiped = (value: boolean) => (isSiped.value = value)
+
+  const isTouchCanceled = ref(false)
+  const setIsTouchCanceled = (value: boolean) => (isTouchCanceled.value = value)
+
+  const currentModals = ref<string[]>([])
+  const pushCurrentModal = (modalName: string) =>
+    currentModals.value.push(modalName)
+
+  const popCurrentModal = () => currentModals.value.pop()
+
   return {
     setting,
     updateSetting,
     importSetting,
     initSetting,
+
+    screen,
+    setScreen,
+
+    isSiped,
+    setIsSiped,
+
+    isTouchCanceled,
+    setIsTouchCanceled,
+
+    currentModals,
+    pushCurrentModal,
+    popCurrentModal,
   }
 })

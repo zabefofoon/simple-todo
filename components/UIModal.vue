@@ -51,8 +51,6 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const route = useRoute()
-
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 

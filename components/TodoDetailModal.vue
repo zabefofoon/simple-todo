@@ -71,7 +71,7 @@
     </div>
     <template v-else>
       <div
-        class="safe-area-bottom flex flex-col lg:flex-row gap-3 | h-full | p-3 lg:p-4">
+        class="safe-area-margin-bottom flex flex-col lg:flex-row gap-3 | h-full | p-3 lg:p-4">
         <div class="w-full h-full flex flex-col | relative">
           <div
             class="whitespace-pre-wrap | border rounded-lg | overflow-auto h-full resize-none | p-2"

@@ -1,7 +1,7 @@
 <template>
   <aside
     class="relative | flex-shrink-0 | hidden lg:block | w-[240px] h-full | border-r"
-    style="transition: width 150ms ease;"
+    style="transition: width 150ms ease"
     :class="[
       storageStore.isSNBExpanded ? 'w-[240px]' : 'w-[52px]',
       storageStore.getThemeClass(
@@ -62,7 +62,7 @@
       </ul>
     </nav>
     <button
-      class="absolute top-1/2 right-0 -translate-y-1/2 z-1 | p-1"
+      class="absolute top-1/2 right-0 -translate-y-1/2 z-[9999] | p-1"
       :class="[
         storageStore.isSNBExpanded
           ? 'rounded-l-full'

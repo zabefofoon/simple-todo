@@ -48,7 +48,7 @@ export const useStorageStore = defineStore(
     }
 
     const theme = ref<Theme>(
-      process.client
+      import.meta.client
         ? storageApi.getLocalStorage('theme') || 'white'
         : getCookie(event, 'x-theme') || 'white'
     )

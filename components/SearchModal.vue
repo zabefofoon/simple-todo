@@ -162,7 +162,7 @@ const close = () => {
 
 const search = () => {
   const data = toValue(keyword)
-  router.replace({ query: { ...route.query, keyword: data } })
+  router.replace({ path: route.path, query: { ...route.query, keyword: data } })
   storageStore.addRecentKeywords(data)
   showAddArea(false)
   toValue(input)?.blur()

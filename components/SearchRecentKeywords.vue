@@ -6,7 +6,7 @@
     <NuxtLink
       v-for="keyword in keywords?.slice(0, 10)"
       :key="keyword"
-      :to="`${route.path}/?search=true&keyword=${keyword}`"
+      :to="`${route.path}?search=true&keyword=${keyword}`"
       replace
       class="w-full | flex items-center gap-2 | py-0.5"
       :area-label="`Search ${keyword}`">

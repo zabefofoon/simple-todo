@@ -10,7 +10,8 @@
       :to="menu.href"
       class="w-full"
       :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')"
-      :area-label="menu.name">
+      :area-label="menu.name"
+      replace>
       <li>
         <button
           :name="menu.name"

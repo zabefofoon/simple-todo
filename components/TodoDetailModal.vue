@@ -1,7 +1,12 @@
 <template>
   <UIModal
     modal-name="TodoDetailModal"
-    class="lg:w-[calc(100vw-240px)] | ml-auto"
+    class="ml-auto transition-all"
+    :class="
+      storageStore.isSNBExpanded
+        ? 'lg:w-[calc(100vw-240px)]'
+        : 'lg:w-[calc(100vw-52px)]'
+    "
     :content-class="`w-full h-full | ${storageStore.getThemeClass(
       'bg-white',
       'bg-slate-900'

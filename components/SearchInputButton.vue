@@ -1,8 +1,5 @@
 <template>
-  <NuxtLink
-    class="w-full max-w-[50%] | relative"
-    :to="`${route.path}?search=true`"
-    area-label="Search">
+  <NuxtLink class="w-full max-w-[50%] | relative" :to="to" area-label="Search">
     <input
       readonly
       class="w-full | px-3 py-1 | rounded-full | text-sm focus:border-0 focus:outline-0"
@@ -23,4 +20,8 @@ const storageStore = useStorageStore()
 const i18n = useI18n()
 
 const route = useRoute()
+
+const to = computed(() => {
+  return `${route.path}?${routerUtil.queryToString(route.query)}&search=true`
+})
 </script>

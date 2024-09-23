@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import todoApi from '~/api/todo.api'
 import { Todo } from '~/models/Todo'
-import { useStorageStore } from './storage.store'
-import { useLoadingStore } from './loading.store'
 import { useAlarmStore } from './alarm.store'
+import { useLoadingStore } from './loading.store'
+import { useStorageStore } from './storage.store'
 
 export const useTodoStore = defineStore('todo', () => {
   const storageStore = useStorageStore()
@@ -17,6 +17,8 @@ export const useTodoStore = defineStore('todo', () => {
 
     loadingStore.withTodoLoading(async () => {
       const data = await todoApi.getAllTodos()
+
+      if (!data) return
 
       todos.value = Todo.map(data).sort(
         (a, b) => Number(b.created) - Number(a.created)
@@ -42,7 +44,8 @@ export const useTodoStore = defineStore('todo', () => {
 
   const deleteTodo = async (id: number) => {
     const found = todos.value?.find((savedTodo) => savedTodo.id === id)
-    const isAlarm = found?.upto && new Date(`${found.date} ${found.time}`) > new Date()
+    const isAlarm =
+      found?.upto && new Date(`${found.date} ${found.time}`) > new Date()
     if (isAlarm) alarmStore.unregistAlarm(storageStore.getUniqueId(), id)
 
     await todoApi.deleteTodo(id)

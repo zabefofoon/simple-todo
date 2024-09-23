@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { useSettingStore } from '~/store/setting.store'
 
 export class Todo {
@@ -18,12 +19,7 @@ export class Todo {
   }
 
   get createdDate() {
-    const currentDate = new Date(this.created || '')
-    const year = currentDate.getFullYear()
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0')
-    const day = currentDate.getDate().toString().padStart(2, '0')
-
-    return year + '-' + month + '-' + day
+    return dayjs(this.created).format('YYYY-MM-DD')
   }
 
   get uptoTime() {

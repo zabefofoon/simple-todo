@@ -9,7 +9,7 @@
             'bg-slate-900 border-slate-700'
           )
         ">
-        <button name="Back" class="flex" @click="$router.back()">
+        <button name="Back" class="flex" @click="router.back()">
           <i
             class="icon icon-arrow-left"
             :class="storageStore.getThemeClass('', 'text-white')"></i>
@@ -84,8 +84,8 @@
               :key="todo.id"
               :todo="todo"
               hide-delete
-              @delete="deleteTodo"
-              @done="todoStore.doneTodo" />
+              @delete="deleteTodo(todo)"
+              @done="(id, done) => doneTodo(todo, done)" />
           </div>
         </template>
         <div
@@ -95,8 +95,8 @@
             v-for="todo in todos"
             :key="todo.id"
             :todo="todo"
-            @delete="deleteTodo"
-            @done="todoStore.doneTodo" />
+            @delete="deleteTodo(todo)"
+            @done="(id, done) => doneTodo(todo, done)" />
         </div>
         <h3
           v-if="!todos?.length"
@@ -116,6 +116,7 @@
 </template>
 
 <script setup lang="ts">
+import { useGoogleStore } from '~/store/google.store'
 import { useLoadingStore } from '~/store/loading.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
@@ -128,6 +129,7 @@ const route = useRoute()
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
+const googleStore = useGoogleStore()
 
 const input = ref<HTMLInputElement>()
 
@@ -177,7 +179,17 @@ watch(
   { immediate: true }
 )
 
-const deleteTodo = (id: number) => {
-  if (confirm(i18n.t('ConfirmDelete'))) todoStore.deleteTodo(id)
+const deleteTodo = (todo: Todo) => {
+  if (confirm(i18n.t('ConfirmDelete')))
+    todo.linked
+      ? googleStore.deleteTodo2(todo)
+      : todoStore.deleteTodo(todo.id ?? '')
+}
+
+const doneTodo = (todo: Todo, done?: boolean) => {
+  todo.done = !done
+  todo.linked
+    ? googleStore.doneTodo2(todo, !done)
+    : todoStore.doneTodo(todo.id ?? '', !done)
 }
 </script>

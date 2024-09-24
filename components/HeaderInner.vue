@@ -10,7 +10,7 @@
     <div
       :key="label"
       v-html="label"
-      class="w-full | text-lg truncate | cursor-pointer"
+      class="w-full lg:w-1/2 | mr-auto | text-lg truncate | cursor-pointer"
       :class="storageStore.getThemeClass('', 'text-white')"
       @click="router.back()"></div>
 

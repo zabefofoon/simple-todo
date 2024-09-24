@@ -6,7 +6,7 @@
     @mousedown="route.query.bulk && bulkStore.add(todo.id)"
     @contextmenu.prevent>
     <figure
-      class="w-full h-full | flex items-center gap-2 | border rounded-lg | relative | py-1"
+      class="w-full h-full | flex items-center gap-1 | border rounded-lg | relative | py-1"
       :class="[
         storageStore.getThemeClass(
           bulkStore.selectedTodoIds.includes(todo.id)
@@ -43,9 +43,9 @@
       <div
         class="w-full overflow-hidden | py-2 | text-ellipsis whitespace-nowrap lg:whitespace-normal">
         <span
-          v-if="(todo.description?.length || 0) > 50"
+          v-if="(todo.description?.length || 0) > 30"
           :class="storageStore.getThemeClass('', 'text-white')">
-          {{ todo.description?.slice(0, 50) }}...
+          {{ todo.description?.slice(0, 30) }}...
         </span>
         <span v-else :class="storageStore.getThemeClass('', 'text-white')">
           {{ todo.description }}
@@ -67,12 +67,30 @@
           </template>
         </span>
       </figcaption>
+      <img
+        v-if="todo.linked"
+        class="w-3 | mr-2"
+        src="~/assets/images/google.svg" />
+      <button
+        name="Check"
+        class="flex items-center | rounded-full"
+        :class="[
+          todo.done ? 'bg-green-500' : 'border border-gray-200',
+          hideDelete ? 'right-2' : 'right-8',
+        ]"
+        @click.stop.prevent="
+          !route.query.builk && emit('done', todo.id || '', todo.done)
+        ">
+        <i
+          class="icon icon-check | text-sm"
+          :class="todo.done ? 'text-white' : 'text-gray-300'"></i>
+      </button>
       <button
         v-if="!hideDelete"
         nmae="Delete"
-        class="close-button | flex items-center | p-2"
+        class="flex items-center | p-1"
         @click.stop.prevent="
-          !route.query.builk && emit('delete', todo.id || -1)
+          !route.query.builk && emit('delete', todo.id || '')
         ">
         <i
           class="icon icon-close"
@@ -85,20 +103,6 @@
         ">
         {{ todo.createdDate.replaceAll('-', '.').slice(2) }}
       </span>
-      <button
-        name="Check"
-        class="flex items-center | absolute top-1/2 -translate-y-1/2 z-10 | rounded-full"
-        :class="[
-          todo.done ? 'bg-green-500' : 'border border-gray-200',
-          hideDelete ? 'right-2' : 'right-8',
-        ]"
-        @click.stop.prevent="
-          !route.query.builk && emit('done', todo.id || -1, todo.done)
-        ">
-        <i
-          class="icon icon-check | text-sm"
-          :class="todo.done ? 'text-white' : 'text-gray-300'"></i>
-      </button>
     </figure>
   </NuxtLink>
 </template>
@@ -114,8 +118,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'delete', id: number): void
-  (e: 'done', id: number, done?: boolean): void
+  (e: 'delete', id: string): void
+  (e: 'done', id: string, done?: boolean): void
 }>()
 
 const route = useRoute()

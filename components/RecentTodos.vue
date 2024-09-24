@@ -30,16 +30,16 @@
           v-for="todo in recentTodos"
           :key="todo.id"
           :todo="todo"
-          @delete="deleteTodo"
-          @done="todoStore.doneTodo" />
+          @delete="deleteTodo(todo)"
+          @done="(id, done) => doneTodo(todo, done)" />
       </div>
       <div v-else class="flex flex-col gap-2">
         <TodoRow
           v-for="todo in recentTodos"
           :key="todo.id"
           :todo="todo"
-          @delete="deleteTodo"
-          @done="todoStore.doneTodo" />
+          @delete="deleteTodo(todo)"
+          @done="(id, done) => doneTodo(todo, done)" />
         <p v-if="!recentTodos?.length" class="text-center py-10">
           {{ i18n.t('NoTodo') }}
         </p>
@@ -49,6 +49,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Todo } from '~/models/Todo'
+import { useGoogleStore } from '~/store/google.store'
 import { useLoadingStore } from '~/store/loading.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
@@ -58,6 +60,7 @@ const i18n = useI18n()
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
+const googleStore = useGoogleStore()
 
 const recentTodos = computed(() =>
   todoStore.todos
@@ -65,7 +68,17 @@ const recentTodos = computed(() =>
     .slice(0, 12)
 )
 
-const deleteTodo = (id: number) => {
-  if (confirm(i18n.t('ConfirmDelete'))) todoStore.deleteTodo(id)
+const deleteTodo = (todo: Todo) => {
+  if (confirm(i18n.t('ConfirmDelete')))
+    todo.linked
+      ? googleStore.deleteTodo2(todo)
+      : todoStore.deleteTodo(todo.id ?? '')
+}
+
+const doneTodo = (todo: Todo, done?: boolean) => {
+  todo.done = !done
+  todo.linked
+    ? googleStore.doneTodo2(todo, !done)
+    : todoStore.doneTodo(todo.id ?? '', !done)
 }
 </script>

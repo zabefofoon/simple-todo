@@ -3,6 +3,8 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "types": ["google.accounts", "gapi"],
+    "module": "ESNext"
   }
 }

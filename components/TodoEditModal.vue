@@ -78,6 +78,7 @@
 <script setup lang="ts">
 import { Todo } from '~/models/Todo'
 import { useAlarmStore } from '~/store/alarm.store'
+import { useGoogleStore } from '~/store/google.store'
 import { useLoadingStore } from '~/store/loading.store'
 import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
@@ -97,11 +98,12 @@ const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 const loadingStore = useLoadingStore()
 const alarmStore = useAlarmStore()
+const googleStore = useGoogleStore()
 
 const currentTodo = ref<Todo>()
 const setCurrentTodo = (todo?: Todo) => (currentTodo.value = todo)
 
-const isEditMode = computed(() => !isNaN(Number(route.query.edit)))
+const isEditMode = computed(() => route.query.edit !== 'new')
 
 const getToday = () => {
   const today = new Date()
@@ -163,13 +165,22 @@ const setClickedSave = (value: boolean) => (clickedSave.value = value)
 const save = async () => {
   setClickedSave(true)
   const data: Partial<Todo> = {
+    id: isEditMode.value
+      ? toValue(currentTodo)?.id
+      : googleStore.googleAccessToken
+      ? generateUniqueId()
+      : undefined,
     description: toValue(description),
     upto: toValue(upto),
     modified: new Date().getTime(),
     images: deepClone(toValue(images)),
+    linked: googleStore.googleAccessToken ? 'google' : undefined,
+    date: upto.value ? date.value : undefined,
+    time: upto.value ? time.value : undefined,
+    tagId: tagId.value,
   }
 
-  if (!toValue(isEditMode)) {
+  if (!isEditMode.value) {
     const now = new Date()
     const customDate = new Date(String(route.query.date))
     customDate.setHours(now.getHours())
@@ -179,15 +190,20 @@ const save = async () => {
     data.created = route.query.date ? customDate.getTime() : now.getTime()
   }
 
-  data.date = toValue(upto) ? toValue(date) : undefined
-  data.time = toValue(upto) ? toValue(time) : undefined
-
-  data.tagId = toValue(tagId)
-
-  toValue(isEditMode)
-    ? await todoStore.updateTodo(Number(route.query.edit), data)
-    : await todoStore.addTodo(<Todo>data)
-  await todoStore.getAllTodos(true)
+  if (isEditMode.value) {
+    if (currentTodo.value?.linked) {
+      googleStore.updateTodo2(data)
+    } else {
+      todoStore.updateTodo(String(route.query.edit), data)
+    }
+  } else {
+    if (googleStore.googleAccessToken) {
+      googleStore.addTodo2(data)
+    } else {
+      await todoStore.addTodo(<Todo>data)
+      todoStore.todos?.push(Todo.of(data))
+    }
+  }
 
   if (isChanged.value) {
     if (upto.value) {
@@ -195,11 +211,11 @@ const save = async () => {
       if (isAfter) registAlarm(data)
 
       if (isEditMode.value) {
-        alarmStore.removeNewAlarm(Number(route.query.edit))
-        alarmStore.removeReadNewAlarms(Number(route.query.edit))
+        alarmStore.removeNewAlarm(String(route.query.edit))
+        alarmStore.removeReadNewAlarms(String(route.query.edit))
       }
     } else if (route.query.edit !== 'new')
-      unregistAlarm(Number(route.query.edit))
+      unregistAlarm(String(route.query.edit))
   }
   emit('update')
   router.back()
@@ -235,17 +251,23 @@ const changeForm = (event: Event) => {
 
 const done = () => {
   if (!currentTodo.value) return
-
-  todoStore.doneTodo(
-    Number(toValue(currentTodo)?.id),
-    toValue(currentTodo)?.done
-  )
+  currentTodo.value.linked
+    ? googleStore.doneTodo2(
+        currentTodo.value,
+        !(currentTodo.value.done ?? true)
+      )
+    : todoStore.doneTodo(
+        toValue(currentTodo)?.id || '',
+        toValue(currentTodo)?.done
+      )
   currentTodo.value.done = !toValue(currentTodo)?.done
 }
 
 const deleteTodo = async () => {
   if (!confirm(i18n.t('ConfirmDelete'))) return
-  await todoStore.deleteTodo(Number(toValue(currentTodo)?.id))
+  currentTodo.value?.linked
+    ? googleStore.deleteTodo2(currentTodo.value)
+    : await todoStore.deleteTodo(toValue(currentTodo)?.id || '')
   router.go(-2)
 }
 
@@ -266,8 +288,8 @@ const registAlarm = async (todo: Partial<Todo>) => {
       })
       try {
         const todoId = isEditMode.value
-          ? Number(route.query.edit)
-          : todoStore.todos?.[0]?.id || 1
+          ? String(route.query.edit)
+          : todoStore.todos?.[0]?.id || ''
 
         await alarmStore.registAlarm({
           date: new Date(`${date.value} ${time.value}`),
@@ -283,7 +305,7 @@ const registAlarm = async (todo: Partial<Todo>) => {
   }
 }
 
-const unregistAlarm = async (todoId: number) => {
+const unregistAlarm = async (todoId: string) => {
   return await alarmStore.unregistAlarm(storageStore.getUniqueId(), todoId)
 }
 
@@ -321,8 +343,8 @@ const fileChangeHandler = (event: Event): void => {
           img.src = result
           img.onload = () => {
             const canvas = document.createElement('canvas')
-            const maxWidth = 800 // 원하는 최대 가로 크기
-            const maxHeight = 600 // 원하는 최대 세로 크기
+            const maxWidth = googleStore.googleAccessToken ? 1280 : 800 // 원하는 최대 가로 크기
+            const maxHeight = googleStore.googleAccessToken ? 1280 : 600 // 원하는 최대 세로 크기
 
             let width = img.width
             let height = img.height
@@ -373,7 +395,7 @@ const fileChangeHandler = (event: Event): void => {
                   }
                 },
                 'image/webp', // 원본 이미지와 동일한 형식 유지 (JPEG, PNG 등)
-                0.8 // 이미지 품질 (0.0 ~ 1.0)
+                googleStore.googleAccessToken ? 1 : 0.8 // 이미지 품질 (0.0 ~ 1.0)
               )
             }
           }
@@ -391,8 +413,15 @@ const deleteImage = (index: number) => {
 
 onMounted(async () => {
   if (route.query.edit !== 'new') {
-    const result = await todoStore.getTodo(Number(route.query.edit))
-    setCurrentTodo(result)
+    const found = todoStore.todos?.find(
+      (todo) => todo.id == route.query.todo?.toString()
+    )
+    if (found) setCurrentTodo(found)
+    else {
+      const result = await todoStore.getTodo(String(route.query.todo))
+      if (result) setCurrentTodo(result)
+    }
+
     if (toValue(isEditMode)) loadTodoData()
   }
 
@@ -420,4 +449,27 @@ onBeforeRouteLeave((_, __, next) => {
 
   next(confirm(i18n.t('ConfirmBeforeWriting')))
 })
+
+watch(
+  () => googleStore.googleInited,
+  async () => {
+    if (route.query.edit !== 'new') {
+      const found = todoStore.todos?.find(
+        (todo) => todo.id === route.query.todo?.toString()
+      )
+      if (found) setCurrentTodo(found)
+      else {
+        const result = await todoStore.getTodo(String(route.query.todo))
+        if (result) setCurrentTodo(result)
+      }
+
+      if (toValue(isEditMode)) loadTodoData()
+    }
+
+    if (route.query.tags) tagId.value = route.query.tags.toString()
+  },
+  {
+    immediate: true,
+  }
+)
 </script>

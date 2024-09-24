@@ -5,6 +5,8 @@ import { useAlarmStore } from './alarm.store'
 import { useLoadingStore } from './loading.store'
 import { useStorageStore } from './storage.store'
 
+import { generateUniqueId } from '~/utils/etc'
+
 export const useTodoStore = defineStore('todo', () => {
   const storageStore = useStorageStore()
   const loadingStore = useLoadingStore()
@@ -25,7 +27,10 @@ export const useTodoStore = defineStore('todo', () => {
       )
 
       if (!data.length) {
-        const defaultTodo = Todo.of({ id: 1, description: 'Welcome!' })
+        const defaultTodo = Todo.of({
+          id: generateUniqueId(),
+          description: 'Welcome!',
+        })
         addTodo(defaultTodo)
         todos.value = [defaultTodo]
       }
@@ -34,15 +39,18 @@ export const useTodoStore = defineStore('todo', () => {
         await Notification.requestPermission()
     })
     loadingStore.setTodoLoading(false)
+
     return toValue(todos)
   }
 
-  const doneTodo = async (id: number, done?: boolean) => {
-    await todoApi.updateTodo(id, { done: !done })
-    getAllTodos(true)
+  const doneTodo = async (id: string, done?: boolean) => {
+    const found = todos.value?.find(({ id: _id }) => _id == id)
+    if (found) Object.assign(found, { done })
+
+    await todoApi.updateTodo(id, { done })
   }
 
-  const deleteTodo = async (id: number) => {
+  const deleteTodo = async (id: string) => {
     const found = todos.value?.find((savedTodo) => savedTodo.id === id)
     const isAlarm =
       found?.upto && new Date(`${found.date} ${found.time}`) > new Date()
@@ -52,20 +60,23 @@ export const useTodoStore = defineStore('todo', () => {
     getAllTodos(true)
   }
 
-  const updateTodo = async (id: number, data: Partial<Todo>) => {
-    return await todoApi.updateTodo(id, data)
+  const updateTodo = async (id: string, todo: Partial<Todo>) => {
+    const found = todos.value?.find(({ id }) => id == todo.id)
+    if (found) Object.assign(found, todo)
+    console.log('todo: ', todo)
+    await todoApi.updateTodo(id, todo)
   }
   const addTodo = async (todo: Todo) => {
     return await todoApi.addTodo(todo)
   }
 
-  const refreshTodo = (todoId: number) => {
+  const refreshTodo = (todoId: string) => {
     const found = todos.value?.findIndex((savedTodo) => savedTodo.id === todoId)
     const spliced = todos.value?.splice(Number(found), 1)
     if (spliced?.[0]) todos.value?.push(spliced[0])
   }
 
-  const getTodo = async (id: number) => {
+  const getTodo = async (id: string) => {
     const data = await todoApi.getTodo(id)
     return data ? Todo.of(data) : undefined
   }
@@ -79,6 +90,11 @@ export const useTodoStore = defineStore('todo', () => {
     getAllTodos(true)
   }
 
+  const getImages = async (id: string) => {
+    const result = await getTodo(id)
+    return result?.images
+  }
+
   return {
     todos,
     getAllTodos,
@@ -90,5 +106,7 @@ export const useTodoStore = defineStore('todo', () => {
     refreshTodo,
 
     importTodos,
+
+    getImages,
   }
 })

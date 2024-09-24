@@ -100,5 +100,7 @@
   "Saturday": "Sat",
   "weekOfMonth": "{week} week",
   "DoEdit": "Edit",
-  "DoDelete": "Delete"
+  "DoDelete": "Delete",
+  "Google": "Google",
+  "SpreadsheetLink": "Link"
 }

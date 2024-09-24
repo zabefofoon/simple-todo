@@ -11,6 +11,7 @@
 <script setup lang="ts">
 import type { Theme } from './models/Setting'
 import { useAlarmStore } from './store/alarm.store'
+import { useGoogleStore } from './store/google.store'
 import { useScrollStore } from './store/scroll.store'
 import { useSettingStore } from './store/setting.store'
 import { useStorageStore } from './store/storage.store'
@@ -24,12 +25,18 @@ const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 const alarmStore = useAlarmStore()
 const { isIos } = useDevice()
+const route = useRoute()
+
+const googleStore = useGoogleStore()
 
 onBeforeMount(() => {
   settingStore.initSetting()
 })
 
-onMounted(() => {
+onMounted(async () => {
+  if (route.path === '/google-auth') return
+
+  if (googleStore.googleAccessToken) googleStore.getAllTodo()
   todoStore.getAllTodos()
   scrollStore.listenHistoryUpdate()
 
@@ -40,7 +47,7 @@ onMounted(() => {
       alarmStore.addNewAlarm(event.data.todoId)
     }
     if (event.data?.type === 'notificationclick') {
-      navigateTo(`/todo/${event.data.todoId}`)
+      navigateTo(`?todo=${event.data.todoId}`)
       setTimeout(() => {
         alarmStore.addNewAlarm(event.data.todoId)
         alarmStore.addReadNewAlarm(event.data.todoId)

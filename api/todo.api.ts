@@ -18,9 +18,10 @@ export const getAllTodos = () => {
   }
 }
 
-export const getTodo = (id: number) => {
+export const getTodo = (id: string) => {
   try {
-    return db!.todos.get(id)
+    const _id = isNaN(+id) ? id : +id
+    return db!.todos.get(_id)
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
   }
@@ -34,16 +35,17 @@ export const addTodo = (todo: Todo) => {
   }
 }
 
-export const updateTodo = (itemId: number, updatedData: Partial<Todo>) => {
+export const updateTodo = (id: string, updatedData: Partial<Todo>) => {
   try {
-    return db!.todos.update(itemId, updatedData)
+    const _id = isNaN(+id) ? id : +id
+    return db!.todos.update(_id, updatedData)
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
   }
 }
 
 export const updateBulkTodos = async (
-  ids: number[],
+  ids: string[],
   updatedData: Partial<Todo>
 ) => {
   try {
@@ -62,20 +64,22 @@ export const bulkAdd = (todos: Todo[]) => {
   return db!.todos.bulkAdd(todos)
 }
 
-export const deleteTodo = (itemId: number) => {
+export const deleteTodo = (id: string) => {
+  const _id = isNaN(+id) ? id : +id
   try {
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
   }
-  return db!.todos.delete(itemId)
+  return db!.todos.delete(_id)
 }
 
-export const deleteBulkTodos = (itemIds: number[]) => {
+export const deleteBulkTodos = (ids: string[]) => {
+  const _ids = ids.map((id) => (isNaN(+id) ? id : +id))
   try {
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
   }
-  return db!.todos.bulkDelete(itemIds)
+  return db!.todos.bulkDelete(_ids)
 }
 
 export default {

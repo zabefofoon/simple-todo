@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { useSettingStore } from '~/store/setting.store'
 
 export class Todo {
-  id?: number
+  id?: string
   upto?: boolean
   date?: string
   description?: string
@@ -12,6 +12,7 @@ export class Todo {
   done?: boolean
   modified?: number
   images?: string[]
+  linked?: 'google'
 
   constructor(todo: Partial<Todo>) {
     Object.assign(this, todo)
@@ -44,5 +45,37 @@ export class Todo {
 
   static map(todos: Partial<Todo>[]) {
     return todos.map(Todo.of)
+  }
+
+  static spreadsheetOf(sheetRow: Record<string, string>) {
+    return Todo.of({
+      id: sheetRow.id,
+      upto: sheetRow.upto === 'true',
+      date: sheetRow.date,
+      description: sheetRow.description || '',
+      tagId: sheetRow.tagId ? sheetRow.tagId : undefined,
+      time: sheetRow.time,
+      created: sheetRow.created ? +sheetRow.created : undefined,
+      done: sheetRow.done.toLowerCase() === 'true',
+      modified: sheetRow.modified ? +sheetRow.modified : undefined,
+      images: sheetRow.images ? sheetRow.images.split(',') : undefined,
+      linked: sheetRow.linked ? 'google' : undefined,
+    })
+  }
+
+  static createToSpreadsheet(todo: Partial<Todo>) {
+    return [
+      todo.id?.toString() || '',
+      todo.upto?.toString() || '',
+      todo.date?.toString() || '',
+      todo.description?.toString() || '',
+      todo.tagId?.toString() || '',
+      todo.time?.toString() || '',
+      todo.created?.toString() || '',
+      todo.done?.toString() || '',
+      todo.modified?.toString() || '',
+      todo.images?.toString() || '',
+      todo.linked?.toString() || '',
+    ]
   }
 }

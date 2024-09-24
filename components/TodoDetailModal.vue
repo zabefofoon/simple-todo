@@ -104,6 +104,11 @@
             </figcaption>
           </div>
           <div class="absolute bottom-3 right-3 | flex items-center gap-2">
+            <img
+              v-if="currentTodo?.linked"
+              class="w-[10px]"
+              src="~assets/images/google.svg" />
+
             <span
               class="text-xs"
               :class="storageStore.getThemeClass('', 'text-white')">
@@ -127,7 +132,7 @@
           :class="storageStore.getThemeClass('', 'border-slate-700')">
           <UICarousel
             v-if="settingStore.screen === 'lg'"
-            class="h-full hidden lg:block"
+            class="h-full"
             vertical
             perview="auto"
             gap="10px"
@@ -143,12 +148,7 @@
                 :src="image" />
             </UICarouselSlide>
           </UICarousel>
-          <UICarousel
-            v-else
-            class="w-full lg:hidden"
-            drag-free
-            perview="auto"
-            gap="6px">
+          <UICarousel v-else class="w-full" drag-free perview="auto" gap="6px">
             <UICarouselSlide
               v-for="(image, index) in currentTodo?.images"
               :key="image"
@@ -170,6 +170,7 @@
 import { useModal } from 'vue-final-modal'
 import TodoImageModal from '~/components/TodoImageModal.vue'
 import { Todo } from '~/models/Todo'
+import { useGoogleStore } from '~/store/google.store'
 import { useLoadingStore } from '~/store/loading.store'
 import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
@@ -188,23 +189,32 @@ const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
 const settingStore = useSettingStore()
+const googleStore = useGoogleStore()
 
 const currentTodo = ref<Todo>()
 const setCurrentTodo = (todo?: Todo) => (currentTodo.value = todo)
 
 const deleteTodo = async () => {
   if (!confirm(i18n.t('ConfirmDelete'))) return
-  await todoStore.deleteTodo(Number(toValue(currentTodo)?.id))
+  currentTodo.value?.linked
+    ? googleStore.deleteTodo2(currentTodo.value)
+    : await todoStore.deleteTodo(String(toValue(currentTodo)?.id))
   router.back()
 }
 
 const done = () => {
   if (!currentTodo.value) return
 
-  todoStore.doneTodo(
-    Number(toValue(currentTodo)?.id),
-    toValue(currentTodo)?.done
-  )
+  currentTodo.value?.linked
+    ? googleStore.doneTodo2(
+        currentTodo.value,
+        !(currentTodo.value?.done ?? true)
+      )
+    : todoStore.doneTodo(
+        String(toValue(currentTodo)?.id),
+        toValue(currentTodo)?.done
+      )
+
   currentTodo.value.done = !toValue(currentTodo)?.done
 }
 
@@ -263,11 +273,21 @@ const editUrl = computed(() => {
     : `${path}?${query}&edit=${currentTodo.value?.id}`
 })
 
-onMounted(async () => {
-  if (route.query.todo !== 'new') {
-    const result = await todoStore.getTodo(Number(route.query.todo))
-    setCurrentTodo(result)
+const loadData = async () => {
+  const found = todoStore.todos?.find(
+    (todo) => todo.id == route.query.todo?.toString()
+  )
+  if (found) setCurrentTodo(found)
+
+  if (!found?.linked && currentTodo.value) {
+    currentTodo.value.images = await todoStore.getImages(
+      route.query.todo?.toString() ?? ''
+    )
   }
+}
+
+onMounted(() => {
+  loadData()
 })
 
 watch(currentTodo, () => {
@@ -290,13 +310,16 @@ watch(
 )
 
 watch(
+  () => todoStore.todos?.length,
+  async () => {
+    loadData()
+  }
+)
+
+watch(
   () => route.query.edit,
   async (edit) => {
-    if (!edit) {
-      await sleep(150)
-      const result = await todoStore.getTodo(Number(route.query.todo))
-      setCurrentTodo(result)
-    }
+    if (!edit) loadData()
   }
 )
 </script>

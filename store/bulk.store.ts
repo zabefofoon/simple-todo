@@ -6,14 +6,14 @@ export const useBulkStore = defineStore('bulk', () => {
   const router = useRouter()
 
   const isBulkMode = computed(() => route.query.bulk)
-  const turnOnBulkMode = async (todoId?: number) => {
+  const turnOnBulkMode = async (todoId?: string) => {
     await router.push({ query: { ...route.query, bulk: 'true' } })
     setTimeout(() => (selectedTodoIds.value = [todoId]), 100)
   }
 
-  const selectedTodoIds = ref<(number | undefined)[]>([])
+  const selectedTodoIds = ref<(string | undefined)[]>([])
   const emptyTodoIds = () => (selectedTodoIds.value = [])
-  const add = (todoId = 0) => {
+  const add = (todoId = '') => {
     toValue(selectedTodoIds).includes(todoId)
       ? (selectedTodoIds.value = selectedTodoIds.value.filter(
           (id) => id !== todoId
@@ -23,13 +23,13 @@ export const useBulkStore = defineStore('bulk', () => {
 
   const updateBulkTodos = async (done?: boolean) => {
     const ids = toValue(selectedTodoIds).filter(
-      (item): item is number => !!item
+      (item): item is string => !!item
     )
     await todoApi.updateBulkTodos(ids, { done })
   }
   const deleteBulkTodos = async () => {
     const ids = toValue(selectedTodoIds).filter(
-      (item): item is number => !!item
+      (item): item is string => !!item
     )
     await todoApi.deleteBulkTodos(ids)
   }

@@ -156,6 +156,18 @@ export default defineNuxtConfig({
           href: '/favicon-16x16.png',
         },
       ],
+      script: [
+        {
+          src: 'https://accounts.google.com/gsi/client',
+          async: true,
+          defer: true,
+        },
+        {
+          src: 'https://apis.google.com/js/platform.js?onload=init',
+          async: true,
+          defer: true,
+        },
+      ],
     },
   },
 

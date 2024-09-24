@@ -90,7 +90,7 @@ const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
 const settingStore = useSettingStore()
 const alarmStore = useAlarmStore()
-const checkRead = (id: number) => alarmStore.readNewAlarms?.includes(id)
+const checkRead = (id: string) => alarmStore.readNewAlarms?.includes(id)
 
 const alarms = computed(() => {
   return <Todo[]>(

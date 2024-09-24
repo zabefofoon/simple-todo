@@ -100,5 +100,7 @@
   "Saturday": "토",
   "weekOfMonth": "{week}주차",
   "DoEdit": "수정하기",
-  "DoDelete": "삭제하기"
+  "DoDelete": "삭제하기",
+  "Google": "구글",
+  "SpreadsheetLink": "연동하기"
 }

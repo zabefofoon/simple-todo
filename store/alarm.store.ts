@@ -6,8 +6,8 @@ import etcUtil from '~/utils/etc'
 export const useAlarmStore = defineStore(
   'alarm',
   () => {
-    const newAlarms = ref<number[]>()
-    const addNewAlarm = (todoId: number) => {
+    const newAlarms = ref<string[]>()
+    const addNewAlarm = (todoId: string) => {
       if (newAlarms.value?.includes(todoId)) {
         const index = newAlarms.value.indexOf(todoId)
         const spliced = newAlarms.value.splice(index, 1)
@@ -16,11 +16,11 @@ export const useAlarmStore = defineStore(
         newAlarms.value = [todoId, ...newAlarms.value]
       else newAlarms.value = [todoId]
     }
-    const removeNewAlarm = (todoId: number) =>
+    const removeNewAlarm = (todoId: string) =>
       (newAlarms.value = newAlarms.value?.filter((alarm) => alarm !== todoId))
 
-    const readNewAlarms = ref<number[]>()
-    const addReadNewAlarm = (todoId: number) => {
+    const readNewAlarms = ref<string[]>()
+    const addReadNewAlarm = (todoId: string) => {
       if (readNewAlarms.value?.includes(todoId)) {
         const index = readNewAlarms.value.indexOf(todoId)
         const spliced = readNewAlarms.value.splice(index, 1)
@@ -29,7 +29,7 @@ export const useAlarmStore = defineStore(
         readNewAlarms.value = [todoId, ...readNewAlarms.value]
       else readNewAlarms.value = [todoId]
     }
-    const removeReadNewAlarms = (todoId: number) =>
+    const removeReadNewAlarms = (todoId: string) =>
       (readNewAlarms.value = readNewAlarms.value?.filter(
         (alarm) => alarm !== todoId
       ))
@@ -41,7 +41,7 @@ export const useAlarmStore = defineStore(
     const registAlarm = (registAlarmDTO: RegistAlarmDTO) =>
       alarmApi.registAlarm(registAlarmDTO)
 
-    const unregistAlarm = (deviceId: string, todoId: number) =>
+    const unregistAlarm = (deviceId: string, todoId: string) =>
       alarmApi.unregistAlarm(deviceId, todoId)
 
     return {

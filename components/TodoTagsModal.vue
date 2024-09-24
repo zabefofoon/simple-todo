@@ -46,16 +46,16 @@
             v-for="todo in filterTodosByDays(day)"
             :key="todo.id"
             :todo="todo"
-            @delete="deleteTodo"
-            @done="todoStore.doneTodo" />
+            @delete="deleteTodo(todo)"
+            @done="(id, done) => doneTodo(todo, done)" />
         </div>
         <div v-else class="flex flex-col gap-2 | h-auto">
           <TodoRow
             v-for="todo in filterTodosByDays(day)"
             :key="todo.id"
             :todo="todo"
-            @delete="deleteTodo"
-            @done="todoStore.doneTodo" />
+            @delete="deleteTodo(todo)"
+            @done="(id, done) => doneTodo(todo, done)" />
         </div>
       </div>
     </div>
@@ -68,6 +68,7 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
+import { useGoogleStore } from '~/store/google.store'
 import { useLoadingStore } from '~/store/loading.store'
 import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
@@ -86,6 +87,7 @@ const loadingStore = useLoadingStore()
 const settingStore = useSettingStore()
 const storageStore = useStorageStore()
 const todoStore = useTodoStore()
+const googleStore = useGoogleStore()
 
 const matchedTag = computed(() => {
   return settingStore.setting?.tags.find((tag) => tag.id === route.query.tags)
@@ -109,10 +111,19 @@ const todos = computed(() => {
     .sort((a, b) => b.created! - a.created!)
 })
 
-const deleteTodo = (id: number) => {
-  if (confirm(i18n.t('ConfirmDelete'))) todoStore.deleteTodo(id)
+const deleteTodo = (todo: Todo) => {
+  if (confirm(i18n.t('ConfirmDelete')))
+    todo.linked
+      ? googleStore.deleteTodo2(todo)
+      : todoStore.deleteTodo(todo.id ?? '')
 }
 
+const doneTodo = (todo: Todo, done?: boolean) => {
+  todo.done = !done
+  todo.linked
+    ? googleStore.doneTodo2(todo, !done)
+    : todoStore.doneTodo(todo.id ?? '', !done)
+}
 const calculateDay = (timestamp = 0) => {
   const date = dayjs(timestamp)
   const year = date.year()

@@ -7,9 +7,9 @@ export default {
       body: registAlarmDTO,
     }),
 
-  unregistAlarm: (deviceId: string, todoId: number) =>
+  unregistAlarm: (deviceId: string, todoId: string) =>
     $fetch('/api/alarm', {
       method: 'delete',
-      params: {deviceId, todoId}
+      params: { deviceId, todoId },
     }),
 }

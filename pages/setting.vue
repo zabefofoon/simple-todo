@@ -27,6 +27,16 @@
         <SettingForm />
       </div>
       <div
+        class="flex flex-col | border rounded-lg | p-4"
+        :class="storageStore.getThemeClass('', 'border-slate-700')">
+        <h3
+          class="font-bold | pb-2"
+          :class="storageStore.getThemeClass('', 'text-white')">
+          {{ i18n.t('Google') }}
+        </h3>
+        <SettingGoogle />
+      </div>
+      <div
         class="flex flex-col | border rounded-lg | p-4 pb-0"
         :class="storageStore.getThemeClass('', 'border-slate-700')">
         <h3

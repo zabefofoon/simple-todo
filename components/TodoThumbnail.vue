@@ -17,10 +17,14 @@
             : 'border-slate-700'
         ),
       ]">
-      <div class="flex gap-1 | absolute bottom-[5px] right-1 z-10">
+      <div class="flex gap-2 | absolute bottom-[5px] right-1 z-10">
+        <img
+          v-if="todo.linked"
+          class="w-[10px]"
+          src="~assets/images/google.svg" />
         <NuxtLink
           v-if="todo.tag"
-          :to="`${route.path}/?tags=${todo.tag.id}`"
+          :to="`${route.path}?tags=${todo.tag.id}`"
           class="text-white text-[10px] lg:text-xs | px-1.5 py-.5 | rounded-full"
           :style="{ background: todo.tag?.color || 'black' }">
           #{{ todo.tag?.label }}
@@ -34,7 +38,7 @@
         name="Check"
         class="flex items-center | absolute left-1 top-1 z-10 | rounded-full"
         :class="[todo.done ? 'bg-green-500' : 'border border-gray-200']"
-        @click.stop.prevent="emit('done', todo.id || -1, todo.done)">
+        @click.stop.prevent="emit('done', todo.id || '', todo.done)">
         <i
           class="icon icon-check | text-sm"
           :class="todo.done ? 'text-white' : 'text-gray-300'"></i>
@@ -47,8 +51,8 @@
       <button
         v-if="!hideDelete"
         name="Delete"
-        class="close-button | flex | absolute top-1 right-1"
-        @click.stop.prevent="emit('delete', todo.id || -1)">
+        class="flex | absolute top-1 right-1"
+        @click.stop.prevent="emit('delete', todo.id || '')">
         <i
           class="icon icon-close"
           :class="storageStore.getThemeClass('', 'text-white')"></i>
@@ -89,9 +93,9 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'delete', id: number): void
-  (e: 'done', id: number, done?: boolean): void
-  (e: 'long-click', id: number): void
+  (e: 'delete', id: string): void
+  (e: 'done', id: string, done?: boolean): void
+  (e: 'long-click', id: string): void
 }>()
 
 const route = useRoute()

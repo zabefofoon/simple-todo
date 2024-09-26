@@ -48,7 +48,7 @@
               </div>
               <div
                 v-if="storageStore.display === 'thumbnail'"
-                class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-2 lg:p-4">
+                class="grid grid-cols-2 md:grid-cols-4 gap-2 | p-2 lg:p-4">
                 <TodoThumbnail
                   v-for="todo in matchedTodos(tag.label)"
                   :key="todo.id"
@@ -81,7 +81,7 @@
             </div>
             <div
               v-if="storageStore.display === 'thumbnail'"
-              class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-2 lg:p-4">
+              class="grid grid-cols-2 md:grid-cols-4 gap-2 | p-2 lg:p-4">
               <TodoThumbnail
                 v-for="todo in matchedTodos()"
                 :key="todo.id"

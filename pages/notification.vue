@@ -16,7 +16,7 @@
           <NuxtLink
             v-for="todo in alarms"
             :key="todo.id"
-            :to="`/todo/${todo.id}`"
+            :to="`/?todo=${todo.id}`"
             :area-label="`Todo ${todo.id}`"
             @click="alarmStore.addReadNewAlarm(todo.id!)">
             <li

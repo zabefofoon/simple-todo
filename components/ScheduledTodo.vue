@@ -23,7 +23,7 @@
     </h3>
     <NuxtLink
       v-if="scheduledTodo?.description"
-      :to="`/todo/${scheduledTodo.id}`"
+      :to="`/?todo=${scheduledTodo.id}`"
       area-label="ScheduledTodo">
       <p>
         <span

@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full | p-4">
+  <div class="h-full overflow-hidden | p-4">
     <div class="h-full flex flex-col gap-6 lg:gap-2 | relative">
       <div class="flex flex-col lg:flex-row gap-2 lg:items-center">
         <div class="flex gap-2 flex-col lg:flex-row lg:items-center | w-full">

@@ -29,7 +29,7 @@ const i18n = useI18n()
 
 const getSerializedData = () => {
   const data: SavedData = {
-    todos: todoStore.todos,
+    todos: todoStore.todos?.filter((todo) => !todo.linked),
     setting: settingStore.setting,
   }
   return JSON.parse(JSON.stringify(data))

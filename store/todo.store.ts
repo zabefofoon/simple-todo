@@ -57,7 +57,7 @@ export const useTodoStore = defineStore('todo', () => {
     if (isAlarm) alarmStore.unregistAlarm(storageStore.getUniqueId(), id)
 
     await todoApi.deleteTodo(id)
-    getAllTodos(true)
+    todos.value = todos.value?.filter((todo) => todo.id !== id) ?? []
   }
 
   const updateTodo = async (id: string, todo: Partial<Todo>) => {

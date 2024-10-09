@@ -1,9 +1,10 @@
 export default async (request) => {
   const blockedIPs = ['123.456.789.101', '234.567.890.123']
   const clientIP = request.headers.get('x-forwarded-for')
+  const referer = request.headers.get('referer')
   console.log(`Blocked IP: ${clientIP}, ${request.headers.get('referer')}`)
 
-  const blackList = [
+  const blackIPList = [
     '2001:4430:c194:f904:a86a:4c01:8fd8:7fc5',
     '18.208.159.85',
     '54.90.216.175',
@@ -20,7 +21,11 @@ export default async (request) => {
     '54.86.217.87',
   ]
 
-  if (blackList.includes(clientIP)) {
+  const blackRefererList = [
+    'https://670679f6de18bf000883f531--memoku.netlify.app/',
+  ]
+
+  if (blackIPList.includes(clientIP) || blackRefererList.includes(referer)) {
     return new Response('Access denied', { status: 403 })
   }
 }

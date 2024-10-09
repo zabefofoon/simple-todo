@@ -2,11 +2,17 @@ export default async (request) => {
   const blockedIPs = ['123.456.789.101', '234.567.890.123']
   const clientIP = request.headers.get('x-forwarded-for')
   const referer = request.headers.get('referer')
-  console.log(`Blocked IP: ${clientIP}, ${request.headers.get('referer')}`)
+  const userAgent = request.headers.get('user-agent')
+  console.log(
+    `Blocked IP: ${clientIP}, ${request.headers.get('referer')}, ${userAgent}`
+  )
 
   const blackIPList = [
     '18.208.159.85',
+    '18.208.159.85',
     '54.90.216.175',
+    '52.201.155.215',
+    '54.86.217.87',
     '64.233.172.132',
     '64.233.172.133',
     '64.233.172.134',
@@ -17,7 +23,8 @@ export default async (request) => {
     '64.233.172.139',
     '64.233.172.140',
     '64.233.172.141',
-    '54.86.217.87',
+    '100.24.167.60',
+    '184.73.68.20',
   ]
 
   const blackRefererList = ['--memoku.netlify.app/']

@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   nitro: {
-    preset: 'netlify-edge',
+    preset: 'netlify',
   },
   devtools: { enabled: false },
   css: [

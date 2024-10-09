@@ -1,8 +1,8 @@
 # 사이트 정보
 [site]
-  site_id = "a962dafe-ebd2-4257-919f-0ac22c2b5237"  # Netlify Site ID
-  site_url = "https://memoku.netlify.app/"     # Site URL (변경해 주세요)
-  admin_url = "https://app.netlify.com/sites/memoku/"  # Admin URL (변경해 주세요)
+  site_id = "a962dafe-ebd2-4257-919f-0ac22c2b5237"
+  site_url = "https://memoku.netlify.app/"
+  admin_url = "https://app.netlify.com/sites/memoku/"
 
 # 빌드 설정
 [build]

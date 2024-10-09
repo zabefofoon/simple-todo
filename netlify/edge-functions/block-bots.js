@@ -21,9 +21,7 @@ export default async (request) => {
     '54.86.217.87',
   ]
 
-  const blackRefererList = [
-    'https://670679f6de18bf000883f531--memoku.netlify.app/',
-  ]
+  const blackRefererList = ['--memoku.netlify.app/']
 
   if (blackIPList.includes(clientIP) || blackRefererList.includes(referer)) {
     return new Response('Access denied', { status: 403 })

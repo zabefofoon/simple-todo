@@ -284,6 +284,8 @@ router.put(
         limit: 1,
       })
 
+      if (rows[0].get('id') === 'id') return
+
       Object.entries(todo).forEach(([key, value]) => {
         if (key !== 'images') rows[0].set(key, `${value}`)
       })
@@ -370,6 +372,8 @@ router.put(
         limit: 1,
       })
 
+      if (rows[0].get('id') === 'id') return
+
       rows[0].set('done', done)
       await rows[0].save()
 
@@ -401,6 +405,8 @@ router.delete(
         offset: index,
         limit: 1,
       })
+
+      if (rows[0].get('id') === 'id') return
 
       await rows[0].delete()
 

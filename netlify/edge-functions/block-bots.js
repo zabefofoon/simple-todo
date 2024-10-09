@@ -7,7 +7,7 @@ export default async (request) => {
     `Blocked IP: ${clientIP}, ${request.headers.get('referer')}, ${userAgent}`
   )
 
-  const blackIPList = []
+  const blackIPList = ['3.81.228.87']
 
   const blackRefererList = ['--memoku.netlify.app/']
 

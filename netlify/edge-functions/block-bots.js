@@ -7,29 +7,17 @@ export default async (request) => {
     `Blocked IP: ${clientIP}, ${request.headers.get('referer')}, ${userAgent}`
   )
 
-  const blackIPList = [
-    '18.208.159.85',
-    '18.208.159.85',
-    '54.90.216.175',
-    '52.201.155.215',
-    '54.86.217.87',
-    '64.233.172.132',
-    '64.233.172.133',
-    '64.233.172.134',
-    '64.233.172.135',
-    '64.233.172.136',
-    '64.233.172.137',
-    '64.233.172.138',
-    '64.233.172.139',
-    '64.233.172.140',
-    '64.233.172.141',
-    '100.24.167.60',
-    '184.73.68.20',
-  ]
+  const blackIPList = []
 
   const blackRefererList = ['--memoku.netlify.app/']
 
-  if (blackIPList.includes(clientIP) || blackRefererList.includes(referer)) {
+  const blackAgentList = ['Amazonbot']
+
+  if (
+    blackIPList.includes(clientIP) ||
+    blackRefererList.includes(referer) ||
+    userAgent.includes(blackAgentList)
+  ) {
     return new Response('Access denied', { status: 403 })
   }
 }

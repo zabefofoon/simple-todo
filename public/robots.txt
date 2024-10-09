@@ -3,3 +3,6 @@ User-agent: *
 Disallow: 
 Disallow: /cgi-bin/
 Sitemap: https://memoku.netlify.app/sitemap.xml
+
+User-agent: Amazonbot
+Disallow: /

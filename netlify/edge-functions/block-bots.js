@@ -17,6 +17,7 @@ export default async (request) => {
     '64.233.172.139',
     '64.233.172.140',
     '64.233.172.141',
+    '54.86.217.87',
   ]
 
   if (blackList.includes(clientIP)) {

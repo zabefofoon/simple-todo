@@ -5,7 +5,6 @@ export default async (request) => {
   console.log(`Blocked IP: ${clientIP}, ${request.headers.get('referer')}`)
 
   const blackIPList = [
-    '2001:4430:c194:f904:a86a:4c01:8fd8:7fc5',
     '18.208.159.85',
     '54.90.216.175',
     '64.233.172.132',

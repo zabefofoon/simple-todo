@@ -25,3 +25,5 @@ logs
 
 docs
 google.secret.json
+# Local Netlify folder
+.netlify

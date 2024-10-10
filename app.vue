@@ -36,11 +36,12 @@ onBeforeMount(() => {
 onMounted(async () => {
   if (route.path === '/google-auth') return
 
+  await todoStore.getAllTodos()
   if (googleStore.googleAccessToken) {
-    await googleStore.getAllTodo()
-    await googleStore.syscTags()
+    googleStore.getAllTodo()
+    googleStore.syscTags()
   }
-  todoStore.getAllTodos()
+
   scrollStore.listenHistoryUpdate()
 
   const channel = new BroadcastChannel('sw-messages')

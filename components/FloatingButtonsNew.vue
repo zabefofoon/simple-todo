@@ -45,7 +45,7 @@ const i18n = useI18n()
 
 const to = computed(() => {
   const query = routerUtil.queryToString(route.query)
-  return route.name === 'calender'
+  return route.query.calendar
     ? `${route.path}?${query}&edit=new&date=${route.query.calendar}`
     : `${route.path}?${query}&edit=new`
 })

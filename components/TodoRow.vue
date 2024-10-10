@@ -1,8 +1,8 @@
 <template>
   <NuxtLink
-    :to="url"
+    ref="nuxtLinkEl"
+    :to="route.query.bulk ? undefined : url"
     :area-label="`Todo ${todo.id}`"
-    v-long-click="() => !route.query.bulk && bulkStore.turnOnBulkMode(todo.id)"
     @mousedown="route.query.bulk && bulkStore.add(todo.id)"
     @contextmenu.prevent>
     <figure
@@ -157,5 +157,13 @@ const url = computed(() => {
 onMounted(() => {
   getLeftUptoHours(props.todo)
   getLeftUptoMinits(props.todo)
+})
+
+const nuxtLinkEl = ref<HTMLAnchorElement>()
+onLongPress(nuxtLinkEl, () => bulkStore.turnOnBulkMode(props.todo.id), {
+  delay: 300,
+  modifiers: {
+    prevent: true,
+  },
 })
 </script>

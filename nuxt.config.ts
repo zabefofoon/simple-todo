@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   ],
 
   modules: [
+    '@vueuse/nuxt',
     '@vite-pwa/nuxt',
     'nuxt-gtag',
     '@nuxtjs/i18n',
@@ -171,10 +172,7 @@ export default defineNuxtConfig({
     },
   },
 
-  plugins: [
-    '~/plugins/dexie.client.ts',
-    '~/plugins/longClick.directive.client.ts',
-  ],
+  plugins: ['~/plugins/dexie.client.ts'],
 
   postcss: {
     plugins: {

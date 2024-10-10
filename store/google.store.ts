@@ -64,7 +64,7 @@ export const useGoogleStore = defineStore(
 
     const openGoogleLoginPopup = async () => {
       const url = await readDataFromSpreadsheet2()
-      if (route.path !== '/google-auth') location.href = url
+      if (route.path !== '/google-auth') location.replace(url)
     }
 
     const updateTodo2 = async (todo: Partial<Todo>) => {

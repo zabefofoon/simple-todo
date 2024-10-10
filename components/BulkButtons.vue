@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed bottom-20 lg:bottom-8 left-1/2 -translate-x-1/2 z-40">
+  <div class="fixed bottom-20 lg:bottom-8 left-1/2 -translate-x-1/2 z-[1001]">
     <ul
       class="flex items-center gap-1 lg:gap-3 | py-3 px-3 lg:px-4 | bg-slate-950 | rounded-full">
       <li>

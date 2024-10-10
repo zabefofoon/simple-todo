@@ -24,10 +24,10 @@ const scrollStore = useScrollStore()
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 const alarmStore = useAlarmStore()
+const googleStore = useGoogleStore()
+
 const { isIos } = useDevice()
 const route = useRoute()
-
-const googleStore = useGoogleStore()
 
 onBeforeMount(() => {
   settingStore.initSetting()

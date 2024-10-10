@@ -1,4 +1,5 @@
 import type { ServerResponse } from '~/models/ServerResponse'
+import type { Tag } from '~/models/Tag'
 import type { Todo } from '~/models/Todo'
 import { useGoogleStore } from '~/store/google.store'
 
@@ -81,6 +82,20 @@ export const useGoogleApi = () => {
         body: {
           index,
           done,
+          sheetId: googleStore.spreadsheetId,
+        },
+        headers: {
+          'x-google-refresh-token': googleStore.googleRefreshToken,
+          'x-google-access-token': googleStore.googleAccessToken,
+        },
+      })
+    },
+
+    syncTags(tags: Tag[]) {
+      return $fetch<ServerResponse<Tag[]>>('/api/spreadsheet/tags', {
+        method: 'post',
+        body: {
+          tags,
           sheetId: googleStore.spreadsheetId,
         },
         headers: {

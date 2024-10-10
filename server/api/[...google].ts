@@ -3,6 +3,7 @@ import { google } from 'googleapis'
 import { createRouter, defineEventHandler, useBase } from 'h3'
 import { FetchError } from 'ofetch'
 import stream from 'stream'
+import { Tag } from '~/models/Tag'
 import { Todo } from '~/models/Todo'
 import { generateUniqueId } from '~/utils/etc'
 import googleUtil from '~/utils/google.util'
@@ -414,6 +415,48 @@ router.delete(
         status: 200,
         message: '',
         result: rows.map((row) => row.toObject()),
+      }
+    } catch (e) {
+      return googleUtil.throwSheetError(e as FetchError)
+    }
+  })
+)
+
+router.post(
+  '/spreadsheet/tags',
+  defineEventHandler(async (event) => {
+    const { tags, sheetId } = await readBody<{ tags: Tag[]; sheetId: string }>(
+      event
+    )
+
+    const oauthClient = googleUtil.createOauthClient(event)
+    try {
+      const doc = new GoogleSpreadsheet(sheetId, oauthClient)
+
+      await doc.loadInfo()
+      const sheet = doc.sheetsByTitle['tags']
+      if (sheet) {
+        const rows = await sheet.getRows()
+        const rowIds = rows.map((row) => row.toObject().id)
+        const filteredTags = tags.filter((tag) => !rowIds.includes(tag.id))
+        await sheet.addRows(filteredTags)
+
+        return {
+          status: 200,
+          message: '',
+          result: [...filteredTags, ...rows.map((row) => row.toObject())],
+        }
+      } else {
+        const newSheet = await doc.addSheet({
+          title: 'tags',
+          headerValues: ['id', 'color', 'label'],
+        })
+        await newSheet.addRows(tags)
+        return {
+          status: 200,
+          message: '',
+          result: tags,
+        }
       }
     } catch (e) {
       return googleUtil.throwSheetError(e as FetchError)

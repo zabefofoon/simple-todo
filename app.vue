@@ -36,7 +36,10 @@ onBeforeMount(() => {
 onMounted(async () => {
   if (route.path === '/google-auth') return
 
-  if (googleStore.googleAccessToken) googleStore.getAllTodo()
+  if (googleStore.googleAccessToken) {
+    await googleStore.getAllTodo()
+    await googleStore.syscTags()
+  }
   todoStore.getAllTodos()
   scrollStore.listenHistoryUpdate()
 

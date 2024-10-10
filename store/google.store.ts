@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { Todo } from '~/models/Todo'
 import etcUtil from '~/utils/etc'
+import { useSettingStore } from './setting.store'
 import { useTodoStore } from './todo.store'
 export const useGoogleStore = defineStore(
   'google',
@@ -8,6 +9,8 @@ export const useGoogleStore = defineStore(
     const route = useRoute()
 
     const todoStore = useTodoStore()
+    const settingStore = useSettingStore()
+
     const googleApi = useGoogleApi()
     const googleTodos = ref<Record<string, string>[]>()
 
@@ -149,6 +152,11 @@ export const useGoogleStore = defineStore(
       todoStore.todos = todoStore.todos?.filter((todo) => !todo.linked) ?? []
     }
 
+    const syscTags = async () => {
+      const res = await googleApi.syncTags(settingStore.setting?.tags ?? [])
+      if (settingStore.setting) settingStore.setting.tags = res.result
+    }
+
     return {
       googleAccessToken,
       setGoogleAccessToken,
@@ -175,6 +183,8 @@ export const useGoogleStore = defineStore(
       doneTodo2,
 
       unLinkGoogle,
+
+      syscTags,
     }
   },
   {

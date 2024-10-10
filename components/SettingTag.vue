@@ -102,7 +102,6 @@ import { Tag } from '~/models/Tag'
 import { useLoadingStore } from '~/store/loading.store'
 import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
-import { useTodoStore } from '~/store/todo.store'
 import { deepClone } from '~/utils/etc'
 
 const i18n = useI18n()
@@ -132,7 +131,7 @@ const removeTag = (index: number) => {
 
   const tags = deepClone(settingStore.setting!.tags)
   tags.splice(index, 1)
-  const result = !tags.length ? undefined : tags
+  const result = !tags.length ? [] : tags
   settingStore.updateSetting('tags', result)
 }
 

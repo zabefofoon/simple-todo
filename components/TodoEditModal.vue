@@ -39,6 +39,7 @@
         :time="time"
         :images="images"
         @save="save"
+        @upload="upload"
         @delete="deleteTodo"
         @done="done"
         @set-date="setDate"
@@ -60,6 +61,7 @@
         :time="time"
         :images="images"
         @save="save"
+        @upload="upload"
         @delete="deleteTodo"
         @done="done"
         @set-date="setDate"
@@ -165,19 +167,16 @@ const setClickedSave = (value: boolean) => (clickedSave.value = value)
 const save = async () => {
   setClickedSave(true)
   const data: Partial<Todo> = {
-    id: isEditMode.value
-      ? toValue(currentTodo)?.id
-      : googleStore.googleAccessToken
-      ? generateUniqueId()
-      : undefined,
+    id: isEditMode.value ? toValue(currentTodo)?.id : undefined,
     description: toValue(description),
     upto: toValue(upto),
     modified: new Date().getTime(),
     images: deepClone(toValue(images)),
-    linked: googleStore.googleAccessToken ? 'google' : undefined,
+    linked: undefined,
     date: upto.value ? date.value : undefined,
     time: upto.value ? time.value : undefined,
     tagId: tagId.value,
+    created: currentTodo.value?.created,
   }
 
   if (!isEditMode.value) {
@@ -191,18 +190,10 @@ const save = async () => {
   }
 
   if (isEditMode.value) {
-    if (currentTodo.value?.linked) {
-      googleStore.updateTodo2(data)
-    } else {
-      todoStore.updateTodo(String(route.query.edit), data)
-    }
+    todoStore.updateTodo(String(route.query.edit), data)
   } else {
-    if (googleStore.googleAccessToken) {
-      googleStore.addTodo2(data)
-    } else {
-      await todoStore.addTodo(<Todo>data)
-      todoStore.todos?.push(Todo.of(data))
-    }
+    await todoStore.addTodo(<Todo>data)
+    todoStore.todos?.push(Todo.of(data))
   }
 
   if (isChanged.value) {
@@ -218,6 +209,59 @@ const save = async () => {
       unregistAlarm(String(route.query.edit))
   }
   emit('update')
+  router.back()
+}
+
+const upload = async () => {
+  setClickedSave(true)
+  const translateId = isNaN(Number(currentTodo.value?.id))
+    ? currentTodo.value?.id
+    : generateUniqueId()
+  const data: Partial<Todo> = {
+    id: isEditMode.value ? translateId : generateUniqueId(),
+    description: toValue(description),
+    upto: toValue(upto),
+    modified: new Date().getTime(),
+    images: deepClone(toValue(images)),
+    linked: 'google',
+    date: upto.value ? date.value : undefined,
+    time: upto.value ? time.value : undefined,
+    tagId: tagId.value,
+    created: currentTodo.value?.created,
+  }
+
+  if (!isEditMode.value) {
+    const now = new Date()
+    const customDate = new Date(String(route.query.date))
+    customDate.setHours(now.getHours())
+    customDate.setMinutes(now.getMinutes())
+    customDate.setSeconds(now.getSeconds())
+
+    data.created = route.query.date ? customDate.getTime() : now.getTime()
+  }
+
+  isEditMode.value ? googleStore.updateTodo2(data) : googleStore.addTodo2(data)
+
+  if (isChanged.value) {
+    if (upto.value) {
+      const isAfter = new Date(`${date.value} ${time.value}`) > new Date()
+      if (isAfter) registAlarm(data)
+
+      if (isEditMode.value) {
+        alarmStore.removeNewAlarm(String(route.query.edit))
+        alarmStore.removeReadNewAlarms(String(route.query.edit))
+      }
+    } else if (route.query.edit !== 'new')
+      unregistAlarm(String(route.query.edit))
+  }
+  emit('update')
+
+  if (!todoStore.todos?.find(({ id }) => id === data.id)) {
+    todoStore.todos?.push(Todo.of(data))
+    router.replace(`/`)
+    return
+  }
+
   router.back()
 }
 

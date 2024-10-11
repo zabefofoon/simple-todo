@@ -63,7 +63,6 @@ export const useTodoStore = defineStore('todo', () => {
   const updateTodo = async (id: string, todo: Partial<Todo>) => {
     const found = todos.value?.find(({ id }) => id == todo.id)
     if (found) Object.assign(found, todo)
-    console.log('todo: ', todo)
     await todoApi.updateTodo(id, todo)
   }
   const addTodo = async (todo: Todo) => {

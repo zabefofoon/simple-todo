@@ -285,8 +285,6 @@ router.put(
         limit: 1,
       })
 
-      if (rows[0].get('id') === 'id') return
-
       Object.entries(todo).forEach(([key, value]) => {
         if (key !== 'images') rows[0].set(key, `${value}`)
       })
@@ -342,6 +340,17 @@ router.put(
 
       rows[0].set('images', images.join(','))
 
+      if (index === -1) {
+        todo.images = images.join(',')
+        await sheet.addRow(todo)
+
+        return {
+          status: 200,
+          message: 'Uploaded',
+          result: [],
+        }
+      }
+
       await rows[0].save()
 
       return {
@@ -373,7 +382,12 @@ router.put(
         limit: 1,
       })
 
-      if (rows[0].get('id') === 'id') return
+      if (rows[0].get('id') === 'id')
+        return {
+          status: 404,
+          message: 'Not Found',
+          result: [],
+        }
 
       rows[0].set('done', done)
       await rows[0].save()
@@ -407,7 +421,12 @@ router.delete(
         limit: 1,
       })
 
-      if (rows[0].get('id') === 'id') return
+      if (rows[0].get('id') === 'id')
+        return {
+          status: 404,
+          message: 'Not Found',
+          result: [],
+        }
 
       await rows[0].delete()
 

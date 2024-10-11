@@ -180,12 +180,30 @@
         <!-- 삭제 -->
 
         <!-- 저장 -->
-        <button
-          name="Save"
-          class="hidden lg:block | bg-slate-800 | text-white rounded-full | px-5 py-1 ml-auto"
-          @click="emit('save')">
-          <span class="text-white whitespace-nowrap">{{ i18n.t('Save') }}</span>
-        </button>
+        <div class="flex-shrink-0 | flex gap-1.5">
+          <button
+            name="Save"
+            class="flex items-center gap-2 | bg-slate-700 text-white | rounded-full | px-4 py-1 ml-auto"
+            @click="emit('save')">
+            <i class="icon icon-lock"></i>
+            <span class="whitespace-nowrap">
+              {{ i18n.t('Save') }}
+            </span>
+          </button>
+          <button
+            v-if="googleStore.googleAccessToken"
+            name="Upload"
+            class="flex items-center gap-1.5 | bg-violet-600 | rounded-full | px-4 py-1"
+            @click="emit('upload')">
+            <img
+              class="flex-shrink-0 | w-3.5"
+              src="~/assets/images/google.svg" />
+            <span class="flex-shrink-0 | text-white whitespace-nowrap">
+              {{ i18n.t('Upload') }}
+            </span>
+          </button>
+        </div>
+
         <!-- 저장 -->
       </div>
       <div class="flex gap-4 | h-full | overflow-hidden">
@@ -240,6 +258,7 @@
 
 <script setup lang="ts">
 import { Todo } from '~/models/Todo'
+import { useGoogleStore } from '~/store/google.store'
 import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 
@@ -255,6 +274,7 @@ defineProps<{
 
 const emit = defineEmits<{
   (e: 'save'): void
+  (e: 'upload'): void
   (e: 'delete'): void
   (e: 'done'): void
   (e: 'change-form', event: Event): void
@@ -272,4 +292,5 @@ const i18n = useI18n()
 
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
+const googleStore = useGoogleStore()
 </script>

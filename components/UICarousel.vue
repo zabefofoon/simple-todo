@@ -158,7 +158,7 @@ onMounted(() => {
     setCurrentIndex(index)
   })
 
-  toValue(emblaApi)?.on('slidesInView', () => {
+  toValue(emblaApi)?.on('scroll', () => {
     const el = emblaRef.value?.getElementsByClassName(
       'embla__container'
     )[0] as HTMLDivElement

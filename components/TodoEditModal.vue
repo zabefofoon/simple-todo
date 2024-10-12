@@ -166,8 +166,12 @@ const clickedSave = ref(false)
 const setClickedSave = (value: boolean) => (clickedSave.value = value)
 const save = async () => {
   setClickedSave(true)
+  const translateId = isNaN(Number(currentTodo.value?.id))
+    ? undefined
+    : currentTodo.value?.id
+
   const data: Partial<Todo> = {
-    id: isEditMode.value ? toValue(currentTodo)?.id : undefined,
+    id: isEditMode.value ? translateId : undefined,
     description: toValue(description),
     upto: toValue(upto),
     modified: new Date().getTime(),
@@ -190,7 +194,10 @@ const save = async () => {
   }
 
   if (isEditMode.value) {
-    todoStore.updateTodo(String(route.query.edit), data)
+    if (!data.id) {
+      await todoStore.addTodo(<Todo>data)
+      todoStore.todos?.push(Todo.of(data))
+    } else todoStore.updateTodo(String(route.query.edit), data)
   } else {
     await todoStore.addTodo(<Todo>data)
     todoStore.todos?.push(Todo.of(data))
@@ -209,6 +216,12 @@ const save = async () => {
       unregistAlarm(String(route.query.edit))
   }
   emit('update')
+
+  if (isNaN(Number(currentTodo.value?.id))) {
+    router.replace(`/`)
+    return
+  }
+
   router.back()
 }
 

@@ -151,29 +151,29 @@ router.get(
 
       const rows = await sheet.getRows()
 
-      if (!isImageCleaned) {
-        const folderId = await googleUtil.findFolder(
-          oauthClient,
-          'MEMOKU_IMAGES'
-        )
+      // if (!isImageCleaned) {
+      //   const folderId = await googleUtil.findFolder(
+      //     oauthClient,
+      //     'MEMOKU_IMAGES'
+      //   )
 
-        if (folderId) {
-          const imageIds = rows
-            .map((row) => row.get('images'))
-            .flatMap((item) => item.match(/(?<=id=)[^&]+/gi))
+      //   if (folderId) {
+      //     const imageIds = rows
+      //       .map((row) => row.get('images'))
+      //       .flatMap((item) => item.match(/(?<=id=)[^&]+/gi))
 
-          const list = await googleUtil.listFilesInFolder(oauthClient, folderId)
-          const noUsedImages = list.filter(
-            (item): item is string => !imageIds.includes(item)
-          )
+      //     const list = await googleUtil.listFilesInFolder(oauthClient, folderId)
+      //     const noUsedImages = list.filter(
+      //       (item): item is string => !imageIds.includes(item)
+      //     )
 
-          googleUtil.deleteFiles(oauthClient, noUsedImages)
-        }
+      //     googleUtil.deleteFiles(oauthClient, noUsedImages)
+      //   }
 
-        setCookie(event, 'x-image-cleaned', 'true', {
-          maxAge: 60 * 60 * 24,
-        })
-      }
+      //   setCookie(event, 'x-image-cleaned', 'true', {
+      //     maxAge: 60 * 60 * 24,
+      //   })
+      // }
 
       return {
         status: 200,

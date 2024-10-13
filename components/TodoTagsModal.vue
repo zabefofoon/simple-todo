@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <nav class="fixed right-4 bottom-4 z-10">
+    <nav class="fixed right-3 bottom-4 z-10 | flex flex-col gap-1">
       <FloatingButtonsSearch />
       <FloatingButtonsNew />
     </nav>

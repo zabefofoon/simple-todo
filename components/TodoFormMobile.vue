@@ -83,7 +83,7 @@
     </div>
     <!-- 양식 & 태그 -->
 
-    <div class="w-full flex flex-col gap-4 | relative">
+    <div class="w-full h-full | flex flex-col gap-4 | relative">
       <div
         class="w-full | px-2 | absolute top-1 right-0 | flex items-center justify-between">
         <button
@@ -108,7 +108,7 @@
       </div>
       <textarea
         :value="description"
-        class="w-full h-[60vh] | border rounded-lg | resize-none | p-2"
+        class="w-full h-full | border rounded-lg | resize-none | p-2"
         :class="[
           { 'pt-6': todo },
           storageStore.getThemeClass(

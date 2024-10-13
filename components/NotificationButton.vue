@@ -5,7 +5,7 @@
         v-if="alarmStore.hasUnReadNewAlarms"
         class="absolute top-[1px] left-[1px] | aspect-square w-2 | bg-red-500 | rounded-full"></div>
       <i
-        class="icon icon-notification | text-2xl"
+        class="icon icon-notification | text-xl"
         :class="storageStore.getThemeClass('', 'text-white')"></i>
     </button>
   </NuxtLink>

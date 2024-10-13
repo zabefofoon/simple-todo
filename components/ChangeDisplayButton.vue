@@ -8,11 +8,11 @@
     ">
     <i
       v-if="storageStore.display === 'thumbnail'"
-      class="icon icon-grid | text-lg"
+      class="icon icon-grid | text-xl"
       :class="storageStore.getThemeClass('', 'text-white')"></i>
     <i
       v-else
-      class="icon icon-row | text-lg"
+      class="icon icon-row | text-xl"
       :class="storageStore.getThemeClass('', 'text-white')"></i>
   </button>
 </template>

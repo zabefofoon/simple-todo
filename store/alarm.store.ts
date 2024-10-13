@@ -62,7 +62,7 @@ export const useAlarmStore = defineStore(
     persist: {
       paths: ['newAlarms', 'readNewAlarms'],
       storage: persistedState.cookiesWithOptions({
-        expires: etcUtil.getCookieExpires(),
+        expires: etcUtil.getCookieExpiresNYears(10),
       }),
     },
   }

@@ -44,11 +44,16 @@ export const setCookie = (name: string, value: string, days: number) => {
   document.cookie = name + '=' + value + expires + '; path=/'
 }
 
-const getCookieExpires = () => {
+const getCookieExpiresNYears = (year: number) => {
   const expires = new Date()
-  expires.setFullYear(expires.getFullYear() + 10)
+  expires.setFullYear(expires.getFullYear() + year)
   return expires
-  
+}
+
+const getCookieExpiresNDays = (days: number) => {
+  const date = new Date()
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
+  return date
 }
 
 export default {
@@ -58,5 +63,6 @@ export default {
   deepClone,
   getCookie,
   setCookie,
-  getCookieExpires
+  getCookieExpiresNYears,
+  getCookieExpiresNDays,
 }

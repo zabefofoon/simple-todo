@@ -48,7 +48,11 @@ export const useGoogleStore = defineStore(
         const todos = response?.result
           .map(Todo.spreadsheetOf)
           .sort((a, b) => Number(b.created) - Number(a.created))
-        todoStore.todos?.push(...todos)
+
+        todoStore.todos
+          ? todoStore.todos.push(...todos)
+          : (todoStore.todos = todos)
+
         setGoogleInited(true)
       } else if (response.status === 404) {
         const response = await googleApi.createSpreadsheet2()
@@ -154,7 +158,7 @@ export const useGoogleStore = defineStore(
 
     const syscTags = async () => {
       const res = await googleApi.syncTags(settingStore.setting?.tags ?? [])
-      if (settingStore.setting) settingStore.setting.tags = res.result
+      if (settingStore.setting) settingStore.setting.tags = res.result ?? []
     }
 
     return {
@@ -191,7 +195,7 @@ export const useGoogleStore = defineStore(
     persist: {
       paths: ['googleRefreshToken', 'googleAccessToken', 'spreadsheetId'],
       storage: persistedState.cookiesWithOptions({
-        expires: etcUtil.getCookieExpires(),
+        expires: etcUtil.getCookieExpiresNYears(10),
       }),
     },
   }

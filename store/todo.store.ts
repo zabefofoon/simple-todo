@@ -15,16 +15,21 @@ export const useTodoStore = defineStore('todo', () => {
   const todos = ref<Todo[]>()
 
   const getAllTodos = async (refresh?: boolean) => {
-    if (toValue(todos) && !refresh) return toValue(todos)
+    if (todos.value && !refresh) {
+      loadingStore.setTodoLoading(false)
+      return todos.value
+    }
 
     loadingStore.withTodoLoading(async () => {
       const data = await todoApi.getAllTodos()
 
       if (!data) return
 
-      todos.value = Todo.map(data).sort(
+      const _todos = Todo.map(data).sort(
         (a, b) => Number(b.created) - Number(a.created)
       )
+
+      todos.value = [...(todos.value ?? []), ..._todos]
 
       if (!data.length) {
         const defaultTodo = Todo.of({
@@ -38,9 +43,10 @@ export const useTodoStore = defineStore('todo', () => {
       if (process.client && Notification.permission !== 'granted')
         await Notification.requestPermission()
     })
+
     loadingStore.setTodoLoading(false)
 
-    return toValue(todos)
+    return todos.value
   }
 
   const doneTodo = async (id: string, done?: boolean) => {

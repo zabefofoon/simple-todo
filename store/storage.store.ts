@@ -111,7 +111,7 @@ export const useStorageStore = defineStore(
     persist: {
       paths: ['language', 'display', 'isSNBExpanded'],
       storage: persistedState.cookiesWithOptions({
-        expires: etcUtil.getCookieExpires(),
+        expires: etcUtil.getCookieExpiresNYears(10),
       }),
     },
   }

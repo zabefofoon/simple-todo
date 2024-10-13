@@ -17,7 +17,7 @@ export const useRefreshTokenStore = defineStore(
     persist: {
       paths: ['googleRefreshToken'],
       storage: persistedState.cookiesWithOptions({
-        expires: etcUtil.getCookieExpires(),
+        expires: etcUtil.getCookieExpiresNYears(10),
       }),
     },
   }

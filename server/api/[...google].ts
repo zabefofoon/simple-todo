@@ -5,7 +5,7 @@ import { FetchError } from 'ofetch'
 import stream from 'stream'
 import { Tag } from '~/models/Tag'
 import { Todo } from '~/models/Todo'
-import { generateUniqueId } from '~/utils/etc'
+import etcUtil, { generateUniqueId } from '~/utils/etc'
 import googleUtil from '~/utils/google.util'
 
 const router = createRouter()
@@ -50,10 +50,16 @@ router.get(
 
     oauth2Client.setCredentials(tokens)
 
-    if (tokens.refresh_token)
-      setCookie(event, 'x-google-refresh-token', tokens.refresh_token)
-    if (tokens.access_token)
-      setCookie(event, 'x-google-access-token', tokens.access_token)
+    if (tokens.refresh_token) {
+      setCookie(event, 'x-google-refresh-token', tokens.refresh_token, {
+        expires: etcUtil.getCookieExpiresNYears(100),
+      })
+    }
+    if (tokens.access_token) {
+      setCookie(event, 'x-google-access-token', tokens.access_token, {
+        expires: etcUtil.getCookieExpiresNDays(3),
+      })
+    }
 
     const url = tokens.refresh_token
       ? `/google-auth?accessToken=${tokens.access_token}&refreshToken=${
@@ -140,7 +146,7 @@ router.get(
   '/spreadsheet/rows',
   defineEventHandler(async (event) => {
     const { sheetId } = getQuery(event)
-    const isImageCleaned = getCookie(event, 'x-image-cleaned')
+    // const isImageCleaned = getCookie(event, 'x-image-cleaned')
 
     const oauthClient = googleUtil.createOauthClient(event)
 

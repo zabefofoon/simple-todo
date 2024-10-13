@@ -24,7 +24,7 @@ export const useGuideStore = defineStore(
     persist: {
       paths: ['isShowAddGuide', 'isShowAddHomeGuide'],
       storage: persistedState.cookiesWithOptions({
-        expires: etcUtil.getCookieExpires(),
+        expires: etcUtil.getCookieExpiresNYears(10),
       }),
     },
   }

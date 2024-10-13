@@ -14,12 +14,7 @@ export const useTodoStore = defineStore('todo', () => {
 
   const todos = ref<Todo[]>()
 
-  const getAllTodos = async (refresh?: boolean) => {
-    if (todos.value && !refresh) {
-      loadingStore.setTodoLoading(false)
-      return todos.value
-    }
-
+  const getAllTodos = async () => {
     loadingStore.withTodoLoading(async () => {
       const data = await todoApi.getAllTodos()
 

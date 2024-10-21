@@ -23,7 +23,7 @@
         </div>
         <div class="flex flex-col gap-4 | h-full">
           <Clock />
-          <HomeCalendar />
+          <HomeCalendar v-if="settingStore.screen === 'lg'" />
         </div>
         <div v-if="settingStore.screen !== 'lg'" class="w-full | lg:hidden">
           <Summary />

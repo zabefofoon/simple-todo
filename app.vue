@@ -45,8 +45,6 @@ onMounted(async () => {
 
   await todoStore.getAllTodos()
 
-  scrollStore.listenHistoryUpdate()
-
   const channel = new BroadcastChannel('sw-messages')
   channel.addEventListener('message', (event) => {
     if (event.data?.type === 'notification') {

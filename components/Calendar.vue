@@ -29,7 +29,7 @@
               <li
                 v-for="todo in todoStore.todos
                   ?.filter((todo) => todo.createdDate === data.day.id)
-                  .slice(0, 3)"
+                  .slice(0, slice)"
                 :key="todo.id"
                 class="flex | w-full overflow-hidden | border rounded-lg | p-0.5 | relative"
                 :class="storageStore.getThemeClass('', 'border-slate-700')">
@@ -56,6 +56,15 @@
 import { Calendar } from 'v-calendar'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
+
+withDefaults(
+  defineProps<{
+    slice: number
+  }>(),
+  {
+    slice: 3,
+  }
+)
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()

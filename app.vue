@@ -11,6 +11,7 @@
 <script setup lang="ts">
 import type { Theme } from './models/Setting'
 import { useAlarmStore } from './store/alarm.store'
+import { useBulkStore } from './store/bulk.store'
 import { useGoogleStore } from './store/google.store'
 import { useScrollStore } from './store/scroll.store'
 import { useSettingStore } from './store/setting.store'
@@ -25,6 +26,7 @@ const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 const alarmStore = useAlarmStore()
 const googleStore = useGoogleStore()
+const bulkStore = useBulkStore()
 
 const { isIos } = useDevice()
 const route = useRoute()
@@ -126,5 +128,12 @@ watch(
           ?.setAttribute('content', value === 'dark' ? '#0f172a' : '#ffffff')
     }),
   { immediate: true }
+)
+
+watch(
+  () => route.query,
+  (query) => {
+    if (!query.bulk) bulkStore.emptyTodoIds()
+  }
 )
 </script>

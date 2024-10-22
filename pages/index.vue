@@ -21,9 +21,11 @@
           <RecentTodos />
           <Summary v-if="settingStore.screen === 'lg'" class="hidden lg:flex" />
         </div>
-        <div class="flex flex-col gap-4 | h-full">
+        <div
+          v-if="settingStore.screen === 'lg'"
+          class="flex flex-col gap-4 | h-full">
           <Clock />
-          <HomeCalendar v-if="settingStore.screen === 'lg'" />
+          <HomeCalendar />
         </div>
         <div v-if="settingStore.screen !== 'lg'" class="w-full | lg:hidden">
           <Summary />

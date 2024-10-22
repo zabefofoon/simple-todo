@@ -1,6 +1,6 @@
 <template>
   <div
-    class="lg:h-full max-h-[100vw] | overflow-auto | flex flex-col gap-5 | border rounded-lg | p-2 lg:p-3"
+    class="lg:h-full lg:max-h-[100vw] | overflow-auto | flex flex-col gap-5 | border rounded-lg | p-2 lg:p-3"
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <div class="font-bold">
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
@@ -12,6 +12,7 @@
         {{ i18n.t('Recent') }}
       </NuxtLink>
     </div>
+
     <template v-if="loadingStore.todoLoading">
       <div
         v-if="storageStore.display === 'thumbnail'"
@@ -52,6 +53,7 @@
 import type { Todo } from '~/models/Todo'
 import { useGoogleStore } from '~/store/google.store'
 import { useLoadingStore } from '~/store/loading.store'
+import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
@@ -61,11 +63,12 @@ const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
 const googleStore = useGoogleStore()
+const settingStore = useSettingStore()
 
 const recentTodos = computed(() =>
   todoStore.todos
     ?.sort((a, b) => Number(b.modified) - Number(a.modified))
-    .slice(0, 12)
+    .slice(0, settingStore.screen === 'lg' ? 12 : 4)
 )
 
 const deleteTodo = (todo: Todo) => {

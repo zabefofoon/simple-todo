@@ -41,7 +41,9 @@
               <div
                 class="p-2 lg:p-4 | font-bold | flex items-center gap-1.5"
                 :class="storageStore.getThemeClass('', 'text-white')">
-                <NuxtLink :to="`${route.path}?tags=${tag.id}`">
+                <NuxtLink
+                  class="flex items-center gap-1.5"
+                  :to="`${route.path}?tags=${tag.id}`">
                   #{{ tag.label }}
                   <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
                 </NuxtLink>
@@ -74,7 +76,9 @@
               v-if="!route.query.tag"
               class="p-2 lg:p-4 | font-bold | flex items-center gap-1.5"
               :class="storageStore.getThemeClass('', 'text-white')">
-              <NuxtLink :to="`${route.path}?tags=memo`">
+              <NuxtLink
+                class="flex items-center gap-1.5"
+                :to="`${route.path}?tags=memo`">
                 #memo
                 <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
               </NuxtLink>

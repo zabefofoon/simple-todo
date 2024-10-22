@@ -20,7 +20,7 @@
       <option value="ko" :class="storageStore.getThemeClass('', 'text-white')">
         한국어
       </option>
-      <option value="jp" :class="storageStore.getThemeClass('', 'text-white')">
+      <option value="ja" :class="storageStore.getThemeClass('', 'text-white')">
         日本語
       </option>
     </select>

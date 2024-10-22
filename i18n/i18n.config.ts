@@ -2,8 +2,8 @@ import { getCookie } from 'h3'
 import etcUtil from '~/utils/etc'
 
 import en from './en.json'
+import ja from './jp.json'
 import ko from './ko.json'
-import jp from './jp.json'
 
 export default defineI18nConfig(() => {
   const event = useRequestEvent()
@@ -13,7 +13,7 @@ export default defineI18nConfig(() => {
     locales: [
       { code: 'en', iso: 'en-US', name: 'English' },
       { code: 'ko', iso: 'ko-KR', name: '한국어' },
-      { code: 'jp', iso: 'ja-JP', name: '日本語' },
+      { code: 'ja', iso: 'ja-JP', name: '日本語' },
     ],
     locale: process.client
       ? JSON.parse(etcUtil.getCookie('storage') || '{}')?.language || 'en'
@@ -21,10 +21,10 @@ export default defineI18nConfig(() => {
     messages: {
       'en-US': en,
       'ko-KR': ko,
-      'ja-JP': ko,
+      'ja-JP': ja,
       en,
       ko,
-      jp,
+      ja,
     },
   }
 })

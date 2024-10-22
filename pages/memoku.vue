@@ -22,15 +22,9 @@
         class="text-sm"
         v-model="storageStore.language"
         @change="changeLanguage">
-        <option value="en">
-          English
-        </option>
-        <option value="ko">
-          한국어
-        </option>
-        <option value="jp">
-          日本語
-        </option>
+        <option value="en">English</option>
+        <option value="ko">한국어</option>
+        <option value="ja">日本語</option>
       </select>
     </div>
   </header>
@@ -264,8 +258,8 @@ useHead({
   link: [
     {
       rel: 'canonical',
-      href: 'https://memoku.netlify.app/memoku'
-    }
+      href: 'https://memoku.netlify.app/memoku',
+    },
   ],
   script: [
     {

@@ -1,6 +1,7 @@
 <template>
   <div>
     <Calendar
+      :locale="storageStore.language"
       expanded
       v-model="date"
       :attributes="attrs"

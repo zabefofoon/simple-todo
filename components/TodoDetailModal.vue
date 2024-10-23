@@ -80,7 +80,7 @@
         <div
           class="w-full h-full | flex flex-col | relative"
           :class="
-            currentTodo?.images.length
+            currentTodo?.images?.length
               ? 'max-h-[calc(100%-116px)] lg:max-h-[100%]'
               : ''
           ">

@@ -1,6 +1,7 @@
 <template>
   <NuxtLink
     ref="nuxtLinkEl"
+    :key="`${bulkStore.selectedTodoIds.includes(todo.id)}`"
     :to="route.query.bulk ? undefined : url"
     :area-label="`Todo ${todo.id}`"
     @mousedown="route.query.bulk && bulkStore.add(todo.id)"

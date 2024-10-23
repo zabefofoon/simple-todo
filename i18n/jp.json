@@ -103,5 +103,6 @@
   "DoDelete": "削除",
   "Google": "Google",
   "SpreadsheetLink": "連動する",
-  "Upload": "アップロード"
+  "Upload": "アップロード",
+  "ImageLimit": "写真は最大5枚まで選択可能です。"
 }

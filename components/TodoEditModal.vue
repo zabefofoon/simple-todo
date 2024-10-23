@@ -162,6 +162,23 @@ const setTag = (event: Event) => {
   tagId.value = value
 }
 
+const base64ToBlob = (base64: string, mimeType = 'image/webp') => {
+  // Base64 문자열에서 헤더 부분을 제거 (만약 포함되어 있다면)
+  let byteString = atob(base64.split(',')[1])
+
+  // 바이너리 데이터를 저장할 배열 생성
+  let arrayBuffer = new ArrayBuffer(byteString.length)
+  let uint8Array = new Uint8Array(arrayBuffer)
+
+  // Base64 문자열을 바이너리로 변환하여 배열에 저장
+  for (let i = 0; i < byteString.length; i++) {
+    uint8Array[i] = byteString.charCodeAt(i)
+  }
+
+  // Blob 생성
+  return new Blob([uint8Array], { type: mimeType })
+}
+
 const clickedSave = ref(false)
 const setClickedSave = (value: boolean) => (clickedSave.value = value)
 const save = async () => {
@@ -175,7 +192,7 @@ const save = async () => {
     description: toValue(description),
     upto: toValue(upto),
     modified: new Date().getTime(),
-    images: deepClone(toValue(images)),
+    images: images.value.map((image) => base64ToBlob(image)),
     linked: undefined,
     date: upto.value ? date.value : undefined,
     time: upto.value ? time.value : undefined,
@@ -387,6 +404,11 @@ const fileChangeHandler = (event: Event): void => {
   const files = input.files
 
   if (!files) return
+
+  if (files.length > 5) {
+    alert(i18n.t('ImageLimit'))
+    input.value = ''
+  }
 
   Array.from(files).forEach((file: File) => {
     if (file && file.type.startsWith('image/')) {

@@ -11,7 +11,7 @@ export class Todo {
   created?: number
   done?: boolean
   modified?: number
-  images?: string[]
+  images?: (string | Blob)[]
   linked?: 'google'
 
   constructor(todo: Partial<Todo>) {

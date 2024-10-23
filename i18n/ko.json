@@ -103,5 +103,6 @@
   "DoDelete": "삭제하기",
   "Google": "구글",
   "SpreadsheetLink": "연동하기",
-  "Upload": "업로드"
+  "Upload": "업로드",
+  "ImageLimit": "사진은 최대 5개까지만 선택 가능합니다."
 }

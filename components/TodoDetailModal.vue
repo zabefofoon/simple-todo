@@ -139,25 +139,25 @@
             drag-free>
             <UICarouselSlide
               v-for="(image, index) in currentTodo?.images"
-              :key="image"
+              :key="index"
               class="w-[200px] h-[200px] | border rounded-lg overflow-hidden | relative | cursor-grab"
               :class="storageStore.getThemeClass('', 'border-slate-700')"
               @click="showImageModal(index)">
               <img
                 class="w-full h-full | object-cover object-center"
-                :src="image" />
+                :src="imageSrc(image)" />
             </UICarouselSlide>
           </UICarousel>
           <UICarousel v-else class="w-full" drag-free perview="auto" gap="6px">
             <UICarouselSlide
               v-for="(image, index) in currentTodo?.images"
-              :key="image"
+              :key="index"
               class="w-[80px] h-[80px] | border rounded-lg overflow-hidden | relative"
               :class="storageStore.getThemeClass('', 'border-slate-700')"
               @click="showImageModal(index)">
               <img
                 class="w-full h-full | object-cover object-center"
-                :src="image" />
+                :src="imageSrc(image)" />
             </UICarouselSlide>
           </UICarousel>
         </div>
@@ -285,7 +285,9 @@ const loadData = async () => {
     )
   }
 }
-
+const imageSrc = (image: string | Blob) => {
+  return typeof image === 'string' ? image : URL.createObjectURL(image)
+}
 onMounted(() => {
   loadData()
 })

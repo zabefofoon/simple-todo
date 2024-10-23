@@ -147,6 +147,12 @@ const updateSelectedSnapDisplay = (snapDisplay: HTMLElement) => {
 }
 
 const trackPos = ref<string>('')
+const setTrackPos = () => {
+  const el = emblaRef.value?.getElementsByClassName(
+    'embla__container'
+  )[0] as HTMLDivElement
+  if (el) trackPos.value = el.style.transform
+}
 
 onMounted(() => {
   if (props.useDots) addDotBtnsAndClickHandlers(dotsNode.value!)
@@ -158,12 +164,8 @@ onMounted(() => {
     setCurrentIndex(index)
   })
 
-  toValue(emblaApi)?.on('scroll', () => {
-    const el = emblaRef.value?.getElementsByClassName(
-      'embla__container'
-    )[0] as HTMLDivElement
-    if (el) trackPos.value = el.style.transform
-  })
+  setTrackPos()
+  toValue(emblaApi)?.on('scroll', () => setTrackPos())
 })
 
 onBeforeUnmount(() => {

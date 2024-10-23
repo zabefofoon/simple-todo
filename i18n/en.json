@@ -103,5 +103,6 @@
   "DoDelete": "Delete",
   "Google": "Google",
   "SpreadsheetLink": "Link",
-  "Upload": "Upload"
+  "Upload": "Upload",
+  "ImageLimit": "Up to 5 photos can be selected."
 }

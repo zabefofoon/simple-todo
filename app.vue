@@ -34,6 +34,7 @@ onBeforeMount(() => {
 })
 
 onMounted(async () => {
+  if (route.query.recoverData) return
   if (route.path === '/google-auth') return
 
   if (googleStore.googleAccessToken) {

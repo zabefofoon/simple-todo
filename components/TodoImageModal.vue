@@ -8,12 +8,12 @@
     @close="emit('close')">
     <UICarousel use-dots gap="6px" :start-index="startIndex">
       <UICarouselSlide
-        v-for="image in todo?.images"
-        :key="image"
+        v-for="(image, index) in todo?.images"
+        :key="index"
         class="w-full aspect-square lg:aspect-video">
         <img
           class="w-full h-full | object-contain object-center"
-          :src="image" />
+          :src="imageSrc(image)" />
       </UICarouselSlide>
     </UICarousel>
   </UIModal>
@@ -33,4 +33,8 @@ const emit = defineEmits<{
 }>()
 
 const storageStore = useStorageStore()
+
+const imageSrc = (image: string | Blob) => {
+  return typeof image === 'string' ? image : URL.createObjectURL(image)
+}
 </script>

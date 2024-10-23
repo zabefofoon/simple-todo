@@ -134,7 +134,9 @@
         :key="image"
         class="w-[80px] h-[80px] | border rounded-lg overflow-hidden | relative"
         :class="storageStore.getThemeClass('', 'border-slate-700')">
-        <img class="w-full h-full | object-cover object-center" :src="image" />
+        <img
+          class="w-full h-full | object-cover object-center"
+          :src="imageSrc(image)" />
         <button
           class="flex | bg-slate-800 text-white | absolute top-0.5 right-0.5 | rounded-full p-0.5"
           @click="emit('delete-image', index)">
@@ -253,4 +255,8 @@ const i18n = useI18n()
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 const googleStore = useGoogleStore()
+
+const imageSrc = (image: string | Blob) => {
+  return typeof image === 'string' ? image : URL.createObjectURL(image)
+}
 </script>

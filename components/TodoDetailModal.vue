@@ -77,7 +77,8 @@
     <template v-else>
       <div
         class="safe-area-margin-bottom | flex flex-col lg:flex-row gap-3 | h-full overflow-hidden | p-3 lg:p-4">
-        <div class="w-full h-full flex flex-col | relative">
+        <div
+          class="w-full h-full max-h-[calc(100%-116px)] lg:max-h-[100%] | flex flex-col | relative">
           <div
             class="whitespace-pre-wrap | border rounded-lg | overflow-auto h-full resize-none | p-2"
             :class="[

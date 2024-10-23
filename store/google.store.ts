@@ -157,7 +157,9 @@ export const useGoogleStore = defineStore(
     }
 
     const syscTags = async () => {
-      const res = await googleApi.syncTags(settingStore.setting?.tags ?? [])
+      const res = await googleApi.syncTags(
+        settingStore.setting?.tags.filter((tag) => !tag.excludeUpload) ?? []
+      )
       if (settingStore.setting) settingStore.setting.tags = res.result ?? []
     }
 

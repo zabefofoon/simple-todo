@@ -4,6 +4,7 @@ export class Tag {
   id?: string = generateUniqueId()
   color = ''
   label = ''
+  excludeUpload = false
 
   constructor(tag: Partial<Tag>) {
     Object.assign(this, tag)

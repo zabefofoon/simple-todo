@@ -192,7 +192,9 @@ const save = async () => {
     description: toValue(description),
     upto: toValue(upto),
     modified: new Date().getTime(),
-    images: images.value.map((image) => base64ToBlob(image)),
+    images: images.value.map((image) =>
+      typeof image === 'string' ? base64ToBlob(image) : image
+    ),
     linked: undefined,
     date: upto.value ? date.value : undefined,
     time: upto.value ? time.value : undefined,

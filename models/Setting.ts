@@ -12,8 +12,8 @@ export class Setting {
   constructor(setting?: Partial<Setting>) {
     this.id = setting?.id
     this.tags = setting?.tags || [
-      Tag.of({ label: 'Work', color: '#4834d4' }),
-      Tag.of({ label: 'Promise', color: '#eb4d4b' }),
+      Tag.of({ label: 'Work', color: '#4834d4', excludeUpload: true }),
+      Tag.of({ label: 'Promise', color: '#eb4d4b', excludeUpload: true }),
     ]
     this.forms = setting?.forms || [
       Form.of({ title: 'Basic', description: 'Title:\n\nDescription:' }),

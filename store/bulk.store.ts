@@ -1,10 +1,14 @@
 import { defineStore } from 'pinia'
 import todoApi from '~/api/todo.api'
+import type { Todo } from '~/models/Todo'
+import { useGoogleStore } from './google.store'
+import { useTodoStore } from './todo.store'
 
 export const useBulkStore = defineStore('bulk', () => {
   const route = useRoute()
   const router = useRouter()
-
+  const todoStore = useTodoStore()
+  const googleStore = useGoogleStore()
   const isBulkMode = computed(() => route.query.bulk)
   const turnOnBulkMode = async (todoId?: string) => {
     await router.push({ query: { ...route.query, bulk: 'true' } })
@@ -22,16 +26,56 @@ export const useBulkStore = defineStore('bulk', () => {
   }
 
   const updateBulkTodos = async (done?: boolean) => {
-    const ids = toValue(selectedTodoIds).filter(
-      (item): item is string => !!item
-    )
-    await todoApi.updateBulkTodos(ids, { done })
+    const todos = selectedTodoIds.value
+      .map((id) =>
+        todoStore.todos?.find((todo) => todo.id === id && todo.linked)
+      )
+      .filter((todo): todo is Todo => !!todo)
+
+    googleStore.doneTodo2(todos, done ?? false)
+
+    const unLinkedIds = selectedTodoIds.value
+      .map(
+        (id) =>
+          todoStore.todos?.find((todo) => todo.id === id && !todo.linked)?.id
+      )
+      .filter((id): id is string => !!id)
+    const linkedIds = selectedTodoIds.value
+      .map(
+        (id) =>
+          todoStore.todos?.find((todo) => todo.id === id && todo.linked)?.id
+      )
+      .filter((id): id is string => !!id)
+
+    todoApi.updateBulkTodos(unLinkedIds, { done })
+
+    return [...linkedIds, ...unLinkedIds]
   }
   const deleteBulkTodos = async () => {
-    const ids = toValue(selectedTodoIds).filter(
-      (item): item is string => !!item
-    )
-    await todoApi.deleteBulkTodos(ids)
+    const todos = selectedTodoIds.value
+      .map((id) =>
+        todoStore.todos?.find((todo) => todo.id === id && todo.linked)
+      )
+      .filter((todo): todo is Todo => !!todo)
+
+    googleStore.deleteTodo2(todos)
+
+    const linkedIds = selectedTodoIds.value
+      .map(
+        (id) =>
+          todoStore.todos?.find((todo) => todo.id === id && todo.linked)?.id
+      )
+      .filter((id): id is string => !!id)
+
+    const unLinkedIds = selectedTodoIds.value
+      .map(
+        (id) =>
+          todoStore.todos?.find((todo) => todo.id === id && !todo.linked)?.id
+      )
+      .filter((id): id is string => !!id)
+    todoApi.deleteBulkTodos(unLinkedIds)
+
+    return [...linkedIds, ...unLinkedIds]
   }
   return {
     isBulkMode,

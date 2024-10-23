@@ -373,7 +373,7 @@ router.put(
 router.put(
   '/spreadsheet/row/done',
   defineEventHandler(async (event) => {
-    const { done, sheetId, index } = await readBody(event)
+    const { sheetId, updates } = await readBody(event)
 
     const oauthClient = googleUtil.createOauthClient(event)
 
@@ -383,25 +383,28 @@ router.put(
       await doc.loadInfo()
       const sheet = doc.sheetsByTitle['todos']
 
-      const rows = await sheet.getRows({
-        offset: index,
-        limit: 1,
-      })
+      for (const update of updates) {
+        const { index, done } = update
+        const rows = await sheet.getRows({
+          offset: index,
+          limit: 1,
+        })
 
-      if (rows[0].get('id') === 'id')
-        return {
-          status: 404,
-          message: 'Not Found',
-          result: [],
-        }
+        if (rows[0].get('id') === 'id')
+          return {
+            status: 404,
+            message: 'Not Found',
+            result: [],
+          }
 
-      rows[0].set('done', done)
-      await rows[0].save()
+        rows[0].set('done', done)
+        await rows[0].save()
+      }
 
       return {
         status: 200,
         message: '',
-        result: rows.map((row) => row.toObject()),
+        result: '',
       }
     } catch (e) {
       return googleUtil.throwSheetError(e as FetchError)
@@ -412,7 +415,7 @@ router.put(
 router.delete(
   '/spreadsheet/row',
   defineEventHandler(async (event) => {
-    const { sheetId, index } = await readBody(event)
+    const { sheetId, indexes } = await readBody(event)
 
     const oauthClient = googleUtil.createOauthClient(event)
 
@@ -422,24 +425,26 @@ router.delete(
       await doc.loadInfo()
       const sheet = doc.sheetsByTitle['todos']
 
-      const rows = await sheet.getRows({
-        offset: index,
-        limit: 1,
-      })
+      for (const index of indexes) {
+        const rows = await sheet.getRows({
+          offset: index,
+          limit: 1,
+        })
 
-      if (rows[0].get('id') === 'id')
-        return {
-          status: 404,
-          message: 'Not Found',
-          result: [],
-        }
+        if (rows[0].get('id') === 'id')
+          return {
+            status: 404,
+            message: 'Not Found',
+            result: [],
+          }
 
-      await rows[0].delete()
+        await rows[0].delete()
+      }
 
       return {
         status: 200,
         message: '',
-        result: rows.map((row) => row.toObject()),
+        result: '',
       }
     } catch (e) {
       return googleUtil.throwSheetError(e as FetchError)

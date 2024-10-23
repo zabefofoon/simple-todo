@@ -116,6 +116,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Todo } from '~/models/Todo'
 import { useGoogleStore } from '~/store/google.store'
 import { useLoadingStore } from '~/store/loading.store'
 import { useStorageStore } from '~/store/storage.store'
@@ -182,14 +183,14 @@ watch(
 const deleteTodo = (todo: Todo) => {
   if (confirm(i18n.t('ConfirmDelete')))
     todo.linked
-      ? googleStore.deleteTodo2(todo)
+      ? googleStore.deleteTodo2([todo])
       : todoStore.deleteTodo(todo.id ?? '')
 }
 
 const doneTodo = (todo: Todo, done?: boolean) => {
   todo.done = !done
   todo.linked
-    ? googleStore.doneTodo2(todo, !done)
+    ? googleStore.doneTodo2([todo], !done)
     : todoStore.doneTodo(todo.id ?? '', !done)
 }
 </script>

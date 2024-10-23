@@ -74,14 +74,14 @@ const recentTodos = computed(() =>
 const deleteTodo = (todo: Todo) => {
   if (confirm(i18n.t('ConfirmDelete')))
     todo.linked
-      ? googleStore.deleteTodo2(todo)
+      ? googleStore.deleteTodo2([todo])
       : todoStore.deleteTodo(todo.id ?? '')
 }
 
 const doneTodo = (todo: Todo, done?: boolean) => {
   todo.done = !done
   todo.linked
-    ? googleStore.doneTodo2(todo, !done)
+    ? googleStore.doneTodo2([todo], !done)
     : todoStore.doneTodo(todo.id ?? '', !done)
 }
 </script>

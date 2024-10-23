@@ -329,7 +329,7 @@ const done = () => {
   if (!currentTodo.value) return
   currentTodo.value.linked
     ? googleStore.doneTodo2(
-        currentTodo.value,
+        [currentTodo.value],
         !(currentTodo.value.done ?? true)
       )
     : todoStore.doneTodo(
@@ -342,7 +342,7 @@ const done = () => {
 const deleteTodo = async () => {
   if (!confirm(i18n.t('ConfirmDelete'))) return
   currentTodo.value?.linked
-    ? googleStore.deleteTodo2(currentTodo.value)
+    ? googleStore.deleteTodo2([currentTodo.value])
     : await todoStore.deleteTodo(toValue(currentTodo)?.id || '')
   router.go(-2)
 }

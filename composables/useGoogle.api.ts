@@ -62,11 +62,13 @@ export const useGoogleApi = () => {
       })
     },
 
-    deleteRow2(index: number) {
+    deleteRow2(indexes: number[]) {
+      console.log(indexes)
       return $fetch('/api/spreadsheet/row', {
         method: 'delete',
         body: {
-          index,
+          index: -111,
+          indexes,
           sheetId: googleStore.spreadsheetId,
         },
         headers: {
@@ -76,12 +78,11 @@ export const useGoogleApi = () => {
       })
     },
 
-    doneRow2(index: number, done: boolean) {
+    doneRow2(updates: { index: number; done: boolean }[]) {
       return $fetch('/api/spreadsheet/row/done', {
         method: 'put',
         body: {
-          index,
-          done,
+          updates,
           sheetId: googleStore.spreadsheetId,
         },
         headers: {

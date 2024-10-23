@@ -59,15 +59,22 @@ const todoStore = useTodoStore()
 
 const bulkDone = async (done?: boolean) => {
   if (confirm(i18n.t('bulkDone'))) {
-    await bulkStore.updateBulkTodos(done)
-    await todoStore.getAllTodos()
+    const ids = await bulkStore.updateBulkTodos(done)
+
+    todoStore.todos
+      ?.filter((todo) => ids.includes(todo.id))
+      .forEach((todo) => {
+        todo.done = done
+      })
+
     router.back()
   }
 }
 const bulkDelete = async () => {
   if (confirm(i18n.t('bulkDone'))) {
-    await bulkStore.deleteBulkTodos()
-    await todoStore.getAllTodos()
+    const ids = await bulkStore.deleteBulkTodos()
+    todoStore.todos = todoStore.todos?.filter(({ id }) => !ids.includes(id))
+
     router.back()
   }
 }

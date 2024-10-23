@@ -111,14 +111,12 @@ export const useGoogleStore = defineStore(
       }
     }
 
-    const deleteTodo2 = async (todo: Partial<Todo>) => {
-      const foundIndex =
-        todoStore.todos?.findIndex(({ id }) => id === todo.id) ?? -1
-      todoStore.todos?.splice(foundIndex, 1)
+    const deleteTodo2 = async (todos: Partial<Todo>[]) => {
+      const indexes = todos.map(
+        (todo) => googleTodos.value?.findIndex(({ id }) => id === todo.id) ?? -1
+      )
 
-      const index =
-        googleTodos.value?.findIndex(({ id }) => id === todo.id) ?? -1
-      const response = await googleApi.deleteRow2(index)
+      const response = await googleApi.deleteRow2(indexes)
       if (response.status === 200) {
         console.log('deleted')
       } else if (response.status === 404) {
@@ -133,10 +131,15 @@ export const useGoogleStore = defineStore(
       }
     }
 
-    const doneTodo2 = async (todo: Partial<Todo>, done: boolean) => {
-      const index =
-        googleTodos.value?.findIndex(({ id }) => id === todo.id) ?? -1
-      const response = await googleApi.doneRow2(index, done)
+    const doneTodo2 = async (todos: Partial<Todo>[], done: boolean) => {
+      const updates = todos
+        .map(
+          (todo) =>
+            googleTodos.value?.findIndex(({ id }) => id === todo.id) ?? -1
+        )
+        .map((index) => ({ index, done }))
+
+      const response = await googleApi.doneRow2(updates)
       if (response.status === 200) {
         console.log('updated')
       } else if (response.status === 404) {

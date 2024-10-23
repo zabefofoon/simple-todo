@@ -79,7 +79,8 @@ export const deleteBulkTodos = (ids: string[]) => {
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
   }
-  return db!.todos.bulkDelete(_ids)
+  db!.todos.bulkDelete(_ids)
+  return _ids
 }
 
 export default {

@@ -10,7 +10,7 @@ export class MySubClassedDexie extends Dexie {
 
   constructor() {
     super('SimpleTodo')
-    this.version(1.2).stores({
+    this.version(1.3).stores({
       todos:
         '++id, date, description, tagId, time, created, upto, done, modified, images',
       setting: '++id, tags, forms',

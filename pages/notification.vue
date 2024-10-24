@@ -13,7 +13,7 @@
           {{ i18n.t('EmptyNotification') }}
         </div>
         <ul v-else class="flex flex-col | w-full h-full">
-          <NuxtLink
+          <NuxtLinkLocale
             v-for="todo in alarms"
             :key="todo.id"
             :to="`/?todo=${todo.id}`"
@@ -49,7 +49,7 @@
                 {{ todo.description }}
               </p>
             </li>
-          </NuxtLink>
+          </NuxtLinkLocale>
         </ul>
       </template>
     </div>

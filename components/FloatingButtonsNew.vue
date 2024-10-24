@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink
+  <NuxtLinkLocale
     :to="to"
     class="flex | bg-slate-800 rounded-full | text-white | p-2 | relative"
     area-label="New todo">
@@ -29,7 +29,7 @@
         {{ i18n.t('AddGuide') }}
       </div>
     </ClientOnly>
-  </NuxtLink>
+  </NuxtLinkLocale>
 </template>
 
 <script setup lang="ts">

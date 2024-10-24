@@ -23,7 +23,7 @@ export const useMenuStore = defineStore('menu', () => {
       name: 'Guide',
       href: '/memoku',
       icon: 'icon-help',
-      external: true,
+      external: false,
     }),
   ]
   return {

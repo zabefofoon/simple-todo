@@ -3,7 +3,7 @@
     <h3 v-if="!keywords?.length" class="text-center text-sm">
       {{ i18n.t('NoKeywords') }}
     </h3>
-    <NuxtLink
+    <NuxtLinkLocale
       v-for="keyword in keywords?.slice(0, 10)"
       :key="keyword"
       :to="`${route.path}?search=true&keyword=${keyword}`"
@@ -19,7 +19,7 @@
         :class="storageStore.getThemeClass('', 'text-white')"
         >{{ keyword }}</span
       >
-    </NuxtLink>
+    </NuxtLinkLocale>
   </div>
 </template>
 

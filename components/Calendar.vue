@@ -8,7 +8,7 @@
       style="width: 100%; border: 0"
       :class="storageStore.getThemeClass('', 'dark')">
       <template #day-content="data">
-        <NuxtLink
+        <NuxtLinkLocale
           :to="`${route.path}?calendar=${data.day.id}`"
           :area-label="data.day.id">
           <div
@@ -47,7 +47,7 @@
               </li>
             </ul>
           </div>
-        </NuxtLink>
+        </NuxtLinkLocale>
       </template>
     </Calendar>
   </div>
@@ -60,7 +60,7 @@ import { useTodoStore } from '~/store/todo.store'
 
 withDefaults(
   defineProps<{
-    slice: number
+    slice?: number
   }>(),
   {
     slice: 3,

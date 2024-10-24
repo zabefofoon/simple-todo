@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@nuxtjs/i18n": "^8.0.0",
+    "@nuxtjs/sitemap": "^6.1.2",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@types/gapi": "^0.0.47",
     "@types/gapi.auth2": "^0.0.61",

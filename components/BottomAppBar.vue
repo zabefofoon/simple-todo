@@ -4,7 +4,7 @@
     :class="
       storageStore.getThemeClass('bg-white', 'bg-slate-950 border-slate-700')
     ">
-    <NuxtLink
+    <NuxtLinkLocale
       v-for="menu in menus"
       :key="menu.href"
       :to="menu.href"
@@ -36,7 +36,7 @@
           </div>
         </button>
       </li>
-    </NuxtLink>
+    </NuxtLinkLocale>
   </ul>
 </template>
 

@@ -8,7 +8,7 @@
       {{ i18n.t('Language') }}
     </label>
     <select
-      v-model="storageStore.language"
+      v-model="i18n.locale.value"
       class="ml-auto lg:ml-0 | text-sm"
       :class="
         storageStore.getThemeClass('bg-white', 'dark | bg-slate-900 text-white')

@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink
+  <NuxtLinkLocale
     ref="nuxtLinkEl"
     :key="`${bulkStore.selectedTodoIds.includes(todo.id)}`"
     :to="route.query.bulk ? undefined : url"
@@ -23,13 +23,13 @@
           v-if="todo.linked"
           class="w-[10px]"
           src="~assets/images/google.svg" />
-        <NuxtLink
+        <NuxtLinkLocale
           v-if="todo.tag"
           :to="`${route.path}?tags=${todo.tag.id}`"
           class="text-white text-[10px] lg:text-xs | px-1.5 py-.5 | rounded-full"
           :style="{ background: todo.tag?.color || 'black' }">
           #{{ todo.tag?.label }}
-        </NuxtLink>
+        </NuxtLinkLocale>
       </div>
       <div
         class="text-sm md:text-base | py-4"
@@ -80,7 +80,7 @@
         </span>
       </figcaption>
     </figure>
-  </NuxtLink>
+  </NuxtLinkLocale>
 </template>
 
 <script setup lang="ts">

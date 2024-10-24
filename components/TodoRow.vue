@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink
+  <NuxtLinkLocale
     ref="nuxtLinkEl"
     :key="`${bulkStore.selectedTodoIds.includes(todo.id)}`"
     :to="route.query.bulk ? undefined : url"
@@ -22,14 +22,14 @@
         v-if="todo.tag?.id"
         class="w-20 h-full | flex items-center | border-r"
         :class="storageStore.getThemeClass('', 'border-slate-700')">
-        <NuxtLink
+        <NuxtLinkLocale
           :to="`/?tags=${todo.tag.id}`"
           class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-white text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | rounded-full"
           :style="{
             background: todo.tag?.color || 'black',
           }">
           #{{ todo.tag?.label }}
-        </NuxtLink>
+        </NuxtLinkLocale>
       </div>
       <div
         v-else
@@ -105,7 +105,7 @@
         {{ todo.createdDate.replaceAll('-', '.').slice(2) }}
       </span>
     </figure>
-  </NuxtLink>
+  </NuxtLinkLocale>
 </template>
 
 <script setup lang="ts">

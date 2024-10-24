@@ -8,7 +8,10 @@
           'bg-slate-900 | border-slate-700'
         )
       ">
-      <NuxtLink class="block | w-full | font-bold" to="/" area-label="Home">
+      <NuxtLinkLocale
+        class="block | w-full | font-bold"
+        to="/"
+        area-label="Home">
         <div class="flex items-center justify-center gap-1.5 | w-fit">
           <img
             class="w-[20px] aspect-square"
@@ -21,7 +24,7 @@
             MEMOKU
           </span>
         </div>
-      </NuxtLink>
+      </NuxtLinkLocale>
       <DarkModeButton />
       <ChangeDisplayButton />
       <NotificationButton />

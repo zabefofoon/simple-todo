@@ -4,13 +4,13 @@
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <div class="font-bold">
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
-      <NuxtLink
+      <NuxtLinkLocale
         v-else
         to="/todo"
         :class="storageStore.getThemeClass('', 'text-white')"
         area-label="RecentTodos">
         {{ i18n.t('Recent') }}
-      </NuxtLink>
+      </NuxtLinkLocale>
     </div>
 
     <template v-if="loadingStore.todoLoading">

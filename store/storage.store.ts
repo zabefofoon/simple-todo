@@ -41,7 +41,7 @@ export const useStorageStore = defineStore(
     const setSummaryTimeType = (type: SummaryTimeType) =>
       storageApi.setLocalStorage('summaryTimeType', type)
 
-    const language = ref<Language>('en')
+    const language = ref<Language>(i18n.locale.value as Language)
     const setLanguage = (value: Language) => {
       language.value = value
       i18n.setLocale(value)

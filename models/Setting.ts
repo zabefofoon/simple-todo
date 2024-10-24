@@ -1,7 +1,7 @@
 import { Tag } from './Tag'
 
 export type Theme = 'white' | 'dark'
-export type Language = 'en' | 'ko'
+export type Language = 'en' | 'ko' | 'ja'
 export type Display = 'thumbnail' | 'row'
 
 export class Setting {

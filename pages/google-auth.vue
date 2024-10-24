@@ -2,9 +2,11 @@
 
 <script setup lang="ts">
 import { useGoogleStore } from '~/store/google.store'
+import { useStorageStore } from '~/store/storage.store'
 
 const route = useRoute()
 const googleStore = useGoogleStore()
+const storageStore = useStorageStore()
 
 onMounted(() => {
   if (route.query.refreshToken) {
@@ -12,7 +14,12 @@ onMounted(() => {
   }
   if (route.query.accessToken)
     googleStore.setGoogleAccessToken(route.query.accessToken.toString())
-  location.replace('/')
+
+  let to = '/'
+  if (storageStore.language === 'ko') to = '/ko'
+  else if (storageStore.language === 'ja') to = '/ja'
+
+  location.replace(to)
 })
 </script>
 

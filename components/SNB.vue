@@ -10,7 +10,7 @@
       ),
     ]">
     <nav class="flex flex-col | h-full">
-      <NuxtLink to="/" area-label="Home">
+      <NuxtLinkLocale to="/" area-label="Home">
         <div
           class="pt-8 | text-center font-bold | flex justify-center items-center gap-1">
           <img
@@ -28,14 +28,13 @@
             </span>
           </Transition>
         </div>
-      </NuxtLink>
+      </NuxtLinkLocale>
       <ul class="h-full mt-8">
-        <NuxtLink
+        <NuxtLinkLocale
           v-for="menu in menuStore.menus"
           :key="menu.code"
           :to="menu.href"
-          :area-label="menu.name"
-          :target="menu.target">
+          :area-label="menu.name">
           <li
             class="relative | flex items-center gap-3 | py-3 px-4"
             :class="[
@@ -58,7 +57,7 @@
               </span>
             </Transition>
           </li>
-        </NuxtLink>
+        </NuxtLinkLocale>
       </ul>
     </nav>
     <button

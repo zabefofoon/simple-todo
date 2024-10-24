@@ -4,7 +4,7 @@
       <span :class="storageStore.getThemeClass('', 'text-white')">
         {{ i18n.t('Form') }}
       </span>
-      <NuxtLink to="/setting?form=new" area-label="New Form">
+      <NuxtLinkLocale to="/setting?form=new" area-label="New Form">
         <button
           name="New form"
           class="flex | h-fit | p-1 ml-auto lg:ml-0 | border border-dashed">
@@ -12,7 +12,7 @@
             class="icon icon-add | text-md"
             :class="storageStore.getThemeClass('', 'text-white')"></i>
         </button>
-      </NuxtLink>
+      </NuxtLinkLocale>
     </div>
     <div class="flex flex-col lg:gap-1 | ml-auto lg:ml-0">
       <div v-if="loadingStore.todoLoading">
@@ -41,7 +41,9 @@
               class="icon icon-arrow-down | text-sm"
               :class="storageStore.getThemeClass('', 'text-white')"></i>
           </button>
-          <NuxtLink :to="`/setting?form=${form.id}`" area-label="New form">
+          <NuxtLinkLocale
+            :to="`/setting?form=${form.id}`"
+            area-label="New form">
             <button
               name="Add form"
               class="flex items-center gap-2 | border | pl-2 pr-1 py-0.5"
@@ -56,7 +58,7 @@
                 :class="storageStore.getThemeClass('', 'text-white')"
                 @click.prevent="removeForm(form)"></i>
             </button>
-          </NuxtLink>
+          </NuxtLinkLocale>
         </div>
       </template>
     </div>

@@ -1,5 +1,8 @@
 <template>
-  <NuxtLink class="w-full max-w-[50%] | relative" :to="to" area-label="Search">
+  <NuxtLinkLocale
+    class="w-full max-w-[50%] | relative"
+    :to="to"
+    area-label="Search">
     <input
       readonly
       class="w-full | px-3 py-1 | rounded-full | text-sm focus:border-0 focus:outline-0"
@@ -10,7 +13,7 @@
     <i
       class="icon icon-search | text-xl | absolute right-1 top-1/2 -translate-y-1/2"
       :class="storageStore.getThemeClass('', 'text-white')"></i>
-  </NuxtLink>
+  </NuxtLinkLocale>
 </template>
 
 <script setup lang="ts">

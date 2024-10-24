@@ -52,13 +52,13 @@
               <div
                 class="flex flex-col gap-1.5 | p-2 | rounded-lg overflow-hidden | whitespace-nowrap"
                 :class="storageStore.getThemeClass('', 'text-white')">
-                <NuxtLink
+                <NuxtLinkLocale
                   :to="editUrl"
                   class="flex items-center gap-1"
                   @click="showOptions(false)">
                   <i class="icon icon-post"></i>
                   <span class="text-sm">{{ i18n.t('DoEdit') }}</span>
-                </NuxtLink>
+                </NuxtLinkLocale>
                 <button class="flex items-center gap-1" @click="deleteTodo()">
                   <i class="icon icon-close"></i>
                   <span class="text-sm">{{ i18n.t('DoDelete') }}</span>
@@ -121,7 +121,7 @@
               {{ currentTodo?.createdDate.replaceAll('-', '.').slice(2) }}
             </span>
 
-            <NuxtLink
+            <NuxtLinkLocale
               v-if="currentTodo?.tag?.id"
               :to="`/?tags=${currentTodo?.tag.id}`"
               class="w-fit | whitespace-nowrap text-white text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | rounded-full"
@@ -129,7 +129,7 @@
                 background: currentTodo?.tag?.color || 'black',
               }">
               #{{ currentTodo?.tag?.label }}
-            </NuxtLink>
+            </NuxtLinkLocale>
           </div>
         </div>
         <div

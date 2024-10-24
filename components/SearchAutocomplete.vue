@@ -1,6 +1,6 @@
 <template>
   <div v-if="keywords?.length" class="py-2 px-4">
-    <NuxtLink
+    <NuxtLinkLocale
       v-for="searchedKeyword in keywords?.slice(0, 10)"
       :key="searchedKeyword"
       :to="`${route.path}?search=true&keyword=${searchedKeyword}`"
@@ -11,7 +11,7 @@
         v-html="getHighlightedKeyword(searchedKeyword)"
         class="truncate"
         :class="storageStore.getThemeClass('', 'text-white')"></span>
-    </NuxtLink>
+    </NuxtLinkLocale>
   </div>
 </template>
 

@@ -12,13 +12,13 @@
       class="text-sm lg:text-md | max-w-[300px] | mx-auto"
       :class="storageStore.getThemeClass('', 'text-white')"
       v-html="i18n.t('CookiesAcceptNotice')"></p>
-    <NuxtLink
+    <NuxtLinkLocale
       to="https://memoku.netlify.app/privacy-policy.html"
       target="_blank"
       class="underline | text-sm lg:text-md"
       :class="storageStore.getThemeClass('', 'text-white')">
       {{ i18n.t('ShowPrivacyPolicy') }}
-    </NuxtLink>
+    </NuxtLinkLocale>
     <div class="flex gap-3 justify-center | w-full | mt-4">
       <button
         class="bg-slate-500 | text-white text-sm lg:text-md | px-4 py-2"

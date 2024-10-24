@@ -21,7 +21,7 @@
         {{ i18n.t('NoScheduled') }}
       </span>
     </h3>
-    <NuxtLink
+    <NuxtLinkLocale
       v-if="scheduledTodo?.description"
       :to="`/?todo=${scheduledTodo.id}`"
       area-label="ScheduledTodo">
@@ -35,7 +35,7 @@
           {{ scheduledTodo.description }}
         </span>
       </p>
-    </NuxtLink>
+    </NuxtLinkLocale>
   </div>
 </template>
 

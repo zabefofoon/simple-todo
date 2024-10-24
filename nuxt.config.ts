@@ -202,7 +202,16 @@ export default defineNuxtConfig({
       '/setting',
       '/notification',
       '/search',
-      '/memoku',
+      {
+        url: '/memoku',
+        changefreq: 'monthly',
+        priority: 1,
+        links: [
+          { lang: 'en', url: 'https://your-website.com/en/memoku' },
+          { lang: 'ko', url: 'https://your-website.com/ko/memoku' },
+          { lang: 'ja', url: 'https://your-website.com/ja/memoku' },
+        ],
+      },
     ],
   },
   pwa: {

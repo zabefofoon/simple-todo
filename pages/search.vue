@@ -193,4 +193,26 @@ const doneTodo = (todo: Todo, done?: boolean) => {
     ? googleStore.doneTodo2([todo], !done)
     : todoStore.doneTodo(todo.id ?? '', !done)
 }
+
+useHead({
+  title: i18n.t('PageTitle'),
+  meta: [
+    {
+      name: 'description',
+      content: i18n.t('PageDescription'),
+    },
+    {
+      name: 'keywords',
+      content: i18n.t('PageKeywords'),
+    },
+    {
+      property: 'og:title',
+      content: i18n.t('PageTitle'),
+    },
+    {
+      property: 'og:description',
+      content: i18n.t('PageDescription'),
+    },
+  ],
+})
 </script>

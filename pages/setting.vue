@@ -63,4 +63,26 @@ import { useStorageStore } from '~/store/storage.store'
 const i18n = useI18n()
 
 const storageStore = useStorageStore()
+
+useHead({
+  title: i18n.t('PageTitle'),
+  meta: [
+    {
+      name: 'description',
+      content: i18n.t('PageDescription'),
+    },
+    {
+      name: 'keywords',
+      content: i18n.t('PageKeywords'),
+    },
+    {
+      property: 'og:title',
+      content: i18n.t('PageTitle'),
+    },
+    {
+      property: 'og:description',
+      content: i18n.t('PageDescription'),
+    },
+  ],
+})
 </script>

@@ -54,6 +54,10 @@ export default defineNuxtConfig({
       meta: [
         { name: 'viewport', content: 'initial-scale=1, viewport-fit=cover' },
         { name: 'google', content: 'notranslate' },
+        {
+          name: 'naver-site-verification',
+          content: 'b3458eadb2e3d7c1424c5024e346e133be443156',
+        },
         { name: 'theme-color', content: '#ffffff' },
         { name: 'msapplication-TileColor', content: '#ffffff' },
         { name: 'msapplication-TileImage', content: '/ms-icon-144x144.png' },

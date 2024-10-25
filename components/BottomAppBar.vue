@@ -10,7 +10,8 @@
       :to="menu.href"
       class="w-full"
       :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')"
-      :area-label="menu.name">
+      :area-label="menu.name"
+      replace>
       <li>
         <button
           :name="menu.name"
@@ -42,8 +43,6 @@
 <script setup lang="ts">
 import { useMenuStore } from '~/store/menu.store'
 import { useStorageStore } from '~/store/storage.store'
-
-const i18n = useI18n()
 
 const menuStore = useMenuStore()
 const storageStore = useStorageStore()

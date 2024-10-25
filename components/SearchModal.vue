@@ -122,9 +122,6 @@
         </h3>
       </template>
     </div>
-    <nav class="fixed right-4 bottom-4 z-10">
-      <FloatingButtonsNew />
-    </nav>
   </UIModal>
 </template>
 

@@ -349,7 +349,6 @@ const deleteTodo = async () => {
 
 const registAlarm = async (todo: Partial<Todo>) => {
   if (!('serviceWorker' in navigator)) return
-
   const permission = await Notification.requestPermission()
   if (permission === 'granted') {
     const deviceId = storageStore.getUniqueId()
@@ -364,9 +363,8 @@ const registAlarm = async (todo: Partial<Todo>) => {
       })
       try {
         const todoId = isEditMode.value
-          ? String(route.query.edit)
+          ? String(route.query.todo)
           : todoStore.todos?.[0]?.id || ''
-
         await alarmStore.registAlarm({
           date: new Date(`${date.value} ${time.value}`),
           text: todo.description!.slice(0, 30),

@@ -38,8 +38,9 @@ export const useAlarmStore = defineStore(
       newAlarms.value?.find((alarm) => !readNewAlarms.value?.includes(alarm))
     )
 
-    const registAlarm = (registAlarmDTO: RegistAlarmDTO) =>
+    const registAlarm = (registAlarmDTO: RegistAlarmDTO) => {
       alarmApi.registAlarm(registAlarmDTO)
+    }
 
     const unregistAlarm = (deviceId: string, todoId: string) =>
       alarmApi.unregistAlarm(deviceId, todoId)

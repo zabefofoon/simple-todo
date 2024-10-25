@@ -207,19 +207,28 @@
         <!-- 저장 -->
       </div>
       <div class="flex gap-4 | h-full | overflow-hidden">
-        <textarea
-          :value="description"
-          class="w-full h-full | border rounded-lg focus-visible:outline-0 focus-visible:border-orange-200 | resize-none | p-2 lg:pt-2"
-          :class="[
-            { 'pt-6': todo },
-            storageStore.getThemeClass(
-              '',
-              'bg-slate-900 text-white border-slate-700'
-            ),
-          ]"
-          :placeholder="i18n.t('Description')"
-          @input="emit('changed')"
-          @change="emit('set-description', $event)" />
+        <div class="w-full h-full | relative">
+          <textarea
+            :value="description"
+            class="w-full h-full | border rounded-lg focus-visible:outline-0 focus-visible:border-orange-200 | resize-none | p-2 lg:pt-2"
+            :class="[
+              { 'pt-6': todo },
+              storageStore.getThemeClass(
+                '',
+                'bg-slate-900 text-white border-slate-700'
+              ),
+            ]"
+            :placeholder="i18n.t('Description')"
+            @input="emit('changed')"
+            @change="emit('set-description', $event)" />
+          <div class="absolute bottom-3 right-3">
+            <img
+              v-if="todo?.linked"
+              class="w-[16px]"
+              src="~assets/images/google.svg" />
+          </div>
+        </div>
+
         <div
           class="h-full | p-3 | border rounded-lg"
           :class="storageStore.getThemeClass('', 'border-slate-700')">

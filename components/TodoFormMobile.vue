@@ -107,19 +107,27 @@
             :class="storageStore.getThemeClass('', 'text-white')"></i>
         </button>
       </div>
-      <textarea
-        :value="description"
-        class="w-full h-full | border rounded-lg | resize-none | p-2"
-        :class="[
-          { 'pt-6': todo },
-          storageStore.getThemeClass(
-            '',
-            'bg-slate-900 text-white border-slate-700'
-          ),
-        ]"
-        :placeholder="i18n.t('Description')"
-        @input="emit('changed')"
-        @change="emit('set-description', $event)" />
+      <div class="w-full h-full | relative">
+        <textarea
+          :value="description"
+          class="w-full h-full | border rounded-lg | resize-none | p-2"
+          :class="[
+            { 'pt-6': todo },
+            storageStore.getThemeClass(
+              '',
+              'bg-slate-900 text-white border-slate-700'
+            ),
+          ]"
+          :placeholder="i18n.t('Description')"
+          @input="emit('changed')"
+          @change="emit('set-description', $event)" />
+        <div class="absolute bottom-3 right-3">
+          <img
+            v-if="todo?.linked"
+            class="w-[10px]"
+            src="~assets/images/google.svg" />
+        </div>
+      </div>
     </div>
 
     <UICarousel class="w-full" drag-free perview="auto" gap="6px">

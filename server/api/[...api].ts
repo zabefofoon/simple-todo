@@ -498,7 +498,7 @@ router.post(
   '/alarm',
   defineEventHandler(async (event) => {
     const body = await readBody(event)
-    console.log(body)
+
     await $fetch(`${process.env.VITE_ALARM_SERVER}`, {
       method: 'post',
       body,

@@ -7,7 +7,6 @@
         :key="snackbar.message"
         class="flex items-center gap-2 | pr-10 pl-8 py-2 | shadow-lg | border rounded-lg | transition-all"
         :class="[...getSnackbarClassByType(snackbar)]">
-        {{ getSnackbarIconClassByType(snackbar) }}
         <i
           class="icon | text-lg"
           :class="[...getSnackbarIconClassByType(snackbar)]"></i>

@@ -19,7 +19,7 @@ import { useSnackbarStore } from './store/snackbar.store'
 import { useStorageStore } from './store/storage.store'
 import { useTodoStore } from './store/todo.store'
 
-const { isSafari, isAndroid } = useDevice()
+const { isSafari, isAndroid, isIos } = useDevice()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
@@ -29,31 +29,31 @@ const googleStore = useGoogleStore()
 const bulkStore = useBulkStore()
 const snackbarStore = useSnackbarStore()
 
-const { isIos } = useDevice()
 const route = useRoute()
 const i18n = useI18n()
 
 onBeforeMount(() => {
   storageStore.setLanguage(storageStore.language)
   settingStore.initSetting()
-
-  window.history.pushState({}, '')
-
-  window.addEventListener('popstate', (e) => {
-    const isPWA = window.matchMedia('(display-mode: standalone)').matches
-    const firstLoaded = !e.state.back && !e.state.forward && !e.state.scroll
-    if (isPWA && firstLoaded && isAndroid) {
-      snackbarStore.showSnackbar({
-        message: i18n.t('AppCloseGuide'),
-        type: 'info',
-      })
-    }
-  })
 })
 
 onMounted(async () => {
   if (route.query.recoverData) return
   if (route.path === '/google-auth') return
+
+  const isPWA = window.matchMedia('(display-mode: standalone)').matches
+
+  if (isPWA && isAndroid) {
+    navigateTo({ query: { f: '1' } })
+    window.addEventListener('popstate', () => {
+      if (!history.state.back) {
+        snackbarStore.showSnackbar({
+          message: i18n.t('AppCloseGuide'),
+          type: 'info',
+        })
+      }
+    })
+  }
 
   if (navigator.onLine && googleStore.googleAccessToken) {
     await googleStore.getAllTodo()

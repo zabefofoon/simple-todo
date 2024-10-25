@@ -3,6 +3,7 @@
   <NuxtPage />
   <ClientOnly>
     <CookiePopup />
+    <SnackbarContainer />
   </ClientOnly>
 
   <AddHomeScreenGuideIos v-if="isSafari" />
@@ -14,10 +15,11 @@ import { useAlarmStore } from './store/alarm.store'
 import { useBulkStore } from './store/bulk.store'
 import { useGoogleStore } from './store/google.store'
 import { useSettingStore } from './store/setting.store'
+import { useSnackbarStore } from './store/snackbar.store'
 import { useStorageStore } from './store/storage.store'
 import { useTodoStore } from './store/todo.store'
 
-const { isSafari } = useDevice()
+const { isSafari, isAndroid } = useDevice()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
@@ -25,13 +27,28 @@ const settingStore = useSettingStore()
 const alarmStore = useAlarmStore()
 const googleStore = useGoogleStore()
 const bulkStore = useBulkStore()
+const snackbarStore = useSnackbarStore()
 
 const { isIos } = useDevice()
 const route = useRoute()
+const i18n = useI18n()
 
 onBeforeMount(() => {
   storageStore.setLanguage(storageStore.language)
   settingStore.initSetting()
+
+  window.history.pushState({}, '')
+
+  window.addEventListener('popstate', (e) => {
+    const isPWA = window.matchMedia('(display-mode: standalone)').matches
+    const firstLoaded = !e.state.back && !e.state.forward && !e.state.scroll
+    if (isPWA && firstLoaded && isAndroid) {
+      snackbarStore.showSnackbar({
+        message: i18n.t('AppCloseGuide'),
+        type: 'info',
+      })
+    }
+  })
 })
 
 onMounted(async () => {

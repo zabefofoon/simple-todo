@@ -127,5 +127,6 @@
   "PageTitle": "MEMOKU: A free, offline-capable, sleek note web app for simple note-taking.",
   "PageDescription": "Memoku is a memo web app designed for efficient task management. It features a simple UI and dark mode for an enhanced user experience. Key functionalities include task creation, tag-based task management, push notifications, offline usage, date-based task organization, and task analysis. With Memoku, you can systematically manage your tasks anytime, anywhere, and ensure you never miss important deadlines.",
   "PageKeywords": "web, simple, todo, todolist, reminder, remind, memo, app, application, nuxt3, pwa, offline, free, online",
-  "Dashboard": "Dashboard"
+  "Dashboard": "Dashboard",
+  "AppCloseGuide": "Press the back button once more to exit."
 }

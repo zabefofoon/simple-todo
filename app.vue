@@ -30,6 +30,7 @@ const { isIos } = useDevice()
 const route = useRoute()
 
 onBeforeMount(() => {
+  storageStore.setLanguage(storageStore.language)
   settingStore.initSetting()
 })
 

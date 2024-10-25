@@ -60,7 +60,7 @@ self.addEventListener('notificationclick', (event) => {
           })
       }
       if (clients.openWindow)
-        return clients.openWindow('/external-notification').then(() => {
+        return clients.openWindow('/notification').then(() => {
           setTimeout(() => {
             const channel = new BroadcastChannel('sw-messages')
             channel.postMessage({

@@ -52,8 +52,9 @@
             <Transition name="fade">
               <span
                 v-if="storageStore.isSNBExpanded"
+                class="text-sm"
                 :class="storageStore.getThemeClass('', 'text-white')">
-                {{ i18n.t(menu.name) }}
+                {{ i18n.t(menu.name ?? '') }}
               </span>
             </Transition>
           </li>

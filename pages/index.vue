@@ -15,15 +15,16 @@
         <NotificationButton />
       </div>
       <div
-        class="lg:h-[94.5%] | flex flex-col lg:flex-row gap-4 | px-2 py-4 lg:p-4">
-        <div class="w-full h-full | flex flex-col gap-4">
+        class="lg:h-[94.5%] | flex flex-col lg:flex-row gap-3 | px-2 py-4 lg:p-3"
+        :class="storageStore.getThemeClass('bg-white', '')">
+        <div class="w-full h-full | flex flex-col gap-3">
           <ScheduledTodo />
           <RecentTodos />
           <Summary v-if="settingStore.screen === 'lg'" class="hidden lg:flex" />
         </div>
         <div
           v-if="settingStore.screen === 'lg'"
-          class="flex flex-col gap-4 | h-full">
+          class="flex flex-col gap-3 | h-full">
           <Clock />
           <HomeCalendar />
         </div>

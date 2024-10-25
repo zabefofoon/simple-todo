@@ -6,6 +6,12 @@ export const useMenuStore = defineStore('menu', () => {
   const i18n = useI18n()
 
   const snbMenus = shallowRef([
+    Menu.of({
+      code: 'dashboard',
+      name: 'Dashboard',
+      href: '/',
+      icon: 'icon-home',
+    }),
     Menu.of({ code: 'todo', name: 'Todo', href: '/todo', icon: 'icon-file' }),
     Menu.of({
       code: 'calender',

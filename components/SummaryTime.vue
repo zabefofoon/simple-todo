@@ -1,7 +1,7 @@
 <template>
   <div
     class="flex flex-col gap-2 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3"
-    :class="storageStore.getThemeClass('', 'border-slate-700')">
+    :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
     <div class="flex items-center">
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
       <template v-else>
@@ -23,7 +23,12 @@
           id="summary-select"
           :value="selectedOption"
           class="ml-auto | text-sm"
-          :class="storageStore.getThemeClass('bg-white', 'dark text-white bg-slate-900')"
+          :class="
+            storageStore.getThemeClass(
+              'bg-white',
+              'dark text-white bg-slate-900'
+            )
+          "
           @change="selectOption">
           <option value="month">{{ i18n.t('Month') }}</option>
           <option value="week">{{ i18n.t('Week') }}</option>

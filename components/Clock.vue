@@ -1,11 +1,11 @@
 <template>
   <div
     class="h-full | hidden lg:flex items-center justify-center gap-2 | p-2 lg:p-3 | border rounded-lg"
-    :class="storageStore.getThemeClass('', 'border-slate-700')">
+    :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
     <div class="relative">
       <div class="absolute top-0 left-0 -translate-y-1/2 | flex">
         <span
-        class="text-[1.5cqh]"
+          class="text-[1.5cqh]"
           :class="storageStore.getThemeClass('', 'text-white')">
           {{ currentYear }}
         </span>

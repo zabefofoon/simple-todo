@@ -1,6 +1,6 @@
 <template>
   <header
-    class="flex items-center gap-3 | py-2 px-4 | border-b"
+    class="flex items-center gap-3 | py-3 px-4 | border-b"
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <button name="Back" class="flex" @click="router.back()">
       <i

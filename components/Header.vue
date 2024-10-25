@@ -1,7 +1,7 @@
 <template>
   <header class="relative z-30 | lg:hidden">
     <div
-      class="flex items-center gap-1.5 | relative z-30 | px-4 py-2 | border-b"
+      class="flex items-center gap-1.5 | relative z-30 | px-4 py-3 | border-b"
       :class="
         storageStore.getThemeClass(
           'bg-white',

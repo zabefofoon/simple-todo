@@ -31,7 +31,7 @@
       </NuxtLinkLocale>
       <ul class="h-full mt-8">
         <NuxtLinkLocale
-          v-for="menu in menuStore.menus"
+          v-for="menu in menuStore.snbMenus"
           :key="menu.code"
           :to="menu.href"
           :area-label="menu.name">
@@ -39,7 +39,7 @@
             class="relative | flex items-center gap-3 | py-3 px-4"
             :class="[
               storageStore.isSNBExpanded ? '' : 'justify-center',
-              menu.href === route.path
+              menuStore.isCurrentHref(menu.href)
                 ? storageStore.getThemeClass('bg-slate-100', 'bg-slate-950')
                 : storageStore.getThemeClass('', ''),
             ]">
@@ -87,6 +87,4 @@ import { useStorageStore } from '~/store/storage.store'
 const menuStore = useMenuStore()
 const storageStore = useStorageStore()
 const i18n = useI18n()
-
-const route = useRoute()
 </script>

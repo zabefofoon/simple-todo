@@ -29,7 +29,7 @@
       <div v-else class="input-wrap | w-full lg:max-w-[50%] | relative">
         <input
           ref="input"
-          class="w-full | px-3 py-1 | rounded-full | text-sm"
+          class="w-full | px-3 py-1 | rounded-full"
           :class="
             storageStore.getThemeClass(
               'bg-slate-200',

@@ -11,7 +11,7 @@
       class="w-full"
       :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')"
       :area-label="menu.name"
-      replace>
+      :replace="!isAndroid">
       <li>
         <button
           :name="menu.name"
@@ -46,4 +46,6 @@ import { useStorageStore } from '~/store/storage.store'
 
 const menuStore = useMenuStore()
 const storageStore = useStorageStore()
+
+const { isAndroid } = useDevice()
 </script>

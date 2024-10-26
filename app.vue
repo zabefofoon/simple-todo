@@ -44,13 +44,18 @@ onMounted(async () => {
   const isPWA = window.matchMedia('(display-mode: standalone)').matches
 
   if (isPWA && isAndroid) {
-    navigateTo({ query: { f: '1' } })
+    // 페이지가 로드될 때 히스토리 추가
+    navigateTo({ query: { ...route.query, f: '1' } })
+
     window.addEventListener('popstate', () => {
-      if (!history.state.back) {
+      if (!history.state || !history.state.back) {
+        // 히스토리의 `back` 상태가 없을 경우 안내 메시지 표시
         snackbarStore.showSnackbar({
           message: i18n.t('AppCloseGuide'),
           type: 'info',
         })
+
+        setTimeout(() => navigateTo({ query: { ...route.query, f: '1' } }), 100)
       }
     })
   }

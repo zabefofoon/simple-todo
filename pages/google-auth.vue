@@ -29,6 +29,10 @@ onMounted(() => {
     { replace: true }
   )
 })
+
+useHead({
+  meta: [{ name: 'robots', content: 'noindex, nofollow' }],
+})
 </script>
 
 <style></style>

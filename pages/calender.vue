@@ -46,6 +46,7 @@ useHead({
       property: 'og:description',
       content: i18n.t('PageDescription'),
     },
+    { name: 'robots', content: 'noindex, nofollow' },
   ],
 })
 </script>

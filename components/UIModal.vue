@@ -1,6 +1,6 @@
 <template>
   <VueFinalModal
-    class="flex justify-center items-center"
+    class="flex justify-center items-center | !z-40"
     :class="{ 'opacity-0': isPageSiped }"
     :content-class="computedContentClass"
     :overlay-class="overlayClass"
@@ -58,7 +58,7 @@ const isPageSiped = ref(settingStore.isSiped)
 const setPageSiped = (value: boolean) => (isPageSiped.value = value)
 
 const computedContentClass = computed<string>(() => {
-  return `!z-50 | flex flex-col justify-center | relative | ${props.contentClass}`
+  return `!z-40 | flex flex-col justify-center | relative | ${props.contentClass}`
 })
 
 onMounted(() => {

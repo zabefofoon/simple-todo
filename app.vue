@@ -3,7 +3,6 @@
   <NuxtPage />
   <ClientOnly>
     <CookiePopup />
-    <SnackbarContainer />
   </ClientOnly>
 
   <AddHomeScreenGuideIos v-if="isSafari" />

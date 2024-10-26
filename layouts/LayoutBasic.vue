@@ -27,6 +27,7 @@
   </div>
   <ClientOnly>
     <ModalsContainer />
+    <SnackbarContainer />
   </ClientOnly>
 </template>
 

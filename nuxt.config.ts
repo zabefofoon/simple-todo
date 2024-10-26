@@ -28,7 +28,7 @@ export default defineNuxtConfig({
       },
     ],
     '@pinia-plugin-persistedstate/nuxt',
-    '@nuxtjs/sitemap',
+    '@nuxtjs/seo',
   ],
 
   gtag: {
@@ -199,28 +199,12 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     vueI18n: './i18n/i18n.config.ts', // if you are using custom path, default
   },
+  content: {
+    documentDriven: true,
+  },
   site: { url: 'https://memoku.dev', name: 'MEMOKU' },
   sitemap: {
-    hostname: 'https://memoku.dev', // 사이트의 기본 URL
-    gzip: true, // 사이트맵을 압축하여 제공
-    routes: [
-      // 기본 페이지들
-      '/',
-      '/todo',
-      '/calender',
-      '/setting',
-      '/notification',
-      '/search',
-      {
-        url: '/memoku',
-        priority: 1,
-        links: [
-          { lang: 'en', url: 'https://your-website.com/en/memoku' },
-          { lang: 'ko', url: 'https://your-website.com/ko/memoku' },
-          { lang: 'ja', url: 'https://your-website.com/ja/memoku' },
-        ],
-      },
-    ],
+    autoLastmod: true,
   },
   pwa: {
     registerType: 'autoUpdate',

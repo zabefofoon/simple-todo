@@ -31,15 +31,7 @@ const snackbarStore = useSnackbarStore()
 const route = useRoute()
 const i18n = useI18n()
 
-onBeforeMount(() => {
-  storageStore.setLanguage(storageStore.language)
-  settingStore.initSetting()
-})
-
-onMounted(async () => {
-  if (route.query.recoverData) return
-  if (route.path === '/google-auth') return
-
+const init = async () => {
   const isPWA = window.matchMedia('(display-mode: standalone)').matches
 
   if (isPWA && isAndroid) {
@@ -129,6 +121,18 @@ onMounted(async () => {
       { passive: true }
     )
   }
+}
+
+onBeforeMount(() => {
+  storageStore.setLanguage(storageStore.language)
+  settingStore.initSetting()
+})
+
+onMounted(() => {
+  if (route.query.recoverData) return
+  if (route.path === '/google-auth') return
+
+  init()
 })
 
 useHead({
@@ -153,6 +157,8 @@ watch(
   () => route.query,
   (query) => {
     if (!query.bulk) bulkStore.emptyTodoIds()
+
+    if (query.authed) init()
   }
 )
 </script>

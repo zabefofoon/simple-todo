@@ -19,7 +19,15 @@ onMounted(() => {
   if (storageStore.language === 'ko') to = '/ko'
   else if (storageStore.language === 'ja') to = '/ja'
 
-  location.replace(to)
+  navigateTo(
+    {
+      path: to,
+      query: {
+        authed: 'true',
+      },
+    },
+    { replace: true }
+  )
 })
 </script>
 

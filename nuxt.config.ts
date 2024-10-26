@@ -200,29 +200,29 @@ export default defineNuxtConfig({
     vueI18n: './i18n/i18n.config.ts', // if you are using custom path, default
   },
   sitemap: {
+    defaults: {
+      changefreq: 'daily',
+      priority: 1,
+      lastmod: new Date(),
+    },
     hostname: 'https://memoku.netlify.app', // 사이트의 기본 URL
     gzip: true, // 사이트맵을 압축하여 제공
     routes: [
       // 기본 페이지들
-      {
-        url: '/',
-        lastmod: new Date().toISOString().split('T')[0],
-      },
-      { url: '/todo', lastmod: new Date().toISOString().split('T')[0] },
-      { url: '/calender', lastmod: new Date().toISOString().split('T')[0] },
-      { url: '/setting', lastmod: new Date().toISOString().split('T')[0] },
-      { url: '/notification', lastmod: new Date().toISOString().split('T')[0] },
-      { url: '/search', lastmod: new Date().toISOString().split('T')[0] },
+      '/',
+      '/todo',
+      '/calender',
+      '/setting',
+      '/notification',
+      '/search',
       {
         url: '/memoku',
-        changefreq: 'monthly',
         priority: 1,
         links: [
           { lang: 'en', url: 'https://your-website.com/en/memoku' },
           { lang: 'ko', url: 'https://your-website.com/ko/memoku' },
           { lang: 'ja', url: 'https://your-website.com/ja/memoku' },
         ],
-        lastmod: new Date().toISOString().split('T')[0],
       },
     ],
   },

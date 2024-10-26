@@ -204,12 +204,15 @@ export default defineNuxtConfig({
     gzip: true, // 사이트맵을 압축하여 제공
     routes: [
       // 기본 페이지들
-      '/',
-      '/todo',
-      '/calender',
-      '/setting',
-      '/notification',
-      '/search',
+      {
+        url: '/',
+        lastmod: new Date().toISOString().split('T')[0],
+      },
+      { url: '/todo', lastmod: new Date().toISOString().split('T')[0] },
+      { url: '/calender', lastmod: new Date().toISOString().split('T')[0] },
+      { url: '/setting', lastmod: new Date().toISOString().split('T')[0] },
+      { url: '/notification', lastmod: new Date().toISOString().split('T')[0] },
+      { url: '/search', lastmod: new Date().toISOString().split('T')[0] },
       {
         url: '/memoku',
         changefreq: 'monthly',
@@ -219,6 +222,7 @@ export default defineNuxtConfig({
           { lang: 'ko', url: 'https://your-website.com/ko/memoku' },
           { lang: 'ja', url: 'https://your-website.com/ja/memoku' },
         ],
+        lastmod: new Date().toISOString().split('T')[0],
       },
     ],
   },

@@ -3,7 +3,7 @@
     v-if="loadingStore.todoLoading"
     class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4"
     :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
-    <Skeletor class="w-1/4 h-[24px]" />
+    <!-- <Skeletor class="w-1/4 h-[24px]" /> -->
     <Skeletor class="w-full h-[24px]" />
   </div>
   <div

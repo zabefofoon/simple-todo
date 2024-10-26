@@ -28,7 +28,7 @@
           <Clock />
           <HomeCalendar />
         </div>
-        <div v-if="settingStore.screen !== 'lg'" class="w-full | lg:hidden">
+        <div v-if="settingStore.screen === 'sm'" class="w-full | lg:hidden">
           <Summary />
         </div>
       </div>

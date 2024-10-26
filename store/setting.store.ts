@@ -6,6 +6,8 @@ import { deepClone } from '~/utils/etc'
 export const useSettingStore = defineStore('setting', () => {
   const setting = ref<Setting>()
 
+  const { isDesktop } = useDevice()
+
   const initSetting = async () => {
     const [data] = await settingApi.getSetting()!
     const result = Setting.of(data)
@@ -36,7 +38,7 @@ export const useSettingStore = defineStore('setting', () => {
     settingApi.setSetting(deepClone(setting.value))
   }
 
-  const screen = ref<'lg' | 'sm'>('sm')
+  const screen = ref<'lg' | 'sm'>(isDesktop ? 'lg' : 'sm')
   const setScreen = (value: 'lg' | 'sm') => (screen.value = value)
 
   const isSiped = ref(false)

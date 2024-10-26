@@ -55,13 +55,6 @@ const allConsentGranted = () => {
   setCookieConsent()
 }
 
-// const consentGrantedAdStorage = () => {
-//   gtag('consent', 'update', {
-//     ad_storage: 'granted',
-//   })
-//   setCookieConsent()
-// }
-
 const setCookieConsent = () => {
   setCookiesAccepted(true)
   storageStore.setCookiesAccepted()

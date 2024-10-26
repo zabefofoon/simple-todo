@@ -9,14 +9,16 @@
       </span>
     </div>
     <div
-      v-show="loadingStore.todoLoading"
+      v-if="loadingStore.todoLoading"
       class="w-full aspect-video lg:aspect-square | flex items-center justify-center">
       <Spinner />
     </div>
     <div
-      v-show="!loadingStore.todoLoading"
       class="h-full lg:max-h-[75%] | my-auto | flex items-center justify-center">
-      <canvas ref="canvas" width="100%"></canvas>
+      <canvas
+        v-show="!loadingStore.todoLoading"
+        ref="canvas"
+        width="100%"></canvas>
     </div>
   </div>
 </template>

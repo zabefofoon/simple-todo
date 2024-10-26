@@ -32,6 +32,9 @@ const route = useRoute()
 const i18n = useI18n()
 
 const init = async () => {
+  if (import.meta.client && Notification.permission !== 'granted')
+    await Notification.requestPermission()
+
   const isPWA = window.matchMedia('(display-mode: standalone)').matches
 
   if (isPWA && isAndroid) {
@@ -71,13 +74,6 @@ const init = async () => {
         alarmStore.addReadNewAlarm(event.data.todoId)
       }, 2000)
     }
-  })
-
-  if (window.innerWidth < 1024) settingStore.setScreen('sm')
-  else settingStore.setScreen('lg')
-  window.addEventListener('resize', () => {
-    if (window.innerWidth < 1024) settingStore.setScreen('sm')
-    else settingStore.setScreen('lg')
   })
 
   if (isIos) {
@@ -124,6 +120,13 @@ const init = async () => {
 }
 
 onBeforeMount(() => {
+  if (window.innerWidth < 1024) settingStore.setScreen('sm')
+  else settingStore.setScreen('lg')
+  window.addEventListener('resize', () => {
+    if (window.innerWidth < 1024) settingStore.setScreen('sm')
+    else settingStore.setScreen('lg')
+  })
+
   storageStore.setLanguage(storageStore.language)
   settingStore.initSetting()
 })

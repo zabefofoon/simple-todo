@@ -190,6 +190,10 @@
 <script setup lang="ts">
 const i18n = useI18n()
 
+useSeoMeta({
+  articleModifiedTime: '2024-10-27',
+})
+
 useHead({
   title: i18n.t('PageTitle'),
   meta: [

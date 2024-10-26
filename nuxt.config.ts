@@ -199,13 +199,9 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     vueI18n: './i18n/i18n.config.ts', // if you are using custom path, default
   },
+  site: { url: 'https://memoku.dev', name: 'MEMOKU' },
   sitemap: {
-    defaults: {
-      changefreq: 'daily',
-      priority: 1,
-      lastmod: new Date(),
-    },
-    hostname: 'https://memoku.netlify.app', // 사이트의 기본 URL
+    hostname: 'https://memoku.dev', // 사이트의 기본 URL
     gzip: true, // 사이트맵을 압축하여 제공
     routes: [
       // 기본 페이지들

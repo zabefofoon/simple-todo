@@ -155,10 +155,10 @@ watch(
 
 watch(
   () => route.query,
-  (query) => {
+  (query, oldQuery) => {
     if (!query.bulk) bulkStore.emptyTodoIds()
 
-    if (query.authed) init()
+    if (!oldQuery.authed && query.authed) init()
   }
 )
 </script>

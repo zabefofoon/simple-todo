@@ -223,7 +223,12 @@
         </button>
         <UISelector @click.stop>
           <template #button="{ showOptions }">
-            <button class="flex | text-white" @click="showOptions()">
+            <button
+              class="flex | text-white"
+              :class="
+                storageStore.getThemeClass('text-slate-700', ' text-white')
+              "
+              @click="showOptions()">
               <i class="icon icon-overflow-vertical | text-xl"></i>
             </button>
           </template>

@@ -182,7 +182,7 @@
           <div v-else class="flex items-center">
             <button
               name="Upload"
-              class="flex items-center | bg-violet-600 | rounded-full | px-6 py-1"
+              class="flex items-center | bg-violet-600 | rounded-full | pl-6"
               @click="emit('upload')">
               <img
                 class="flex-shrink-0 | w-3.5 | mr-2"
@@ -190,41 +190,45 @@
               <span class="flex-shrink-0 | text-white whitespace-nowrap">
                 {{ i18n.t('Upload') }}
               </span>
+              <div class="border-l border-violet-400 | ml-4">&nbsp;</div>
+              <UISelector class="px-0.5 py-1.5 pr-2.5" @click.stop>
+                <template #button="{ showOptions }">
+                  <button
+                    class="flex | text-white"
+                    :class="
+                      storageStore.getThemeClass(
+                        'text-slate-700',
+                        ' text-white'
+                      )
+                    "
+                    @click="showOptions()">
+                    <i class="icon icon-chevron-down"></i>
+                  </button>
+                </template>
+                <template #options>
+                  <div
+                    class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap"
+                    :class="storageStore.getThemeClass('', 'text-white')">
+                    <button
+                      name="Save"
+                      class="flex items-center gap-2 | text-sm"
+                      @click="emit('save')">
+                      <i class="icon icon-lock"></i>
+                      <span class="whitespace-nowrap">
+                        {{ i18n.t('Save') }}
+                      </span>
+                    </button>
+                    <button
+                      v-if="todo"
+                      class="flex items-center gap-1"
+                      @click="emit('delete')">
+                      <i class="icon icon-close"></i>
+                      <span class="text-sm">{{ i18n.t('DoDelete') }}</span>
+                    </button>
+                  </div>
+                </template>
+              </UISelector>
             </button>
-            <UISelector @click.stop>
-              <template #button="{ showOptions }">
-                <button
-                  class="flex | text-white"
-                  :class="
-                    storageStore.getThemeClass('text-slate-700', ' text-white')
-                  "
-                  @click="showOptions()">
-                  <i class="icon icon-overflow-vertical | text-xl"></i>
-                </button>
-              </template>
-              <template #options>
-                <div
-                  class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap"
-                  :class="storageStore.getThemeClass('', 'text-white')">
-                  <button
-                    name="Save"
-                    class="flex items-center gap-2 | text-sm"
-                    @click="emit('save')">
-                    <i class="icon icon-lock"></i>
-                    <span class="whitespace-nowrap">
-                      {{ i18n.t('Save') }}
-                    </span>
-                  </button>
-                  <button
-                    v-if="todo"
-                    class="flex items-center gap-1"
-                    @click="emit('delete')">
-                    <i class="icon icon-close"></i>
-                    <span class="text-sm">{{ i18n.t('DoDelete') }}</span>
-                  </button>
-                </div>
-              </template>
-            </UISelector>
           </div>
         </div>
 

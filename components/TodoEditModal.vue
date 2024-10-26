@@ -193,7 +193,7 @@ const save = async () => {
     upto: toValue(upto),
     modified: new Date().getTime(),
     images: images.value.map((image) =>
-      typeof image === 'string' ? base64ToBlob(image) : image
+      image.startsWith('data:') ? base64ToBlob(image) : image
     ),
     linked: undefined,
     date: upto.value ? date.value : undefined,
@@ -237,7 +237,9 @@ const save = async () => {
   emit('update')
 
   if (isNaN(Number(currentTodo.value?.id))) {
-    router.replace(`/`)
+    if (i18n.locale.value === i18n.defaultLocale) router.replace(`/`)
+    else router.replace(`/${i18n.locale.value}`)
+
     return
   }
 

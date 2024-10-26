@@ -50,7 +50,7 @@
             </template>
             <template #options="{ showOptions }">
               <div
-                class="flex flex-col gap-1.5 | p-2 | rounded-lg overflow-hidden | whitespace-nowrap"
+                class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap"
                 :class="storageStore.getThemeClass('', 'text-white')">
                 <NuxtLinkLocale
                   :to="editUrl"

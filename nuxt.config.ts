@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   nitro: {
     preset: 'netlify',
+    compressPublicAssets: true,
   },
   devtools: { enabled: false },
   css: [
@@ -98,8 +99,10 @@ export default defineNuxtConfig({
         'MEMOKU: A free, offline-capable, sleek web app for simple note-taking.',
       link: [
         {
-          rel: 'stylesheet',
+          rel: 'preload',
           href: 'https://cdn.jsdelivr.net/npm/noto-sans-kr@0.1.1/styles.min.css',
+          as: 'style',
+          onload: "this.onload=null;this.rel='stylesheet'",
         },
         {
           rel: 'apple-touch-icon',

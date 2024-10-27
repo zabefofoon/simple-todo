@@ -5,7 +5,7 @@
         class="relative | main-section | flex flex-col items-center justify-center | aspect-[1/1] lg:aspect-[16/9] max-h-[88vh]"
         property="mainContentOfPage">
         <img
-          class="absolute z-0 bottom-0 lg:bottom-[unset] | pointer-events-none | w-[92%]"
+          class="absolute z-0 bottom-0 lg:bottom-[unset] | pointer-events-none | w-[92%] aspect-[1920/1080]"
           src="~/assets/images/main.png"
           alt="Welcome to MEMOKU!"
           property="image" />

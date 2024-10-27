@@ -33,7 +33,11 @@ const { gtag } = useGtag()
 
 let broadcastChannel: BroadcastChannel
 const init = async () => {
-  if (import.meta.client && Notification.permission !== 'granted')
+  if (
+    import.meta.client &&
+    window.Notification &&
+    Notification.permission !== 'granted'
+  )
     await Notification.requestPermission()
 
   const isPWA = window.matchMedia('(display-mode: standalone)').matches

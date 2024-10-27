@@ -47,6 +47,7 @@ export default defineNuxtConfig({
         },
       ],
     ],
+    loadingStrategy: 'async',
   },
 
   app: {
@@ -96,6 +97,10 @@ export default defineNuxtConfig({
       title:
         'MEMOKU: A free, offline-capable, sleek web app for simple note-taking.',
       link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://cdn.jsdelivr.net/npm/noto-sans-kr@0.1.1/styles.min.css',
+        },
         {
           rel: 'apple-touch-icon',
           sizes: '57x57',

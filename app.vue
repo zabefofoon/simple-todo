@@ -1,9 +1,7 @@
 <template>
   <VitePwaManifest />
   <NuxtPage />
-  <ClientOnly>
-    <CookiePopup />
-  </ClientOnly>
+  <CookiePopup />
 
   <AddHomeScreenGuideIos v-if="isSafari" />
   <AddHomeScreenGuideAndroid v-else />
@@ -31,6 +29,9 @@ const snackbarStore = useSnackbarStore()
 const route = useRoute()
 const i18n = useI18n()
 
+const { gtag } = useGtag()
+
+let broadcastChannel: BroadcastChannel
 const init = async () => {
   if (import.meta.client && Notification.permission !== 'granted')
     await Notification.requestPermission()
@@ -61,8 +62,8 @@ const init = async () => {
 
   await todoStore.getAllTodos()
 
-  const channel = new BroadcastChannel('sw-messages')
-  channel.addEventListener('message', (event) => {
+  broadcastChannel = new BroadcastChannel('sw-messages')
+  broadcastChannel.addEventListener('message', (event) => {
     if (event.data?.type === 'notification') {
       alarmStore.removeReadNewAlarms(event.data.todoId)
       alarmStore.addNewAlarm(event.data.todoId)
@@ -127,7 +128,15 @@ onBeforeMount(() => {
     else settingStore.setScreen('lg')
   })
 
-  storageStore.setLanguage(storageStore.language)
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted === true) {
+      // Send another pageview if the page is restored from bfcache.
+      gtag('event', 'page_view')
+    }
+  })
+  //kghworks.tistory.com/117 [kghworks:티스토리]
+
+  출처: https: storageStore.setLanguage(storageStore.language)
   settingStore.initSetting()
 })
 
@@ -136,6 +145,10 @@ onMounted(() => {
   if (route.path === '/google-auth') return
 
   init()
+})
+
+onBeforeUnmount(() => {
+  broadcastChannel?.close()
 })
 
 useHead({

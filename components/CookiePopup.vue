@@ -1,13 +1,14 @@
 <template>
   <div
     v-if="!cookiesAccepted"
-    class="flex flex-col gap-2 | fixed bottom-0 left-0 z-50 | w-full | px-4 py-8 | text-center border-t"
-    :class="
+    class="transition-all | flex flex-col gap-2 | fixed bottom-0 left-0 z-50 | w-full | px-4 py-8 | text-center border-t"
+    :class="[
+      mounted ? '' : 'translate-y-full',
       storageStore.getThemeClass(
         'bg-white border-slate-300',
         'bg-slate-950 border-slate-600'
-      )
-    ">
+      ),
+    ]">
     <p
       class="text-sm lg:text-md | max-w-[300px] | mx-auto"
       :class="storageStore.getThemeClass('', 'text-white')"
@@ -16,7 +17,8 @@
       to="https://memoku.netlify.app/privacy-policy.html"
       target="_blank"
       class="underline | text-sm lg:text-md"
-      :class="storageStore.getThemeClass('', 'text-white')">
+      :class="storageStore.getThemeClass('', 'text-white')"
+      external>
       {{ i18n.t('ShowPrivacyPolicy') }}
     </NuxtLinkLocale>
     <div class="flex gap-3 justify-center | w-full | mt-4">
@@ -41,7 +43,10 @@ const { gtag } = useGtag()
 const storageStore = useStorageStore()
 const i18n = useI18n()
 
-const cookiesAccepted = ref(false)
+const mounted = ref(false)
+const setMounted = () => (mounted.value = true)
+
+const cookiesAccepted = ref(storageStore.getCookiesAccepted())
 const setCookiesAccepted = (value: boolean) => (cookiesAccepted.value = value)
 
 const allConsentGranted = () => {
@@ -61,6 +66,6 @@ const setCookieConsent = () => {
 }
 
 onMounted(() => {
-  setCookiesAccepted(storageStore.getCookiesAccepted())
+  setMounted()
 })
 </script>

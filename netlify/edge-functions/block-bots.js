@@ -3,6 +3,7 @@ let abnormalBehaviorCounts = {} // 비정상 행동 횟수 기록
 const blockIPList = new Set(['3.81.228.87', '193.70.113.250']) // 차단된 IP 목록
 
 export default async (request) => {
+  const userAgent = request.headers.get('user-agent')
   const clientIP = request.headers.get('x-forwarded-for')
   const requestLimit = 20 // 5초 동안 최대 허용 요청 횟수
   const abnormalBehaviorLimit = 3 // 비정상 행동 횟수 기준

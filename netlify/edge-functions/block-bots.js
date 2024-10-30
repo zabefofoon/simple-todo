@@ -3,6 +3,7 @@ let abnormalBehaviorCounts = {} // 비정상 행동 횟수 기록
 const blockIPList = new Set(['3.81.228.87', '193.70.113.250']) // 차단된 IP 목록
 
 export default async (request) => {
+  const url = new URL(request.url)
   const userAgent = request.headers.get('user-agent')
   const clientIP = request.headers.get('x-forwarded-for')
   const requestLimit = 20 // 5초 동안 최대 허용 요청 횟수
@@ -13,6 +14,12 @@ export default async (request) => {
   console.log(`${clientIP}, ${request.headers.get('referer')}, ${userAgent}`)
 
   const currentTime = Date.now()
+
+  // 해제 요청이 있는 경우
+  if (url.pathname === '/unblock' && blockIPList.has(clientIP)) {
+    blockIPList.delete(clientIP) // 차단 해제
+    return new Response('Your IP has been unblocked.', { status: 200 })
+  }
 
   // 만료된 항목 정리
   for (const ip in requestCounts) {
@@ -66,6 +73,11 @@ export default async (request) => {
 
   // 차단 목록에 있는 IP 확인
   if (blockIPList.has(clientIP)) {
-    return new Response('Access denied', { status: 403 })
+    return new Response(
+      'Access denied. To request unblocking, visit https://memoku.dev/unblock.',
+      { status: 403 }
+    )
   }
+
+  return new Response('Request successful')
 }

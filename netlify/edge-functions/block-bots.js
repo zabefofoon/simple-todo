@@ -78,6 +78,4 @@ export default async (request) => {
       { status: 403 }
     )
   }
-
-  return new Response('Request successful')
 }

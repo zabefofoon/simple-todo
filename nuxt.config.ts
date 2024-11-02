@@ -206,6 +206,12 @@ export default defineNuxtConfig({
     ],
     defaultLocale: 'en',
     vueI18n: './i18n/i18n.config.ts', // if you are using custom path, default
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      alwaysRedirect: true, // 사용자의 언어가 변경될 때마다 언어를 리다이렉트
+      fallbackLocale: 'en', // 감지된 언어가 지원되지 않을 경우 사용할 기본 언어
+    },
   },
   content: {
     documentDriven: true,

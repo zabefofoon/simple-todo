@@ -10,13 +10,13 @@ import googleUtil from '~/utils/google.util'
 
 const router = createRouter()
 
-const domain = import.meta.dev
-  ? 'http://localhost:3000'
-  : 'https://memoku.netlify.app'
-
 router.get(
   '/auth/google',
-  defineEventHandler(async () => {
+  defineEventHandler(async (event) => {
+    const domain = event.context.siteConfigNitroOrigin.endsWith('/')
+      ? event.context.siteConfigNitroOrigin.slice(0, -1)
+      : event.context.siteConfigNitroOrigin
+
     const oauth2Client = new google.auth.OAuth2(
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID,
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_SECRET,
@@ -39,6 +39,10 @@ router.get(
 router.get(
   '/auth/google/callback',
   defineEventHandler(async (event) => {
+    const domain = event.context.siteConfigNitroOrigin.endsWith('/')
+      ? event.context.siteConfigNitroOrigin.slice(0, -1)
+      : event.context.siteConfigNitroOrigin
+
     const query = getQuery(event)
     const oauth2Client = new google.auth.OAuth2(
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID,

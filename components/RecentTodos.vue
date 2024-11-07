@@ -65,11 +65,12 @@ const loadingStore = useLoadingStore()
 const googleStore = useGoogleStore()
 const settingStore = useSettingStore()
 
-const recentTodos = computed(() =>
-  todoStore.todos
-    ?.sort((a, b) => Number(b.modified) - Number(a.modified))
+const recentTodos = computed(() => {
+  return todoStore.todos
+    ?.slice()
+    .sort((a, b) => Number(b.modified) - Number(a.modified))
     .slice(0, settingStore.screen === 'lg' ? 12 : 4)
-)
+})
 
 const deleteTodo = (todo: Todo) => {
   if (confirm(i18n.t('ConfirmDelete')))

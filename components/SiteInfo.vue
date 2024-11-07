@@ -6,10 +6,15 @@
       <NuxtLink
         class="underline text-xs"
         to="/privacy-policy.html"
-        target="_blank">
+        target="_blank"
+        external>
         {{ i18n.t('Terms') }}
       </NuxtLink>
-      <NuxtLink class="underline text-xs" to="/terms.html" target="_blank">
+      <NuxtLink
+        class="underline text-xs"
+        to="/terms.html"
+        target="_blank"
+        external>
         {{ i18n.t('Policy') }}
       </NuxtLink>
     </div>

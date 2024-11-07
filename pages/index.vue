@@ -43,9 +43,11 @@
 <script setup lang="ts">
 import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
+import { useTodoStore } from '~/store/todo.store'
 
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
+const todoStore = useTodoStore()
 const i18n = useI18n()
 
 useHead({

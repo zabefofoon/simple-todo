@@ -54,6 +54,10 @@ export default defineNuxtConfig({
   app: {
     head: {
       meta: [
+        {
+          name: 'google-site-verification',
+          content: 'HO_eOXo5MwUX_eRwSDcHD6kiNYV0rQAAXYCyYAzfoWE',
+        },
         { name: 'viewport', content: 'initial-scale=1, viewport-fit=cover' },
         { name: 'google', content: 'notranslate' },
         {

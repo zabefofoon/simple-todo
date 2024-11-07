@@ -57,6 +57,28 @@
       </NuxtLinkLocale>
     </div>
   </footer>
+  <footer class="bg-slate-950 | px-4 lg:px-8 py-6 | flex justify-between gap-4">
+    <div
+      class="lg:w-full | mx-auto lg:mx-0 | flex gap-4 flex-col lg:flex-row lg:justify-between | min-w-[160px] | text-slate-400">
+      <p class="text-xs text-center">MEMOKU &copy; 2024 zabefofoon.</p>
+      <div class="flex gap-4">
+        <NuxtLink
+          class="underline text-xs"
+          to="/privacy-policy.html"
+          target="_blank"
+          external>
+          {{ i18n.t('Terms') }}
+        </NuxtLink>
+        <NuxtLink
+          class="underline text-xs"
+          to="/terms.html"
+          target="_blank"
+          external>
+          {{ i18n.t('Policy') }}
+        </NuxtLink>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script setup lang="ts">

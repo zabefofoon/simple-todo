@@ -115,7 +115,9 @@ export const useGoogleStore = defineStore(
       const indexes = todos.map(
         (todo) => googleTodos.value?.findIndex(({ id }) => id === todo.id) ?? -1
       )
-
+      todoStore.todos = todoStore.todos?.filter((todo) =>
+        todos.find(({ id }) => id !== todo.id)
+      )
       const response = await googleApi.deleteRow2(indexes)
       if (response.status === 200) {
         console.log('deleted')

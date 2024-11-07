@@ -53,16 +53,19 @@
         :class="storageStore.getThemeClass('', 'border-slate-700')">
         <Footer />
       </div>
+      <SiteInfo v-if="settingStore.screen === 'sm'" />
     </div>
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
+import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 
 const i18n = useI18n()
 
 const storageStore = useStorageStore()
+const settingStore = useSettingStore()
 
 useHead({
   title: i18n.t('PageTitle'),

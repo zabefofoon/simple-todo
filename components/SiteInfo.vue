@@ -1,0 +1,27 @@
+<template>
+  <div
+    class="flex flex-col gap-2 | lg:py-8 lg:px-4 | min-w-[160px]"
+    :class="storageStore.getThemeClass('text-slate-400', 'text-slate-500')">
+    <div class="flex justify-center lg:justify-evenly gap-4">
+      <NuxtLink
+        class="underline text-xs"
+        to="/privacy-policy.html"
+        target="_blank">
+        {{ i18n.t('Terms') }}
+      </NuxtLink>
+      <NuxtLink class="underline text-xs" to="/terms.html" target="_blank">
+        {{ i18n.t('Policy') }}
+      </NuxtLink>
+    </div>
+    <p class="text-xs text-center">MEMOKU &copy; 2024 zabefofoon.</p>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useStorageStore } from '~/store/storage.store'
+const storageStore = useStorageStore()
+
+const i18n = useI18n()
+</script>
+
+<style></style>

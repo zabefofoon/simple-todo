@@ -60,6 +60,9 @@
           </li>
         </NuxtLinkLocale>
       </ul>
+      <Transition name="fade">
+        <SiteInfo v-if="storageStore.isSNBExpanded" />
+      </Transition>
     </nav>
     <button
       class="absolute top-1/2 right-0 -translate-y-1/2 z-[9999] | p-1"

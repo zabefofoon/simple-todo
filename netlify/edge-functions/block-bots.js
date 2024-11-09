@@ -6,8 +6,8 @@ export default async (request) => {
   const url = new URL(request.url)
   const userAgent = request.headers.get('user-agent')
   const clientIP = request.headers.get('x-forwarded-for')
-  const requestLimit = 20 // 5초 동안 최대 허용 요청 횟수
-  const abnormalBehaviorLimit = 3 // 비정상 행동 횟수 기준
+  const requestLimit = 40 // 5초 동안 최대 허용 요청 횟수
+  const abnormalBehaviorLimit = 5 // 비정상 행동 횟수 기준
   const timeWindow = 5000 // 5초 기준
   const abnormalBehaviorWindow = 5 * 60 * 1000 // 5분 기준
 

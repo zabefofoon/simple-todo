@@ -5,14 +5,14 @@
     <div class="flex justify-center lg:justify-evenly gap-4">
       <NuxtLink
         class="underline text-xs"
-        to="/privacy-policy.html"
+        to="/terms.html"
         target="_blank"
         external>
         {{ i18n.t('Terms') }}
       </NuxtLink>
       <NuxtLink
         class="underline text-xs"
-        to="/terms.html"
+        to="/privacy-policy.html"
         target="_blank"
         external>
         {{ i18n.t('Policy') }}

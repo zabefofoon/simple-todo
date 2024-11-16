@@ -7,7 +7,7 @@
     <Skeletor class="w-full h-[24px]" />
   </div>
   <div
-    v-else
+    v-else-if="settingStore.screen === 'lg' || scheduledTodo"
     class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4"
     :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
     <h3 class="font-bold">
@@ -41,12 +41,14 @@
 
 <script setup lang="ts">
 import { useLoadingStore } from '~/store/loading.store'
+import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 import { useTodoStore } from '~/store/todo.store'
 
 const todoStore = useTodoStore()
 const loadingStore = useLoadingStore()
 const storageStore = useStorageStore()
+const settingStore = useSettingStore()
 const i18n = useI18n()
 
 const scheduledTodo = computed(() => {

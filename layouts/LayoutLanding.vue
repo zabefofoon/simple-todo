@@ -1,6 +1,6 @@
 <template>
   <header
-    class="flex items-center gap-1.5 | px-4 lg:px-8 py-2 | border-b | sticky top-0 left-0 z-10 | bg-white"
+    class="flex items-center gap-1.5 | px-4 py-3 | border-b | sticky top-0 left-0 z-10 | bg-white"
     vocab="http://schema.org/"
     typeof="WebPage">
     <NuxtLinkLocale
@@ -8,12 +8,11 @@
       to="/"
       area-label="Home"
       property="url">
-      <div class="flex items-center justify-center gap-1 | w-fit">
+      <div class="flex items-center justify-center gap-1.5 | w-fit">
         <img
-          class="w-[24px] aspect-square"
+          class="w-[20px] aspect-square"
           src="~/assets/images/logo.svg"
-          alt="MEMOKU"
-          property="logo" />
+          alt="MEMOKU" />
         <span property="name">MEMOKU</span>
       </div>
     </NuxtLinkLocale>
@@ -62,20 +61,20 @@
       class="lg:w-full | mx-auto lg:mx-0 | flex gap-4 flex-col lg:flex-row lg:justify-between | min-w-[160px] | text-slate-400">
       <p class="text-xs text-center">MEMOKU &copy; 2024 zabefofoon.</p>
       <div class="flex gap-4">
-        <NuxtLink
+        <NuxtLinkLocale
           class="underline text-xs"
           to="/terms.html"
           target="_blank"
           external>
           {{ i18n.t('Terms') }}
-        </NuxtLink>
-        <NuxtLink
+        </NuxtLinkLocale>
+        <NuxtLinkLocale
           class="underline text-xs"
           to="/privacy-policy.html"
           target="_blank"
           external>
           {{ i18n.t('Policy') }}
-        </NuxtLink>
+        </NuxtLinkLocale>
       </div>
     </div>
   </footer>

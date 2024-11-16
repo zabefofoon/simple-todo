@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink to="?notification=true" area-label="Notification">
+  <NuxtLinkLocale to="?notification=true" area-label="Notification">
     <button class="flex | relative" name="Notification">
       <div
         v-if="alarmStore.hasUnReadNewAlarms"
@@ -8,7 +8,7 @@
         class="icon icon-notification | text-xl"
         :class="storageStore.getThemeClass('', 'text-white')"></i>
     </button>
-  </NuxtLink>
+  </NuxtLinkLocale>
 </template>
 
 <script setup lang="ts">

@@ -31,7 +31,7 @@
       </NuxtLinkLocale>
       <ul class="h-full mt-8">
         <NuxtLinkLocale
-          v-for="menu in menuStore.snbMenus"
+          v-for="(menu, index) in menuStore.snbMenus"
           :key="menu.code"
           :to="menu.href"
           :area-label="menu.name">
@@ -58,6 +58,9 @@
               </span>
             </Transition>
           </li>
+          <hr
+            v-if="index === 3"
+            :class="storageStore.getThemeClass('', 'opacity-10')" />
         </NuxtLinkLocale>
       </ul>
       <Transition name="fade">
@@ -65,7 +68,7 @@
       </Transition>
     </nav>
     <button
-      class="absolute top-1/2 right-0 -translate-y-1/2 z-[9999] | p-1"
+      class="absolute top-1/2 right-0 -translate-y-1/2 z-20 | p-1"
       :class="[
         storageStore.isSNBExpanded
           ? 'rounded-l-full'

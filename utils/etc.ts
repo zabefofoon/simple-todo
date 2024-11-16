@@ -56,6 +56,25 @@ const getCookieExpiresNDays = (days: number) => {
   return date
 }
 
+const formatDate = (date: number, locale: 'ko' | 'en' | 'ja'): string => {
+  // 날짜 객체로 변환
+  const dateObj = new Date(date)
+
+  // 로케일별 포맷 옵션
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: locale === 'ko' ? '2-digit' : 'long', // 한국어는 숫자로, 나머지는 문자로
+    day: '2-digit',
+  }
+
+  // 일본어는 추가적으로 'era'를 포함
+  if (locale === 'ja') {
+    options.era = 'short'
+  }
+
+  // Intl.DateTimeFormat으로 포맷
+  return new Intl.DateTimeFormat(locale, options).format(dateObj)
+}
 export default {
   generateUniqueId,
   generateLongUniqueId,
@@ -65,4 +84,5 @@ export default {
   setCookie,
   getCookieExpiresNYears,
   getCookieExpiresNDays,
+  formatDate,
 }

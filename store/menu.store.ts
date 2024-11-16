@@ -26,6 +26,12 @@ export const useMenuStore = defineStore('menu', () => {
       icon: 'icon-setting',
     }),
     Menu.of({
+      code: 'News',
+      name: 'News',
+      href: '/news',
+      icon: 'icon-news',
+    }),
+    Menu.of({
       code: 'guide',
       name: 'Guide',
       href: '/memoku',

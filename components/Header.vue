@@ -11,7 +11,8 @@
       <NuxtLinkLocale
         class="block | w-full | font-bold"
         to="/"
-        area-label="Home">
+        area-label="Home"
+        property="url">
         <div class="flex items-center justify-center gap-1.5 | w-fit">
           <img
             class="w-[20px] aspect-square"
@@ -20,7 +21,9 @@
             "
             src="~/assets/images/logo.svg"
             alt="MEMOKU" />
-          <span :class="storageStore.getThemeClass('', 'text-white')">
+          <span
+            property="name"
+            :class="storageStore.getThemeClass('', 'text-white')">
             MEMOKU
           </span>
         </div>

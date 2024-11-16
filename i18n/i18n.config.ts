@@ -15,7 +15,7 @@ export default defineI18nConfig(() => {
       { code: 'ko', iso: 'ko-KR', name: '한국어' },
       { code: 'ja', iso: 'ja-JP', name: '日本語' },
     ],
-    locale: process.client
+    locale: import.meta.client
       ? JSON.parse(etcUtil.getCookie('storage') || '{}')?.language || 'en'
       : JSON.parse(getCookie(event, 'storage') || '{}')?.language || 'en',
     messages: {

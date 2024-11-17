@@ -305,7 +305,7 @@ export default defineNuxtConfig({
       },
       prefer_related_applications: true,
     },
-    injectManifest: {
+    workbox: {
       globDirectory: '.output/public/',
       globPatterns: ['**/*.{json,ico,html,png,js,txt,css,svg}'],
       swDest: '.output/public/sw.js',

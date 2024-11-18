@@ -10,7 +10,8 @@ export const useStorageStore = defineStore(
   () => {
     const i18n = useI18n()
     const event = useRequestEvent()
-
+    const localePath = useLocalePath()
+    const route = useRoute()
     const removeKeywords = (keyword: string) => {
       let keywords = getRecentKeywords()
       keywords = keywords.filter((savedKeyword) => savedKeyword !== keyword)
@@ -44,7 +45,7 @@ export const useStorageStore = defineStore(
     const language = ref<Language>(i18n.locale.value as Language)
     const setLanguage = (value: Language) => {
       language.value = value
-      i18n.setLocale(value)
+      navigateTo(localePath(route.path, value), { replace: true })
     }
 
     const theme = ref<Theme>(

@@ -26,5 +26,6 @@ export default defineI18nConfig(() => {
       ko,
       ja,
     },
+    warnHtmlMessage: false,
   }
 })

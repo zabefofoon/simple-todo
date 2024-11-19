@@ -5,54 +5,58 @@ export const useMenuStore = defineStore('menu', () => {
   const route = useRoute()
   const i18n = useI18n()
 
-  const snbMenus = shallowRef([
-    Menu.of({
-      code: 'dashboard',
-      name: 'Dashboard',
-      href: '/',
-      icon: 'icon-home',
-    }),
-    Menu.of({ code: 'todo', name: 'Todo', href: '/todo', icon: 'icon-file' }),
-    Menu.of({
-      code: 'calender',
-      name: 'Calender',
-      href: '/calender',
-      icon: 'icon-calender',
-    }),
-    Menu.of({
-      code: 'setting',
-      name: 'Setting',
-      href: '/setting',
-      icon: 'icon-setting',
-    }),
-    Menu.of({
-      code: 'News',
-      name: 'News',
-      href: '/news',
-      icon: 'icon-news',
-    }),
-    Menu.of({
-      code: 'guide',
-      name: 'Guide',
-      href: '/memoku',
-      icon: 'icon-help',
-    }),
-  ])
+  const snbMenus = computed<Menu[]>(() => {
+    return [
+      Menu.of({
+        code: 'dashboard',
+        name: 'Dashboard',
+        href: '/',
+        icon: 'icon-home',
+      }),
+      Menu.of({ code: 'todo', name: 'Todo', href: '/todo', icon: 'icon-file' }),
+      Menu.of({
+        code: 'calender',
+        name: 'Calender',
+        href: '/calender',
+        icon: 'icon-calender',
+      }),
+      Menu.of({
+        code: 'setting',
+        name: 'Setting',
+        href: '/setting',
+        icon: 'icon-setting',
+      }),
+      Menu.of({
+        code: 'News',
+        name: 'News',
+        href: '/news',
+        icon: 'icon-news',
+      }),
+      Menu.of({
+        code: 'guide',
+        name: 'Guide',
+        href: '/memoku',
+        icon: 'icon-help',
+      }),
+    ]
+  })
 
-  const appBarMenus = shallowRef([
-    Menu.of({ name: i18n.t('Home'), href: '/', icon: 'icon-home' }),
-    Menu.of({ name: i18n.t('Todo'), href: '/todo', icon: 'icon-file' }),
-    Menu.of({
-      name: i18n.t('Calender'),
-      href: '/calender',
-      icon: 'icon-calender',
-    }),
-    Menu.of({
-      name: i18n.t('Setting'),
-      href: '/setting',
-      icon: 'icon-setting',
-    }),
-  ])
+  const appBarMenus = computed<Menu[]>(() => {
+    return [
+      Menu.of({ name: i18n.t('Home'), href: '/', icon: 'icon-home' }),
+      Menu.of({ name: i18n.t('Todo'), href: '/todo', icon: 'icon-file' }),
+      Menu.of({
+        name: i18n.t('Calender'),
+        href: '/calender',
+        icon: 'icon-calender',
+      }),
+      Menu.of({
+        name: i18n.t('Setting'),
+        href: '/setting',
+        icon: 'icon-setting',
+      }),
+    ]
+  })
 
   const isCurrentHref = (path = '/') => {
     if (i18n.locale.value === i18n.defaultLocale) return path === route.path

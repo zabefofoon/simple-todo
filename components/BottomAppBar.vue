@@ -6,7 +6,7 @@
     ">
     <NuxtLinkLocale
       v-for="menu in menuStore.appBarMenus"
-      :key="menu.href"
+      :key="menu.href + storageStore.language"
       :to="menu.href"
       class="w-full"
       :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')"

@@ -205,14 +205,54 @@
 
     <!-- 저장 -->
     <div class="flex flex-col gap-2 | mt-auto">
-      <button
-        v-if="!googleStore.googleAccessToken"
-        name="Save"
-        class="w-full | flex items-center justify-center gap-2 | bg-slate-800 | text-white rounded-full | py-2"
-        @click="emit('save')">
-        <i class="icon icon-lock"></i>
-        <span class="text-white">{{ i18n.t('Save') }}</span>
-      </button>
+      <div v-if="!todo?.linked" class="flex items-center">
+        <button
+          name="Save"
+          class="relative | flex items-center justify-center gap-2 | w-full | bg-slate-800 | text-white rounded-full | py-2"
+          @click="emit('save')">
+          <i class="icon icon-lock"></i>
+          <span class="text-white">{{ i18n.t('Save') }}</span>
+          <div
+            class="absolute top-1/2 -translate-y-1/2 right-3 | border-l | pl-1.5">
+            <UISelector @click.stop>
+              <template #button="{ showOptions }">
+                <button
+                  class="flex | text-white"
+                  :class="
+                    storageStore.getThemeClass('text-slate-700', ' text-white')
+                  "
+                  @click="showOptions()">
+                  <i class="icon icon-chevron-down | text-xl"></i>
+                </button>
+              </template>
+              <template #options>
+                <div
+                  class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap"
+                  :class="
+                    storageStore.getThemeClass('text-slate-700', 'text-white')
+                  ">
+                  <button
+                    name="Upload"
+                    class="flex items-center gap-2 | text-sm"
+                    @click="emit('upload')">
+                    <img class="w-[12px]" src="~/assets/images/google.svg" />
+                    <span class="whitespace-nowrap">
+                      {{ i18n.t('Upload') }}
+                    </span>
+                  </button>
+                  <button
+                    v-if="todo"
+                    class="flex items-center gap-1"
+                    @click="emit('delete')">
+                    <i class="icon icon-close"></i>
+                    <span class="text-sm">{{ i18n.t('DoDelete') }}</span>
+                  </button>
+                </div>
+              </template>
+            </UISelector>
+          </div>
+        </button>
+      </div>
       <div v-else class="flex items-center">
         <button
           name="Upload"
@@ -236,7 +276,9 @@
               <template #options>
                 <div
                   class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap"
-                  :class="storageStore.getThemeClass('', 'text-white')">
+                  :class="
+                    storageStore.getThemeClass('text-slate-700', 'text-white')
+                  ">
                   <button
                     name="Save"
                     class="flex items-center gap-2 | text-sm"

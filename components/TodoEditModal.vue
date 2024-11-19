@@ -94,6 +94,7 @@ const i18n = useI18n()
 
 const router = useRouter()
 const route = useRoute()
+const localePath = useLocalePath()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
@@ -292,7 +293,10 @@ const upload = async () => {
 
   if (!todoStore.todos?.find(({ id }) => id === data.id)) {
     todoStore.todos?.push(Todo.of(data))
-    router.replace(`/`)
+
+    if (i18n.locale.value === i18n.defaultLocale) router.replace(`/`)
+    else router.replace(`/${i18n.locale.value}`)
+
     return
   }
 

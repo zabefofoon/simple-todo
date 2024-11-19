@@ -45,9 +45,13 @@ export const useGoogleStore = defineStore(
           created: todo.created,
           images: todo.images,
         }))
+
         const todos = response?.result
           .map(Todo.spreadsheetOf)
           .sort((a, b) => Number(b.created) - Number(a.created))
+          .filter(
+            (todo) => !todoStore.todos?.map(({ id }) => id).includes(todo.id)
+          )
 
         todoStore.todos
           ? todoStore.todos.push(...todos)

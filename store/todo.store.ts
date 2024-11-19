@@ -19,10 +19,11 @@ export const useTodoStore = defineStore('todo', () => {
       const data = await todoApi.getAllTodos()
 
       if (data?.length) {
-        const _todos = Todo.map(data).sort(
-          (a, b) => Number(b.created) - Number(a.created)
-        )
-        todos.value = [...(todos.value ?? []), ..._todos]
+        const _todos = Todo.map(data)
+          .sort((a, b) => Number(b.created) - Number(a.created))
+          .filter((todo) => !todos.value?.map(({ id }) => id).includes(todo.id))
+
+        todos.value ? todos.value.push(..._todos) : (todos.value = _todos)
       } else {
         const defaultTodo = Todo.of({
           id: generateUniqueId(),
@@ -79,7 +80,7 @@ export const useTodoStore = defineStore('todo', () => {
       return todo
     })
     todoApi.bulkAdd(result)
-    getAllTodos(true)
+    getAllTodos()
   }
 
   const getImages = async (id: string) => {

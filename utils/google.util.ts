@@ -17,6 +17,7 @@ export default {
     oauthClient.setCredentials({
       access_token: accessToken,
       refresh_token: refreshToken,
+      expiry_date: Date.now() + 3600 * 1000,
     })
 
     // 토큰 만료 여부 확인 후 갱신
@@ -35,8 +36,6 @@ export default {
           'Token refresh failed. User might need to re-authenticate.'
         )
       }
-    } else {
-      console.log('Access token is still valid.')
     }
 
     return oauthClient

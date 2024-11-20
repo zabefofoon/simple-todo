@@ -41,6 +41,7 @@ router.get(
         'https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/drive.file',
       ],
+      prompt: 'none',
     })
   })
 )

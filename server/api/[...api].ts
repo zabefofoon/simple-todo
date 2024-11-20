@@ -20,7 +20,7 @@ router.get(
     const domain = event.context.siteConfigNitroOrigin.endsWith('/')
       ? event.context.siteConfigNitroOrigin.slice(0, -1)
       : event.context.siteConfigNitroOrigin
-
+    console.log('domain: ', domain)
     const oauth2Client = new google.auth.OAuth2(
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID,
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_SECRET,

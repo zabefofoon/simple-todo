@@ -16,7 +16,7 @@ router.get(
     const cookies = parseCookies(event)
     const refreshToken = cookies['x-google-refresh-token']
     const accessToken = cookies['x-google-access-token']
-
+    const googleEmail = cookies['x-google-email']
     const domain = event.context.siteConfigNitroOrigin.endsWith('/')
       ? event.context.siteConfigNitroOrigin.slice(0, -1)
       : event.context.siteConfigNitroOrigin
@@ -42,7 +42,7 @@ router.get(
         'https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/drive.file',
       ],
-      login_hint: 'zabefofoon@gmail.com',
+      login_hint: googleEmail,
     })
   })
 )

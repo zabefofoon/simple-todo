@@ -152,5 +152,6 @@
   "Post_pwa_end_title": "安心してご利用ください！",
   "Post_pwa_end_desc": "MEMOKUは非常に軽量で、<br class='mobr' />他のシステムに影響を与えることはありません。<br /><br class='mobr' /> MEMOKUの運営チームは常に個人情報保護に向けた<br class='mobr' />取り組みを行っています。",
   "Post_pwa_end_button1": "MEMOKUを使う",
-  "Post_pwa_end_button2": "他のニュースを見る"
+  "Post_pwa_end_button2": "他のニュースを見る",
+  "NoticeGoogleEmail": "有効なGoogleのメールアドレスを入力してください。"
 }

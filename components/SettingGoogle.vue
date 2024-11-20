@@ -1,15 +1,22 @@
 <template>
   <div
-    class="flex | py-3"
+    class="flex items-center | py-3"
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <label
       class="lg:w-60 | text-sm"
       :class="storageStore.getThemeClass('', 'text-white')">
       {{ i18n.t('SpreadsheetLink') }}
     </label>
+    <input
+      v-model="email"
+      type="email"
+      class="w-[120px] lg:w-[200px] | bg-transparent border-b | p-1 ml-auto mr-3 lg:ml-0 | truncate"
+      placeholder="user@google.com"
+      :class="storageStore.getThemeClass('', 'text-white | border-slate-700')"
+      @change="" />
     <button
       v-if="googleStore.googleAccessToken"
-      class="ml-auto lg:ml-0 px-4 py-0.5 | text-sm text-white | rounded-full"
+      class="lg:ml-0 px-4 py-0.5 | text-sm text-white | rounded-full"
       name="Export"
       :class="storageStore.getThemeClass('bg-green-400', 'bg-green-600')"
       @click="googleStore.unLinkGoogle()">
@@ -17,9 +24,9 @@
     </button>
     <button
       v-else
-      class="ml-auto lg:ml-0 px-4 py-0.5 | bg-slate-800 | text-sm text-white | rounded-full"
+      class="lg:ml-0 px-4 py-0.5 | bg-slate-800 | text-sm text-white | rounded-full"
       name="Export"
-      @click="googleStore.openGoogleLoginPopup()">
+      @click="validate">
       Off
     </button>
   </div>
@@ -27,9 +34,29 @@
 
 <script setup lang="ts">
 import { useGoogleStore } from '~/store/google.store'
+import { useSnackbarStore } from '~/store/snackbar.store'
 import { useStorageStore } from '~/store/storage.store'
+import etcUtil from '~/utils/etc'
 
 const storageStore = useStorageStore()
 const i18n = useI18n()
 const googleStore = useGoogleStore()
+const snackbarStore = useSnackbarStore()
+const email = ref('')
+
+const validate = () => {
+  if (!email.value.includes('@')) {
+    snackbarStore.showSnackbar({
+      message: i18n.t('NoticeGoogleEmail'),
+      type: 'error',
+    })
+    return
+  }
+  etcUtil.setCookie('x-google-email', email.value, 365)
+  googleStore.openGoogleLoginPopup()
+}
+
+onMounted(() => {
+  email.value = etcUtil.getCookie('x-google-email') ?? ''
+})
 </script>

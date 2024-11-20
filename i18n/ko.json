@@ -153,5 +153,6 @@
   "Post_pwa_end_title": "걱정없이 사용하세요!",
   "Post_pwa_end_desc": "메모쿠는 굉장히 가벼우며, <br class='mobr' />다른 시스템에 영향도 가지 않습니다.<br /><br class='mobr' /> 메모쿠의 운영진은 항상 개인정보보호를 위한 <br class='mobr' />노력을 하고 있습니다.",
   "Post_pwa_end_button1": "메모쿠 사용하기",
-  "Post_pwa_end_button2": "다른 소식 더보기"
+  "Post_pwa_end_button2": "다른 소식 더보기",
+  "NoticeGoogleEmail": "올바른 구글 이메일을 입력해주세요."
 }

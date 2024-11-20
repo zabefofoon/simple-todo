@@ -78,10 +78,10 @@ router.get(
 router.post(
   '/spreadsheet/create',
   defineEventHandler(async (event) => {
-    const oauthClient = googleUtil.createOauthClient(event)
+    const oauthClient = await googleUtil.createOauthClient(event)
 
     const spreadsheetId = await googleUtil.getFileIdByName(
-      googleUtil.createOauthClient(event),
+      oauthClient,
       'MEMOKU_DATA'
     )
 
@@ -152,7 +152,7 @@ router.get(
     const { sheetId } = getQuery(event)
     // const isImageCleaned = getCookie(event, 'x-image-cleaned')
 
-    const oauthClient = googleUtil.createOauthClient(event)
+    const oauthClient = await googleUtil.createOauthClient(event)
 
     try {
       const doc = new GoogleSpreadsheet(sheetId?.toString() ?? '', oauthClient)
@@ -201,7 +201,7 @@ router.post(
   defineEventHandler(async (event) => {
     const { todo, sheetId } = await readBody(event)
 
-    const oauthClient = googleUtil.createOauthClient(event)
+    const oauthClient = await googleUtil.createOauthClient(event)
 
     try {
       const doc = new GoogleSpreadsheet(sheetId, oauthClient)
@@ -282,7 +282,7 @@ router.put(
       index: number
     }>(event)
 
-    const oauthClient = googleUtil.createOauthClient(event)
+    const oauthClient = await googleUtil.createOauthClient(event)
 
     try {
       const doc = new GoogleSpreadsheet(sheetId, oauthClient)
@@ -379,7 +379,7 @@ router.put(
   defineEventHandler(async (event) => {
     const { sheetId, updates } = await readBody(event)
 
-    const oauthClient = googleUtil.createOauthClient(event)
+    const oauthClient = await googleUtil.createOauthClient(event)
 
     try {
       const doc = new GoogleSpreadsheet(sheetId, oauthClient)
@@ -421,7 +421,7 @@ router.delete(
   defineEventHandler(async (event) => {
     const { sheetId, indexes } = await readBody(event)
 
-    const oauthClient = googleUtil.createOauthClient(event)
+    const oauthClient = await googleUtil.createOauthClient(event)
 
     try {
       const doc = new GoogleSpreadsheet(sheetId, oauthClient)
@@ -463,7 +463,7 @@ router.post(
       event
     )
 
-    const oauthClient = googleUtil.createOauthClient(event)
+    const oauthClient = await googleUtil.createOauthClient(event)
     try {
       const doc = new GoogleSpreadsheet(sheetId, oauthClient)
 

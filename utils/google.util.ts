@@ -4,7 +4,7 @@ import { H3Event } from 'h3'
 import { FetchError } from 'ofetch'
 
 export default {
-  createOauthClient(event: H3Event) {
+  async createOauthClient(event: H3Event) {
     const cookies = parseCookies(event)
     const refreshToken = cookies['x-google-refresh-token']
     const accessToken = cookies['x-google-access-token']
@@ -14,8 +14,22 @@ export default {
       clientSecret: import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_SECRET,
     })
 
-    oauthClient.credentials.access_token = accessToken
-    oauthClient.credentials.refresh_token = refreshToken
+    oauthClient.setCredentials({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    })
+
+    // `access token` 갱신 로직 추가
+    try {
+      const { token } = await oauthClient.getAccessToken() // 새 토큰 요청
+      oauthClient.setCredentials({ access_token: token }) // 새 토큰 설정
+    } catch (error) {
+      console.error('Failed to refresh access token:', error)
+      throw new Error(
+        'Token refresh failed. User might need to re-authenticate.'
+      )
+    }
+
     return oauthClient
   },
 

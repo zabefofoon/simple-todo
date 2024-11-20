@@ -27,31 +27,21 @@ router.get(
       `${domain}/api/auth/google/callback`
     )
 
-    // 기존 토큰 설정
     oauth2Client.setCredentials({
       access_token: accessToken,
       refresh_token: refreshToken,
+      expiry_date: Date.now() + 3600 * 1000,
     })
 
-    // 유효한 세션인지 확인
-    let promptType = 'none' // 기본값은 'none'
-    try {
-      // access token의 유효성을 Google API로 확인
-      const tokenInfo = await oauth2Client.getTokenInfo(accessToken)
-      console.log('Access token is valid:', tokenInfo)
-    } catch (error) {
-      console.warn('Access token is invalid or expired. Switching to consent.')
-      promptType = 'consent' // 유효하지 않으면 consent로 전환
-    }
-
-    // 인증 URL 생성
     return oauth2Client.generateAuthUrl({
+      // 'online' (default) or 'offline' (gets refresh_token)
       access_type: 'offline',
+
+      // If you only need one scope, you can pass it as a string
       scope: [
         'https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/drive.file',
       ],
-      prompt: promptType,
     })
   })
 )

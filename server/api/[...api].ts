@@ -20,15 +20,12 @@ router.get(
     const domain = event.context.siteConfigNitroOrigin.endsWith('/')
       ? event.context.siteConfigNitroOrigin.slice(0, -1)
       : event.context.siteConfigNitroOrigin
-    console.log('domain: ', domain)
+
     const oauth2Client = new google.auth.OAuth2(
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID,
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_SECRET,
       `${domain}/api/auth/google/callback`
     )
-
-    console.log('accessToken: ', accessToken)
-    console.log('refreshToken: ', refreshToken)
 
     oauth2Client.setCredentials({
       access_token: accessToken,
@@ -45,6 +42,7 @@ router.get(
         'https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/drive.file',
       ],
+      login_hint: 'zabefofoon@gmail.com',
     })
   })
 )

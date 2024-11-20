@@ -27,6 +27,9 @@ router.get(
       `${domain}/api/auth/google/callback`
     )
 
+    console.log('accessToken: ', accessToken)
+    console.log('refreshToken: ', refreshToken)
+
     oauth2Client.setCredentials({
       access_token: accessToken,
       refresh_token: refreshToken,

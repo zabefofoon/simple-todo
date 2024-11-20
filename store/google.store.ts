@@ -32,10 +32,6 @@ export const useGoogleStore = defineStore(
     const spreadsheetId = ref('')
     const setSpreadsheetId = (value: string) => (spreadsheetId.value = value)
 
-    const readDataFromSpreadsheet2 = () => {
-      return googleApi.requestAccessToken2()
-    }
-
     const getAllTodo = async () => {
       const response = await googleApi.getAllRows()
 
@@ -71,7 +67,7 @@ export const useGoogleStore = defineStore(
     }
 
     const openGoogleLoginPopup = async () => {
-      const url = await readDataFromSpreadsheet2()
+      const url = await googleApi.requestAccessToken2()
       if (route.path !== '/google-auth') location.replace(url)
     }
 
@@ -180,8 +176,6 @@ export const useGoogleStore = defineStore(
       setSpreadsheetInfo,
 
       googleTodos,
-
-      readDataFromSpreadsheet2,
 
       googleRefreshToken,
       setGoogleRefreshToken,

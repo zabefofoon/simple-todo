@@ -13,6 +13,10 @@ const router = createRouter()
 router.get(
   '/auth/google',
   defineEventHandler(async (event) => {
+    const cookies = parseCookies(event)
+    const refreshToken = cookies['x-google-refresh-token']
+    const accessToken = cookies['x-google-access-token']
+
     const domain = event.context.siteConfigNitroOrigin.endsWith('/')
       ? event.context.siteConfigNitroOrigin.slice(0, -1)
       : event.context.siteConfigNitroOrigin
@@ -22,6 +26,31 @@ router.get(
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_SECRET,
       `${domain}/api/auth/google/callback`
     )
+
+    oauth2Client.setCredentials({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    })
+
+    // 토큰 만료 여부 확인 후 갱신
+    const isTokenExpired =
+      !oauth2Client.credentials.expiry_date || // 만료일이 설정되지 않은 경우
+      oauth2Client.credentials.expiry_date < Date.now() // 만료된 경우
+
+    if (isTokenExpired) {
+      try {
+        console.log('Access token expired. Refreshing...')
+        const { token } = await oauth2Client.getAccessToken() // 새 토큰 요청
+        oauth2Client.setCredentials({ access_token: token }) // 새 토큰 설정
+      } catch (error) {
+        console.error('Failed to refresh access token:', error)
+        throw new Error(
+          'Token refresh failed. User might need to re-authenticate.'
+        )
+      }
+    } else {
+      console.log('Access token is still valid.')
+    }
 
     return oauth2Client.generateAuthUrl({
       // 'online' (default) or 'offline' (gets refresh_token)

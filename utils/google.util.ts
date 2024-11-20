@@ -19,15 +19,24 @@ export default {
       refresh_token: refreshToken,
     })
 
-    // `access token` 갱신 로직 추가
-    try {
-      const { token } = await oauthClient.getAccessToken() // 새 토큰 요청
-      oauthClient.setCredentials({ access_token: token }) // 새 토큰 설정
-    } catch (error) {
-      console.error('Failed to refresh access token:', error)
-      throw new Error(
-        'Token refresh failed. User might need to re-authenticate.'
-      )
+    // 토큰 만료 여부 확인 후 갱신
+    const isTokenExpired =
+      !oauthClient.credentials.expiry_date || // 만료일이 설정되지 않은 경우
+      oauthClient.credentials.expiry_date < Date.now() // 만료된 경우
+
+    if (isTokenExpired) {
+      try {
+        console.log('Access token expired. Refreshing...')
+        const { token } = await oauthClient.getAccessToken() // 새 토큰 요청
+        oauthClient.setCredentials({ access_token: token }) // 새 토큰 설정
+      } catch (error) {
+        console.error('Failed to refresh access token:', error)
+        throw new Error(
+          'Token refresh failed. User might need to re-authenticate.'
+        )
+      }
+    } else {
+      console.log('Access token is still valid.')
     }
 
     return oauthClient

@@ -66,11 +66,17 @@ router.get(
     if (tokens.refresh_token) {
       setCookie(event, 'x-google-refresh-token', tokens.refresh_token, {
         expires: etcUtil.getCookieExpiresNYears(100),
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax', // 또는 'None'
       })
     }
     if (tokens.access_token) {
       setCookie(event, 'x-google-access-token', tokens.access_token, {
         expires: etcUtil.getCookieExpiresNDays(3),
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax', // 또는 'None'
       })
     }
 

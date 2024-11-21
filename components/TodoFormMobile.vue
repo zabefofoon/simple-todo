@@ -213,7 +213,7 @@
           <i class="icon icon-lock"></i>
           <span class="text-white">{{ i18n.t('Save') }}</span>
           <div
-            class="absolute top-1/2 -translate-y-1/2 right-3 | border-l | pl-1.5">
+            class="absolute top-1/2 -translate-y-1/2 right-3 | border-slate-600 | pl-1.5">
             <UISelector @click.stop>
               <template #button="{ showOptions }">
                 <button
@@ -222,7 +222,10 @@
                     storageStore.getThemeClass('text-slate-700', ' text-white')
                   "
                   @click="showOptions()">
-                  <i class="icon icon-chevron-down | text-xl"></i>
+                  <i
+                    v-if="settingStore.screen === 'lg'"
+                    class="icon icon-chevron-down | text-xl"></i>
+                  <i v-else class="icon icon-overflow-vertical | text-xl"></i>
                 </button>
               </template>
               <template #options>
@@ -233,7 +236,7 @@
                   ">
                   <button
                     name="Upload"
-                    class="flex items-center gap-2 | text-sm"
+                    class="flex items-center gap-2 | text-sm | pr-3"
                     @click="emit('upload')">
                     <img class="w-[12px]" src="~/assets/images/google.svg" />
                     <span class="whitespace-nowrap">
@@ -260,8 +263,7 @@
           @click="emit('upload')">
           <img class="flex-shrink-0" src="~/assets/images/google.svg" />
           <span class="text-white">{{ i18n.t('Upload') }}</span>
-          <div
-            class="absolute top-1/2 -translate-y-1/2 right-3 | border-l border-violet-400 | pl-1.5">
+          <div class="absolute top-1/2 -translate-y-1/2 right-3 | pl-1.5">
             <UISelector @click.stop>
               <template #button="{ showOptions }">
                 <button
@@ -270,7 +272,10 @@
                     storageStore.getThemeClass('text-slate-700', ' text-white')
                   "
                   @click="showOptions()">
-                  <i class="icon icon-chevron-down | text-xl"></i>
+                  <i
+                    v-if="settingStore.screen === 'lg'"
+                    class="icon icon-chevron-down | text-xl"></i>
+                  <i v-else class="icon icon-overflow-vertical | text-xl"></i>
                 </button>
               </template>
               <template #options>
@@ -309,7 +314,6 @@
 
 <script setup lang="ts">
 import { Todo } from '~/models/Todo'
-import { useGoogleStore } from '~/store/google.store'
 import { useSettingStore } from '~/store/setting.store'
 import { useStorageStore } from '~/store/storage.store'
 
@@ -343,7 +347,6 @@ const i18n = useI18n()
 
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
-const googleStore = useGoogleStore()
 
 const imageSrc = (image: string | Blob) => {
   return typeof image === 'string' ? image : URL.createObjectURL(image)

@@ -31,7 +31,7 @@
                 storageStore.getThemeClass('', 'text-white'),
               ]"></i>
             <span
-              class="text-xs"
+              class="text-[10px]"
               :class="storageStore.getThemeClass('', 'text-white')">
               {{ menu.name }}
             </span>

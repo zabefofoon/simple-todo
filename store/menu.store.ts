@@ -4,24 +4,25 @@ import { Menu } from '~/models/Menu'
 export const useMenuStore = defineStore('menu', () => {
   const route = useRoute()
   const i18n = useI18n()
+  const localePath = useLocalePath()
 
   const snbMenus = computed<Menu[]>(() => {
     return [
       Menu.of({
-        code: 'dashboard',
+        code: 'Dashboard',
         name: 'Dashboard',
         href: '/',
         icon: 'icon-home',
       }),
       Menu.of({ code: 'todo', name: 'Todo', href: '/todo', icon: 'icon-file' }),
       Menu.of({
-        code: 'calender',
+        code: 'Calender',
         name: 'Calender',
         href: '/calender',
         icon: 'icon-calender',
       }),
       Menu.of({
-        code: 'setting',
+        code: 'Setting',
         name: 'Setting',
         href: '/setting',
         icon: 'icon-setting',
@@ -33,7 +34,7 @@ export const useMenuStore = defineStore('menu', () => {
         icon: 'icon-news',
       }),
       Menu.of({
-        code: 'guide',
+        code: 'Guide',
         name: 'Guide',
         href: '/memoku',
         icon: 'icon-help',
@@ -43,26 +44,40 @@ export const useMenuStore = defineStore('menu', () => {
 
   const appBarMenus = computed<Menu[]>(() => {
     return [
-      Menu.of({ name: i18n.t('Home'), href: '/', icon: 'icon-home' }),
-      Menu.of({ name: i18n.t('Todo'), href: '/todo', icon: 'icon-file' }),
+      Menu.of({
+        name: i18n.t('Home'),
+        href: '/',
+        icon: 'icon-home',
+        code: 'Home',
+      }),
+      Menu.of({
+        name: i18n.t('Todo'),
+        href: '/todo',
+        icon: 'icon-file',
+        code: 'Todo',
+      }),
       Menu.of({
         name: i18n.t('Calender'),
         href: '/calender',
         icon: 'icon-calender',
+        code: 'Calender',
+      }),
+      Menu.of({
+        name: i18n.t('News'),
+        href: '/news',
+        icon: 'icon-news',
+        code: 'News',
       }),
       Menu.of({
         name: i18n.t('Setting'),
         href: '/setting',
         icon: 'icon-setting',
+        code: 'Setting',
       }),
     ]
   })
 
-  const isCurrentHref = (path = '/') => {
-    if (i18n.locale.value === i18n.defaultLocale) return path === route.path
-    else if (path === '/') return `/${i18n.locale.value}` === route.path
-    else return `/${i18n.locale.value}${path}` === route.path
-  }
+  const isCurrentHref = (path = '/') => localePath(path) === route.path
 
   return {
     snbMenus,

@@ -7,6 +7,7 @@ import { useStorageStore } from '~/store/storage.store'
 const route = useRoute()
 const googleStore = useGoogleStore()
 const storageStore = useStorageStore()
+const localePath = useLocalePath()
 
 onMounted(() => {
   if (route.query.refreshToken) {
@@ -15,13 +16,9 @@ onMounted(() => {
   if (route.query.accessToken)
     googleStore.setGoogleAccessToken(route.query.accessToken.toString())
 
-  let to = '/'
-  if (storageStore.language === 'ko') to = '/ko'
-  else if (storageStore.language === 'ja') to = '/ja'
-
   navigateTo(
     {
-      path: to,
+      path: localePath('/', storageStore.language),
       query: {
         authed: 'true',
       },

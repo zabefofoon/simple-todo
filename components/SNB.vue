@@ -34,14 +34,21 @@
           v-for="(menu, index) in menuStore.snbMenus"
           :key="menu.code"
           :to="menu.href"
-          :area-label="menu.name">
+          :area-label="menu.name"
+          class="block | py-0.5 px-2">
           <li
-            class="relative | flex items-center gap-3 | py-3 px-4"
+            class="relative | flex items-center gap-3 | py-3 px-4 | rounded-lg"
             :class="[
               storageStore.isSNBExpanded ? '' : 'justify-center',
               menuStore.isCurrentHref(menu.href)
-                ? storageStore.getThemeClass('bg-slate-100', 'bg-slate-950')
-                : storageStore.getThemeClass('', ''),
+                ? storageStore.getThemeClass(
+                    'bg-slate-700 text-white',
+                    'bg-slate-950'
+                  )
+                : storageStore.getThemeClass(
+                    'hover:bg-slate-50',
+                    'hover:bg-slate-800'
+                  ),
             ]">
             <i
               class="icon | text-xl | flex-shrink-0"
@@ -52,9 +59,12 @@
             <Transition name="fade">
               <span
                 v-if="storageStore.isSNBExpanded"
-                class="text-sm"
+                class="relative text-sm"
                 :class="storageStore.getThemeClass('', 'text-white')">
                 {{ i18n.t(menu.name ?? '') }}
+                <div
+                  v-if="menu.code === 'News'"
+                  class="w-1.5 h-1.5 | bg-red-500 rounded-full | absolute top-0 left-0 -translate-x-0.5 -ttranslate-y-0.5"></div>
               </span>
             </Transition>
           </li>

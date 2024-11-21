@@ -13,15 +13,17 @@
       :area-label="menu.name"
       replace>
       <li>
-        <button
-          :name="menu.name"
-          class="w-full | mx-auto py-2.5"
-          :class="
-            menuStore.isCurrentHref(menu.href)
-              ? storageStore.getThemeClass('bg-slate-100', 'bg-gray-950')
-              : storageStore.getThemeClass('', '')
-          ">
-          <div class="flex flex-col items-center gap-.5 | w-full">
+        <button :name="menu.name" class="w-full | mx-auto pt-1 pb-2 px-2">
+          <div
+            class="relative | flex flex-col items-center gap-.5 | w-full | py-2 rounded-lg"
+            :class="
+              menuStore.isCurrentHref(menu.href)
+                ? storageStore.getThemeClass(
+                    'bg-slate-700 text-white',
+                    'bg-gray-950'
+                  )
+                : storageStore.getThemeClass('', '')
+            ">
             <i
               class="icon text-xl"
               :class="[
@@ -33,6 +35,9 @@
               :class="storageStore.getThemeClass('', 'text-white')">
               {{ menu.name }}
             </span>
+            <div
+              v-if="menu.code === 'News'"
+              class="w-1 h-1 | bg-red-500 | rounded-full | absolute top-1 -translate-x-2"></div>
           </div>
         </button>
       </li>

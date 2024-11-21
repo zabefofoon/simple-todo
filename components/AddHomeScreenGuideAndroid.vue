@@ -42,11 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { useGuideStore } from '~/store/guide.store'
-import { useStorageStore } from '~/store/storage.store'
-
 const storageStore = useStorageStore()
 const guideStore = useGuideStore()
 const i18n = useI18n()
-
 </script>

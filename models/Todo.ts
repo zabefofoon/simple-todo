@@ -1,5 +1,4 @@
 import dayjs from 'dayjs'
-import { useSettingStore } from '~/store/setting.store'
 
 export class Todo {
   id?: string

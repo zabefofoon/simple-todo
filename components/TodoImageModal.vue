@@ -21,7 +21,6 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
-import { useStorageStore } from '~/store/storage.store'
 
 defineProps<{
   todo?: Todo

@@ -48,9 +48,6 @@
 </template>
 
 <script setup lang="ts">
-import { useBulkStore } from '~/store/bulk.store'
-import { useTodoStore } from '~/store/todo.store'
-
 const i18n = useI18n()
 
 const router = useRouter()

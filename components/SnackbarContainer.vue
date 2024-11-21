@@ -19,7 +19,6 @@
 </template>
 <script lang="ts" setup>
 import type { Snackbar } from '~/models/Snackbar'
-import { useSnackbarStore } from '~/store/snackbar.store'
 const snackbarStore = useSnackbarStore()
 
 const getSnackbarClassByType = ({ type }: Snackbar) => {

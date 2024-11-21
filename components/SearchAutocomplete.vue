@@ -16,9 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import { useStorageStore } from '~/store/storage.store'
-import { useTodoStore } from '~/store/todo.store'
-
 const props = defineProps<{
   keyword: string
 }>()

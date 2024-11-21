@@ -1,7 +1,6 @@
 import type { ServerResponse } from '~/models/ServerResponse'
 import type { Tag } from '~/models/Tag'
 import type { Todo } from '~/models/Todo'
-import { useGoogleStore } from '~/store/google.store'
 
 export const useGoogleApi = () => {
   const googleStore = useGoogleStore()

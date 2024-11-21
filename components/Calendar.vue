@@ -55,8 +55,6 @@
 
 <script setup lang="ts">
 import { Calendar } from 'v-calendar'
-import { useStorageStore } from '~/store/storage.store'
-import { useTodoStore } from '~/store/todo.store'
 
 withDefaults(
   defineProps<{

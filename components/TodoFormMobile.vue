@@ -314,8 +314,6 @@
 
 <script setup lang="ts">
 import { Todo } from '~/models/Todo'
-import { useSettingStore } from '~/store/setting.store'
-import { useStorageStore } from '~/store/storage.store'
 
 defineProps<{
   todo?: Todo

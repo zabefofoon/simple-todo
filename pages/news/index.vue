@@ -77,7 +77,6 @@
 
 <script setup lang="ts">
 import { PostBrief } from '~/models/Post'
-import { useStorageStore } from '~/store/storage.store'
 
 import etcUtil from '~/utils/etc'
 

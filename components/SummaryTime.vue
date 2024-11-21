@@ -49,8 +49,6 @@
 
 <script setup lang="ts">
 import type { SummaryTimeType } from '~/models/Summary'
-import { useLoadingStore } from '~/store/loading.store'
-import { useStorageStore } from '~/store/storage.store'
 
 const loadingStore = useLoadingStore()
 const i18n = useI18n()

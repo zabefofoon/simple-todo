@@ -21,10 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import { useGuideStore } from '~/store/guide.store'
-import { useLoadingStore } from '~/store/loading.store'
-import { useStorageStore } from '~/store/storage.store'
-
 const route = useRoute()
 const storageStore = useStorageStore()
 const loading = useLoadingStore()

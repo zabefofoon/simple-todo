@@ -28,7 +28,6 @@
 
 <script setup lang="ts">
 import packageJson from '~/package.json'
-import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
 </script>

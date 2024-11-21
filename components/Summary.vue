@@ -10,9 +10,6 @@
 
 <script setup lang="ts">
 import debounce from 'lodash.debounce'
-import { useSettingStore } from '~/store/setting.store'
-import { useStorageStore } from '~/store/storage.store'
-import { useTodoStore } from '~/store/todo.store'
 
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()

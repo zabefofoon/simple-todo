@@ -12,9 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import { useAlarmStore } from '~/store/alarm.store'
-import { useStorageStore } from '~/store/storage.store'
-
 const storageStore = useStorageStore()
 const alarmStore = useAlarmStore()
 </script>

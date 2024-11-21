@@ -61,9 +61,6 @@
 </template>
 
 <script setup lang="ts">
-import { useSettingStore } from '~/store/setting.store'
-import { useStorageStore } from '~/store/storage.store'
-
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 

@@ -10,13 +10,6 @@
 </template>
 <script setup lang="ts">
 import type { Theme } from './models/Setting'
-import { useAlarmStore } from './store/alarm.store'
-import { useBulkStore } from './store/bulk.store'
-import { useGoogleStore } from './store/google.store'
-import { useSettingStore } from './store/setting.store'
-import { useSnackbarStore } from './store/snackbar.store'
-import { useStorageStore } from './store/storage.store'
-import { useTodoStore } from './store/todo.store'
 
 const { isSafari, isAndroid, isIos } = useDevice()
 
@@ -140,9 +133,8 @@ onBeforeMount(() => {
       gtag('event', 'page_view')
     }
   })
-  //kghworks.tistory.com/117 [kghworks:티스토리]
 
-  출처: https: storageStore.setLanguage(storageStore.language)
+  storageStore.setLanguage(storageStore.language)
   settingStore.initSetting()
 })
 

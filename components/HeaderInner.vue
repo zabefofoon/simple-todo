@@ -19,8 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { useStorageStore } from '~/store/storage.store'
-
 defineProps<{
   label: string
 }>()

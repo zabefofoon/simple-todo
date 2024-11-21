@@ -98,9 +98,6 @@
 </template>
 
 <script setup lang="ts">
-import { useMenuStore } from '~/store/menu.store'
-import { useStorageStore } from '~/store/storage.store'
-
 const menuStore = useMenuStore()
 const storageStore = useStorageStore()
 const i18n = useI18n()

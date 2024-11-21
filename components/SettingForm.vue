@@ -67,9 +67,6 @@
 
 <script setup lang="ts">
 import type { Form } from '~/models/Setting'
-import { useLoadingStore } from '~/store/loading.store'
-import { useSettingStore } from '~/store/setting.store'
-import { useStorageStore } from '~/store/storage.store'
 
 const settingStore = useSettingStore()
 const storageStore = useStorageStore()

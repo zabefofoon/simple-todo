@@ -25,10 +25,6 @@
 
 <script setup lang="ts">
 import { Chart } from 'chart.js/auto'
-import { useLoadingStore } from '~/store/loading.store'
-import { useSettingStore } from '~/store/setting.store'
-import { useStorageStore } from '~/store/storage.store'
-import { useTodoStore } from '~/store/todo.store'
 
 const i18n = useI18n()
 

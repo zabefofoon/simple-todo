@@ -117,10 +117,6 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
-import { useGoogleStore } from '~/store/google.store'
-import { useLoadingStore } from '~/store/loading.store'
-import { useStorageStore } from '~/store/storage.store'
-import { useTodoStore } from '~/store/todo.store'
 
 const i18n = useI18n()
 

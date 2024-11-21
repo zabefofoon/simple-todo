@@ -85,8 +85,6 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
-import { useBulkStore } from '~/store/bulk.store'
-import { useStorageStore } from '~/store/storage.store'
 
 const props = defineProps<{
   todo: Todo

@@ -29,7 +29,6 @@
 
 <script setup lang="ts">
 import type { Language } from '~/models/Setting'
-import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
 const i18n = useI18n()

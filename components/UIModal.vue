@@ -35,8 +35,6 @@
 
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal'
-import { useSettingStore } from '~/store/setting.store'
-import { useStorageStore } from '~/store/storage.store'
 
 const props = defineProps<{
   title?: string

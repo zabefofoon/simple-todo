@@ -41,10 +41,6 @@ import TodoEditModal from '~/components/TodoEditModal.vue'
 import TodoFormModal from '~/components/TodoFormModal.vue'
 import TodoTagsModal from '~/components/TodoTagsModal.vue'
 
-import { useScrollStore } from '~/store/scroll.store'
-import { useSettingStore } from '~/store/setting.store'
-import { useStorageStore } from '~/store/storage.store'
-
 const route = useRoute()
 
 const scrollStore = useScrollStore()

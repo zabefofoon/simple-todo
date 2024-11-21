@@ -26,8 +26,6 @@
 </template>
 
 <script setup lang="ts">
-import { useStorageStore } from '~/store/storage.store'
-
 const storageStore = useStorageStore()
 const i18n = useI18n()
 

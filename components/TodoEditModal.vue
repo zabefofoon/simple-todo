@@ -79,12 +79,6 @@
 
 <script setup lang="ts">
 import { Todo } from '~/models/Todo'
-import { useAlarmStore } from '~/store/alarm.store'
-import { useGoogleStore } from '~/store/google.store'
-import { useLoadingStore } from '~/store/loading.store'
-import { useSettingStore } from '~/store/setting.store'
-import { useStorageStore } from '~/store/storage.store'
-import { useTodoStore } from '~/store/todo.store'
 
 const emit = defineEmits<{
   (e: 'close' | 'update'): void
@@ -94,7 +88,6 @@ const i18n = useI18n()
 
 const router = useRouter()
 const route = useRoute()
-const localePath = useLocalePath()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()

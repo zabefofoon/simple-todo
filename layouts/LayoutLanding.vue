@@ -82,7 +82,6 @@
 
 <script setup lang="ts">
 import type { Language } from '~/models/Setting'
-import { useStorageStore } from '~/store/storage.store'
 
 const storageStore = useStorageStore()
 const i18n = useI18n()
@@ -92,5 +91,3 @@ const changeLanguage = (event: Event) => {
   storageStore.setLanguage(value)
 }
 </script>
-
-<style></style>

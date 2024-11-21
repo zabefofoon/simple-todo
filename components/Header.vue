@@ -42,7 +42,5 @@
 </template>
 
 <script setup lang="ts">
-import { useStorageStore } from '~/store/storage.store'
-
 const storageStore = useStorageStore()
 </script>

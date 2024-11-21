@@ -60,11 +60,6 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
-import { useGoogleStore } from '~/store/google.store'
-import { useLoadingStore } from '~/store/loading.store'
-import { useSettingStore } from '~/store/setting.store'
-import { useStorageStore } from '~/store/storage.store'
-import { useTodoStore } from '~/store/todo.store'
 
 const emit = defineEmits<{
   (e: 'close'): void

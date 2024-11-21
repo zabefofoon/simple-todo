@@ -30,7 +30,6 @@
 </template>
 <script setup lang="ts">
 import debounce from 'lodash.debounce'
-import { useStorageStore } from '~/store/storage.store'
 
 const props = defineProps<{
   position?: Position

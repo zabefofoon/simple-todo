@@ -33,9 +33,6 @@
 </template>
 
 <script setup lang="ts">
-import { useGoogleStore } from '~/store/google.store'
-import { useSnackbarStore } from '~/store/snackbar.store'
-import { useStorageStore } from '~/store/storage.store'
 import etcUtil from '~/utils/etc'
 
 const storageStore = useStorageStore()

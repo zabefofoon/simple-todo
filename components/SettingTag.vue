@@ -99,9 +99,6 @@
 
 <script setup lang="ts">
 import { Tag } from '~/models/Tag'
-import { useLoadingStore } from '~/store/loading.store'
-import { useSettingStore } from '~/store/setting.store'
-import { useStorageStore } from '~/store/storage.store'
 import { deepClone } from '~/utils/etc'
 
 const i18n = useI18n()

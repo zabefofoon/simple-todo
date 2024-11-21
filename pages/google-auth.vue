@@ -1,9 +1,6 @@
 <template><span></span></template>
 
 <script setup lang="ts">
-import { useGoogleStore } from '~/store/google.store'
-import { useStorageStore } from '~/store/storage.store'
-
 const route = useRoute()
 const googleStore = useGoogleStore()
 const storageStore = useStorageStore()
@@ -31,5 +28,3 @@ useHead({
   meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 })
 </script>
-
-<style></style>

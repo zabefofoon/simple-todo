@@ -335,9 +335,6 @@
 
 <script setup lang="ts">
 import { Todo } from '~/models/Todo'
-import { useGoogleStore } from '~/store/google.store'
-import { useSettingStore } from '~/store/setting.store'
-import { useStorageStore } from '~/store/storage.store'
 
 defineProps<{
   todo?: Todo
@@ -369,7 +366,6 @@ const i18n = useI18n()
 
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
-const googleStore = useGoogleStore()
 
 const imageSrc = (image: string | Blob) => {
   return typeof image === 'string' ? image : URL.createObjectURL(image)

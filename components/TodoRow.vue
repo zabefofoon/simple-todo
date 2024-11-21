@@ -79,9 +79,7 @@
           todo.done ? 'bg-green-500' : 'border border-gray-200',
           hideDelete ? 'right-2' : 'right-8',
         ]"
-        @click.stop.prevent="
-          !route.query.builk && emit('done', todo.id || '', todo.done)
-        ">
+        @click.stop.prevent="!route.query.bulk && done()">
         <i
           class="icon icon-check | text-sm"
           :class="todo.done ? 'text-white' : 'text-gray-300'"></i>
@@ -90,9 +88,7 @@
         v-if="!hideDelete"
         nmae="Delete"
         class="flex items-center | p-1"
-        @click.stop.prevent="
-          !route.query.builk && emit('delete', todo.id || '')
-        ">
+        @click.stop.prevent="!route.query.bulk && deleteTodo()">
         <i
           class="icon icon-close"
           :class="storageStore.getThemeClass('', 'text-white')"></i>
@@ -118,11 +114,12 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'delete', id: string): void
-  (e: 'done', id: string, done?: boolean): void
 }>()
 
 const route = useRoute()
 
+const todoStore = useTodoStore()
+const googleStore = useGoogleStore()
 const storageStore = useStorageStore()
 const bulkStore = useBulkStore()
 const i18n = useI18n()
@@ -165,4 +162,18 @@ onLongPress(nuxtLinkEl, () => bulkStore.turnOnBulkMode(props.todo.id), {
     prevent: true,
   },
 })
+
+const done = () => {
+  props.todo.toggleDone()
+  props.todo.linked
+    ? googleStore.doneTodo2([props.todo], !props.todo.done)
+    : todoStore.doneTodo(props.todo.id ?? '', !props.todo.done)
+}
+
+const deleteTodo = () => {
+  if (confirm(i18n.t('ConfirmDelete')))
+    props.todo.linked
+      ? googleStore.deleteTodo2([props.todo])
+      : todoStore.deleteTodo(props.todo.id ?? '')
+}
 </script>

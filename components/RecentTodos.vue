@@ -30,17 +30,10 @@
         <TodoThumbnail
           v-for="todo in recentTodos"
           :key="todo.id"
-          :todo="todo"
-          @delete="deleteTodo(todo)"
-          @done="(id, done) => doneTodo(todo, done)" />
+          :todo="todo" />
       </div>
       <div v-else class="flex flex-col gap-2">
-        <TodoRow
-          v-for="todo in recentTodos"
-          :key="todo.id"
-          :todo="todo"
-          @delete="deleteTodo(todo)"
-          @done="(id, done) => doneTodo(todo, done)" />
+        <TodoRow v-for="todo in recentTodos" :key="todo.id" :todo="todo" />
         <p v-if="!recentTodos?.length" class="text-center py-10">
           {{ i18n.t('NoTodo') }}
         </p>
@@ -66,18 +59,4 @@ const recentTodos = computed(() => {
     .sort((a, b) => Number(b.modified) - Number(a.modified))
     .slice(0, settingStore.screen === 'lg' ? 12 : 4)
 })
-
-const deleteTodo = (todo: Todo) => {
-  if (confirm(i18n.t('ConfirmDelete')))
-    todo.linked
-      ? googleStore.deleteTodo2([todo])
-      : todoStore.deleteTodo(todo.id ?? '')
-}
-
-const doneTodo = (todo: Todo, done?: boolean) => {
-  todo.done = !done
-  todo.linked
-    ? googleStore.doneTodo2([todo], !done)
-    : todoStore.doneTodo(todo.id ?? '', !done)
-}
 </script>

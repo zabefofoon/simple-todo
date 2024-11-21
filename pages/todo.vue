@@ -54,17 +54,13 @@
                 <TodoThumbnail
                   v-for="todo in matchedTodos(tag.label)"
                   :key="todo.id"
-                  :todo="todo"
-                  @delete="deleteTodo(todo)"
-                  @done="(id, done) => doneTodo(todo, done)" />
+                  :todo="todo" />
               </div>
               <div v-else class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
                 <TodoRow
                   v-for="todo in matchedTodos(tag.label)"
                   :key="todo.id"
-                  :todo="todo"
-                  @delete="deleteTodo(todo)"
-                  @done="(id, done) => doneTodo(todo, done)" />
+                  :todo="todo" />
               </div>
             </div>
           </template>
@@ -89,17 +85,13 @@
               <TodoThumbnail
                 v-for="todo in matchedTodos()"
                 :key="todo.id"
-                :todo="todo"
-                @delete="deleteTodo(todo)"
-                @done="(id, done) => doneTodo(todo, done)" />
+                :todo="todo" />
             </div>
             <div v-else class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
               <TodoRow
                 v-for="todo in matchedTodos()"
                 :key="todo.id"
-                :todo="todo"
-                @delete="deleteTodo(todo)"
-                @done="(id, done) => doneTodo(todo, done)" />
+                :todo="todo" />
             </div>
           </div>
         </div>
@@ -143,19 +135,6 @@ const todos = computed(() => {
     : result?.sort((a, b) => b.created! - a.created!)
 })
 
-const deleteTodo = (todo: Todo) => {
-  if (confirm(i18n.t('ConfirmDelete')))
-    todo.linked
-      ? googleStore.deleteTodo2([todo])
-      : todoStore.deleteTodo(todo.id ?? '')
-}
-
-const doneTodo = (todo: Todo, done?: boolean) => {
-  todo.done = !done
-  todo.linked
-    ? googleStore.doneTodo2([todo], !done)
-    : todoStore.doneTodo(todo.id ?? '', !done)
-}
 const matchedTodos = (label?: string) => {
   return (
     todos.value?.filter(({ tag }) => tag?.label === label).slice(0, 6) ??

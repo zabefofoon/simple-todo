@@ -34,20 +34,13 @@
             <TodoThumbnail
               v-for="todo in todayTodos"
               :key="todo.id"
-              :todo="todo"
-              @delete="deleteTodo(todo)"
-              @done="(id, done) => doneTodo(todo, done)" />
+              :todo="todo" />
           </div>
           <div
             v-else
             class="h-full | flex flex-col gap-2 | p-4 | min-h-full"
             :class="{ 'justify-center': !todayTodos?.length }">
-            <TodoRow
-              v-for="todo in todayTodos"
-              :key="todo.id"
-              :todo="todo"
-              @delete="deleteTodo(todo)"
-              @done="(id, done) => doneTodo(todo, done)" />
+            <TodoRow v-for="todo in todayTodos" :key="todo.id" :todo="todo" />
           </div>
         </template>
       </template>
@@ -78,18 +71,4 @@ const googleStore = useGoogleStore()
 const todayTodos = computed(() =>
   todoStore.todos?.filter((todo) => todo.createdDate === route.query.calendar)
 )
-
-const deleteTodo = (todo: Todo) => {
-  if (confirm(i18n.t('ConfirmDelete')))
-    todo.linked
-      ? googleStore.deleteTodo2([todo])
-      : todoStore.deleteTodo(todo.id ?? '')
-}
-
-const doneTodo = (todo: Todo, done?: boolean) => {
-  todo.done = !done
-  todo.linked
-    ? googleStore.doneTodo2([todo], !done)
-    : todoStore.doneTodo(todo.id ?? '', !done)
-}
 </script>

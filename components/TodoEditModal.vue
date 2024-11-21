@@ -250,7 +250,7 @@ const upload = async () => {
     description: toValue(description),
     upto: toValue(upto),
     modified: new Date().getTime(),
-    images: deepClone(toValue(images)),
+    images: images.value,
     linked: 'google',
     date: upto.value ? date.value : undefined,
     time: upto.value ? time.value : undefined,
@@ -267,6 +267,13 @@ const upload = async () => {
 
     data.created = route.query.date ? customDate.getTime() : now.getTime()
   }
+
+  data.images = await Promise.all(
+    data.images.map(async (image) => {
+      if (image instanceof Blob) return await blobToBase64(image)
+      return image
+    })
+  )
 
   isEditMode.value ? googleStore.updateTodo2(data) : googleStore.addTodo2(data)
 
@@ -453,18 +460,6 @@ const fileChangeHandler = (event: Event): void => {
               canvas.toBlob(
                 (blob) => {
                   if (blob) {
-                    // Blob을 Base64로 변환
-                    const blobToBase64 = (blob: Blob): Promise<string> => {
-                      return new Promise((resolve, reject) => {
-                        const reader = new FileReader()
-                        reader.onloadend = () => {
-                          resolve(reader.result as string)
-                        }
-                        reader.onerror = reject
-                        reader.readAsDataURL(blob) // Blob을 Base64로 변환
-                      })
-                    }
-
                     // Base64로 변환된 결과 처리
                     blobToBase64(blob).then((base64String) => {
                       // 여기서 Base64 이미지를 처리 (예: 업로드, 미리보기 등)
@@ -482,6 +477,18 @@ const fileChangeHandler = (event: Event): void => {
 
       reader.readAsDataURL(file) // 이미지를 Base64 URL로 변환하여 미리보기
     }
+  })
+}
+
+// Blob을 Base64로 변환
+const blobToBase64 = (blob: Blob): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      resolve(reader.result as string)
+    }
+    reader.onerror = reject
+    reader.readAsDataURL(blob) // Blob을 Base64로 변환
   })
 }
 

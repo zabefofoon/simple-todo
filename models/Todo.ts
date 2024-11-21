@@ -38,6 +38,10 @@ export class Todo {
     return settingStore.setting?.tags.find((tag) => tag.id === this.tagId)
   }
 
+  toggleDone(value?: boolean) {
+    this.done = value != null ? value : !this.done
+  }
+
   static of(todo: Partial<Todo>) {
     return new Todo(todo)
   }

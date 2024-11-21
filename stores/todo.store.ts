@@ -38,9 +38,6 @@ export const useTodoStore = defineStore('todo', () => {
   }
 
   const doneTodo = async (id: string, done?: boolean) => {
-    const found = todos.value?.find(({ id: _id }) => _id == id)
-    if (found) Object.assign(found, { done })
-
     await todoApi.updateTodo(id, { done })
   }
 

@@ -93,20 +93,13 @@
               v-for="todo in todos"
               :key="todo.id"
               :todo="todo"
-              hide-delete
-              @delete="deleteTodo(todo)"
-              @done="(id, done) => doneTodo(todo, done)" />
+              hide-delete />
           </div>
         </template>
         <div
           v-else-if="todos?.length"
           class="flex flex-col gap-2 | p-4 | h-full">
-          <TodoRow
-            v-for="todo in todos"
-            :key="todo.id"
-            :todo="todo"
-            @delete="deleteTodo(todo)"
-            @done="(id, done) => doneTodo(todo, done)" />
+          <TodoRow v-for="todo in todos" :key="todo.id" :todo="todo" />
         </div>
         <h3
           v-if="!todos?.length"
@@ -192,18 +185,4 @@ watch(
     }),
   { immediate: true }
 )
-
-const deleteTodo = (todo: Todo) => {
-  if (confirm(i18n.t('ConfirmDelete')))
-    todo.linked
-      ? googleStore.deleteTodo2([todo])
-      : todoStore.deleteTodo(todo.id ?? '')
-}
-
-const doneTodo = (todo: Todo, done?: boolean) => {
-  todo.done = !done
-  todo.linked
-    ? googleStore.doneTodo2([todo], !done)
-    : todoStore.doneTodo(todo.id ?? '', !done)
-}
 </script>

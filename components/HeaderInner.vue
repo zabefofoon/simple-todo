@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import routerUtil from '~/utils/router.util'
 defineProps<{
   label: string
 }>()

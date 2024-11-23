@@ -153,5 +153,14 @@
   "Post_pwa_end_desc": "MEMOKUは非常に軽量で、<br class='mobr' />他のシステムに影響を与えることはありません。<br /><br class='mobr' /> MEMOKUの運営チームは常に個人情報保護に向けた<br class='mobr' />取り組みを行っています。",
   "Post_pwa_end_button1": "MEMOKUを使う",
   "Post_pwa_end_button2": "他のニュースを見る",
-  "NoticeGoogleEmail": "有効なGoogleのメールアドレスを入力してください。"
+  "NoticeGoogleEmail": "有効なGoogleのメールアドレスを入力してください。",
+  "Post_Link_Title": "Googleログインで全てのデバイスとMemokuを同期しましょう",
+  "Post_Link_Desc": "Googleログインを利用して、Memokuを全てのデバイスと同期できます。タスクをGoogleスプレッドシートに保存し、画像を安全にアップロードして管理できます。",
+  "Post_Link_Desc2": "全てのデータはあなたのGoogleドライブに安全に保存されます。外部サーバーにデータを保存する方式ではないため、個人情報やデータのセキュリティ面でより安心してご利用いただけます。Memokuは、ユーザーが自分のデータを主体的に管理できるよう設計されています。",
+  "Post_Link_Link_Title": "Google連携の方法",
+  "Post_Link_Link_Desc1": "設定ページでGoogle IDを入力し、ON/OFFボタンを押してください。それだけで完了です！",
+  "Post_Link_Notice_Title": "データは安全です",
+  "Post_Link_Notice_Desc": "全てのデータはあなたのGoogleドライブに安全に保存されます。外部サーバーにデータを保存する方式ではないため、個人情報やデータのセキュリティ面でより安心してご利用いただけます。Memokuは、ユーザーが自分のデータを主体的に管理できるよう設計されています。",
+  "Post_Link_Notice_item1": "必要がなくなった場合、いつでもデータを削除でき、Googleドライブから直接管理することも可能です。",
+  "Post_Link_Notice_item2": "Googleドライブの強力なセキュリティと連携したMemokuは、大切な情報を安全に保護します。"
 }

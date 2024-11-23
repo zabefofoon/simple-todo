@@ -153,5 +153,14 @@
   "Post_pwa_end_desc": "MEMOKU is lightweight and <br class='mobr' />does not affect other systems.<br /><br class='mobr' /> The MEMOKU team is committed to <br class='mobr' />protecting your personal information.",
   "Post_pwa_end_button1": "Start Using MEMOKU",
   "Post_pwa_end_button2": "See More News",
-  "NoticeGoogleEmail": "Please enter a valid Google email address."
+  "NoticeGoogleEmail": "Please enter a valid Google email address.",
+  "Post_Link_Title": "Sync Memoku Across All Your Devices with Google Login",
+  "Post_Link_Desc": "Sync Memoku across all your devices using Google Login. Save your tasks to Google Spreadsheets and upload images securely for safe management.",
+  "Post_Link_Desc2": "All your data is safely stored in your Google Drive.<br /><br />Unlike storing data on external servers, this approach ensures greater security for your personal information and data. Memoku is designed to allow users to manage their data independently.",
+  "Post_Link_Link_Title": "How to Link with Google",
+  "Post_Link_Link_Desc1": "Go to the Settings page, enter your Google ID, and toggle the ON/OFF button. That's it!",
+  "Post_Link_Notice_Title": "Your Data is Secure",
+  "Post_Link_Notice_Desc": "All your data is safely stored in your Google Drive.<br /><br />Unlike storing data on external servers, this approach ensures greater security for your personal information and data. Memoku is designed to let you manage your data independently.",
+  "Post_Link_Notice_item1": "You can delete your data anytime if you wish, and you can also manage it directly from Google Drive.",
+  "Post_Link_Notice_item2": "With the robust security of Google Drive, Memoku ensures your valuable information remains safe and protected."
 }

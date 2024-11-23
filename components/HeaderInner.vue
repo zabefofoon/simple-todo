@@ -29,7 +29,7 @@ const router = useRouter()
 const localePath = useLocalePath()
 
 const back = () => {
-  routerUtil.checkFirstEntered(router)
+  !history.state.back
     ? navigateTo(localePath('/', storageStore.language))
     : router.back()
 }

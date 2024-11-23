@@ -60,9 +60,7 @@ const bulkDone = async (done?: boolean) => {
 
     todoStore.todos
       ?.filter((todo) => ids.includes(todo.id))
-      .forEach((todo) => {
-        todo.done = done
-      })
+      .forEach((todo) => (todo.done = done))
 
     router.back()
   }

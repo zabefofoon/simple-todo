@@ -59,7 +59,7 @@
           :class="storageStore.getThemeClass('', 'text-white')"></i>
       </button>
       <figcaption
-        v-if="leftUptoMinits > 0"
+        v-if="todo.leftUptoMinute > 0"
         class="w-full | absolute bottom-0 left-0 | border-t | py-1 px-0.5 | flex items-center gap-1 | text-[10px] lg:text-xs"
         :class="
           storageStore.getThemeClass(
@@ -71,11 +71,11 @@
           class="icon icon-timer"
           :class="storageStore.getThemeClass('', 'text-white')"></i>
         <span :class="storageStore.getThemeClass('', 'text-white')">
-          <template v-if="leftUptoHours > 0">
-            {{ i18n.t('LeftHours', [leftUptoHours]) }}
+          <template v-if="todo.leftUptoHour > 0">
+            {{ i18n.t('LeftHours', [todo.leftUptoHour]) }}
           </template>
           <template v-else>
-            {{ i18n.t('LeftMinits', [leftUptoMinits]) }}
+            {{ i18n.t('LeftMinits', [todo.leftUptoMinute]) }}
           </template>
         </span>
       </figcaption>
@@ -99,35 +99,12 @@ const googleStore = useGoogleStore()
 const storageStore = useStorageStore()
 const bulkStore = useBulkStore()
 
-const leftUptoHours = ref(0)
-const getLeftUptoHours = (todo: Todo) => {
-  const targetTime = new Date(`${todo.date!} ${todo.time}`).getTime()
-  const currentTime = new Date().getTime()
-  const timeDiff = targetTime - currentTime
-  leftUptoHours.value = Math.round(timeDiff / (1000 * 60 * 60))
-  return Math.round(timeDiff / (1000 * 60 * 60))
-}
-
-const leftUptoMinits = ref(0)
-const getLeftUptoMinits = (todo: Todo) => {
-  const targetTime = new Date(`${todo.date!} ${todo.time}`).getTime()
-  const currentTime = new Date().getTime()
-  const timeDiff = targetTime - currentTime
-  leftUptoMinits.value = Math.round(timeDiff / (1000 * 60))
-  return Math.round(timeDiff / (1000 * 60))
-}
-
 const url = computed(() => {
   const query = routerUtil.queryToString(route.query)
   const path = route.path
   return !query
     ? `${path}?todo=${props.todo.id}`
     : `${path}?${query}&todo=${props.todo.id}`
-})
-
-onMounted(() => {
-  getLeftUptoHours(props.todo)
-  getLeftUptoMinits(props.todo)
 })
 
 const nuxtLinkEl = ref<HTMLAnchorElement>()

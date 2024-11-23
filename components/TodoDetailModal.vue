@@ -95,16 +95,16 @@
             v-html="currentTodo?.description"></div>
           <div class="absolute bottom-2.5 left-3">
             <figcaption
-              v-if="leftUptoMinits > 0"
+              v-if="currentTodo?.leftUptoMinute > 0"
               class="w-fit | flex items-center gap-1"
               :class="storageStore.getThemeClass('', 'text-white')">
               <i class="icon icon-timer"></i>
               <span class="text-xs">
-                <template v-if="leftUptoHours > 0">
-                  {{ i18n.t('LeftHours', [leftUptoHours]) }}
+                <template v-if="currentTodo?.leftUptoHour > 0">
+                  {{ i18n.t('LeftHours', [currentTodo?.leftUptoHour]) }}
                 </template>
                 <template v-else>
-                  {{ i18n.t('LeftMinits', [leftUptoMinits]) }}
+                  {{ i18n.t('LeftMinits', [currentTodo?.leftUptoMinute]) }}
                 </template>
               </span>
             </figcaption>
@@ -219,28 +219,6 @@ const done = () => {
   currentTodo.value.done = !toValue(currentTodo)?.done
 }
 
-const leftUptoHours = ref(0)
-const getLeftUptoHours = () => {
-  const targetTime = new Date(
-    `${currentTodo.value!.date!} ${currentTodo.value!.time}`
-  ).getTime()
-  const currentTime = new Date().getTime()
-  const timeDiff = targetTime - currentTime
-  leftUptoHours.value = Math.round(timeDiff / (1000 * 60 * 60))
-  return Math.round(timeDiff / (1000 * 60 * 60))
-}
-
-const leftUptoMinits = ref(0)
-const getLeftUptoMinits = () => {
-  const targetTime = new Date(
-    `${currentTodo.value!.date!} ${currentTodo.value!.time}`
-  ).getTime()
-  const currentTime = new Date().getTime()
-  const timeDiff = targetTime - currentTime
-  leftUptoMinits.value = Math.round(timeDiff / (1000 * 60))
-  return Math.round(timeDiff / (1000 * 60))
-}
-
 const {
   open: openImageModal,
   close: closeImageModal,
@@ -291,11 +269,6 @@ const imageSrc = (image: string | Blob) => {
 }
 onMounted(() => {
   loadData()
-})
-
-watch(currentTodo, () => {
-  getLeftUptoHours()
-  getLeftUptoMinits()
 })
 
 watch(

@@ -38,6 +38,20 @@ export class Todo {
     return settingStore.setting?.tags.find((tag) => tag.id === this.tagId)
   }
 
+  get leftUptoHour() {
+    const targetTime = new Date(`${this.date!} ${this.time}`).getTime()
+    const currentTime = new Date().getTime()
+    const timeDiff = targetTime - currentTime
+    return Math.round(timeDiff / (1000 * 60 * 60))
+  }
+
+  get leftUptoMinute() {
+    const targetTime = new Date(`${this.date!} ${this.time}`).getTime()
+    const currentTime = new Date().getTime()
+    const timeDiff = targetTime - currentTime
+    return Math.round(timeDiff / (1000 * 60))
+  }
+
   toggleDone(value?: boolean) {
     this.done = value != null ? value : !this.done
   }

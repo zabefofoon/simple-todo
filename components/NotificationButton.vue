@@ -1,5 +1,7 @@
 <template>
-  <NuxtLinkLocale to="?notification=true" area-label="Notification">
+  <NuxtLinkLocale
+    :to="{ query: { notification: true } }"
+    area-label="Notification">
     <button class="flex | relative" name="Notification">
       <div
         v-if="alarmStore.hasUnReadNewAlarms"

@@ -2,7 +2,7 @@
   <header
     class="flex items-center gap-3 | py-3 px-4 | border-b"
     :class="storageStore.getThemeClass('', 'border-slate-700')">
-    <button name="Back" class="flex" @click="router.back()">
+    <button name="Back" class="flex" @click="back()">
       <i
         class="icon icon-arrow-left"
         :class="storageStore.getThemeClass('', 'text-white')"></i>
@@ -12,17 +12,25 @@
       v-html="label"
       class="w-full lg:w-1/2 | mr-auto | text-lg truncate | cursor-pointer"
       :class="storageStore.getThemeClass('', 'text-white')"
-      @click="router.back()"></div>
+      @click="back()"></div>
 
     <slot></slot>
   </header>
 </template>
 
 <script setup lang="ts">
+import routerUtil from '~/utils/router.util'
 defineProps<{
   label: string
 }>()
 
 const storageStore = useStorageStore()
 const router = useRouter()
+const localePath = useLocalePath()
+
+const back = () => {
+  routerUtil.checkFirstEntered(router)
+    ? navigateTo(localePath('/', storageStore.language))
+    : router.back()
+}
 </script>

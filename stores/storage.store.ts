@@ -45,7 +45,7 @@ export const useStorageStore = defineStore(
     const language = ref<Language>(i18n.locale.value as Language)
     const setLanguage = (value: Language) => {
       language.value = value
-      navigateTo(localePath(route.path, value), { replace: true })
+      navigateTo(localePath(route.fullPath, value), { replace: true })
     }
 
     const theme = ref<Theme>(

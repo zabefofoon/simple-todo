@@ -1,46 +1,31 @@
 import { clientsClaim } from 'workbox-core'
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching'
+import { registerRoute } from 'workbox-routing'
+import { NetworkFirst } from 'workbox-strategies'
 
 self.skipWaiting()
 clientsClaim()
 cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST || [])
 
-const cacheName = 'memoku-cache-13'
-const cacheUrl = ['/']
-
-self.addEventListener('install', (event) =>
-  event.waitUntil(
-    caches.open(cacheName).then((cache) => cache.addAll(cacheUrl))
-  )
-)
-
-self.addEventListener('fetch', (event) => {
-  if (!navigator.onLine)
-    event.respondWith(
-      caches
-        .match(event.request)
-        .then((response) => response ?? fetch(event.request))
-    )
-})
-
-self.addEventListener('activate', (event) =>
-  event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
-        cacheNames.map((name) => {
-          if (name !== cacheName) caches.delete(name)
-        })
-      )
-    )
-  )
+registerRoute(
+  ({ request }) => request.mode === 'navigate',
+  new NetworkFirst({
+    cacheName: 'html-cache',
+    plugins: [
+      {
+        cacheWillUpdate: async ({ response }) => {
+          // 성공적인 응답만 캐싱
+          return response && response.ok ? response : null
+        },
+      },
+    ],
+  })
 )
 
 const timers = []
 
-self.addEventListener('message', ({ data }) => {
-  // if (data.type === 'registerTimer') registerTimer(data.todos)
-})
+const channel = new BroadcastChannel('sw-messages')
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close()
@@ -51,7 +36,6 @@ self.addEventListener('notificationclick', (event) => {
         if ('focus' in client)
           return client.focus().then(() => {
             setTimeout(() => {
-              const channel = new BroadcastChannel('sw-messages')
               channel.postMessage({
                 type: 'notificationclick',
                 todoId: event.notification.data.todoId,
@@ -62,7 +46,6 @@ self.addEventListener('notificationclick', (event) => {
       if (clients.openWindow)
         return clients.openWindow('/?notification=true').then(() => {
           setTimeout(() => {
-            const channel = new BroadcastChannel('sw-messages')
             channel.postMessage({
               type: 'notificationclick',
               todoId: event.notification.data.todoId,
@@ -88,6 +71,5 @@ self.addEventListener('push', (event) => {
     },
   })
 
-  const channel = new BroadcastChannel('sw-messages')
   channel.postMessage({ type: 'notification', todoId })
 })

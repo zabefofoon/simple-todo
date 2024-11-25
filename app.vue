@@ -23,6 +23,7 @@ const snackbarStore = useSnackbarStore()
 
 const route = useRoute()
 const i18n = useI18n()
+const localePath = useLocalePath()
 
 const { gtag } = useGtag()
 
@@ -136,6 +137,13 @@ onBeforeMount(() => {
 
   storageStore.setLanguage(storageStore.language)
   settingStore.initSetting()
+
+  preloadRouteComponents('/')
+  preloadRouteComponents('/todo')
+  preloadRouteComponents('/calender')
+  preloadRouteComponents('/news')
+  preloadRouteComponents('/search')
+  preloadRouteComponents('/setting')
 })
 
 onMounted(() => {

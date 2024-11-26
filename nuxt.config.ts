@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  devServer: {
+    port: 3000,
+  },
   nitro: {
     preset: 'netlify',
     compressPublicAssets: true,
@@ -306,7 +309,7 @@ export default defineNuxtConfig({
       prefer_related_applications: true,
     },
     workbox: {
-      navigationFallback: "/",
+      navigationFallback: '/',
       runtimeCaching: [
         {
           urlPattern: ({ url }) => {

@@ -1,7 +1,7 @@
 import { clientsClaim } from 'workbox-core'
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
-import { NetworkFirst, CacheFirst } from 'workbox-strategies'
+import { CacheFirst } from 'workbox-strategies'
 
 self.skipWaiting()
 clientsClaim()
@@ -23,7 +23,10 @@ registerRoute(
         cachedResponseWillBeUsed: async ({ cachedResponse, event }) => {
           // 캐시된 데이터가 유효하지 않으면 네트워크 요청을 시도
           if (!cachedResponse) {
-            console.warn('캐시가 없습니다. 네트워크 요청을 시도합니다.', event.request.url)
+            console.warn(
+              '캐시가 없습니다. 네트워크 요청을 시도합니다.',
+              event.request.url
+            )
           }
           return cachedResponse
         },

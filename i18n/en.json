@@ -162,5 +162,14 @@
   "Post_Link_Notice_Title": "Your Data is Secure",
   "Post_Link_Notice_Desc": "All your data is safely stored in your Google Drive.<br /><br />Unlike storing data on external servers, this approach ensures greater security for your personal information and data. Memoku is designed to let you manage your data independently.",
   "Post_Link_Notice_item1": "You can delete your data anytime if you wish, and you can also manage it directly from Google Drive.",
-  "Post_Link_Notice_item2": "With the robust security of Google Drive, Memoku ensures your valuable information remains safe and protected."
+  "Post_Link_Notice_item2": "With the robust security of Google Drive, Memoku ensures your valuable information remains safe and protected.",
+  "Post_Noti_Title": "Get Notifications at Your Desired Date and Time",
+  "Post_Noti_Desc1": "Memoku offers a task notification feature to ensure you don't miss important tasks or appointments. Receive reminders for your tasks via browser push notifications at the specific date and time you set.",
+  "Post_Noti_Set_Title": "How to Set Notifications",
+  "Post_Noti_Set_Desc1": "When registering a task, click the notification button and specify the desired date.",
+  "Post_Noti_Noti_Title": "Please Check Your Notification Settings.",
+  "Post_Noti_Noti_Desc": "If notifications are blocked in your browser, please enable them. Also, Memoku never sends spam notifications.",
+  "Post_Noti_Noti_Item1": "Chrome Notification Settings (Windows, Android)",
+  "Post_Noti_Noti_Item2": "Safari Notification Settings (MacOS, iOS)",
+  "Post_Noti_Noti_Caption": "*Does not work offline."
 }

@@ -1,7 +1,7 @@
 import { clientsClaim } from 'workbox-core'
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
-import { NetworkFirst } from 'workbox-strategies'
+import { NetworkFirst, CacheFirst } from 'workbox-strategies'
 
 self.skipWaiting()
 clientsClaim()
@@ -10,13 +10,22 @@ precacheAndRoute(self.__WB_MANIFEST || [])
 
 registerRoute(
   ({ request }) => request.mode === 'navigate',
-  new NetworkFirst({
+  new CacheFirst({
     cacheName: 'html-cache',
     plugins: [
       {
         cacheWillUpdate: async ({ response }) => {
           // 성공적인 응답만 캐싱
           return response && response.ok ? response : null
+        },
+      },
+      {
+        cachedResponseWillBeUsed: async ({ cachedResponse, event }) => {
+          // 캐시된 데이터가 유효하지 않으면 네트워크 요청을 시도
+          if (!cachedResponse) {
+            console.warn('캐시가 없습니다. 네트워크 요청을 시도합니다.', event.request.url)
+          }
+          return cachedResponse
         },
       },
     ],

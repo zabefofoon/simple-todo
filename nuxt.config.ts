@@ -306,6 +306,7 @@ export default defineNuxtConfig({
       prefer_related_applications: true,
     },
     workbox: {
+      navigationFallback: "/",
       runtimeCaching: [
         {
           urlPattern: ({ url }) => {

@@ -143,7 +143,7 @@ onLongPress(nuxtLinkEl, () => bulkStore.turnOnBulkMode(props.todo.id), {
 const done = () => {
   props.todo.toggleDone()
   props.todo.linked
-    ? googleStore.doneTodo2([props.todo], !props.todo.done)
+    ? googleStore.doneTodo2([props.todo], !!props.todo.done)
     : todoStore.doneTodo(props.todo.id ?? '', !props.todo.done)
 }
 

@@ -1,7 +1,7 @@
 import { clientsClaim } from 'workbox-core'
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
-import { CacheFirst } from 'workbox-strategies'
+import { NetworkFirst } from 'workbox-strategies'
 
 self.skipWaiting()
 clientsClaim()
@@ -10,7 +10,7 @@ precacheAndRoute(self.__WB_MANIFEST || [])
 
 registerRoute(
   ({ request }) => request.mode === 'navigate',
-  new CacheFirst({
+  new NetworkFirst({
     cacheName: 'html-cache',
     plugins: [
       {

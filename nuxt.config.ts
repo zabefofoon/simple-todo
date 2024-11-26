@@ -309,7 +309,6 @@ export default defineNuxtConfig({
       prefer_related_applications: true,
     },
     workbox: {
-      navigationFallback: '/',
       runtimeCaching: [
         {
           urlPattern: ({ url }) => {
@@ -337,7 +336,7 @@ export default defineNuxtConfig({
             cacheName: 'static-cache',
             expiration: {
               maxEntries: 100,
-              maxAgeSeconds: 60 * 60 * 24 * 365,
+              maxAgeSeconds: 1 * 24 * 60 * 60,
             },
             cacheableResponse: {
               statuses: [0, 200],

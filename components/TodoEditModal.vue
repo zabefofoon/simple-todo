@@ -394,8 +394,9 @@ const beforeunloadHandler = (event: BeforeUnloadEvent) => event.preventDefault()
 const saveByKey = (event: KeyboardEvent) => {
   if (event.ctrlKey && event.code === 'KeyS') {
     event.preventDefault()
-    ;(<HTMLTextAreaElement>event.target)?.blur?.()
-    setTimeout(() => save(), 100)
+    const target = event.target as HTMLTextAreaElement
+    target?.blur?.()
+    setTimeout(() => (currentTodo.value?.linked ? upload() : save()), 100)
   }
 }
 

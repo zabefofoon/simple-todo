@@ -200,7 +200,7 @@
                     ">
                     <button
                       name="Save"
-                      class="flex items-center gap-2 | text-sm"
+                      class="flex items-center gap-2 | text-sm | pr-2.5"
                       @click="emit('upload')">
                       <img class="w-[12px]" src="~/assets/images/google.svg" />
                       <span class="whitespace-nowrap">

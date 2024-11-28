@@ -166,6 +166,7 @@ onMounted(() => {
       if (navigator.onLine && googleStore.googleAccessToken) {
         await googleStore.getAllTodo()
         await googleStore.syscTags()
+        googleRequested = new Date()
       }
 
       await todoStore.getAllTodos()

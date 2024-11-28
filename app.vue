@@ -9,6 +9,7 @@
   <AddHomeScreenGuideAndroid v-else />
 </template>
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import type { Theme } from './models/Setting'
 
 const { isSafari, isAndroid, isIos } = useDevice()
@@ -25,6 +26,8 @@ const route = useRoute()
 const i18n = useI18n()
 
 const { gtag } = useGtag()
+
+let googleRequested: Date
 
 let broadcastChannel: BroadcastChannel
 const init = async () => {
@@ -57,6 +60,7 @@ const init = async () => {
   if (navigator.onLine && googleStore.googleAccessToken) {
     await googleStore.getAllTodo()
     await googleStore.syscTags()
+    googleRequested = new Date()
   }
 
   await todoStore.getAllTodos()
@@ -119,6 +123,11 @@ const init = async () => {
   }
 }
 
+const isOver20Min = (date1: Date, date2: Date) => {
+  const diffInMinutes = dayjs(date2).diff(dayjs(date1), 'minute') // 두 날짜의 차이를 분 단위로 계산
+  return diffInMinutes >= 20 // 20분 이상일 경우 true 반환
+}
+
 onBeforeMount(() => {
   if (window.innerWidth < 1024) settingStore.setScreen('sm')
   else settingStore.setScreen('lg')
@@ -148,6 +157,20 @@ onBeforeMount(() => {
 onMounted(() => {
   if (route.query.recoverData) return
   if (route.path === '/google-auth') return
+
+  document.addEventListener('visibilitychange', async () => {
+    if (
+      document.visibilityState === 'visible' &&
+      isOver20Min(googleRequested, new Date())
+    ) {
+      if (navigator.onLine && googleStore.googleAccessToken) {
+        await googleStore.getAllTodo()
+        await googleStore.syscTags()
+      }
+
+      await todoStore.getAllTodos()
+    }
+  })
 
   init()
 })

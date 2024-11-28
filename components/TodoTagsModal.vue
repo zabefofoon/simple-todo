@@ -70,7 +70,6 @@ const loadingStore = useLoadingStore()
 const settingStore = useSettingStore()
 const storageStore = useStorageStore()
 const todoStore = useTodoStore()
-const googleStore = useGoogleStore()
 
 const matchedTag = computed(() => {
   return settingStore.setting?.tags.find((tag) => tag.id === route.query.tags)

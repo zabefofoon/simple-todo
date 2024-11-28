@@ -13,14 +13,14 @@ export default defineSitemapEventHandler(async (event) => {
 
   const { data } = await supabase
     .from('Posts')
-    .select('id, public, path, image')
+    .select('id, public, path, image, created_at')
     .filter('public', 'eq', true)
 
   const en =
     data?.map((item) => {
       return {
         loc: `/news/${enMessages[item.path]}`,
-        lastmod: new Date(),
+        lastmod: new Date(item.created_at),
         images: [item.image],
         _sitemap: 'en-US',
       }
@@ -29,8 +29,8 @@ export default defineSitemapEventHandler(async (event) => {
   const ko =
     data?.map((item) => {
       return {
-        loc: `/news/${koMessages[item.path]}`,
-        lastmod: new Date(),
+        loc: `/ko/news/${koMessages[item.path]}`,
+        lastmod: new Date(item.created_at),
         images: [item.image],
         _sitemap: 'ko-KR',
       }
@@ -39,8 +39,8 @@ export default defineSitemapEventHandler(async (event) => {
   const ja =
     data?.map((item) => {
       return {
-        loc: `/news/${jaMessages[item.path]}`,
-        lastmod: new Date(),
+        loc: `/ja/news/${jaMessages[item.path]}`,
+        lastmod: new Date(item.created_at),
         images: [item.image],
         _sitemap: 'ja-JP',
       }

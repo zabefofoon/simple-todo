@@ -309,41 +309,11 @@ export default defineNuxtConfig({
       prefer_related_applications: true,
     },
     workbox: {
-      runtimeCaching: [
-        {
-          urlPattern: ({ url }) => {
-            const suffixArray = [
-              '.ts',
-              '.vue',
-              '.svg',
-              '.css',
-              '.webmanifest',
-              '.js',
-              '.html',
-            ]
-
-            const notCache =
-              !url.pathname.includes('/api') && !url.pathname.includes('/rest')
-
-            const cache = suffixArray.some((suffix) =>
-              url.pathname.endsWith(suffix)
-            )
-
-            return notCache && cache
-          },
-          handler: 'CacheFirst',
-          options: {
-            cacheName: 'static-cache',
-            expiration: {
-              maxEntries: 100,
-              maxAgeSeconds: 1 * 24 * 60 * 60,
-            },
-            cacheableResponse: {
-              statuses: [0, 200],
-            },
-          },
-        },
-      ],
+      globDirectory: '.output/public/',
+      globPatterns: ['**/*.{json,ico,html,png,js,txt,css,svg}'],
+      swDest: '.output/public/sw.js',
+      swSrc: 'src/public/service-worker.js',
+      injectionPoint: 'injectionPoint',
     },
     client: {
       installPrompt: true,

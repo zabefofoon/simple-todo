@@ -78,7 +78,7 @@
       </Transition>
     </nav>
     <button
-      class="absolute top-1/2 right-0 -translate-y-1/2 z-20 | p-1"
+      class="absolute top-1/2 right-0 -translate-y-1/2 z-50 | p-1"
       :class="[
         storageStore.isSNBExpanded
           ? 'rounded-l-full'

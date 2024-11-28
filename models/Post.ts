@@ -44,6 +44,7 @@ export class PostBrief {
   description: string
   image: string | null
   created_at: number | null
+  path: string
 
   constructor(post: ClassToRaw<PostBrief>) {
     this.id = post.id
@@ -52,6 +53,7 @@ export class PostBrief {
     this.description = post.description
     this.image = post.image
     this.created_at = post.created_at
+    this.path = post.path
   }
 
   get isEmpty() {

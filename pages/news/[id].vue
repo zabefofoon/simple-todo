@@ -17,7 +17,10 @@ const localePath = useLocalePath()
 
 const { data, suspense } = useQuery({
   queryKey: ['getPostPageData', route.params.id],
-  queryFn: () => supabase.getPostDetail(+route.params.id),
+  queryFn: () =>
+    supabase.getPostDetail(
+      `${i18n.valueToKey(route.params.id, i18n.locale.value)}`
+    ),
   staleTime: 1000 * 60 * 10,
 })
 const { gtag } = useGtag()
@@ -79,4 +82,19 @@ useHead({
     },
   ],
 })
+
+watch(
+  () => [i18n.locale.value, route.params.id],
+  ([newLocale], [oldLocale, oldId]) => {
+    if (newLocale !== oldLocale) {
+      const key = i18n.valueToKey(oldId, oldLocale)
+      navigateTo(
+        decodeURI(localePath(`/news/${i18n.t(key)}`, newLocale as string)),
+        {
+          replace: true,
+        }
+      )
+    }
+  }
+)
 </script>

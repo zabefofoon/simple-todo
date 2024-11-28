@@ -41,4 +41,27 @@ export default defineNuxtPlugin((nuxt) => {
       return v.loc.source as string
     })
   }
+
+  i18n.valueToKey = (value: string, locale: string): string | null => {
+    const messages = i18n.messages.value[locale] // 현재 로케일의 번역 데이터 가져오기
+
+    const findKey = (
+      obj: Record<string, any>,
+      searchValue: string
+    ): string | null => {
+      for (const [key, val] of Object.entries(obj)) {
+        if (val === searchValue) {
+          return key // 값이 일치하면 key 반환
+        } else if (typeof val === 'object' && val !== null) {
+          const nestedKey = findKey(val, searchValue) // 중첩된 객체 처리
+          if (nestedKey) {
+            return `${key}.${nestedKey}`
+          }
+        }
+      }
+      return null
+    }
+
+    return findKey(messages, value)
+  }
 })

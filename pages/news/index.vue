@@ -20,7 +20,7 @@
         <NuxtLinkLocale
           v-for="post in postList"
           :key="post.id"
-          :to="post.id === -1 ? undefined : `/news/${post.id}`">
+          :to="post.id === -1 ? undefined : `/news/${i18n.t(post.path)}`">
           <figure
             v-if="!post.isEmpty"
             class="w-full rounded-lg | border | overflow-hidden"

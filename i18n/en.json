@@ -133,6 +133,7 @@
   "Policy": "Privacy policy",
   "News": "News",
   "NewsTitle": "What's New in Memoku",
+  "News_PWA_Path": "Add-to-Home",
   "News_PWA_Title": "Add MEMOKU to your home screen for easy app-like access.",
   "News_PWA_Desc": "MEMOKU is a Progressive Web App (PWA) that can be added to your home screen, allowing you to use it like a native app and enhancing your user experience.",
   "Post_pwa_title": "Add to Home Screen and Use MEMOKU Like an App",
@@ -163,6 +164,7 @@
   "Post_Link_Notice_Desc": "All your data is safely stored in your Google Drive.<br /><br />Unlike storing data on external servers, this approach ensures greater security for your personal information and data. Memoku is designed to let you manage your data independently.",
   "Post_Link_Notice_item1": "You can delete your data anytime if you wish, and you can also manage it directly from Google Drive.",
   "Post_Link_Notice_item2": "With the robust security of Google Drive, Memoku ensures your valuable information remains safe and protected.",
+  "Post_Link_Path": "Google-Integration",
   "Post_Noti_Title": "Get Notifications at Your Desired Date and Time",
   "Post_Noti_Desc1": "Memoku offers a task notification feature to ensure you don't miss important tasks or appointments. Set your desired date and time to get reminders for your tasks.",
   "Post_Noti_Set_Title": "How to Set Notifications",
@@ -171,5 +173,6 @@
   "Post_Noti_Noti_Desc": "If notifications are blocked in your browser, please enable them. Also, Memoku never sends spam notifications.",
   "Post_Noti_Noti_Item1": "Chrome Notification Settings (Windows, Android)",
   "Post_Noti_Noti_Item2": "Safari Notification Settings (MacOS, iOS)",
-  "Post_Noti_Noti_Caption": "*Does not work offline."
+  "Post_Noti_Noti_Caption": "*Does not work offline.",
+  "Post_Noti_Path": "Notification-Settings"
 }

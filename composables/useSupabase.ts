@@ -16,7 +16,7 @@ export const useSupabase = () => {
 
     const { data, error, count } = await supabase
       .from('Posts')
-      .select('id, title, description, public, image, created_at', {
+      .select('id, title, description, public, image, created_at, path', {
         count: 'exact',
       })
       .filter('public', 'eq', true)
@@ -39,7 +39,7 @@ export const useSupabase = () => {
 
     const { data, error, count } = await supabase
       .from('Posts')
-      .select('id, title, description, public, image, created_at', {
+      .select('id, title, description, public, image, created_at, path', {
         count: 'exact',
       })
       .order('created_at', { ascending: false })
@@ -54,11 +54,11 @@ export const useSupabase = () => {
     })
   }
 
-  const getPostDetail = async (id: number) => {
+  const getPostDetail = async (path: string) => {
     const { data, error } = await supabase
       .from('Posts')
-      .select('id, title, description, image, created_at, pageData')
-      .eq('id', id)
+      .select('id, title, description, image, created_at, pageData, path')
+      .eq('path', path)
       .single()
 
     if (error) throw error

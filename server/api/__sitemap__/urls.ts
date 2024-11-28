@@ -1,7 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
 import type { Database } from '~/database.types'
 
-export default defineSitemapEventHandler(async () => {
+import enMessages from '~/i18n/en.json'
+import jaMessages from '~/i18n/jp.json'
+import koMessages from '~/i18n/ko.json'
+
+export default defineSitemapEventHandler(async (event) => {
   const supabase = createClient<Database>(
     import.meta.env.VITE_SUPABASE_URL,
     import.meta.env.VITE_SUPABASE_ANON
@@ -9,13 +13,38 @@ export default defineSitemapEventHandler(async () => {
 
   const { data } = await supabase
     .from('Posts')
-    .select('id, public')
+    .select('id, public, path, image')
     .filter('public', 'eq', true)
 
-  return (
-    data?.map((item) => ({
-      loc: `/news/${item.id}`,
-      _i18nTransform: true,
-    })) ?? []
-  )
+  const en =
+    data?.map((item) => {
+      return {
+        loc: `/news/${enMessages[item.path]}`,
+        lastmod: new Date(),
+        images: [item.image],
+        _sitemap: 'en-US',
+      }
+    }) ?? []
+
+  const ko =
+    data?.map((item) => {
+      return {
+        loc: `/news/${koMessages[item.path]}`,
+        lastmod: new Date(),
+        images: [item.image],
+        _sitemap: 'ko-KR',
+      }
+    }) ?? []
+
+  const ja =
+    data?.map((item) => {
+      return {
+        loc: `/news/${jaMessages[item.path]}`,
+        lastmod: new Date(),
+        images: [item.image],
+        _sitemap: 'ja-JP',
+      }
+    }) ?? []
+
+  return [...en, ...ko, ...ja]
 })

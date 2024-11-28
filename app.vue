@@ -23,7 +23,6 @@ const snackbarStore = useSnackbarStore()
 
 const route = useRoute()
 const i18n = useI18n()
-const localePath = useLocalePath()
 
 const { gtag } = useGtag()
 

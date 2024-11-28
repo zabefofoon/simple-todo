@@ -11,7 +11,6 @@
         ">
         <SearchInputButton />
         <DarkModeButton class="hidden lg:flex" />
-        <ChangeDisplayButton class="hidden lg:flex" />
         <NotificationButton class="hidden lg:block" />
         <template v-if="loadingStore.todoLoading">
           <Skeletor class="w-[80px] h-[24px] | ml-auto" />
@@ -48,15 +47,7 @@
                   <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
                 </NuxtLinkLocale>
               </div>
-              <div
-                v-if="storageStore.display === 'thumbnail'"
-                class="grid grid-cols-2 md:grid-cols-4 gap-2 | p-2 lg:p-4">
-                <TodoThumbnail
-                  v-for="todo in matchedTodos(tag.label)"
-                  :key="todo.id"
-                  :todo="todo" />
-              </div>
-              <div v-else class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
+              <div class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
                 <TodoRow
                   v-for="todo in matchedTodos(tag.label)"
                   :key="todo.id"
@@ -79,15 +70,7 @@
                 <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
               </NuxtLinkLocale>
             </div>
-            <div
-              v-if="storageStore.display === 'thumbnail'"
-              class="grid grid-cols-2 md:grid-cols-4 gap-2 | p-2 lg:p-4">
-              <TodoThumbnail
-                v-for="todo in matchedTodos()"
-                :key="todo.id"
-                :todo="todo" />
-            </div>
-            <div v-else class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
+            <div class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
               <TodoRow
                 v-for="todo in matchedTodos()"
                 :key="todo.id"

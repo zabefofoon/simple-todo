@@ -42,7 +42,7 @@
         </div>
       </div>
       <div
-        class="w-full overflow-hidden | py-2 | text-ellipsis whitespace-nowrap lg:whitespace-normal">
+        class="w-full overflow-hidden | pl-0.5 py-2 | text-sm lg:text-md text-ellipsis whitespace-nowrap lg:whitespace-normal">
         <span
           v-if="(todo.description?.length || 0) > 30"
           :class="storageStore.getThemeClass('', 'text-white')">

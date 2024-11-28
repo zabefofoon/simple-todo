@@ -30,7 +30,6 @@
       </NuxtLinkLocale>
 
       <DarkModeButton />
-      <ChangeDisplayButton />
       <NuxtLinkLocale to="/memoku" class="flex | relative">
         <span
           class="icon icon-help | text-xl"

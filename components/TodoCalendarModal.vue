@@ -27,22 +27,12 @@
             {{ i18n.t('NoTodo') }}
           </span>
         </p>
-        <template v-else>
-          <div
-            v-if="storageStore.display === 'thumbnail'"
-            class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
-            <TodoThumbnail
-              v-for="todo in todayTodos"
-              :key="todo.id"
-              :todo="todo" />
-          </div>
-          <div
-            v-else
-            class="h-full | flex flex-col gap-2 | p-4 | min-h-full"
-            :class="{ 'justify-center': !todayTodos?.length }">
-            <TodoRow v-for="todo in todayTodos" :key="todo.id" :todo="todo" />
-          </div>
-        </template>
+        <div
+          v-else
+          class="h-full | flex flex-col gap-2 | p-4 | min-h-full"
+          :class="{ 'justify-center': !todayTodos?.length }">
+          <TodoRow v-for="todo in todayTodos" :key="todo.id" :todo="todo" />
+        </div>
       </template>
     </div>
     <nav class="fixed right-4 bottom-4 z-10">
@@ -52,8 +42,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Todo } from '~/models/Todo'
-
 const emit = defineEmits<{
   (e: 'close'): void
 }>()

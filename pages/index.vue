@@ -11,7 +11,6 @@
         ">
         <SearchInputButton />
         <DarkModeButton />
-        <ChangeDisplayButton />
         <NotificationButton />
       </div>
       <div

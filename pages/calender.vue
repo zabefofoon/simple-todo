@@ -7,7 +7,6 @@
       ">
       <SearchInputButton />
       <DarkModeButton />
-      <ChangeDisplayButton />
       <NotificationButton />
     </div>
     <div class="h-full | lg:px-4">

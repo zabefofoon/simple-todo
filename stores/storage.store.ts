@@ -1,7 +1,7 @@
 import { getCookie } from 'h3'
 import { defineStore } from 'pinia'
 import storageApi from '~/api/storage.api'
-import type { Display, Language, Theme } from '~/models/Setting'
+import type { Language, Theme } from '~/models/Setting'
 import type { SummaryTimeType } from '~/models/Summary'
 import etcUtil from '~/utils/etc'
 
@@ -61,9 +61,6 @@ export const useStorageStore = defineStore(
     const getThemeClass = (whiteClass: string, darkClass: string) =>
       toValue(theme) === 'white' ? whiteClass : darkClass
 
-    const display = ref<Display>('thumbnail')
-    const setDisplay = (value: Display) => (display.value = value)
-
     const getUniqueId = () => storageApi.getLocalStorage('mid')
     const setUniqueId = () => {
       const mid = etc.generateLongUniqueId()
@@ -94,9 +91,6 @@ export const useStorageStore = defineStore(
       theme,
       setTheme,
       getThemeClass,
-
-      display,
-      setDisplay,
 
       getUniqueId,
       setUniqueId,

@@ -23,34 +23,21 @@
         <Skeletor v-for="index in 4" :key="index" class="h-[40px]" />
       </div>
     </template>
-    <template v-else>
-      <div
-        v-if="storageStore.display === 'thumbnail'"
-        class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-        <TodoThumbnail
-          v-for="todo in recentTodos"
-          :key="todo.id"
-          :todo="todo" />
-      </div>
-      <div v-else class="flex flex-col gap-2">
-        <TodoRow v-for="todo in recentTodos" :key="todo.id" :todo="todo" />
-        <p v-if="!recentTodos?.length" class="text-center py-10">
-          {{ i18n.t('NoTodo') }}
-        </p>
-      </div>
-    </template>
+    <div v-else class="flex flex-col gap-2">
+      <TodoRow v-for="todo in recentTodos" :key="todo.id" :todo="todo" />
+      <p v-if="!recentTodos?.length" class="text-center py-10">
+        {{ i18n.t('NoTodo') }}
+      </p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Todo } from '~/models/Todo'
-
 const i18n = useI18n()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
-const googleStore = useGoogleStore()
 const settingStore = useSettingStore()
 
 const recentTodos = computed(() => {

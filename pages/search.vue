@@ -75,20 +75,7 @@
     <div class="h-full | flex flex-col">
       <Spinner v-if="loadingStore.todoLoading" class="h-full" />
       <template v-else>
-        <template v-if="storageStore.display === 'thumbnail'">
-          <div
-            v-if="todos?.length"
-            class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 | p-4">
-            <TodoThumbnail
-              v-for="todo in todos"
-              :key="todo.id"
-              :todo="todo"
-              hide-delete />
-          </div>
-        </template>
-        <div
-          v-else-if="todos?.length"
-          class="flex flex-col gap-2 | p-4 | h-full">
+        <div v-if="todos?.length" class="flex flex-col gap-2 | p-4 | h-full">
           <TodoRow v-for="todo in todos" :key="todo.id" :todo="todo" />
         </div>
         <h3
@@ -109,8 +96,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Todo } from '~/models/Todo'
-
 const i18n = useI18n()
 
 const router = useRouter()

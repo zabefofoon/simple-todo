@@ -7,7 +7,6 @@
       ">
       <SearchInputButton />
       <DarkModeButton />
-      <ChangeDisplayButton />
       <NotificationButton />
     </div>
     <div class="flex flex-col gap-4 | p-4">
@@ -22,7 +21,6 @@
         <SettingPermissions />
         <SettingLanguage />
         <SettingTheme />
-        <SettingDisplay />
         <SettingTag />
         <SettingForm />
       </div>

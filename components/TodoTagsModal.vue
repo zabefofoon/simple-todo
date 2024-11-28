@@ -39,15 +39,7 @@
           :class="storageStore.getThemeClass('', 'text-white')">
           {{ dayToTitle(day) }}
         </div>
-        <div
-          v-if="storageStore.display === 'thumbnail'"
-          class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
-          <TodoThumbnail
-            v-for="todo in filterTodosByDays(day)"
-            :key="todo.id"
-            :todo="todo" />
-        </div>
-        <div v-else class="flex flex-col gap-2 | h-auto">
+        <div class="flex flex-col gap-2 | h-auto">
           <TodoRow
             v-for="todo in filterTodosByDays(day)"
             :key="todo.id"

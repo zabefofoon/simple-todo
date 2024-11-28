@@ -6,36 +6,6 @@ clientsClaim()
 cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST || [])
 
-const cacheName = 'memoku-cache-13'
-const cacheUrl = ['/']
-
-self.addEventListener('install', (event) =>
-  event.waitUntil(
-    caches.open(cacheName).then((cache) => cache.addAll(cacheUrl))
-  )
-)
-
-self.addEventListener('fetch', (event) => {
-  if (!navigator.onLine)
-    event.respondWith(
-      caches
-        .match(event.request)
-        .then((response) => response ?? fetch(event.request))
-    )
-})
-
-self.addEventListener('activate', (event) =>
-  event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
-        cacheNames.map((name) => {
-          if (name !== cacheName) caches.delete(name)
-        })
-      )
-    )
-  )
-)
-
 const timers = []
 
 self.addEventListener('message', ({ data }) => {

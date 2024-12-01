@@ -106,6 +106,7 @@ const i18n = useI18n()
 const settingStore = useSettingStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
+const googleStore = useGoogleStore()
 
 const changeOrder = (from: number, to: number) => {
   const last = settingStore.setting!.tags.length - 1
@@ -121,15 +122,19 @@ const changeTag = (index: number, key: keyof Tag, event: Event) => {
   const tags = deepClone(settingStore.setting!.tags)
   tags[index][key] = (<HTMLInputElement>event.target).value
   settingStore.updateSetting('tags', tags)
+
+  if (googleStore.googleAccessToken)
+    googleStore.updateTags([settingStore.setting!.tags[index]])
 }
 
 const removeTag = (index: number) => {
   if (!confirm(i18n.t('ConfirmDelete'))) return
 
   const tags = deepClone(settingStore.setting!.tags)
-  tags.splice(index, 1)
+  const removed = tags.splice(index, 1)
   const result = !tags.length ? [] : tags
   settingStore.updateSetting('tags', result)
+  if (googleStore.googleAccessToken) googleStore.deleteTags(removed)
 }
 
 const addTag = () => {

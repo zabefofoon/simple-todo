@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import type { Tag } from '~/models/Tag'
 import { Todo } from '~/models/Todo'
 import etcUtil from '~/utils/etc'
 import { useSettingStore } from './setting.store'
@@ -167,7 +168,17 @@ export const useGoogleStore = defineStore(
       const res = await googleApi.syncTags(
         settingStore.setting?.tags.filter((tag) => !tag.excludeUpload) ?? []
       )
-      if (settingStore.setting) settingStore.setting.tags = res.result ?? []
+      if (settingStore.setting) settingStore.setting.tags = res?.result ?? []
+    }
+
+    const updateTags = async (tags: Tag[]) => {
+      const res = await googleApi.updateTags(tags)
+      if (settingStore.setting) settingStore.setting.tags = res?.result ?? []
+    }
+
+    const deleteTags = async (tags: Tag[]) => {
+      const res = await googleApi.deleteTags(tags)
+      if (settingStore.setting) settingStore.setting.tags = res?.result ?? []
     }
 
     return {
@@ -196,6 +207,8 @@ export const useGoogleStore = defineStore(
       unLinkGoogle,
 
       syscTags,
+      updateTags,
+      deleteTags,
     }
   },
   {

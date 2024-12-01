@@ -104,5 +104,31 @@ export const useGoogleApi = () => {
         },
       })
     },
+    updateTags(tags: Tag[]) {
+      return $fetch<ServerResponse<Tag[]>>('/api/spreadsheet/tags', {
+        method: 'put',
+        body: {
+          tags,
+          sheetId: googleStore.spreadsheetId,
+        },
+        headers: {
+          'x-google-refresh-token': googleStore.googleRefreshToken,
+          'x-google-access-token': googleStore.googleAccessToken,
+        },
+      })
+    },
+    deleteTags(tags: Tag[]) {
+      return $fetch<ServerResponse<Tag[]>>('/api/spreadsheet/tags', {
+        method: 'delete',
+        body: {
+          tags,
+          sheetId: googleStore.spreadsheetId,
+        },
+        headers: {
+          'x-google-refresh-token': googleStore.googleRefreshToken,
+          'x-google-access-token': googleStore.googleAccessToken,
+        },
+      })
+    },
   }
 }

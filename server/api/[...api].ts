@@ -495,12 +495,17 @@ router.post(
         return {
           status: 200,
           message: '',
-          result: [...filteredTags, ...rows.map((row) => row.toObject())],
+          result: [
+            ...filteredTags,
+            ...rows
+              .filter((row) => !row.get('removed'))
+              .map((row) => row.toObject()),
+          ],
         }
       } else {
         const newSheet = await doc.addSheet({
           title: 'tags',
-          headerValues: ['id', 'color', 'label'],
+          headerValues: ['id', 'color', 'label', 'removed'],
         })
         await newSheet.addRows(tags)
         return {
@@ -514,6 +519,99 @@ router.post(
     }
   })
 )
+
+router.put('/spreadsheet/tags', async (event) => {
+  const { tags, sheetId } = await readBody<{ tags: Tag[]; sheetId: string }>(
+    event
+  )
+
+  const oauthClient = await googleUtil.createOauthClient(event)
+
+  try {
+    const doc = new GoogleSpreadsheet(sheetId, oauthClient)
+
+    await doc.loadInfo()
+    const sheet = doc.sheetsByTitle['tags']
+
+    const rows = await sheet.getRows()
+    const headers = sheet.headerValues
+    headers[3] = 'removed'
+    await sheet.setHeaderRow(headers)
+
+    for (const tag of tags) {
+      const { id, color, label } = tag
+
+      const index = rows.findIndex((row) => row.get('id') === id)
+
+      if (rows[0].get('id') === 'id')
+        return {
+          status: 404,
+          message: 'Not Found',
+          result: [],
+        }
+
+      rows[index].set('color', color)
+      rows[index].set('label', label)
+      await rows[index].save()
+      return {
+        status: 200,
+        message: '',
+        result: rows
+          .filter((row) => !row.get('removed'))
+          .map((row) => row.toObject()),
+      }
+    }
+  } catch (e) {
+    return googleUtil.throwSheetError(e as FetchError)
+  }
+})
+
+router.delete('/spreadsheet/tags', async (event) => {
+  const { tags, sheetId } = await readBody<{ tags: Tag[]; sheetId: string }>(
+    event
+  )
+
+  const oauthClient = await googleUtil.createOauthClient(event)
+
+  try {
+    const doc = new GoogleSpreadsheet(sheetId, oauthClient)
+
+    await doc.loadInfo()
+    const sheet = doc.sheetsByTitle['tags']
+
+    const rows = await sheet.getRows()
+    const headers = sheet.headerValues
+    headers[3] = 'removed'
+    await sheet.setHeaderRow(headers)
+
+    for (const tag of tags) {
+      const { id } = tag
+
+      const index = rows.findIndex((row) => row.get('id') === id)
+
+      if (rows[0].get('id') === 'id')
+        return {
+          status: 404,
+          message: 'Not Found',
+          result: [],
+        }
+
+      rows[index].set('removed', true)
+      await rows[index].save()
+      return {
+        status: 200,
+        message: '',
+        result: [
+          ...rows
+            .filter((row) => !row.get('removed'))
+            .map((row) => row.toObject()),
+        ],
+      }
+    }
+  } catch (e) {
+    return googleUtil.throwSheetError(e as FetchError)
+  }
+})
 
 router.post(
   '/alarm',

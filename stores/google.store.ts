@@ -158,6 +158,8 @@ export const useGoogleStore = defineStore(
 
     const unLinkGoogle = () => {
       setGoogleAccessToken()
+      const cookieValue = useCookie('google').value as any
+      if (cookieValue) cookieValue.googleAccessToken = ''
       todoStore.todos = todoStore.todos?.filter((todo) => !todo.linked) ?? []
     }
 

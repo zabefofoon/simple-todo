@@ -38,7 +38,8 @@
                   'border-slate-200',
                   'border-slate-700'
                 )
-              " />
+              "
+              :alt="i18n.t(post.title ?? '')" />
             <figcaption class="px-3 pt-3 pb-4 | flex flex-col | leading-tight">
               <h4
                 class="truncate-2 text-pretty | mb-1.5"

@@ -16,7 +16,7 @@
         <span property="name">MEMOKU</span>
       </div>
     </NuxtLinkLocale>
-    <div>
+    <div class="flex items-center gap-3">
       <select
         class="text-sm"
         v-model="i18n.locale.value"

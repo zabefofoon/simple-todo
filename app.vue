@@ -57,13 +57,7 @@ const init = async () => {
     })
   }
 
-  if (navigator.onLine && googleStore.googleAccessToken) {
-    await googleStore.getAllTodo()
-    await googleStore.syscTags()
-    googleRequested = new Date()
-  }
-
-  await todoStore.getAllTodos()
+  await loadAllTodos()
 
   broadcastChannel = new BroadcastChannel('sw-messages')
   broadcastChannel.addEventListener('message', (event) => {
@@ -121,6 +115,30 @@ const init = async () => {
       { passive: true }
     )
   }
+
+  watch(
+    () => route.path,
+    (path) => {
+      if (!['/news/', '/memoku'].find((item) => path.includes(item)))
+        loadAllTodos()
+    }
+  )
+}
+
+const isLoadedAllTodos = ref(false)
+const loadAllTodos = async () => {
+  if (['/news/', '/memoku'].find((item) => route.path.includes(item))) return
+
+  if (isLoadedAllTodos.value) return
+
+  if (navigator.onLine && googleStore.googleAccessToken) {
+    await googleStore.getAllTodo()
+    await googleStore.syscTags()
+    googleRequested = new Date()
+    isLoadedAllTodos.value = true
+  }
+
+  await todoStore.getAllTodos()
 }
 
 const isOver20Min = (date1: Date, date2: Date) => {
@@ -162,15 +180,8 @@ onMounted(() => {
     if (
       document.visibilityState === 'visible' &&
       isOver20Min(googleRequested, new Date())
-    ) {
-      if (navigator.onLine && googleStore.googleAccessToken) {
-        await googleStore.getAllTodo()
-        await googleStore.syscTags()
-        googleRequested = new Date()
-      }
-
-      await todoStore.getAllTodos()
-    }
+    )
+      loadAllTodos()
   })
 
   init()

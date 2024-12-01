@@ -135,10 +135,10 @@ const loadAllTodos = async () => {
     await googleStore.getAllTodo()
     await googleStore.syscTags()
     googleRequested = new Date()
-    isLoadedAllTodos.value = true
   }
 
   await todoStore.getAllTodos()
+  isLoadedAllTodos.value = true
 }
 
 const isOver20Min = (date1: Date, date2: Date) => {

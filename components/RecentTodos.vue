@@ -2,15 +2,32 @@
   <div
     class="lg:h-full lg:max-h-[100vw] | overflow-auto | flex flex-col gap-5 | border rounded-lg | p-2 lg:p-3"
     :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
-    <div class="font-bold">
+    <div>
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
-      <NuxtLinkLocale
-        v-else
-        to="/todo"
-        :class="storageStore.getThemeClass('', 'text-white')"
-        area-label="RecentTodos">
-        {{ i18n.t('Recent') }}
-      </NuxtLinkLocale>
+      <div v-else class="flex items-center gap-3">
+        <button
+          :class="[
+            storageStore.selectedRecentTab === 'recent'
+              ? 'font-bold'
+              : 'underline',
+            storageStore.getThemeClass('', 'text-white'),
+          ]"
+          area-label="RecentTodos"
+          @click="storageStore.selectRecentTab('recent')">
+          {{ i18n.t('Recent') }}
+        </button>
+        <button
+          :class="[
+            storageStore.selectedRecentTab === 'plan'
+              ? 'font-bold'
+              : 'underline',
+            storageStore.getThemeClass('', 'text-white'),
+          ]"
+          area-label="PlannedTodos"
+          @click="storageStore.selectRecentTab('plan')">
+          {{ i18n.t('Plan') }}
+        </button>
+      </div>
     </div>
 
     <template v-if="loadingStore.todoLoading">
@@ -23,16 +40,27 @@
         <Skeletor v-for="index in 4" :key="index" class="h-[40px]" />
       </div>
     </template>
-    <div v-else class="flex flex-col gap-2">
-      <TodoRow v-for="todo in recentTodos" :key="todo.id" :todo="todo" />
-      <p v-if="!recentTodos?.length" class="text-center py-10">
+    <template v-else>
+      <div
+        v-if="isEmptyTodos"
+        class="w-full h-full min-h-[100px] | grid place-items-center | pb-8">
         {{ i18n.t('NoTodo') }}
-      </p>
-    </div>
+      </div>
+      <div v-else class="flex flex-col gap-2">
+        <TodoRow
+          v-for="todo in storageStore.selectedRecentTab === 'plan'
+            ? plannedTodos
+            : recentTodos"
+          :key="todo.id"
+          :todo="todo" />
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs'
+
 const i18n = useI18n()
 
 const todoStore = useTodoStore()
@@ -45,5 +73,26 @@ const recentTodos = computed(() => {
     ?.slice()
     .sort((a, b) => Number(b.modified) - Number(a.modified))
     .slice(0, settingStore.screen === 'lg' ? 12 : 4)
+})
+
+const plannedTodos = computed(() => {
+  return todoStore.todos
+    ?.slice()
+    .filter(
+      (todo) =>
+        dayjs().startOf('day').toDate() <=
+        dayjs(todo.created ?? 0)
+          .startOf('day')
+          .toDate()
+    )
+    .filter((todo) => !todo.done)
+    .sort((a, b) => Number(a.created) - Number(b.created))
+    .slice(0, settingStore.screen === 'lg' ? 12 : 4)
+})
+
+const isEmptyTodos = computed(() => {
+  if (storageStore.selectedRecentTab === 'recent')
+    return !recentTodos.value?.length
+  else return !plannedTodos.value?.length
 })
 </script>

@@ -520,98 +520,104 @@ router.post(
   })
 )
 
-router.put('/spreadsheet/tags', async (event) => {
-  const { tags, sheetId } = await readBody<{ tags: Tag[]; sheetId: string }>(
-    event
-  )
+router.put(
+  '/spreadsheet/tags',
+  defineEventHandler(async (event) => {
+    const { tags, sheetId } = await readBody<{ tags: Tag[]; sheetId: string }>(
+      event
+    )
 
-  const oauthClient = await googleUtil.createOauthClient(event)
+    const oauthClient = await googleUtil.createOauthClient(event)
 
-  try {
-    const doc = new GoogleSpreadsheet(sheetId, oauthClient)
+    try {
+      const doc = new GoogleSpreadsheet(sheetId, oauthClient)
 
-    await doc.loadInfo()
-    const sheet = doc.sheetsByTitle['tags']
+      await doc.loadInfo()
+      const sheet = doc.sheetsByTitle['tags']
 
-    const rows = await sheet.getRows()
-    const headers = sheet.headerValues
-    headers[3] = 'removed'
-    await sheet.setHeaderRow(headers)
+      const rows = await sheet.getRows()
+      const headers = sheet.headerValues
+      headers[3] = 'removed'
+      await sheet.setHeaderRow(headers)
 
-    for (const tag of tags) {
-      const { id, color, label } = tag
+      for (const tag of tags) {
+        const { id, color, label } = tag
 
-      const index = rows.findIndex((row) => row.get('id') === id)
+        const index = rows.findIndex((row) => row.get('id') === id)
 
-      if (rows[0].get('id') === 'id')
+        if (rows[0].get('id') === 'id')
+          return {
+            status: 404,
+            message: 'Not Found',
+            result: [],
+          }
+
+        rows[index].set('color', color)
+        rows[index].set('label', label)
+        await rows[index].save()
         return {
-          status: 404,
-          message: 'Not Found',
-          result: [],
-        }
-
-      rows[index].set('color', color)
-      rows[index].set('label', label)
-      await rows[index].save()
-      return {
-        status: 200,
-        message: '',
-        result: rows
-          .filter((row) => !row.get('removed'))
-          .map((row) => row.toObject()),
-      }
-    }
-  } catch (e) {
-    return googleUtil.throwSheetError(e as FetchError)
-  }
-})
-
-router.delete('/spreadsheet/tags', async (event) => {
-  const { tags, sheetId } = await readBody<{ tags: Tag[]; sheetId: string }>(
-    event
-  )
-
-  const oauthClient = await googleUtil.createOauthClient(event)
-
-  try {
-    const doc = new GoogleSpreadsheet(sheetId, oauthClient)
-
-    await doc.loadInfo()
-    const sheet = doc.sheetsByTitle['tags']
-
-    const rows = await sheet.getRows()
-    const headers = sheet.headerValues
-    headers[3] = 'removed'
-    await sheet.setHeaderRow(headers)
-
-    for (const tag of tags) {
-      const { id } = tag
-
-      const index = rows.findIndex((row) => row.get('id') === id)
-
-      if (rows[0].get('id') === 'id')
-        return {
-          status: 404,
-          message: 'Not Found',
-          result: [],
-        }
-
-      rows[index].set('removed', true)
-      await rows[index].save()
-      return {
-        status: 200,
-        message: '',
-        result: [
-          ...rows
+          status: 200,
+          message: '',
+          result: rows
             .filter((row) => !row.get('removed'))
             .map((row) => row.toObject()),
-        ],
+        }
       }
+    } catch (e) {
+      return googleUtil.throwSheetError(e as FetchError)
     }
-  } catch (e) {
-    return googleUtil.throwSheetError(e as FetchError)
-  }
-})
+  })
+)
+
+router.delete(
+  '/spreadsheet/tags',
+  defineEventHandler(async (event) => {
+    const { tags, sheetId } = await readBody<{ tags: Tag[]; sheetId: string }>(
+      event
+    )
+
+    const oauthClient = await googleUtil.createOauthClient(event)
+
+    try {
+      const doc = new GoogleSpreadsheet(sheetId, oauthClient)
+
+      await doc.loadInfo()
+      const sheet = doc.sheetsByTitle['tags']
+
+      const rows = await sheet.getRows()
+      const headers = sheet.headerValues
+      headers[3] = 'removed'
+      await sheet.setHeaderRow(headers)
+
+      for (const tag of tags) {
+        const { id } = tag
+
+        const index = rows.findIndex((row) => row.get('id') === id)
+
+        if (rows[0].get('id') === 'id')
+          return {
+            status: 404,
+            message: 'Not Found',
+            result: [],
+          }
+
+        rows[index].set('removed', true)
+        await rows[index].save()
+        return {
+          status: 200,
+          message: '',
+          result: [
+            ...rows
+              .filter((row) => !row.get('removed'))
+              .map((row) => row.toObject()),
+          ],
+        }
+      }
+    } catch (e) {
+      return googleUtil.throwSheetError(e as FetchError)
+    }
+  })
+)
 
 router.post(
   '/alarm',

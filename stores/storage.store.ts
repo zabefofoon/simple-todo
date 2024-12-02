@@ -77,6 +77,11 @@ export const useStorageStore = defineStore(
     const expandSNB = (value?: boolean) => {
       isSNBExpanded.value = value != null ? value : !isSNBExpanded.value
     }
+
+    const selectedRecentTab = ref<'recent' | 'plan'>('recent')
+    const selectRecentTab = (value: 'recent' | 'plan') =>
+      (selectedRecentTab.value = value)
+
     return {
       addRecentKeywords,
       getRecentKeywords,
@@ -100,11 +105,14 @@ export const useStorageStore = defineStore(
 
       isSNBExpanded,
       expandSNB,
+
+      selectedRecentTab,
+      selectRecentTab,
     }
   },
   {
     persist: {
-      paths: ['language', 'display', 'isSNBExpanded'],
+      paths: ['language', 'display', 'isSNBExpanded', 'selectedRecentTab'],
       storage: persistedState.cookiesWithOptions({
         expires: etcUtil.getCookieExpiresNYears(10),
       }),

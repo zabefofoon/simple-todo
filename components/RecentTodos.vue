@@ -4,23 +4,24 @@
     :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
     <div>
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
-      <div v-else class="flex items-center gap-3">
+      <div v-else class="flex items-center gap-2">
         <button
           :class="[
             storageStore.selectedRecentTab === 'recent'
               ? 'font-bold'
-              : 'underline',
+              : 'opacity-70',
             storageStore.getThemeClass('', 'text-white'),
           ]"
           area-label="RecentTodos"
           @click="storageStore.selectRecentTab('recent')">
           {{ i18n.t('Recent') }}
         </button>
+        <span class="text-xs">|</span>
         <button
           :class="[
             storageStore.selectedRecentTab === 'plan'
               ? 'font-bold'
-              : 'underline',
+              : 'opacity-70',
             storageStore.getThemeClass('', 'text-white'),
           ]"
           area-label="PlannedTodos"

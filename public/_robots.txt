@@ -17,3 +17,6 @@ Disallow: /notification
 Disallow: /search
 Disallow: /setting
 Disallow: /todo
+
+User-agent: *
+Disallow: /*?*

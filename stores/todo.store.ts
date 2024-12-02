@@ -38,7 +38,7 @@ export const useTodoStore = defineStore('todo', () => {
   }
 
   const doneTodo = async (id: string, done?: boolean) => {
-    await todoApi.updateTodo(id, { done })
+    await todoApi.updateTodo(id, { done: !done })
   }
 
   const deleteTodo = async (id: string) => {

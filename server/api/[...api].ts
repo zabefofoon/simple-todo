@@ -20,13 +20,19 @@ router.get(
     const domain = event.context.siteConfigNitroOrigin.endsWith('/')
       ? event.context.siteConfigNitroOrigin.slice(0, -1)
       : event.context.siteConfigNitroOrigin
+    console.log('domain: ', domain)
 
+    const secureDomain = domain.startsWith('http://')
+      ? domain.replace('http://', 'https://')
+      : domain
+    console.log('secureDomain: ', secureDomain)
+    
     const oauth2Client = new google.auth.OAuth2(
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID,
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_SECRET,
-      `${domain}/api/auth/google/callback`
+      `${secureDomain}/api/auth/google/callback`
     )
-
+    
     oauth2Client.setCredentials({
       access_token: accessToken,
       refresh_token: refreshToken,
@@ -53,12 +59,18 @@ router.get(
     const domain = event.context.siteConfigNitroOrigin.endsWith('/')
       ? event.context.siteConfigNitroOrigin.slice(0, -1)
       : event.context.siteConfigNitroOrigin
-
+    console.log("domain2: ", domain)
+    const secureDomain = domain.startsWith('http://')
+        ? domain.replace('http://', 'https://')
+        : domain
+      console.log('secureDomain2: ', secureDomain)
+    
+    
     const query = getQuery(event)
     const oauth2Client = new google.auth.OAuth2(
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID,
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_SECRET,
-      `${domain}/api/auth/google/callback`
+      `${secureDomain}/api/auth/google/callback`
     )
 
     const { tokens } = await oauth2Client.getToken(query.code?.toString() ?? '')

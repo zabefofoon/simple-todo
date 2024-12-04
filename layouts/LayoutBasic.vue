@@ -19,7 +19,9 @@
           v-if="!route.query.bulk"
           :is-show-scroll-top="isShowScrollTop"
           @scroll-top="scrollTop">
-          <slot name="actions" />
+          <FloatingButtonsNew v-if="route.meta.buttons?.includes('new')" />
+          <FloatingButtonsSearch
+            v-if="route.meta.buttons?.includes('search')" />
         </FloatingButtons>
         <BottomAppBar v-if="settingStore.screen !== 'lg'" />
       </nav>

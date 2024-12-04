@@ -1,14 +1,16 @@
 <template>
-  <NuxtLayout name="layout-landing">
-    <MMRenderer
-      :nodes="pageData?.nodes ?? []"
-      :widget-groups="pageData?.widgetGroups ?? []"
-      @click="interceptClick" />
-  </NuxtLayout>
+  <MMRenderer
+    :nodes="pageData?.nodes ?? []"
+    :widget-groups="pageData?.widgetGroups ?? []"
+    @click="interceptClick" />
 </template>
 
 <script setup lang="ts">
 import { MMRenderer } from '~/lib/mm'
+
+definePageMeta({
+  layout: 'layout-landing',
+})
 
 const supabase = useSupabase()
 const route = useRoute()

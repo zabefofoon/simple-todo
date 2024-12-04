@@ -1,6 +1,8 @@
 <template>
   <VitePwaManifest />
-  <NuxtPage />
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
   <ClientOnly>
     <CookiePopup />
   </ClientOnly>

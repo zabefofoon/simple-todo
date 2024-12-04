@@ -1,93 +1,90 @@
 <template>
-  <NuxtLayout name="layout-basic">
-    <div class="flex flex-col | h-full">
-      <div
-        class="sticky top-0 z-20 | flex items-center gap-1 | px-4 py-2 | border-b"
-        :class="
-          storageStore.getThemeClass(
-            'bg-white',
-            'bg-slate-900 border-slate-700'
-          )
-        ">
-        <SearchInputButton />
-        <DarkModeButton class="hidden lg:flex" />
-        <NotificationButton class="hidden lg:block" />
-        <template v-if="loadingStore.todoLoading">
-          <Skeletor class="w-[80px] h-[24px] | ml-auto" />
-          <Skeletor class="w-[80px] h-[24px]" />
-        </template>
-        <template v-else>
-          <TodoTagSelector class="ml-auto" />
-          <TodoStatusSelector class="lg:ml-2" />
-        </template>
-      </div>
-      <div v-if="!todos?.length" class="flex | h-full">
-        <Spinner v-if="loadingStore.todoLoading" class="m-auto" />
-        <p
-          v-else
-          class="w-full | flex items-center justify-center | text-center"
-          :class="storageStore.getThemeClass('', 'text-white')">
-          {{ i18n.t('NoTodo') }}
-        </p>
-      </div>
+  <div class="flex flex-col | h-full">
+    <div
+      class="sticky top-0 z-20 | flex items-center gap-1 | px-4 py-2 | border-b"
+      :class="
+        storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')
+      ">
+      <SearchInputButton />
+      <DarkModeButton class="hidden lg:flex" />
+      <NotificationButton class="hidden lg:block" />
+      <template v-if="loadingStore.todoLoading">
+        <Skeletor class="w-[80px] h-[24px] | ml-auto" />
+        <Skeletor class="w-[80px] h-[24px]" />
+      </template>
       <template v-else>
-        <div class="p-2 lg:p-4 | xl:grid xl:grid-cols-2 xl:gap-4">
-          <template v-for="tag in settingStore.setting?.tags" :key="tag.id">
-            <div
-              v-if="matchedTodos(tag.label).length"
-              class="mb-4 lg:mb-8 rounded-lg border"
-              :class="[storageStore.getThemeClass('', 'border-slate-700'), ,]">
-              <div
-                class="p-2 lg:p-4 | font-bold | flex items-center gap-1.5"
-                :class="storageStore.getThemeClass('', 'text-white')">
-                <NuxtLinkLocale
-                  class="flex items-center gap-1.5"
-                  :to="`${route.path}?tags=${tag.id}`">
-                  #{{ tag.label }}
-                  <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
-                </NuxtLinkLocale>
-              </div>
-              <div class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
-                <TodoRow
-                  v-for="todo in matchedTodos(tag.label)"
-                  :key="todo.id"
-                  :todo="todo" />
-              </div>
-            </div>
-          </template>
+        <TodoTagSelector class="ml-auto" />
+        <TodoStatusSelector class="lg:ml-2" />
+      </template>
+    </div>
+    <div v-if="!todos?.length" class="flex | h-full">
+      <Spinner v-if="loadingStore.todoLoading" class="m-auto" />
+      <p
+        v-else
+        class="w-full | flex items-center justify-center | text-center"
+        :class="storageStore.getThemeClass('', 'text-white')">
+        {{ i18n.t('NoTodo') }}
+      </p>
+    </div>
+    <template v-else>
+      <div class="p-2 lg:p-4 | xl:grid xl:grid-cols-2 xl:gap-4">
+        <template v-for="tag in settingStore.setting?.tags" :key="tag.id">
           <div
-            v-if="matchedTodos().length"
+            v-if="matchedTodos(tag.label).length"
             class="mb-4 lg:mb-8 rounded-lg border"
-            :class="[storageStore.getThemeClass('', 'border-slate-700')]">
+            :class="[storageStore.getThemeClass('', 'border-slate-700'), ,]">
             <div
-              v-if="!route.query.tag"
               class="p-2 lg:p-4 | font-bold | flex items-center gap-1.5"
               :class="storageStore.getThemeClass('', 'text-white')">
               <NuxtLinkLocale
                 class="flex items-center gap-1.5"
-                :to="`${route.path}?tags=memo`">
-                #memo
+                :to="`${route.path}?tags=${tag.id}`">
+                #{{ tag.label }}
                 <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
               </NuxtLinkLocale>
             </div>
             <div class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
               <TodoRow
-                v-for="todo in matchedTodos()"
+                v-for="todo in matchedTodos(tag.label)"
                 :key="todo.id"
                 :todo="todo" />
             </div>
           </div>
+        </template>
+        <div
+          v-if="matchedTodos().length"
+          class="mb-4 lg:mb-8 rounded-lg border"
+          :class="[storageStore.getThemeClass('', 'border-slate-700')]">
+          <div
+            v-if="!route.query.tag"
+            class="p-2 lg:p-4 | font-bold | flex items-center gap-1.5"
+            :class="storageStore.getThemeClass('', 'text-white')">
+            <NuxtLinkLocale
+              class="flex items-center gap-1.5"
+              :to="`${route.path}?tags=memo`">
+              #memo
+              <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
+            </NuxtLinkLocale>
+          </div>
+          <div class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
+            <TodoRow
+              v-for="todo in matchedTodos()"
+              :key="todo.id"
+              :todo="todo" />
+          </div>
         </div>
-      </template>
-    </div>
-    <template #actions>
-      <FloatingButtonsNew />
+      </div>
     </template>
-  </NuxtLayout>
+  </div>
 </template>
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
+
+definePageMeta({
+  layout: 'layout-basic',
+  buttons: ['new', 'search'],
+})
 
 const i18n = useI18n()
 
@@ -97,7 +94,6 @@ const storageStore = useStorageStore()
 const todoStore = useTodoStore()
 const loadingStore = useLoadingStore()
 const settingStore = useSettingStore()
-const googleStore = useGoogleStore()
 
 const todos = computed(() => {
   let result: Todo[] | undefined = undefined

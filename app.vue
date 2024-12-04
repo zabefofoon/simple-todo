@@ -168,7 +168,6 @@ onBeforeMount(() => {
   preloadRouteComponents('/todo')
   preloadRouteComponents('/calender')
   preloadRouteComponents('/news')
-  preloadRouteComponents('/search')
   preloadRouteComponents('/setting')
 })
 

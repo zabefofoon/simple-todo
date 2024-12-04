@@ -85,20 +85,18 @@
     <div class="h-full | flex flex-col">
       <Spinner v-if="loadingStore.todoLoading" class="h-full" />
       <template v-else>
-        <div class="flex flex-col gap-2 | p-4 | h-full">
+        <div v-if="todos.length" class="flex flex-col gap-2 | p-4 | h-full">
           <TodoRow v-for="todo in todos" :key="todo.id" :todo="todo" />
         </div>
-        <h3
-          v-if="!todos?.length"
-          class="w-full h-full | flex items-center justify-center">
+        <h3 v-else class="w-full h-full | flex items-center justify-center">
           <span
             v-if="route.query.keyword"
             :class="storageStore.getThemeClass('', 'text-white')">
             {{ i18n.t('NoMatched', [route.query.keyword]) }}
           </span>
-          <span v-else :class="storageStore.getThemeClass('', 'text-white')">{{
-            i18n.t('EnterKeyword')
-          }}</span>
+          <span v-else :class="storageStore.getThemeClass('', 'text-white')">
+            {{ i18n.t('EnterKeyword') }}
+          </span>
         </h3>
       </template>
     </div>

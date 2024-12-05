@@ -184,7 +184,7 @@ onMounted(() => {
     )
       loadAllTodos()
   })
-
+  useCookie('x-origin', { maxAge: 86400 }).value = location.origin
   init()
 })
 

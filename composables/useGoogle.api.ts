@@ -7,7 +7,12 @@ export const useGoogleApi = () => {
 
   return {
     requestAccessToken2() {
-      return $fetch('/api/auth/google')
+      return $fetch('/api/auth/google', {
+        method: 'get',
+        headers: {
+          'x-origin': import.meta.server ? '' : location.origin,
+        },
+      })
     },
 
     getAllRows() {

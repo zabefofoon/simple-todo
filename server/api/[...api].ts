@@ -13,26 +13,31 @@ const router = createRouter()
 router.get(
   '/auth/google',
   defineEventHandler(async (event) => {
+    const origin = getCookie(event, 'x-origin')
     const cookies = parseCookies(event)
     const refreshToken = cookies['x-google-refresh-token']
     const accessToken = cookies['x-google-access-token']
     const googleEmail = cookies['x-google-email']
-    const domain = event.context.siteConfigNitroOrigin.endsWith('/')
+    const domain = origin
+      ? origin
+      : event.context.siteConfigNitroOrigin.endsWith('/')
       ? event.context.siteConfigNitroOrigin.slice(0, -1)
       : event.context.siteConfigNitroOrigin
     console.log('domain: ', domain)
+    console.log('origin: ', origin)
 
-    const secureDomain = domain.startsWith('http://')
-      ? domain.replace('http://', 'https://')
-      : domain
+    const secureDomain =
+      !domain.includes('local') && domain.startsWith('http://')
+        ? domain.replace('http://', 'https://')
+        : domain
     console.log('secureDomain: ', secureDomain)
-    
+
     const oauth2Client = new google.auth.OAuth2(
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID,
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_SECRET,
       `${secureDomain}/api/auth/google/callback`
     )
-    
+
     oauth2Client.setCredentials({
       access_token: accessToken,
       refresh_token: refreshToken,
@@ -56,16 +61,20 @@ router.get(
 router.get(
   '/auth/google/callback',
   defineEventHandler(async (event) => {
-    const domain = event.context.siteConfigNitroOrigin.endsWith('/')
+    const origin = getCookie(event, 'x-origin')
+
+    const domain = origin
+      ? origin
+      : event.context.siteConfigNitroOrigin.endsWith('/')
       ? event.context.siteConfigNitroOrigin.slice(0, -1)
       : event.context.siteConfigNitroOrigin
-    console.log("domain2: ", domain)
-    const secureDomain = domain.startsWith('http://')
+    console.log('domain2: ', domain)
+    const secureDomain =
+      !domain.includes('local') && domain.startsWith('http://')
         ? domain.replace('http://', 'https://')
         : domain
-      console.log('secureDomain2: ', secureDomain)
-    
-    
+    console.log('secureDomain2: ', secureDomain)
+
     const query = getQuery(event)
     const oauth2Client = new google.auth.OAuth2(
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID,

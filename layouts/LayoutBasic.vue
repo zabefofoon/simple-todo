@@ -3,7 +3,7 @@
     class="flex | w-screen h-dvh overflow-hidden"
     :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')">
     <BulkButtons v-if="route.query.bulk" />
-    <SNB />
+    <SNB v-if="settingStore.screen === 'lg'" />
     <div class="flex flex-col | h-full w-full overflow-hidden">
       <slot name="header"><Header v-if="settingStore.screen !== 'lg'" /></slot>
       <main

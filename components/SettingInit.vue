@@ -1,6 +1,6 @@
 <template>
   <div class="flex | py-3">
-    <label class="lg:w-60 | text-sm" v-t="'Update'"></label>
+    <label class="lg:w-60 | text-sm">{{ i18n.t('Update') }}</label>
     <button
       name="Update"
       class="ml-auto lg:ml-0 | flex | border border-red-500 rounded-full"
@@ -11,6 +11,8 @@
 </template>
 
 <script setup lang="ts">
+const i18n = useI18n()
+
 const initServiceWorker = async () => {
   if ('serviceWorker' in navigator) {
     const registrations = await navigator.serviceWorker.getRegistrations()

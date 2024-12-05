@@ -6,8 +6,8 @@
     <h3 v-else class="flex items-center">
       <span
         class="font-bold"
-        :class="storageStore.getThemeClass('', 'text-white')"
-        v-t="'Done'">
+        :class="storageStore.getThemeClass('', 'text-white')">
+        {{ i18n.t('Done') }}
       </span>
       <span
         class="ml-auto | text-sm"

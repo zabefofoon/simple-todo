@@ -22,8 +22,9 @@
       <p
         v-else
         class="w-full | flex items-center justify-center | text-center"
-        :class="storageStore.getThemeClass('', 'text-white')"
-        v-t="'NoTodo'"></p>
+        :class="storageStore.getThemeClass('', 'text-white')">
+        {{ i18n.t('NoTodo') }}
+      </p>
     </div>
     <template v-else>
       <div class="p-2 lg:p-4 | xl:grid xl:grid-cols-2 xl:gap-4">

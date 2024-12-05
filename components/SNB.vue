@@ -61,7 +61,7 @@
                 v-if="storageStore.isSNBExpanded"
                 class="relative text-sm"
                 :class="storageStore.getThemeClass('', 'text-white')">
-                <span v-t="menu.name"></span>
+                {{ i18n.t(menu.name ?? '') }}
                 <div
                   v-if="menu.code === 'News'"
                   class="w-1.5 h-1.5 | bg-red-500 rounded-full | absolute top-0 left-0 -translate-x-0.5 -ttranslate-y-0.5"></div>
@@ -100,4 +100,5 @@
 <script setup lang="ts">
 const menuStore = useMenuStore()
 const storageStore = useStorageStore()
+const i18n = useI18n()
 </script>

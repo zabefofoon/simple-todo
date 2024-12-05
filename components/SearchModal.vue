@@ -91,11 +91,11 @@
         <h3 v-else class="w-full h-full | flex items-center justify-center">
           <span
             v-if="route.query.keyword"
-            :class="storageStore.getThemeClass('', 'text-white')"
-            v-t="{ path: 'NoMatched', args: { keyword: route.query.keyword } }">
+            :class="storageStore.getThemeClass('', 'text-white')">
+            {{ i18n.t('NoMatched', [route.query.keyword]) }}
           </span>
           <span v-else :class="storageStore.getThemeClass('', 'text-white')">
-            <span v-t="'EnterKeyword'"></span>
+            {{ i18n.t('EnterKeyword') }}
           </span>
         </h3>
       </template>

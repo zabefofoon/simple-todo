@@ -14,7 +14,7 @@
         ">
         <div
           class="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 | w-2 h-2 | rounded-full | bg-red-500"></div>
-        <span v-t="'AddGuide'"></span>
+        {{ i18n.t('AddGuide') }}
       </div>
     </ClientOnly>
   </NuxtLinkLocale>
@@ -25,6 +25,7 @@ const route = useRoute()
 const storageStore = useStorageStore()
 const loading = useLoadingStore()
 const guideStore = useGuideStore()
+const i18n = useI18n()
 
 const to = computed(() => {
   const query = routerUtil.queryToString(route.query)

@@ -5,9 +5,8 @@
       <li>
         <button class="flex items-center gap-1" @click="router.back()">
           <i class="icon icon-arrow-left | text-white"></i>
-          <span
-            class="text-xs lg:text-sm | text-white whitespace-nowrap"
-            v-t="'Close'">
+          <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
+            {{ i18n.t('Close') }}
           </span>
         </button>
       </li>
@@ -18,9 +17,8 @@
             class="flex items-center justify-center | bg-green-500 | w-4 h-4 | rounded-full">
             <i class="icon icon-check | text-white"></i>
           </span>
-          <span
-            class="text-xs lg:text-sm | text-white whitespace-nowrap"
-            v-t="'Done'">
+          <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
+            {{ i18n.t('Done') }}
           </span>
         </button>
       </li>
@@ -31,9 +29,8 @@
             class="flex items-center justify-center | border border-slate-500 | w-4 h-4 | rounded-full">
             <i class="icon icon-check | text-white"></i>
           </span>
-          <span
-            class="text-xs lg:text-sm | text-white whitespace-nowrap"
-            v-t="'Undone'">
+          <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
+            {{ i18n.t('Undone') }}
           </span>
         </button>
       </li>
@@ -41,9 +38,8 @@
       <li>
         <button class="flex items-center gap-1" @click="bulkDelete()">
           <i class="icon icon-close | text-white"></i>
-          <span
-            class="text-xs lg:text-sm | text-white whitespace-nowrap"
-            v-t="'Remove'">
+          <span class="text-xs lg:text-sm | text-white whitespace-nowrap">
+            {{ i18n.t('Remove') }}
           </span>
         </button>
       </li>

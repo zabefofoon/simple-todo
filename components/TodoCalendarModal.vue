@@ -23,9 +23,8 @@
         <p
           v-if="!todayTodos?.length"
           class="flex items-center justify-center | h-full">
-          <span
-            :class="storageStore.getThemeClass('', 'text-white')"
-            v-t="'NoTodo'">
+          <span :class="storageStore.getThemeClass('', 'text-white')">
+            {{ i18n.t('NoTodo') }}
           </span>
         </p>
         <div

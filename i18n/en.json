@@ -207,5 +207,14 @@
   "Post_alt_3": "Choose your desired color and change the name",
   "Post_alt_4": "Select a tag when creating or editing a task",
   "Post_alt_5": "Select the desired date on the calendar page",
-  "Post_alt_6": "Create a task"
+  "Post_alt_6": "Create a task",
+  "Post_image_title": "Capture Precious Memories with Memoku",
+  "Post_image_desc": "Memoku goes beyond simple task management, allowing you to save cherished memories or important images. Attach photos to your tasks for richer and more organized management.",
+  "Post_image_how": "How to Add Images",
+  "Post_image_how_item1": "1. Add an image when creating a task.",
+  "Post_image_how_item2": "2. View image thumbnails on the task screen.",
+  "Post_image_how_item3": "3. Click on a thumbnail to view it in a slideshow.",
+  "Post_image_end_title": "Manage Your Precious Memories with Memoku!",
+  "Post_image_end_desc": "Beyond task management, store your memories and resources all in one place.<br />Easily access them anytime, anywhere.",
+  "Post_image_path": "Save-Image"
 }

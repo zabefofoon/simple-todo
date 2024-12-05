@@ -4,8 +4,8 @@
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <label
       class="lg:w-60 | text-sm"
-      :class="storageStore.getThemeClass('', 'text-white')">
-      {{ i18n.t('Theme') }}
+      :class="storageStore.getThemeClass('', 'text-white')"
+      v-t="'Theme'">
     </label>
     <select
       v-model="storageStore.theme"
@@ -16,14 +16,12 @@
       @change="changeTheme">
       <option
         value="white"
-        :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('White') }}
-      </option>
+        :class="storageStore.getThemeClass('', 'text-white')"
+        v-t="'White'"></option>
       <option
         value="dark"
-        :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('Dark') }}
-      </option>
+        :class="storageStore.getThemeClass('', 'text-white')"
+        v-t="'Dark'"></option>
     </select>
   </div>
 </template>

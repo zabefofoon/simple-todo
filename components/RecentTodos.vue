@@ -14,7 +14,7 @@
           ]"
           area-label="RecentTodos"
           @click="storageStore.selectRecentTab('recent')">
-          {{ i18n.t('Recent') }}
+          <span v-t="'Recent'"></span>
         </button>
         <span class="text-xs">|</span>
         <button
@@ -26,7 +26,7 @@
           ]"
           area-label="PlannedTodos"
           @click="storageStore.selectRecentTab('plan')">
-          {{ i18n.t('Plan') }}
+          <span v-t="'Plan'"></span>
         </button>
       </div>
     </div>
@@ -45,7 +45,7 @@
       <div
         v-if="isEmptyTodos"
         class="w-full h-full min-h-[100px] | grid place-items-center | pb-8">
-        {{ i18n.t('NoTodo') }}
+        <span v-t="'NoTodo'"></span>
       </div>
       <div v-else class="flex flex-col gap-2">
         <TodoRow
@@ -61,8 +61,6 @@
 
 <script setup lang="ts">
 import dayjs from 'dayjs'
-
-const i18n = useI18n()
 
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()

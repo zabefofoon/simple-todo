@@ -5,13 +5,13 @@
     <label
       class="lg:w-60 | text-sm"
       :class="storageStore.getThemeClass('', 'text-white')">
-      {{ i18n.t('Export') }}
+      <span v-t="'Export'"></span>
     </label>
     <button
       class="ml-auto lg:ml-0 px-4 py-0.5 | bg-slate-800 | text-sm text-white | rounded-full"
       name="Export"
       @click="exportData">
-      {{ i18n.t('Export') }}
+      <span v-t="'Export'"></span>
     </button>
   </div>
 </template>
@@ -22,7 +22,6 @@ import type { SavedData } from '~/models/SavedData'
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
 const storageStore = useStorageStore()
-const i18n = useI18n()
 
 const getSerializedData = () => {
   const data: SavedData = {

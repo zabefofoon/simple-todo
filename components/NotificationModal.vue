@@ -24,7 +24,7 @@
           v-if="!alarms?.length"
           class="w-full h-full | flex items-center justify-center"
           :class="storageStore.getThemeClass('', 'text-white')">
-          {{ i18n.t('EmptyNotification') }}
+          <span v-t="'EmptyNotification'"></span>
         </div>
         <ul v-else class="flex flex-col | w-full h-full">
           <NuxtLinkLocale

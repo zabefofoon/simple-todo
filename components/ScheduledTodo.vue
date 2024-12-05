@@ -14,11 +14,11 @@
       <span
         v-if="scheduledTodo"
         :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('ScheduledTodo') }}
+        <span v-t="'ScheduledTodo'"></span>
         ({{ scheduledTodo.date?.replaceAll('-', '.').substring(2) }})
       </span>
       <span v-else :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('NoScheduled') }}
+        <span v-t="'NoScheduled'"></span>
       </span>
     </h3>
     <NuxtLinkLocale
@@ -44,7 +44,6 @@ const todoStore = useTodoStore()
 const loadingStore = useLoadingStore()
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
-const i18n = useI18n()
 
 const scheduledTodo = computed(() => {
   return todoStore.todos

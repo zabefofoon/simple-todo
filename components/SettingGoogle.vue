@@ -4,8 +4,8 @@
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <label
       class="lg:w-60 | text-sm"
-      :class="storageStore.getThemeClass('', 'text-white')">
-      {{ i18n.t('SpreadsheetLink') }}
+      :class="storageStore.getThemeClass('', 'text-white')"
+      v-t="'SpreadsheetLink'">
     </label>
     <input
       v-model="email"

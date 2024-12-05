@@ -3,10 +3,6 @@ export default defineNuxtConfig({
   devServer: {
     port: 3000,
   },
-  nitro: {
-    preset: 'netlify',
-    compressPublicAssets: true,
-  },
   devtools: { enabled: true },
   css: [
     '~/assets/styles/style.scss',
@@ -204,6 +200,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
+    lazy: true,
     locales: [
       { code: 'en', iso: 'en-US', name: 'English' },
       { code: 'ko', iso: 'ko-KR', name: '한국어' },

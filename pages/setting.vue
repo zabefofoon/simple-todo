@@ -14,9 +14,8 @@
       :class="storageStore.getThemeClass('', 'border-slate-700')">
       <h3
         class="font-bold | pb-2"
-        :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('View') }}
-      </h3>
+        :class="storageStore.getThemeClass('', 'text-white')"
+        v-t="'View'"></h3>
       <SettingPermissions />
       <SettingLanguage />
       <SettingTheme />
@@ -28,9 +27,8 @@
       :class="storageStore.getThemeClass('', 'border-slate-700')">
       <h3
         class="font-bold | pb-2"
-        :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('Google') }}
-      </h3>
+        :class="storageStore.getThemeClass('', 'text-white')"
+        v-t="'Google'"></h3>
       <SettingGoogle />
     </div>
     <div
@@ -38,9 +36,8 @@
       :class="storageStore.getThemeClass('', 'border-slate-700')">
       <h3
         class="font-bold | pb-2"
-        :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('Data') }}
-      </h3>
+        :class="storageStore.getThemeClass('', 'text-white')"
+        v-t="'Data'"></h3>
       <SettingDataExport />
       <SettingDataImport />
       <SettingInit v-if="false" />

@@ -15,7 +15,7 @@
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "devDependencies": {
-    "@nuxtjs/i18n": "^8.0.0",
+    "@nuxtjs/i18n": "^9.1.0",
     "@nuxtjs/seo": "2.0.0-rc.23",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@types/gapi": "^0.0.47",

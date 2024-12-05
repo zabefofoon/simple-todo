@@ -15,7 +15,7 @@
         class="icon icon-close"
         :class="storageStore.getThemeClass('', 'text-white')"></i>
     </button>
-    {{ i18n.t('AddHome') }}
+    <span v-t="'AddHome'"></span>
     <ul class="text-sm | flex flex-col gap-2">
       <li
         class="flex items-center gap-2"
@@ -25,7 +25,7 @@
             class="icon icon-android-home | text-xl"
             :class="storageStore.getThemeClass('', 'text-white')"></i>
         </span>
-        {{ i18n.t('AndroidAddHome1') }}
+        <span v-t="'AndroidAddHome1'"></span>
       </li>
       <li
         class="flex flex-col"
@@ -44,5 +44,4 @@
 <script setup lang="ts">
 const storageStore = useStorageStore()
 const guideStore = useGuideStore()
-const i18n = useI18n()
 </script>

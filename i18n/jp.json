@@ -37,7 +37,7 @@
   "None": "なし",
   "NoKeywords": "最近の検索履歴はありません。",
   "EnterKeyword": "検索キーワードを入力してください。",
-  "NoMatched": "\"{0}\"の検索結果はありません。",
+  "NoMatched": "\"{keyword}\"の検索結果はありません。",
   "downloadPwa": "ホーム画面に追加",
   "Update": "更新",
   "ConfirmBeforeWriting": "保存せずに終了しますか？",

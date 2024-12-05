@@ -7,15 +7,15 @@
         class="underline text-xs"
         to="/terms.html"
         target="_blank"
-        external>
-        {{ i18n.t('Terms') }}
+        external
+        v-t="'Terms'">
       </NuxtLinkLocale>
       <NuxtLinkLocale
         class="underline text-xs"
         to="/privacy-policy.html"
         target="_blank"
-        external>
-        {{ i18n.t('Policy') }}
+        external
+        v-t="'Policy'">
       </NuxtLinkLocale>
     </div>
     <p class="text-xs text-center">MEMOKU &copy; 2024 zabefofoon.</p>
@@ -24,6 +24,4 @@
 
 <script setup lang="ts">
 const storageStore = useStorageStore()
-
-const i18n = useI18n()
 </script>

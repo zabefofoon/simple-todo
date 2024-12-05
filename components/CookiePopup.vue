@@ -12,26 +12,24 @@
     <p
       class="text-sm lg:text-md | max-w-[300px] | mx-auto"
       :class="storageStore.getThemeClass('', 'text-white')"
-      v-html="i18n.t('CookiesAcceptNotice')"></p>
+      v-t="'CookiesAcceptNotice'"></p>
     <NuxtLinkLocale
       to="https://memoku.netlify.app/privacy-policy.html"
       target="_blank"
       class="underline | text-sm lg:text-md"
       :class="storageStore.getThemeClass('', 'text-white')"
-      external>
-      {{ i18n.t('ShowPrivacyPolicy') }}
+      external
+      v-t="'ShowPrivacyPolicy'">
     </NuxtLinkLocale>
     <div class="flex gap-3 justify-center | w-full | mt-4">
       <button
         class="bg-slate-500 | text-white text-sm lg:text-md | px-4 py-2"
-        @click="allConsentGranted">
-        {{ i18n.t('AcceptAll') }}
-      </button>
+        @click="allConsentGranted"
+        v-t="'AcceptAll'"></button>
       <button
         class="bg-slate-500 | text-white text-sm lg:text-md | px-4 py-2"
-        @click="setCookiesAccepted(true)">
-        {{ i18n.t('AgreeLater') }}
-      </button>
+        @click="setCookiesAccepted(true)"
+        v-t="'AgreeLater'"></button>
     </div>
   </div>
 </template>
@@ -39,7 +37,6 @@
 <script setup lang="ts">
 const { gtag } = useGtag()
 const storageStore = useStorageStore()
-const i18n = useI18n()
 
 const mounted = ref(false)
 const setMounted = () => (mounted.value = true)

@@ -64,7 +64,7 @@ const i18n = useI18n()
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 
-useHead({
+useHead(() => ({
   title: i18n.t('PageTitle'),
   meta: [
     {
@@ -85,5 +85,5 @@ useHead({
     },
     { name: 'robots', content: 'noindex, nofollow' },
   ],
-})
+}))
 </script>

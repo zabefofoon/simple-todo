@@ -61,7 +61,7 @@ const settingStore = useSettingStore()
 
 const i18n = useI18n()
 
-useHead({
+useHead(() => ({
   title: i18n.t('PageTitle'),
   meta: [
     {
@@ -81,5 +81,5 @@ useHead({
       content: i18n.t('PageDescription'),
     },
   ],
-})
+}))
 </script>

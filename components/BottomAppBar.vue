@@ -10,10 +10,12 @@
       :to="menu.href"
       class="w-full"
       :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')"
-      :area-label="menu.name"
+      :area-label="i18n.t(menu.name ?? '')"
       replace>
       <li>
-        <button :name="menu.name" class="w-full | mx-auto pt-1 pb-2 px-2">
+        <button
+          :name="i18n.t(menu.name ?? '')"
+          class="w-full | mx-auto pt-1 pb-2 px-2">
           <div
             class="relative | flex flex-col items-center gap-.5 | w-full | py-2 rounded-lg"
             :class="
@@ -32,8 +34,8 @@
               ]"></i>
             <span
               class="text-[10px]"
-              :class="storageStore.getThemeClass('', 'text-white')">
-              {{ menu.name }}
+              :class="storageStore.getThemeClass('', 'text-white')"
+              v-t="menu.name">
             </span>
             <div
               v-if="menu.code === 'News'"
@@ -48,4 +50,5 @@
 <script setup lang="ts">
 const menuStore = useMenuStore()
 const storageStore = useStorageStore()
+const i18n = useI18n()
 </script>

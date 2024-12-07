@@ -15,21 +15,21 @@
         class="icon icon-close"
         :class="storageStore.getThemeClass('', 'text-white')"></i>
     </button>
-    {{ i18n.t('AddHome') }}
+    <span v-t="'AddHome'"></span>
     <ul class="text-sm | flex flex-col gap-2">
       <li
         class="flex items-center gap-2"
         :class="storageStore.getThemeClass('', 'text-white')">
-        1. {{ i18n.t('IosAddHome1') }}
+        <span v-t="'IosAddHome1'"></span>
         <span class="flex">
           <i
             class="icon icon-ios-share | text-xl"
             :class="storageStore.getThemeClass('', 'text-white')"></i>
         </span>
       </li>
-      <li :class="storageStore.getThemeClass('', 'text-white')">
-        2. {{ i18n.t('IosAddHome2') }}
-      </li>
+      <li
+        :class="storageStore.getThemeClass('', 'text-white')"
+        v-t="'IosAddHome2'"></li>
       <li
         class="flex flex-col"
         :class="storageStore.getThemeClass('', 'text-white')">
@@ -53,5 +53,4 @@
 <script setup lang="ts">
 const storageStore = useStorageStore()
 const guideStore = useGuideStore()
-const i18n = useI18n()
 </script>

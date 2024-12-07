@@ -11,9 +11,8 @@
   <div class="flex flex-col gap-4 | p-4">
     <h3
       class="pb-2 text-[18px] lg:text-[20px] | font-bold"
-      :class="storageStore.getThemeClass('', 'text-white')">
-      "{{ i18n.t('NewsTitle') }}"
-    </h3>
+      :class="storageStore.getThemeClass('', 'text-white')"
+      v-t="'NewsTitle'"></h3>
     <div
       class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-x-3 gap-y-5 lg:gap-x-4 lg:gap-y-6">
       <NuxtLinkLocale
@@ -40,20 +39,11 @@
           <figcaption class="px-3 pt-3 pb-4 | flex flex-col | leading-tight">
             <h4
               class="truncate-2 text-pretty | mb-1.5"
-              :class="storageStore.getThemeClass('font-bold', 'text-white')">
-              {{
-                i18n.te(post.title ?? '')
-                  ? i18n.t(post.title ?? '')
-                  : post.title
-              }}
-            </h4>
-            <p class="truncate-2 text-pretty | text-sm text-slate-400 | mb-1.5">
-              {{
-                i18n.te(post.description ?? '')
-                  ? i18n.t(post.description ?? '')
-                  : post.description
-              }}
-            </p>
+              :class="storageStore.getThemeClass('font-bold', 'text-white')"
+              v-t="post.title"></h4>
+            <p
+              class="truncate-2 text-pretty | text-sm text-slate-400 | mb-1.5"
+              v-t="post.description"></p>
             <p
               class="overflow-hidden | whitespace-nowrap text-ellipsis | text-[11px] text-slate-400">
               {{

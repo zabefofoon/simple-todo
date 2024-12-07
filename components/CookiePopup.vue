@@ -12,25 +12,25 @@
     <p
       class="text-sm lg:text-md | max-w-[300px] | mx-auto"
       :class="storageStore.getThemeClass('', 'text-white')"
-      v-html="i18n.t('CookiesAcceptNotice')"></p>
+      v-t="'CookiesAcceptNotice'"></p>
     <NuxtLinkLocale
       to="https://memoku.netlify.app/privacy-policy.html"
       target="_blank"
       class="underline | text-sm lg:text-md"
       :class="storageStore.getThemeClass('', 'text-white')"
       external>
-      {{ i18n.t('ShowPrivacyPolicy') }}
+      <span v-t="'ShowPrivacyPolicy'"></span>
     </NuxtLinkLocale>
     <div class="flex gap-3 justify-center | w-full | mt-4">
       <button
         class="bg-slate-500 | text-white text-sm lg:text-md | px-4 py-2"
         @click="allConsentGranted">
-        {{ i18n.t('AcceptAll') }}
+        <span v-t="'AcceptAll'"></span>
       </button>
       <button
         class="bg-slate-500 | text-white text-sm lg:text-md | px-4 py-2"
         @click="setCookiesAccepted(true)">
-        {{ i18n.t('AgreeLater') }}
+        <span v-t="'AgreeLater'"></span>
       </button>
     </div>
   </div>

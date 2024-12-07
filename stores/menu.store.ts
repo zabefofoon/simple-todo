@@ -3,7 +3,6 @@ import { Menu } from '~/models/Menu'
 
 export const useMenuStore = defineStore('menu', () => {
   const route = useRoute()
-  const i18n = useI18n()
   const localePath = useLocalePath()
 
   const snbMenus = computed<Menu[]>(() => {
@@ -45,31 +44,31 @@ export const useMenuStore = defineStore('menu', () => {
   const appBarMenus = computed<Menu[]>(() => {
     return [
       Menu.of({
-        name: i18n.t('Home'),
+        name: 'Home',
         href: '/',
         icon: 'icon-home',
         code: 'Home',
       }),
       Menu.of({
-        name: i18n.t('Todo'),
+        name: 'Todo',
         href: '/todo',
         icon: 'icon-file',
         code: 'Todo',
       }),
       Menu.of({
-        name: i18n.t('Calender'),
+        name: 'Calender',
         href: '/calender',
         icon: 'icon-calender',
         code: 'Calender',
       }),
       Menu.of({
-        name: i18n.t('News'),
+        name: 'News',
         href: '/news',
         icon: 'icon-news',
         code: 'News',
       }),
       Menu.of({
-        name: i18n.t('Setting'),
+        name: 'Setting',
         href: '/setting',
         icon: 'icon-setting',
         code: 'Setting',

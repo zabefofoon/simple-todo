@@ -25,9 +25,8 @@
           ">
           <h3
             class="font-bold"
-            :class="storageStore.getThemeClass('', 'text-white')">
-            {{ i18n.t('NewsTitle') }}
-          </h3>
+            :class="storageStore.getThemeClass('', 'text-white')"
+            v-t="'NewsTitle'"></h3>
           <i class="icon icon-arrow-right"></i>
 
           <div
@@ -58,6 +57,4 @@ definePageMeta({
 
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
-
-const i18n = useI18n()
 </script>

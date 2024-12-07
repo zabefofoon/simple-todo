@@ -3,18 +3,13 @@
     class="h-full | hidden lg:flex items-center justify-center gap-2 | p-2 lg:p-3 | border rounded-lg"
     :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
     <div class="relative">
-      <div class="absolute top-0 left-0 -translate-y-1/2 | flex">
-        <span
-          class="text-[1.5cqh]"
-          :class="storageStore.getThemeClass('', 'text-white')">
+      <div
+        class="absolute top-0 left-0 -translate-y-1/2 | flex"
+        :class="storageStore.getThemeClass('', 'text-white')">
+        <span class="text-[1.5cqh]">
           {{ currentYear }}
         </span>
-        <span
-          v-if="day"
-          class="text-[1.5cqh]"
-          :class="storageStore.getThemeClass('', 'text-white')">
-          ({{ i18n.t(day) }})
-        </span>
+        <div v-if="day" class="text-[1.5cqh]">(<span v-t="day"></span>)</div>
       </div>
       <span
         class="text-[4cqh]"
@@ -27,7 +22,6 @@
 
 <script setup lang="ts">
 const storageStore = useStorageStore()
-const i18n = useI18n()
 
 const currentYear = ref('')
 const setYear = () => {

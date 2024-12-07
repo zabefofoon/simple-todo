@@ -9,7 +9,7 @@
         <span class="text-[1.5cqh]">
           {{ currentYear }}
         </span>
-        <div v-if="day" class="text-[1.5cqh]">(<span v-t="day"></span>)</div>
+        <div v-if="day" class="text-[1.5cqh]">({{ i18n.t(day) }})</div>
       </div>
       <span
         class="text-[4cqh]"
@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 const storageStore = useStorageStore()
+const i18n = useI18n()
 
 const currentYear = ref('')
 const setYear = () => {

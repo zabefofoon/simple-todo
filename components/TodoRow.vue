@@ -34,38 +34,36 @@
       <div
         v-else
         class="w-20 h-full | flex items-center | border-r"
-        :class="storageStore.getThemeClass('', 'border-slate-700')">
+        :class="
+          storageStore.getThemeClass('', 'border-slate-700 | text-white')
+        ">
         <div
-          class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | border rounded-full"
-          :class="storageStore.getThemeClass('', 'text-white')">
+          class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | border rounded-full">
           memo
         </div>
       </div>
       <div
-        class="w-full overflow-hidden | pl-0.5 py-2 | text-sm lg:text-md text-ellipsis whitespace-nowrap lg:whitespace-normal">
-        <span
-          v-if="(todo.description?.length || 0) > 30"
-          :class="storageStore.getThemeClass('', 'text-white')">
+        class="w-full overflow-hidden | pl-0.5 py-2 | text-sm lg:text-md text-ellipsis whitespace-nowrap lg:whitespace-normal"
+        :class="storageStore.getThemeClass('', 'text-white')">
+        <span v-if="(todo.description?.length || 0) > 30">
           {{ todo.description?.slice(0, 30) }}...
         </span>
-        <span v-else :class="storageStore.getThemeClass('', 'text-white')">
+        <span v-else>
           {{ todo.description }}
         </span>
       </div>
       <figcaption
         v-if="todo.leftUptoMinute > 0"
         class="absolute right-0 top-0 -translate-y-1/2 | flex-shrink-0 w-fit | flex items-center gap-1 | text-[10px] lg:text-xs"
-        :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')">
-        <i
-          class="icon icon-timer"
-          :class="storageStore.getThemeClass('', 'text-white')"></i>
-        <span :class="storageStore.getThemeClass('', 'text-white')">
-          <template v-if="todo.leftUptoHour > 0">
-            {{ i18n.t('LeftHours', [todo.leftUptoHour]) }}
-          </template>
-          <template v-else>
-            {{ i18n.t('LeftMinits', [todo.leftUptoMinute]) }}
-          </template>
+        :class="
+          storageStore.getThemeClass('bg-white', 'bg-slate-900 | text-white')
+        ">
+        <i class="icon icon-timer"></i>
+        <span v-if="todo.leftUptoHour > 0">
+          {{ i18n.t('LeftHours', [todo.leftUptoHour]) }}
+        </span>
+        <span v-else>
+          {{ i18n.t('LeftMinits', [todo.leftUptoMinute]) }}
         </span>
       </figcaption>
       <img

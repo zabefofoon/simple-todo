@@ -95,17 +95,15 @@
             v-html="currentTodo?.description"></div>
           <div class="absolute bottom-2.5 left-3">
             <figcaption
-              v-if="currentTodo?.leftUptoMinute > 0"
+              v-if="currentTodo && currentTodo.leftUptoMinute > 0"
               class="w-fit | flex items-center gap-1"
               :class="storageStore.getThemeClass('', 'text-white')">
               <i class="icon icon-timer"></i>
-              <span class="text-xs">
-                <template v-if="currentTodo?.leftUptoHour > 0">
-                  {{ i18n.t('LeftHours', [currentTodo?.leftUptoHour]) }}
-                </template>
-                <template v-else>
-                  {{ i18n.t('LeftMinits', [currentTodo?.leftUptoMinute]) }}
-                </template>
+              <span v-if="currentTodo.leftUptoHour > 0" class="text-xs">
+                {{ i18n.t('LeftHours', [currentTodo?.leftUptoHour]) }}
+              </span>
+              <span v-else class="text-xs">
+                {{ i18n.t('LeftMinits', [currentTodo?.leftUptoMinute]) }}
               </span>
             </figcaption>
           </div>

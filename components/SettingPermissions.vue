@@ -4,23 +4,22 @@
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <label
       class="lg:w-60 | text-sm"
-      :class="storageStore.getThemeClass('', 'text-white')">
-      {{ i18n.t('Notification') }}
+      :class="storageStore.getThemeClass('', 'text-white')"
+      v-t="'Notification'">
     </label>
     <span
       v-if="isGrantedNotification"
       class="ml-auto lg:ml-0 px-4 py-0.5 lg:px-0 | text-sm"
       :class="storageStore.getThemeClass('', 'text-white')"
-      name="Export">
-      On
+      name="Export"
+      v-t="'ON'">
     </span>
     <button
       v-else
       class="ml-auto lg:ml-0 px-4 py-0.5 | bg-red-500 | text-sm text-white | rounded-full"
       name="Export"
-      @click="requestNofification">
-      {{ i18n.t('OFF') }}
-    </button>
+      @click="requestNofification"
+      v-t="'OFF'"></button>
   </div>
 </template>
 

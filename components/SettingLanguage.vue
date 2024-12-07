@@ -4,8 +4,8 @@
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <label
       class="lg:w-60 | text-sm"
-      :class="storageStore.getThemeClass('', 'text-white')">
-      {{ i18n.t('Language') }}
+      :class="storageStore.getThemeClass('', 'text-white')"
+      v-t="'Language'">
     </label>
     <select
       v-model="i18n.locale.value"
@@ -14,15 +14,9 @@
         storageStore.getThemeClass('bg-white', 'dark | bg-slate-900 text-white')
       "
       @change="changeLanguage">
-      <option value="en" :class="storageStore.getThemeClass('', 'text-white')">
-        English
-      </option>
-      <option value="ko" :class="storageStore.getThemeClass('', 'text-white')">
-        한국어
-      </option>
-      <option value="ja" :class="storageStore.getThemeClass('', 'text-white')">
-        日本語
-      </option>
+      <option value="en">English</option>
+      <option value="ko">한국어</option>
+      <option value="ja">日本語</option>
     </select>
   </div>
 </template>

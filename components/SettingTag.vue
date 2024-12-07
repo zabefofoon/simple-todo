@@ -3,8 +3,7 @@
     class="flex | border-b | py-3"
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <div class="flex gap-1 | lg:w-60 | text-sm">
-      <span :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('Tag') }}
+      <span :class="storageStore.getThemeClass('', 'text-white')" v-t="'Tag'">
       </span>
       <button
         name="Add tag"

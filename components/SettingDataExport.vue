@@ -4,15 +4,14 @@
     :class="storageStore.getThemeClass('', 'border-slate-700')">
     <label
       class="lg:w-60 | text-sm"
-      :class="storageStore.getThemeClass('', 'text-white')">
-      {{ i18n.t('Export') }}
+      :class="storageStore.getThemeClass('', 'text-white')"
+      v-t="'Export'">
     </label>
     <button
       class="ml-auto lg:ml-0 px-4 py-0.5 | bg-slate-800 | text-sm text-white | rounded-full"
       name="Export"
-      @click="exportData">
-      {{ i18n.t('Export') }}
-    </button>
+      @click="exportData"
+      v-t="'Export'"></button>
   </div>
 </template>
 

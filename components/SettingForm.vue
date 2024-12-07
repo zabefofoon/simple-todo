@@ -1,8 +1,7 @@
 <template>
   <div class="flex | py-3">
     <div class="flex gap-1 | lg:w-60 | text-sm">
-      <span :class="storageStore.getThemeClass('', 'text-white')">
-        {{ i18n.t('Form') }}
+      <span :class="storageStore.getThemeClass('', 'text-white')" v-t="'Form'">
       </span>
       <NuxtLinkLocale to="/setting?form=new" area-label="New Form">
         <button

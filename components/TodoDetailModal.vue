@@ -99,11 +99,21 @@
               class="w-fit | flex items-center gap-1"
               :class="storageStore.getThemeClass('', 'text-white')">
               <i class="icon icon-timer"></i>
-              <span v-if="currentTodo.leftUptoHour > 0" class="text-xs">
-                {{ i18n.t('LeftHours', [currentTodo?.leftUptoHour]) }}
+              <span
+                v-if="currentTodo.leftUptoHour > 0"
+                class="text-xs"
+                v-t="{
+                  path: 'LeftHours',
+                  args: { hour: currentTodo.leftUptoHour },
+                }">
               </span>
-              <span v-else class="text-xs">
-                {{ i18n.t('LeftMinits', [currentTodo?.leftUptoMinute]) }}
+              <span
+                v-else
+                class="text-xs"
+                v-t="{
+                  path: 'LeftMinits',
+                  args: { minute: currentTodo.leftUptoMinute },
+                }">
               </span>
             </figcaption>
           </div>
@@ -111,7 +121,7 @@
             <img
               v-if="currentTodo?.linked"
               class="w-[10px]"
-              src="~assets/images/google.svg" />
+              src="~/assets/images/google.svg" />
 
             <span
               class="text-xs"

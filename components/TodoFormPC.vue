@@ -293,7 +293,7 @@
             <img
               v-if="todo?.linked"
               class="w-[16px]"
-              src="~assets/images/google.svg" />
+              src="~/assets/images/google.svg" />
           </div>
         </div>
 

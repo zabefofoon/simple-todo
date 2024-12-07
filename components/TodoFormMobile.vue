@@ -125,7 +125,7 @@
           <img
             v-if="todo?.linked"
             class="w-[10px]"
-            src="~assets/images/google.svg" />
+            src="~/assets/images/google.svg" />
         </div>
       </div>
     </div>

@@ -59,11 +59,13 @@
           storageStore.getThemeClass('bg-white', 'bg-slate-900 | text-white')
         ">
         <i class="icon icon-timer"></i>
-        <span v-if="todo.leftUptoHour > 0">
-          {{ i18n.t('LeftHours', [todo.leftUptoHour]) }}
+        <span
+          v-if="todo.leftUptoHour > 0"
+          v-t="{ path: 'LeftHours', args: { hour: todo.leftUptoHour } }">
         </span>
-        <span v-else>
-          {{ i18n.t('LeftMinits', [todo.leftUptoMinute]) }}
+        <span
+          v-else
+          v-t="{ path: 'LeftMinits', args: { minute: todo.leftUptoMinute } }">
         </span>
       </figcaption>
       <img

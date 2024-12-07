@@ -9,15 +9,15 @@
           v-if="selectedOption === 'month'"
           for="summary-select"
           class="font-bold"
-          :class="storageStore.getThemeClass('', 'text-white')">
-          {{ i18n.t('Years') }}
+          :class="storageStore.getThemeClass('', 'text-white')"
+          v-t="'Years'">
         </label>
         <label
           v-else
           for="summary-select"
           class="font-bold"
-          :class="storageStore.getThemeClass('', 'text-white')">
-          {{ i18n.t('Weeks') }}
+          :class="storageStore.getThemeClass('', 'text-white')"
+          v-t="'Weeks'">
         </label>
         <select
           id="summary-select"
@@ -30,8 +30,8 @@
             )
           "
           @change="selectOption">
-          <option value="month">{{ i18n.t('Month') }}</option>
-          <option value="week">{{ i18n.t('Week') }}</option>
+          <option value="month" v-t="'Month'"></option>
+          <option value="week" v-t="'Week'"></option>
         </select>
       </template>
     </div>
@@ -51,9 +51,8 @@
 import type { SummaryTimeType } from '~/models/Summary'
 
 const loadingStore = useLoadingStore()
-const i18n = useI18n()
-
 const storageStore = useStorageStore()
+
 const selectedOption = ref<SummaryTimeType>('month')
 const selectOption = (event: Event) => {
   const value = (<HTMLSelectElement>event.target).value

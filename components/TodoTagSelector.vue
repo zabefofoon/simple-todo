@@ -3,10 +3,8 @@
     <label
       for="filter"
       class="absolute top-0 left-0 -translate-y-1/2 | text-[8px] lg:text-[10px]"
-      :class="
-        storageStore.getThemeClass('bg-white', 'bg-slate-900 text-white')
-      ">
-      {{ i18n.t('Tag') }}
+      :class="storageStore.getThemeClass('bg-white', 'bg-slate-900 text-white')"
+      v-t="'Tag'">
     </label>
     <select
       id="filter"
@@ -19,9 +17,10 @@
       "
       :value="route.query.tag || 'All'"
       @change="changeTag">
-      <option :class="storageStore.getThemeClass('', 'text-white')" value="All">
-        {{ i18n.t('All') }}
-      </option>
+      <option
+        :class="storageStore.getThemeClass('', 'text-white')"
+        value="All"
+        v-t="'All'"></option>
       <option
         v-for="tag in settingStore.setting?.tags"
         :key="tag.id"
@@ -40,7 +39,6 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const i18n = useI18n()
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 

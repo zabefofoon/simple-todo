@@ -65,25 +65,6 @@ const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 
 useHead(() => ({
-  title: i18n.t('PageTitle'),
-  meta: [
-    {
-      name: 'description',
-      content: i18n.t('PageDescription'),
-    },
-    {
-      name: 'keywords',
-      content: i18n.t('PageKeywords'),
-    },
-    {
-      property: 'og:title',
-      content: i18n.t('PageTitle'),
-    },
-    {
-      property: 'og:description',
-      content: i18n.t('PageDescription'),
-    },
-    { name: 'robots', content: 'noindex, nofollow' },
-  ],
+  meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 }))
 </script>

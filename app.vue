@@ -192,11 +192,27 @@ onBeforeUnmount(() => {
   broadcastChannel?.close()
 })
 
-useHead({
-  htmlAttrs: {
-    lang: storageStore.language || 'en',
-  },
-})
+useHead(() => ({
+  title: i18n.t('PageTitle'),
+  meta: [
+    {
+      name: 'description',
+      content: i18n.t('PageDescription'),
+    },
+    {
+      name: 'keywords',
+      content: i18n.t('PageKeywords'),
+    },
+    {
+      property: 'og:title',
+      content: i18n.t('PageTitle'),
+    },
+    {
+      property: 'og:description',
+      content: i18n.t('PageDescription'),
+    },
+  ],
+}))
 
 watch(
   () => storageStore.theme,

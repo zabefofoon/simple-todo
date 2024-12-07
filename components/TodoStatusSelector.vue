@@ -3,10 +3,8 @@
     <label
       for="filter"
       class="absolute top-0 left-0 -translate-y-1/2 | text-[8px] lg:text-[10px]"
-      :class="
-        storageStore.getThemeClass('bg-white', 'bg-slate-900 text-white')
-      ">
-      {{ i18n.t('Filter') }}
+      :class="storageStore.getThemeClass('bg-white', 'bg-slate-900 text-white')"
+      v-t="'Filter'">
     </label>
     <select
       id="filter"
@@ -19,26 +17,24 @@
       "
       :value="route.query.filter || 'All'"
       @change="changeFilter">
-      <option :class="storageStore.getThemeClass('', 'text-white')" value="All">
-        {{ i18n.t('All') }}
-      </option>
       <option
         :class="storageStore.getThemeClass('', 'text-white')"
-        value="Undone">
-        {{ i18n.t('Undone') }}
-      </option>
+        value="All"
+        v-t="'All'"></option>
       <option
         :class="storageStore.getThemeClass('', 'text-white')"
-        value="Done">
-        {{ i18n.t('Done') }}
-      </option>
+        value="Undone"
+        v-t="'Undone'"></option>
+      <option
+        :class="storageStore.getThemeClass('', 'text-white')"
+        value="Done"
+        v-t="'Done'"></option>
     </select>
   </div>
 </template>
 
 <script setup lang="ts">
 const route = useRoute()
-const i18n = useI18n()
 const storageStore = useStorageStore()
 
 const changeFilter = (event: Event) => {

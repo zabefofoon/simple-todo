@@ -109,7 +109,7 @@ export default defineNuxtConfig({
           content: 'https://memoku.netlify.app/ogImage.png',
         },
         {
-          name: 'apple-mobile-web-app-capable',
+          name: 'mobile-web-app-capable',
           content: 'yes',
         },
       ],

@@ -48,7 +48,7 @@
     "@tanstack/vue-query": "^5.60.5",
     "chart.js": "^4.4.1",
     "dayjs": "^1.11.13",
-    "dexie": "^4.0.10",
+    "dexie": "^3.2.4",
     "embla-carousel-autoplay": "^8.3.0",
     "embla-carousel-vue": "^8.3.0",
     "google-spreadsheet": "^4.1.4",

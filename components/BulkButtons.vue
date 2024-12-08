@@ -59,7 +59,7 @@ const bulkDone = async (done?: boolean) => {
     const ids = await bulkStore.updateBulkTodos(done)
 
     todoStore.todos
-      ?.filter((todo) => ids.includes(todo.id))
+      ?.filter((todo) => ids.includes(todo.id ?? ''))
       .forEach((todo) => (todo.done = done))
 
     router.back()
@@ -68,7 +68,9 @@ const bulkDone = async (done?: boolean) => {
 const bulkDelete = async () => {
   if (confirm(i18n.t('bulkDone'))) {
     const ids = await bulkStore.deleteBulkTodos()
-    todoStore.todos = todoStore.todos?.filter(({ id }) => !ids.includes(id))
+    todoStore.todos = todoStore.todos?.filter(
+      ({ id }) => !ids.includes(id ?? '')
+    )
 
     router.back()
   }

@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  routeRules: {
+    // delay the home page
+    '/memoku': { delayHydration: 'mount' },
+    '/news/**': { delayHydration: 'mount' },
+  },
   devServer: {
     port: 3000,
   },
@@ -34,6 +39,7 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/seo',
     '@hebilicious/vue-query-nuxt',
+    'nuxt-delay-hydration',
   ],
 
   gtag: {

@@ -1,6 +1,6 @@
 <template>
   <NuxtLinkLocale
-    :to="{ query: { notification: true } }"
+    :to="{ query: { notification: 'true' } }"
     area-label="Notification">
     <button class="flex | relative" name="Notification">
       <div

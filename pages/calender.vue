@@ -21,8 +21,6 @@ definePageMeta({
 
 const storageStore = useStorageStore()
 
-const i18n = useI18n()
-
 useHead(() => ({
   meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 }))

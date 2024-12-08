@@ -57,8 +57,7 @@ export const useBulkStore = defineStore('bulk', () => {
         todoStore.todos?.find((todo) => todo.id === id && todo.linked)
       )
       .filter((todo): todo is Todo => !!todo)
-
-    googleStore.deleteTodo2(todos)
+    if (todos?.length) googleStore.deleteTodo2(todos)
 
     const linkedIds = selectedTodoIds.value
       .map(
@@ -74,7 +73,6 @@ export const useBulkStore = defineStore('bulk', () => {
       )
       .filter((id): id is string => !!id)
     todoApi.deleteBulkTodos(unLinkedIds)
-
     return [...linkedIds, ...unLinkedIds]
   }
   return {

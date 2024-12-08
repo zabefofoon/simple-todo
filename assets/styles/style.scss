@@ -1,10 +1,10 @@
+@use 'icon';
+@use 'transition';
+@use 'carousel';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import 'icon';
-@import 'transition';
-@import 'carousel';
 
 * {
   font-family: 'Noto Sans KR', sans-serif;
@@ -39,8 +39,8 @@
 
 select {
   appearance: none;
-  background: url('~/assets/images/icons/chevron-down.svg') no-repeat 95% 50%/15px
-    auto;
+  background: url('~/assets/images/icons/chevron-down.svg') no-repeat 95%
+    50%/15px auto;
   padding: 2px;
   padding-right: 18px !important;
 }

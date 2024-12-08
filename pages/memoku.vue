@@ -141,22 +141,6 @@
             {{ i18n.t('AnalisysDescriptionGuide') }}
           </div>
         </li>
-        <li
-          class="flex flex-col gap-4 lg:gap-8 | w-full | border border-slate-500 rounded-lg | p-4 lg:py-10 lg:px-6"
-          typeof="Service">
-          <div
-            class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
-            <i class="icon icon-offline flex-shrink-0 | text-white"></i>
-            <span class="text-white" property="name">{{
-              i18n.t('OfflineDescription')
-            }}</span>
-          </div>
-          <div
-            class="text-center lg:text-[18px] text-white"
-            property="description">
-            {{ i18n.t('OfflineDescriptionGuide') }}
-          </div>
-        </li>
       </ul>
     </section>
     <section
@@ -284,11 +268,6 @@ useHead({
             '@type': 'WebApplicationFeature',
             name: i18n.t('PageLDFeatureName6'),
             description: i18n.t('PageLDFeatureDescription6'),
-          },
-          {
-            '@type': 'WebApplicationFeature',
-            name: i18n.t('PageLDFeatureName7'),
-            description: i18n.t('PageLDFeatureDescription7'),
           },
         ],
       }),

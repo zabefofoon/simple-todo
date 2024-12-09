@@ -134,8 +134,7 @@ const loadAllTodos = async () => {
   if (isLoadedAllTodos.value) return
 
   if (navigator.onLine && googleStore.googleAccessToken) {
-    await googleStore.getAllTodo()
-    googleStore.syscTags()
+    await Promise.all([googleStore.getAllTodo(), googleStore.syscTags()])
     googleRequested = new Date()
   }
 

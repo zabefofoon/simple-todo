@@ -103,13 +103,19 @@ router.get(
       })
     }
 
+    const cookies = parseCookies(event)
+    const language = JSON.parse(cookies.storage).language
+
+    const localePath =
+      language === 'ko' ? '/ko' : language === 'ja' ? '/ja' : ''
+
     const url = tokens.refresh_token
-      ? `/google-auth?accessToken=${tokens.access_token}&refreshToken=${
+      ? `${localePath}/?accessToken=${tokens.access_token}&refreshToken=${
           tokens.refresh_token || ''
         }`
-      : `/google-auth?accessToken=${tokens.access_token}`
+      : `${localePath}/?accessToken=${tokens.access_token}`
 
-    return sendRedirect(event, url)
+    return sendRedirect(event, url, 303)
   })
 )
 

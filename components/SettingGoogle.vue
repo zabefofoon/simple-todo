@@ -27,7 +27,8 @@
       class="lg:ml-0 px-4 py-0.5 | bg-slate-800 | text-sm text-white | rounded-full"
       name="Export"
       @click="validate">
-      Off
+      <Spinner v-if="loading" width="20px" />
+      <span v-else>Off</span>
     </button>
   </div>
 </template>
@@ -39,7 +40,9 @@ const storageStore = useStorageStore()
 const i18n = useI18n()
 const googleStore = useGoogleStore()
 const snackbarStore = useSnackbarStore()
+
 const email = ref('')
+const loading = ref(false)
 
 const validate = () => {
   if (!email.value.includes('@')) {
@@ -49,6 +52,7 @@ const validate = () => {
     })
     return
   }
+  loading.value = true
   etcUtil.setCookie('x-google-email', email.value, 365)
   googleStore.openGoogleLoginPopup()
 }

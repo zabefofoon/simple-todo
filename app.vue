@@ -135,7 +135,7 @@ const loadAllTodos = async () => {
 
   if (navigator.onLine && googleStore.googleAccessToken) {
     await googleStore.getAllTodo()
-    await googleStore.syscTags()
+    googleStore.syscTags()
     googleRequested = new Date()
   }
 
@@ -166,6 +166,8 @@ onBeforeMount(() => {
   storageStore.setLanguage(storageStore.language)
   settingStore.initSetting()
 
+  alarmStore.clearAlarm()
+
   preloadRouteComponents('/')
   preloadRouteComponents('/todo')
   preloadRouteComponents('/calender')
@@ -175,7 +177,14 @@ onBeforeMount(() => {
 
 onMounted(() => {
   if (route.query.recoverData) return
-  if (route.path === '/google-auth') return
+  if (route.query.refreshToken) {
+    googleStore.setGoogleRefreshToken(route.query.refreshToken.toString())
+    navigateTo({ query: { ...route.query, refreshToken: undefined } })
+  }
+  if (route.query.accessToken) {
+    googleStore.setGoogleAccessToken(route.query.accessToken.toString())
+    navigateTo({ query: { ...route.query, accessToken: undefined } })
+  }
 
   document.addEventListener('visibilitychange', async () => {
     if (
@@ -228,10 +237,8 @@ watch(
 
 watch(
   () => route.query,
-  (query, oldQuery) => {
+  (query) => {
     if (!query.bulk) bulkStore.emptyTodoIds()
-
-    if (!oldQuery.authed && query.authed) init()
   }
 )
 </script>

@@ -69,7 +69,7 @@ export const useGoogleStore = defineStore(
 
     const openGoogleLoginPopup = async () => {
       const url = await googleApi.requestAccessToken2()
-      if (route.path !== '/google-auth') location.replace(url)
+      navigateTo(url, { replace: true, external: true })
     }
 
     const updateTodo2 = async (todo: Partial<Todo>) => {

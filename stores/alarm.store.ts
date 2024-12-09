@@ -45,6 +45,18 @@ export const useAlarmStore = defineStore(
     const unregistAlarm = (deviceId: string, todoId: string) =>
       alarmApi.unregistAlarm(deviceId, todoId)
 
+    const clearAlarm = () => {
+      newAlarms.value =
+        newAlarms.value
+          ?.filter((item) => !!item)
+          .filter((item) => item !== 'undefined') ?? []
+
+      readNewAlarms.value =
+        readNewAlarms.value
+          ?.filter((item) => !!item)
+          .filter((item) => item !== 'undefined') ?? []
+    }
+
     return {
       newAlarms,
       addNewAlarm,
@@ -57,6 +69,7 @@ export const useAlarmStore = defineStore(
 
       registAlarm,
       unregistAlarm,
+      clearAlarm,
     }
   },
   {

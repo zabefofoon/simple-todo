@@ -213,5 +213,6 @@
   "Post_image_how_item3": "3. Click on a thumbnail to view it in a slideshow.",
   "Post_image_end_title": "Manage Your Precious Memories with Memoku!",
   "Post_image_end_desc": "Beyond task management, store your memories and resources all in one place.<br />Easily access them anytime, anywhere.",
-  "Post_image_path": "Save-Image"
+  "Post_image_path": "Save-Image",
+  "NoticeGoogleErrorUpload": "Failed to upload to Google. The data will be saved locally."
 }

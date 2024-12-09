@@ -213,5 +213,6 @@
   "Post_image_how_item3": "3. サムネイルをクリックしてスライドショーでご覧ください。",
   "Post_image_end_title": "メモクで大切な記憶を管理しましょう！",
   "Post_image_end_desc": "タスク管理を超えて、思い出や資料を一つの場所にまとめましょう。<br />いつでもどこでも簡単に確認できます。",
-  "Post_image_path": "画像-保存"
+  "Post_image_path": "画像-保存",
+  "NoticeGoogleErrorUpload": "Googleへのアップロードに失敗したため、ローカルに保存されます。"
 }

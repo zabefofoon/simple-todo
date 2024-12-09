@@ -7,10 +7,10 @@ import { useTodoStore } from './todo.store'
 export const useGoogleStore = defineStore(
   'google',
   () => {
-    const route = useRoute()
-
+    const i18n = useI18n()
     const todoStore = useTodoStore()
     const settingStore = useSettingStore()
+    const snackbarStore = useSnackbarStore()
 
     const googleApi = useGoogleApi()
     const googleTodos = ref<Record<string, string>[]>()
@@ -78,6 +78,7 @@ export const useGoogleStore = defineStore(
 
       const index =
         googleTodos.value?.findIndex(({ id }) => id === todo.id) ?? -1
+
       const response = await googleApi.updateRow2(index, todo)
       if (response.status === 200) {
         console.log('updated')
@@ -86,10 +87,19 @@ export const useGoogleStore = defineStore(
         setSpreadsheetId(response.result)
         getAllTodo()
         return []
-      } else if (response.status === 401) {
-        openGoogleLoginPopup()
       } else {
         console.error(response.error)
+        snackbarStore.showSnackbar({
+          message: i18n.t('NoticeGoogleErrorUpload'),
+          type: 'error',
+        })
+        todo.linked = undefined
+        todoStore.addTodo(
+          Todo.of({
+            ...todo,
+          })
+        )
+        if (response.status === 401) openGoogleLoginPopup()
       }
     }
 
@@ -105,10 +115,19 @@ export const useGoogleStore = defineStore(
         setSpreadsheetId(response.result)
         getAllTodo()
         return []
-      } else if (response.status === 401) {
-        openGoogleLoginPopup()
       } else {
         console.error(response.error)
+        snackbarStore.showSnackbar({
+          message: i18n.t('NoticeGoogleErrorUpload'),
+          type: 'error',
+        })
+        todo.linked = undefined
+        todoStore.addTodo(
+          Todo.of({
+            ...todo,
+          })
+        )
+        if (response.status === 401) openGoogleLoginPopup()
       }
     }
 

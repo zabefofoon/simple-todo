@@ -213,5 +213,6 @@
   "Post_image_how_item3": "3. 썸네일을 클릭해서 슬라이드로 확인해보세요.",
   "Post_image_end_title": "소중한 기억을 메모쿠와 함께 관리하세요!",
   "Post_image_end_desc": "할 일 관리를 넘어, 추억과 자료를 한 곳에 담아보세요.<br />언제 어디서나 쉽게 확인할 수 있습니다.",
-  "Post_image_path": "이미지-저장"
+  "Post_image_path": "이미지-저장",
+  "NoticeGoogleErrorUpload": "구글 업로드에 실패하여, 로컬에 저장됩니다."
 }

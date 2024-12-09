@@ -9,7 +9,7 @@
     </button>
     <div
       :key="label"
-      v-html="label"
+      v-html="escapeHTML(label)"
       class="w-full lg:w-1/2 | mr-auto | text-lg truncate | cursor-pointer"
       :class="storageStore.getThemeClass('', 'text-white')"
       @click="back()"></div>

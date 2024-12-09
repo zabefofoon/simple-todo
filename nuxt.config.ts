@@ -482,7 +482,7 @@ export default defineNuxtConfig({
 
             return notCache && cache
           },
-          handler: 'NetworkFirst',
+          handler: 'CacheFirst',
           options: {
             cacheName: 'static-cache',
             expiration: {

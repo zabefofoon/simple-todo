@@ -1,5 +1,16 @@
 import ShortUniqueId from 'short-unique-id'
 
+export const escapeHTML = (html = '') => {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  }
+  return html.replace(/[&<>"']/g, (match: string) => map[match])
+}
+
 export const generateUniqueId = (): string => {
   const uId = new ShortUniqueId({
     length: 10,

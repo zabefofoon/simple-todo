@@ -7,8 +7,9 @@
 @import 'carousel';
 
 * {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Noto Sans KR', system-ui, sans-serif;
   color: rgb(71 85 105);
+  -webkit-font-smoothing: antialiased;
 
   > * {
     color: inherit;

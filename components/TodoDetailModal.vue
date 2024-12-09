@@ -92,7 +92,7 @@
                 'bg-slate-900 text-white border-slate-700'
               ),
             ]"
-            v-html="currentTodo?.description"></div>
+            v-html="escapeHTML(currentTodo?.description)"></div>
           <div class="absolute bottom-2.5 left-3">
             <figcaption
               v-if="

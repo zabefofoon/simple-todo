@@ -37,7 +37,9 @@
                 <span
                   class="truncate-2 text-[8px] md:text-sm"
                   :class="storageStore.getThemeClass('', 'text-white')"
-                  v-html="todo.description?.replaceAll('\n', '<br/>')">
+                  v-html="
+                    escapeHTML(todo.description?.replaceAll('\n', '<br/>'))
+                  ">
                 </span>
                 <div
                   class="w-1 h-1 | absolute top-[.5px] left-[.5px] | rounded-full"

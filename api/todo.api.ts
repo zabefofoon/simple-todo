@@ -8,8 +8,7 @@ export const getAllTodos = async (): Promise<Omit<Todo, 'images'>[]> => {
   }
 
   try {
-    const todos = await db.todos.toArray()
-    return todos.map(({ images, ...rest }) => rest) // images 필드 제거
+    return await db.todos.toArray()
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
     console.error(e)
@@ -17,28 +16,49 @@ export const getAllTodos = async (): Promise<Omit<Todo, 'images'>[]> => {
   }
 }
 
-export const getTodo = (id: string) => {
+export const getTodo = async (id: string) => {
   try {
     const _id = isNaN(+id) ? id : +id
-    return db!.todos.get(_id)
+    const todo = await db!.todos.get(_id)
+    const images = await db!.images.where('todoId').equals(_id).toArray()
+    if (todo) {
+      todo.images = images.map((image) => image.image) ?? []
+    }
+    return todo
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
   }
 }
 
-export const addTodo = (todo: Todo) => {
+export const addTodo = async (todo: Todo) => {
   try {
-    return db!.todos.add(todo)
+    const added = await db!.todos.add(todo)
+    const images =
+      todo.images?.map((image) => ({
+        image,
+        todoId: added as number,
+      })) ?? []
+
+    return db!.images.bulkAdd(images)
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
   }
 }
 
-export const updateTodo = (id: string, updatedData: Partial<Todo>) => {
+export const updateTodo = async (id: string, updatedData: Partial<Todo>) => {
   try {
     const _id = isNaN(+id) ? id : +id
-    return db!.todos.update(_id, updatedData)
+
+    const images =
+      updatedData.images?.map((image) => ({
+        image,
+        todoId: _id,
+      })) ?? []
+    await db!.todos.update(_id, updatedData)
+    await db.images.where('todoId').equals(_id).delete()
+    return db!.images.bulkAdd(images)
   } catch (e) {
+    console.log(e)
     alert(useI18n().t('BrowserNotice'))
   }
 }
@@ -69,6 +89,7 @@ export const deleteTodo = (id: string) => {
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
   }
+  db.images.where('todoId').equals(_id).delete()
   return db!.todos.delete(_id)
 }
 
@@ -79,6 +100,9 @@ export const deleteBulkTodos = (ids: string[]) => {
     alert(useI18n().t('BrowserNotice'))
   }
   db!.todos.bulkDelete(_ids)
+  for (const todoId of _ids) {
+    db.images.where('todoId').equals(todoId).delete()
+  }
   return _ids
 }
 

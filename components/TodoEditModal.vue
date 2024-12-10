@@ -210,7 +210,7 @@ const save = async () => {
     if (!data.id) {
       await todoStore.addTodo(<Todo>data)
       todoStore.todos?.push(Todo.of(data))
-    } else todoStore.updateTodo(String(route.query.edit), data)
+    } else await todoStore.updateTodo(String(route.query.edit), data)
   } else {
     await todoStore.addTodo(<Todo>data)
     todoStore.todos?.push(Todo.of(data))

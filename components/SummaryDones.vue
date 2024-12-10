@@ -1,19 +1,19 @@
 <template>
   <div
-    class="flex flex-col gap-3 | w-full min-w-[200px] | border rounded-lg | p-2 lg:p-3"
+    class="relative | flex flex-col gap-3 | w-full min-w-[200px] | border rounded-lg | p-4"
     :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
-    <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
-    <h3 v-else class="flex items-center">
-      <span
-        class="font-bold"
-        :class="storageStore.getThemeClass('', 'text-white')"
-        v-t="'Done'">
-      </span>
-      <span
-        class="ml-auto | text-sm"
-        :class="storageStore.getThemeClass('', 'text-white')">
+    <h3
+      v-if="!loadingStore.todoLoading"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 | w-full h-full | flex flex-col items-center justify-center"
+      :class="storageStore.getThemeClass('', 'text-white')">
+      <p class="text-[12vw] lg:text-[2.5cqw]">
         {{ isNaN(ratio) ? 0 : ratio.toFixed(1) }}%
-      </span>
+      </p>
+      <p class="text-[4vw] lg:text-[.8cqw]">
+        {{
+          i18n.t('SummaryDoughnut', { total: todoLength, done: doneTodoLength })
+        }}
+      </p>
     </h3>
     <div
       v-show="loadingStore.todoLoading"
@@ -53,21 +53,45 @@ const ratio = computed(
 const chart = ref<Chart<'doughnut', (number | undefined)[], string>>()
 
 onMounted(() => {
-  chart.value = new Chart(toValue(canvas)!, {
+  chart.value = new Chart(canvas.value!, {
     type: 'doughnut',
     data: {
-      labels: [i18n.t('Undone'), i18n.t('Done')],
       datasets: [
         {
-          data: [toValue(undoneTodoLength), toValue(doneTodoLength)],
-          backgroundColor: ['rgba(71, 85, 105, .3)', 'rgba(71, 85, 105, 1)'],
-          borderColor: ['rgba(71, 85, 105, 1)', 'rgba(71, 85, 105, 1)'], // 바의 테두리 색
+          data: [doneTodoLength.value, undoneTodoLength.value],
+          backgroundColor: [
+            'rgba(74, 222, 128, .7)',
+            storageStore.getThemeClass(
+              'rgba(71, 85, 105, .2)',
+              'rgba(71, 85, 105, .8)'
+            ),
+          ],
+          borderColor: [
+            'rgba(74, 222, 128, 1)',
+            storageStore.getThemeClass(
+              'rgba(71, 85, 105, .2)',
+              'rgba(71, 85, 105, .8)'
+            ),
+          ], // 바의 테두리 색
           borderWidth: 0.5, // 테두리 두께
         },
       ],
     },
+
     options: {
+      cutout: '92%',
       color: storageStore.getThemeClass('', 'white'),
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          enabled: false,
+        },
+        datalabels: {
+          display: false,
+        },
+      },
     },
   })
 })

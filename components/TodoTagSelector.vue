@@ -41,10 +41,12 @@
 const route = useRoute()
 const storageStore = useStorageStore()
 const settingStore = useSettingStore()
-
+const localePath = useLocalePath()
 const changeTag = (event: Event) => {
   const value = (<HTMLSelectElement>event.target).value
 
-  value === 'All' ? navigateTo(`/todo/tag`) : navigateTo(`/?tags=${value}`)
+  value === 'All'
+    ? navigateTo(localePath(`/todo/tag`))
+    : navigateTo(localePath(`/?tags=${value}`))
 }
 </script>

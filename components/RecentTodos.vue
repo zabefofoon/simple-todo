@@ -66,7 +66,7 @@ const recentTodos = computed(() => {
   return todoStore.todos
     ?.slice()
     .sort((a, b) => Number(b.modified) - Number(a.modified))
-    .slice(0, settingStore.screen === 'lg' ? 12 : 4)
+    .slice(0, settingStore.screen === 'lg' ? 12 : 6)
 })
 
 const plannedTodos = computed(() => {
@@ -81,7 +81,7 @@ const plannedTodos = computed(() => {
     )
     .filter((todo) => !todo.done)
     .sort((a, b) => Number(a.created) - Number(b.created))
-    .slice(0, settingStore.screen === 'lg' ? 12 : 4)
+    .slice(0, settingStore.screen === 'lg' ? 12 : 6)
 })
 
 const isEmptyTodos = computed(() => {

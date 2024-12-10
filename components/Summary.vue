@@ -2,9 +2,9 @@
   <div
     v-if="!resizing"
     class="w-full | flex flex-nowrap flex-col lg:flex-row gap-2">
-    <SummaryTags :key="tagsKey" />
-    <SummaryTime :key="donesKey" />
-    <SummaryDones :key="donesKey" />
+    <SummaryDones :key="donesKey + tagsKey" />
+    <SummaryTags :key="donesKey + tagsKey" />
+    <SummaryTime :key="donesKey + tagsKey" />
   </div>
 </template>
 

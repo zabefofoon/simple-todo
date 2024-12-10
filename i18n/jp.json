@@ -214,5 +214,7 @@
   "Post_image_end_title": "メモクで大切な記憶を管理しましょう！",
   "Post_image_end_desc": "タスク管理を超えて、思い出や資料を一つの場所にまとめましょう。<br />いつでもどこでも簡単に確認できます。",
   "Post_image_path": "画像-保存",
-  "NoticeGoogleErrorUpload": "Googleへのアップロードに失敗したため、ローカルに保存されます。"
+  "NoticeGoogleErrorUpload": "Googleへのアップロードに失敗したため、ローカルに保存されます。",
+  "SummaryDoughnut": "全体で{total}個中、{done}個完了。",
+  "Nth": "{n}個"
 }

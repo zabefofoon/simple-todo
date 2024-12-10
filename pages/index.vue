@@ -32,18 +32,15 @@
           <div
             class="absolute top-3.5 left-3 | aspect-square w-2 | bg-red-500 | rounded-full"></div>
         </NuxtLinkLocale>
+        <Summary />
         <ScheduledTodo />
         <RecentTodos />
-        <Summary v-if="settingStore.screen === 'lg'" class="hidden lg:flex" />
       </div>
       <div
         v-if="settingStore.screen === 'lg'"
         class="flex flex-col gap-3 | h-full">
         <Clock />
         <HomeCalendar />
-      </div>
-      <div v-if="settingStore.screen === 'sm'" class="w-full | lg:hidden">
-        <Summary />
       </div>
     </div>
   </div>

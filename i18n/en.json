@@ -214,5 +214,7 @@
   "Post_image_end_title": "Manage Your Precious Memories with Memoku!",
   "Post_image_end_desc": "Beyond task management, store your memories and resources all in one place.<br />Easily access them anytime, anywhere.",
   "Post_image_path": "Save-Image",
-  "NoticeGoogleErrorUpload": "Failed to upload to Google. The data will be saved locally."
+  "NoticeGoogleErrorUpload": "Failed to upload to Google. The data will be saved locally.",
+  "SummaryDoughnut": "{total} tasks in total, {done} completed.",
+  "Nth": "{n} pcs"
 }

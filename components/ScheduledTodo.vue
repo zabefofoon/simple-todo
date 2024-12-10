@@ -1,13 +1,13 @@
 <template>
   <div
     v-if="loadingStore.todoLoading"
-    class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4"
+    class="flex flex-col gap-2 | border rounded-lg | p-4"
     :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
     <!-- <Skeletor class="w-1/4 h-[24px]" /> -->
     <Skeletor class="w-full h-[24px]" />
   </div>
   <div
-    v-else-if="settingStore.screen === 'lg' || scheduledTodo"
+    v-else
     class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4"
     :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
     <h3 class="font-bold">
@@ -45,7 +45,6 @@
 const todoStore = useTodoStore()
 const loadingStore = useLoadingStore()
 const storageStore = useStorageStore()
-const settingStore = useSettingStore()
 
 const scheduledTodo = computed(() => {
   return todoStore.todos

@@ -71,6 +71,13 @@ onMounted(() => {
   checkShowScrollTop()
 })
 
+watch(
+  () => route.path,
+  () => {
+    scrollArea.value?.scrollTo({ top: 0 })
+  }
+)
+
 const { open: openTodoDetailModal, close: closeTodoDetailModal } = useModal({
   component: TodoDetailModal,
   attrs: {

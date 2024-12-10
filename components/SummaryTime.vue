@@ -105,15 +105,15 @@ const tagDatas = computed(() => {
             done,
             undone: total - done,
             totalHref: localePath({
-              path: '/todo',
+              path: '/',
               query: { tags: current.id },
             }),
             doneHref: localePath({
-              path: '/todo',
+              path: '/',
               query: { tags: current.id, filter: 'Done' },
             }),
             undoneHref: localePath({
-              path: '/todo',
+              path: '/',
               query: { tags: current.id, filter: 'Undone' },
             }),
           })

@@ -84,7 +84,7 @@ const goTo = () => {
 
     if (key === tooltipActiveKey.value) {
       navigateTo({
-        path: localePath('/todo'),
+        path: localePath('/'),
         query: {
           tags: tagLength.value[tooltip.title].id,
           filter: tooltip.dataPoints[0].dataset?.label,

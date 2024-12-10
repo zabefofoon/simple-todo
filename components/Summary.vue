@@ -67,9 +67,15 @@ const hideTooltip = () => {
 
 onMounted(() => {
   window.addEventListener('resize', resizeHandler)
+  document
+    .getElementById('scroll-area')
+    ?.addEventListener('scroll', hideTooltip)
 })
 onBeforeUnmount(() => {
   window.removeEventListener('resize', resizeHandler)
   hideTooltip()
+  document
+    .getElementById('scroll-area')
+    ?.removeEventListener('scroll', hideTooltip)
 })
 </script>

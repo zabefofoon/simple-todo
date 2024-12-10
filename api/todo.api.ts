@@ -1,20 +1,19 @@
 import type { Todo } from '~/models/Todo'
 import { db } from '~/plugins/dexie.client'
 
-export const getAllTodos = () => {
+export const getAllTodos = async (): Promise<Omit<Todo, 'images'>[]> => {
+  if (!db) {
+    alert(useI18n().t('BrowserNotice'))
+    return []
+  }
+
   try {
-    return db!.todos
-      .toCollection()
-      .primaryKeys()
-      .then((keys) => {
-        return db!.todos
-          .where('id')
-          .anyOf(keys)
-          .filter((todo) => delete todo.images)
-          .toArray()
-      })
+    const todos = await db.todos.toArray()
+    return todos.map(({ images, ...rest }) => rest) // images 필드 제거
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
+    console.error(e)
+    return []
   }
 }
 

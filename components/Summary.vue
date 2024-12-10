@@ -19,6 +19,7 @@ const resizing = ref(false)
 const checkResizing = (value: boolean) => (resizing.value = value)
 
 const resizeHandler = () => {
+  hideTooltip()
   checkResizing(true)
   debounce(() => checkResizing(false), 200)()
 }
@@ -55,10 +56,20 @@ watch(
   }
 )
 
+const hideTooltip = () => {
+  const tooltipEl = document.getElementById('chartjs-tooltip')
+  if (!tooltipEl) return
+
+  tooltipEl.style.opacity = '0'
+  tooltipEl.style.left = '0'
+  tooltipEl.style.top = '0'
+}
+
 onMounted(() => {
   window.addEventListener('resize', resizeHandler)
 })
 onBeforeUnmount(() => {
   window.removeEventListener('resize', resizeHandler)
+  hideTooltip()
 })
 </script>

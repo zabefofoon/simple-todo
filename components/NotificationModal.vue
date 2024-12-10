@@ -7,9 +7,9 @@
         ? 'lg:w-[calc(100vw-240px)]'
         : 'lg:w-[calc(100vw-52px)]'
     "
-    :content-class="`w-full h-full | ${storageStore.getThemeClass(
+    :content-class="`border-t | w-full h-full | ${storageStore.getThemeClass(
       'bg-white',
-      'bg-slate-900'
+      'bg-slate-900 | border-slate-700'
     )}`"
     overlay-class="ml-auto"
     hide-close
@@ -70,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Todo } from '~/models/Todo'
+import type { Todo } from '~/models/Todo';
 
 const emit = defineEmits<{
   (e: 'close'): void

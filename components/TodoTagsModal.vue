@@ -38,7 +38,7 @@
           :class="storageStore.getThemeClass('', 'text-white')">
           {{ dayToTitle(day) }}
         </div>
-        <div class="flex flex-col gap-2 | h-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-2 | h-auto">
           <TodoRow
             v-for="todo in filterTodosByDays(day)"
             :key="todo.id"

@@ -29,7 +29,7 @@
         </p>
         <div
           v-else
-          class="h-full | flex flex-col gap-2 | p-4 | min-h-full"
+          class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3 | p-4"
           :class="{ 'justify-center': !todayTodos?.length }">
           <TodoRow v-for="todo in todayTodos" :key="todo.id" :todo="todo" />
         </div>

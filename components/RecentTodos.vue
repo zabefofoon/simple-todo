@@ -42,7 +42,7 @@
         class="w-full h-full min-h-[100px] | grid place-items-center | pb-8">
         <span v-t="'NoTodo'"></span>
       </div>
-      <div v-else class="flex flex-col gap-2">
+      <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3">
         <TodoRow
           v-for="todo in storageStore.selectedRecentTab === 'plan'
             ? plannedTodos

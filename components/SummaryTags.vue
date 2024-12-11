@@ -98,15 +98,10 @@ const goTo = () => {
 }
 
 const chartEl = ref<Chart>()
-onMounted(() => {
-  setTimeout(() => {
-    Chart.register(ChartDataLabels)
-  })
-})
 
-watch(canvas, () => {
+watch(canvas, async () => {
   if (!canvas.value) return
-
+  Chart.register(ChartDataLabels)
   chartEl.value = new Chart(canvas.value, {
     type: 'bar',
     data: {

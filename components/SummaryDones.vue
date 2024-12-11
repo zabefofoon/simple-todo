@@ -29,6 +29,7 @@
 
 <script setup lang="ts">
 import { Chart } from 'chart.js/auto'
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 const i18n = useI18n()
 
@@ -52,7 +53,10 @@ const ratio = computed(
 
 const chart = ref<Chart<'doughnut', (number | undefined)[], string>>()
 
-onMounted(() => {
+watch(canvas, async () => {
+  if (!canvas.value) return
+
+  Chart.register(ChartDataLabels)
   chart.value = new Chart(canvas.value!, {
     type: 'doughnut',
     data: {

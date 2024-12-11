@@ -38,7 +38,7 @@
       </div>
       <div
         v-if="settingStore.screen === 'lg'"
-        class="flex flex-col gap-3 | h-full">
+        class="flex-shrink-0 h-full overflow-hidden | flex flex-col gap-3">
         <Clock />
         <HomeCalendar />
       </div>

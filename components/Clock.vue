@@ -1,40 +1,39 @@
 <template>
   <div
-    class="h-full | hidden lg:flex items-center justify-center gap-2 | p-2 lg:p-3 | border rounded-lg"
+    class="w-full flex items-center justify-center | pt-4 pb-1.5 | border rounded-lg"
     :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
-    <div class="relative">
+    <div v-if="!loadingStore.todoLoading" class="relative">
       <div
         class="absolute top-0 left-0 -translate-y-1/2 | flex"
         :class="storageStore.getThemeClass('', 'text-white')">
-        <span class="text-[1.5cqh]">
+        <span class="text-[1.2cqh]">
           {{ currentYear }}
         </span>
-        <div v-if="day" class="text-[1.5cqh]">({{ i18n.t(day) }})</div>
+        <div v-if="day" class="text-[1.2cqh]">({{ i18n.t(day) }})</div>
       </div>
       <span
-        class="text-[4cqh]"
+        class="text-[3.6cqh]"
         :class="storageStore.getThemeClass('', 'text-white')">
         {{ currentTime }}
       </span>
     </div>
+    <Skeletor v-else class="w-2/3 h-[30px] | mb-4" />
   </div>
 </template>
 
 <script setup lang="ts">
+import etcUtil from '~/utils/etc'
+
 const storageStore = useStorageStore()
+const loadingStore = useLoadingStore()
 const i18n = useI18n()
 
 const currentYear = ref('')
 const setYear = () => {
   const now = new Date()
 
-  // 연도, 월, 일을 두 자리 숫자로 포맷하기
-  const year = String(now.getFullYear()).slice(2) // 연도의 마지막 두 자리
-  const month = String(now.getMonth() + 1).padStart(2, '0') // 월은 0부터 시작하므로 +1
-  const day = String(now.getDate()).padStart(2, '0')
-
   // YY.MM.DD 형식으로 조합하기
-  currentYear.value = `${year}.${month}.${day}`
+  currentYear.value = etcUtil.formatDate(now.getTime(), storageStore.language)
 }
 
 const currentTime = ref('')

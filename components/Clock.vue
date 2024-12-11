@@ -65,10 +65,8 @@ const setDay = () => {
 }
 
 onMounted(() => {
-  setInterval(() => {
-    setYear()
-    setCurrentTime()
-    setDay()
-  }, 1000)
+  setYear()
+  setCurrentTime()
+  setDay()
 })
 </script>

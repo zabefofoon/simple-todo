@@ -8,10 +8,7 @@
     <ClientOnly>
       <div
         v-if="!loading.todoLoading && !guideStore.isShowAddGuide"
-        class="add-guide | px-3 py-1.5 | absolute -left-1 top-0 -translate-x-full -translate-y-1/2 | text-center text-xs lg:text-sm whitespace-nowrap"
-        :class="
-          storageStore.getThemeClass('bg-slate-800', 'bg-slate-800 text-white')
-        ">
+        class="bg-slate-800 | text-white | add-guide | px-3 py-1.5 | absolute -left-1 top-0 -translate-x-full -translate-y-1/2 | text-center text-xs lg:text-sm whitespace-nowrap">
         <div
           class="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 | w-2 h-2 | rounded-full | bg-red-500"></div>
         <span v-t="'AddGuide'"></span>
@@ -22,10 +19,8 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const storageStore = useStorageStore()
 const loading = useLoadingStore()
 const guideStore = useGuideStore()
-const i18n = useI18n()
 
 const to = computed(() => {
   const query = routerUtil.queryToString(route.query)

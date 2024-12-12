@@ -1,32 +1,19 @@
 <template>
   <div class="h-full | flex flex-col">
     <div
-      class="sticky top-0 z-10 | hidden lg:flex items-center gap-1 | px-4 py-2 | border-b"
-      :class="
-        storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')
-      ">
+      class="sticky top-0 z-10 | hidden lg:flex items-center gap-1 | px-4 py-2 | border-b border-theme | bg-theme-3">
       <SearchInputButton />
       <DarkModeButton />
       <NotificationButton />
     </div>
     <div
-      class="lg:h-[94.5%] | flex flex-col lg:flex-row gap-3 | px-2 py-4 lg:p-3"
-      :class="storageStore.getThemeClass('bg-white', '')">
+      class="lg:h-[94.5%] | flex flex-col lg:flex-row gap-3 | px-2 py-4 lg:p-3 | bg-theme-3">
       <div class="w-full h-full | flex flex-col gap-3">
         <NuxtLinkLocale
           v-if="settingStore.screen === 'sm'"
           to="/news"
-          class="relative | flex items-center justify-between | border rounded-lg | p-4"
-          :class="
-            storageStore.getThemeClass(
-              'bg-white',
-              'border-slate-700 bg-slate-850'
-            )
-          ">
-          <h3
-            class="font-bold"
-            :class="storageStore.getThemeClass('', 'text-white')"
-            v-t="'NewsTitle'"></h3>
+          class="text-theme | relative | flex items-center justify-between | bg-theme-3 | border border-theme rounded-lg | p-4">
+          <h3 class="font-bold" v-t="'NewsTitle'"></h3>
           <i class="icon icon-arrow-right"></i>
 
           <div

@@ -1,9 +1,6 @@
 <template>
   <div
-    class="sticky top-0 z-10 | hidden lg:flex items-center gap-1 | px-4 py-2 | border-b"
-    :class="
-      storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')
-    ">
+    class="sticky top-0 z-10 | hidden lg:flex items-center gap-1 | px-4 py-2 | border-b border-theme | bg-theme-3">
     <SearchInputButton />
     <DarkModeButton />
     <NotificationButton />

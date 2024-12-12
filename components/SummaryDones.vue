@@ -1,11 +1,9 @@
 <template>
   <div
-    class="relative | flex flex-col gap-3 | w-full min-w-[200px] | border rounded-lg | p-4"
-    :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
+    class="relative | flex flex-col gap-3 | w-full min-w-[200px] | bg-theme-3 | border border-theme rounded-lg | p-4">
     <h3
       v-if="!loadingStore.todoLoading"
-      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 | w-full h-full | flex flex-col items-center justify-center"
-      :class="storageStore.getThemeClass('', 'text-white')">
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 | w-full h-full | flex flex-col items-center justify-center | text-theme">
       <p class="text-[12vw] lg:text-[2.5cqw]">
         {{ isNaN(ratio) ? 0 : ratio.toFixed(1) }}%
       </p>

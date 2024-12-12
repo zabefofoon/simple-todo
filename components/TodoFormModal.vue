@@ -7,10 +7,7 @@
         ? 'lg:w-[calc(100vw-240px)]'
         : 'lg:w-[calc(100vw-52px)]'
     "
-    :content-class="`border-t | w-full h-full | ${storageStore.getThemeClass(
-      'bg-white',
-      'bg-slate-900 | border-slate-700'
-    )}`"
+    content-class="border-t border-theme | bg-theme-3 | w-full h-full"
     overlay-class="ml-auto"
     hide-close
     :content-transition="settingStore.screen === 'lg' ? 'none' : 'slide-right'"
@@ -34,24 +31,12 @@
           <input
             ref="inputTitle"
             :placeholder="i18n.t('Title')"
-            class="border | p-2"
-            :class="
-              storageStore.getThemeClass(
-                '',
-                'bg-slate-900 | border-slate-700 | text-white'
-              )
-            "
+            class="border border-theme | p-2 | bg-theme-3 | text-theme"
             :value="title"
             @input="setTitle" />
           <textarea
             ref="textArea"
-            class="border | h-auto min-h-[300px] max-h-[50vh] resize-none | p-2"
-            :class="
-              storageStore.getThemeClass(
-                '',
-                'bg-slate-900 | border-slate-700 | text-white'
-              )
-            "
+            class="border border-theme | text-theme | h-auto min-h-[300px] max-h-[50vh] resize-none | p-2 | bg-theme-3"
             :placeholder="i18n.t('Description')"
             :value="description"
             @change="setDescription"

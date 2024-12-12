@@ -1,17 +1,12 @@
 <template>
-  <div
-    class="flex | border-b | py-3"
-    :class="storageStore.getThemeClass('', 'border-slate-700')">
+  <div class="flex | border-b border-theme | py-3">
     <div class="flex gap-1 | lg:w-60 | text-sm">
-      <span :class="storageStore.getThemeClass('', 'text-white')" v-t="'Tag'">
-      </span>
+      <span class="text-theme" v-t="'Tag'"> </span>
       <button
         name="Add tag"
         class="flex | w-fit h-fit | p-1 | border border-dashed"
         @click="addTag">
-        <i
-          class="icon icon-add | text-md"
-          :class="storageStore.getThemeClass('', 'text-white')"></i>
+        <i class="icon icon-add | text-md text-theme"></i>
       </button>
     </div>
     <div class="flex flex-col lg:gap-1 | ml-auto lg:ml-0">
@@ -28,19 +23,15 @@
           class="flex items-center gap-0.5">
           <button name="Move up" class="flex">
             <i
-              class="icon icon-arrow-top | text-sm"
-              :class="storageStore.getThemeClass('', 'text-white')"
+              class="icon icon-arrow-top | text-sm text-theme"
               @click="changeOrder(index, index - 1)"></i>
           </button>
           <button name="Move down" class="flex">
             <i
-              class="icon icon-arrow-down | text-sm"
-              :class="storageStore.getThemeClass('', 'text-white')"
+              class="icon icon-arrow-down | text-sm text-theme"
               @click="changeOrder(index, index + 1)"></i>
           </button>
-          <div
-            class="flex items-center | border"
-            :class="storageStore.getThemeClass('', 'border-slate-700')">
+          <div class="flex items-center | border border-theme">
             <label class="pl-1" :for="`color-input-${index}`">
               <div
                 class="w-4 aspect-square"
@@ -49,8 +40,7 @@
             <input
               :id="`color-input-${index}`"
               :value="tag.color"
-              class="p-0 | w-0 aspect-square"
-              :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')"
+              class="p-0 | w-0 aspect-square | bg-theme-3"
               type="color"
               list="color-list"
               @change="changeTag(index, 'color', $event)" />
@@ -75,19 +65,11 @@
             </datalist>
             <input
               :value="tag.label"
-              class="min-w-[16px] w-16 | py-1 px-2 | text-sm"
-              :class="
-                storageStore.getThemeClass(
-                  'bg-white',
-                  'bg-slate-900 text-white'
-                )
-              "
+              class="min-w-[16px] w-16 | py-1 px-2 | text-sm text-theme | bg-theme-3"
               placeholder="Tag"
               @change="changeTag(index, 'label', $event)" />
             <button name="Delete" class="flex pr-1" @click="removeTag(index)">
-              <i
-                class="icon icon-close"
-                :class="storageStore.getThemeClass('', 'text-white')"></i>
+              <i class="icon icon-close | text-theme"></i>
             </button>
           </div>
         </div>
@@ -103,7 +85,6 @@ import { deepClone } from '~/utils/etc'
 const i18n = useI18n()
 
 const settingStore = useSettingStore()
-const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
 const googleStore = useGoogleStore()
 

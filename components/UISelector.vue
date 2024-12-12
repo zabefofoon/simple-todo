@@ -12,14 +12,8 @@
       :name="`select-options-${optionsPosition.y.toLocaleLowerCase()}`">
       <ul
         v-if="isShowOptions"
-        class="absolute z-10 | rounded-lg shadow-lg | touch-none border"
-        :class="[
-          optionsPositionClass,
-          storageStore.getThemeClass(
-            'bg-white',
-            'bg-slate-900 border-slate-700'
-          ),
-        ]">
+        class="absolute z-10 | rounded-lg shadow-lg | touch-none border border-theme | bg-theme-3"
+        :class="optionsPositionClass">
         <!-- Options slot -->
         <slot name="options" :show-options="showOptions"></slot>
         <!-- Options slot -->
@@ -38,8 +32,6 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'opened', value: boolean): void
 }>()
-
-const storageStore = useStorageStore()
 
 type Direction = 'LEFT' | 'TOP' | 'RIGHT' | 'BOTTOM' | 'CENTER'
 

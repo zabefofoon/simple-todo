@@ -21,9 +21,7 @@
             src="~/assets/images/logo.svg"
             alt="MEMOKU" />
           <Transition name="fade">
-            <span
-              v-if="storageStore.isSNBExpanded"
-              :class="storageStore.getThemeClass('', 'text-white')">
+            <span v-if="storageStore.isSNBExpanded" class="text-theme">
               MEMOKU
             </span>
           </Transition>
@@ -43,24 +41,16 @@
               menuStore.isCurrentHref(menu.href)
                 ? storageStore.getThemeClass(
                     'bg-slate-700 text-white',
-                    'bg-slate-950'
+                    'bg-slate-950 text-white'
                   )
                 : storageStore.getThemeClass(
-                    'hover:bg-slate-50',
-                    'hover:bg-slate-800'
+                    'hover:bg-slate-50 ',
+                    'hover:bg-slate-800 text-white'
                   ),
             ]">
-            <i
-              class="icon | text-xl | flex-shrink-0"
-              :class="[
-                menu.icon,
-                storageStore.getThemeClass('', 'text-white'),
-              ]"></i>
+            <i class="icon | text-xl | flex-shrink-0" :class="[menu.icon]"></i>
             <Transition name="fade">
-              <span
-                v-if="storageStore.isSNBExpanded"
-                class="relative text-sm"
-                :class="storageStore.getThemeClass('', 'text-white')">
+              <span v-if="storageStore.isSNBExpanded" class="relative text-sm">
                 <span v-t="menu.name"></span>
                 <div
                   v-if="menu.code === 'News'"

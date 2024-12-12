@@ -1,18 +1,10 @@
 <template>
-  <div
-    class="flex | border-b | py-3"
-    :class="storageStore.getThemeClass('', 'border-slate-700')">
-    <label
-      class="lg:w-60 | text-sm"
-      :class="storageStore.getThemeClass('', 'text-white')"
-      v-t="'Language'">
-    </label>
+  <div class="flex | border-b border-theme | py-3">
+    <label class="lg:w-60 | text-sm text-theme" v-t="'Language'"> </label>
     <select
       v-model="i18n.locale.value"
-      class="ml-auto lg:ml-0 | text-sm"
-      :class="
-        storageStore.getThemeClass('bg-white', 'dark | bg-slate-900 text-white')
-      "
+      class="ml-auto lg:ml-0 | text-sm text-theme | bg-theme-3"
+      :class="storageStore.getThemeClass('', 'dark')"
       @change="changeLanguage">
       <option value="en">English</option>
       <option value="ko">한국어</option>

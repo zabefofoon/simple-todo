@@ -1,16 +1,15 @@
 <template>
   <div
-    class="lg:h-full lg:max-h-[100vw] | overflow-auto | flex flex-col gap-5 | border rounded-lg | p-2 lg:p-3"
-    :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
+    class="lg:h-full lg:max-h-[100vw] | overflow-auto | flex flex-col gap-5 | border border-theme rounded-lg bg-theme-3 | p-2 lg:p-3">
     <div>
       <Skeletor v-if="loadingStore.todoLoading" class="w-1/4 h-[24px]" />
       <div v-else class="flex items-center gap-2">
         <button
+          class="text-theme"
           :class="[
             storageStore.selectedRecentTab === 'recent'
               ? 'font-bold'
               : 'opacity-70',
-            storageStore.getThemeClass('', 'text-white'),
           ]"
           area-label="RecentTodos"
           @click="storageStore.selectRecentTab('recent')">
@@ -18,11 +17,11 @@
         </button>
         <span class="text-xs">|</span>
         <button
+          class="text-theme"
           :class="[
             storageStore.selectedRecentTab === 'plan'
               ? 'font-bold'
               : 'opacity-70',
-            storageStore.getThemeClass('', 'text-white'),
           ]"
           area-label="PlannedTodos"
           @click="storageStore.selectRecentTab('plan')">

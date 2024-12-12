@@ -1,15 +1,11 @@
 <template>
   <ul
-    class="safe-area-bottom | flex lg:hidden justify-around | border-t"
-    :class="
-      storageStore.getThemeClass('bg-white', 'bg-slate-950 border-slate-700')
-    ">
+    class="safe-area-bottom | bg-theme-3 | border-theme | flex lg:hidden justify-around | border-t">
     <NuxtLinkLocale
       v-for="menu in menuStore.appBarMenus"
       :key="menu.href + storageStore.language"
       :to="menu.href"
       class="w-full"
-      :class="storageStore.getThemeClass('bg-white', 'bg-slate-900')"
       :area-label="i18n.t(menu.name ?? '')"
       replace>
       <li>
@@ -22,21 +18,12 @@
               menuStore.isCurrentHref(menu.href)
                 ? storageStore.getThemeClass(
                     'bg-slate-700 text-white',
-                    'bg-gray-950'
+                    'bg-gray-950 text-white'
                   )
-                : storageStore.getThemeClass('', '')
+                : storageStore.getThemeClass('', 'text-white')
             ">
-            <i
-              class="icon text-xl"
-              :class="[
-                menu.icon,
-                storageStore.getThemeClass('', 'text-white'),
-              ]"></i>
-            <span
-              class="text-[10px]"
-              :class="storageStore.getThemeClass('', 'text-white')"
-              v-t="menu.name">
-            </span>
+            <i class="icon text-xl" :class="menu.icon"></i>
+            <span class="text-[10px]" v-t="menu.name"> </span>
             <div
               v-if="menu.code === 'News'"
               class="w-1 h-1 | bg-red-500 | rounded-full | absolute top-1 -translate-x-2"></div>

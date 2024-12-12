@@ -1,7 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-3 | w-full min-w-[200px] | border rounded-lg | p-4"
-    :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
+    class="flex flex-col gap-3 | w-full min-w-[200px] | border border-theme rounded-lg | p-4 | bg-theme-3">
     <div
       v-if="loadingStore.todoLoading"
       class="w-full aspect-video lg:aspect-square | flex items-center justify-center">

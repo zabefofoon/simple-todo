@@ -7,10 +7,7 @@
         ? 'lg:w-[calc(100vw-240px)]'
         : 'lg:w-[calc(100vw-52px)]'
     "
-    :content-class="`border-t | w-full h-full | ${storageStore.getThemeClass(
-      'bg-white',
-      'bg-slate-900 | border-slate-700'
-    )}`"
+    content-class="border-t border-theme | bg-theme-3 | w-full h-full"
     overlay-class="ml-auto"
     hide-close
     :content-transition="settingStore.screen === 'lg' ? 'none' : 'slide-right'"

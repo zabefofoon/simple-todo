@@ -9,8 +9,7 @@
       :area-label="`Search ${searchedKeyword}`">
       <span
         v-html="getHighlightedKeyword(searchedKeyword)"
-        class="truncate"
-        :class="storageStore.getThemeClass('', 'text-white')"></span>
+        class="truncate text-theme"></span>
     </NuxtLinkLocale>
   </div>
 </template>
@@ -23,7 +22,6 @@ const props = defineProps<{
 const route = useRoute()
 
 const todoStore = useTodoStore()
-const storageStore = useStorageStore()
 
 const keywords = ref<string[]>()
 const setKeywords = (value?: string[]) => (keywords.value = value)

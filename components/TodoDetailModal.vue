@@ -7,10 +7,7 @@
         ? 'lg:w-[calc(100vw-240px)]'
         : 'lg:w-[calc(100vw-52px)]'
     "
-    :content-class="`border-t | w-full h-full | ${storageStore.getThemeClass(
-      'bg-white',
-      'bg-slate-900 | border-slate-700'
-    )}`"
+    content-class="bg-theme-3 border-t border-theme | w-full h-full"
     overlay-class="ml-auto"
     hide-close
     :content-transition="settingStore.screen === 'lg' ? 'none' : 'slide-right'"
@@ -21,13 +18,13 @@
           <button
             v-if="currentTodo"
             name="Check"
-            class="flex | rounded-full"
+            class="flex | rounded-full | border"
             :class="
               currentTodo?.done
                 ? 'bg-green-500'
                 : storageStore.getThemeClass(
-                    'border border-slate-400',
-                    'border border-white'
+                    ' border-slate-400',
+                    ' border-white'
                   )
             "
             @click="done">
@@ -41,17 +38,13 @@
           </button>
           <UISelector>
             <template #button="{ showOptions }">
-              <button
-                class="flex"
-                :class="storageStore.getThemeClass('', 'text-white')"
-                @click="showOptions()">
+              <button class="flex | text-theme" @click="showOptions()">
                 <i class="icon icon-overflow-vertical | text-xl"></i>
               </button>
             </template>
             <template #options="{ showOptions }">
               <div
-                class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap"
-                :class="storageStore.getThemeClass('', 'text-white')">
+                class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | text-theme whitespace-nowrap">
                 <NuxtLinkLocale
                   :to="editUrl"
                   class="flex items-center gap-1"
@@ -85,21 +78,14 @@
               : ''
           ">
           <div
-            class="whitespace-pre-wrap | border rounded-lg | overflow-auto h-full resize-none | p-2"
-            :class="[
-              storageStore.getThemeClass(
-                '',
-                'bg-slate-900 text-white border-slate-700'
-              ),
-            ]"
+            class="bg-theme-3 | whitespace-pre-wrap text-theme | border border-theme rounded-lg | overflow-auto h-full resize-none | p-2"
             v-html="escapeHTML(currentTodo?.description)"></div>
           <div class="absolute bottom-2.5 left-3">
             <figcaption
               v-if="
                 currentTodo?.leftUptoMinute && currentTodo.leftUptoMinute > 0
               "
-              class="w-fit | flex items-center gap-1"
-              :class="storageStore.getThemeClass('', 'text-white')">
+              class="w-fit | flex items-center gap-1 | text-theme">
               <i class="icon icon-timer"></i>
               <span
                 v-if="currentTodo?.leftUptoHour && currentTodo.leftUptoHour > 0"
@@ -119,9 +105,7 @@
               class="w-[10px]"
               src="~/assets/images/google.svg" />
 
-            <span
-              class="text-xs"
-              :class="storageStore.getThemeClass('', 'text-white')">
+            <span class="text-xs text-theme">
               {{ currentTodo?.createdDate.replaceAll('-', '.').slice(2) }}
             </span>
 
@@ -138,8 +122,7 @@
         </div>
         <div
           v-if="currentTodo?.images?.length"
-          class="lg:h-full | p-3 mb-4 lg:mb-0 | border rounded-lg"
-          :class="storageStore.getThemeClass('', 'border-slate-700')">
+          class="lg:h-full | p-3 mb-4 lg:mb-0 | border rounded-lg border-theme">
           <UICarousel
             v-if="settingStore.screen === 'lg'"
             class="h-full"
@@ -150,8 +133,7 @@
             <UICarouselSlide
               v-for="(image, index) in currentTodo?.images"
               :key="index"
-              class="w-[200px] h-[200px] | border rounded-lg overflow-hidden | relative | cursor-grab"
-              :class="storageStore.getThemeClass('', 'border-slate-700')"
+              class="w-[200px] h-[200px] | border border-theme rounded-lg overflow-hidden | relative | cursor-grab"
               @click="showImageModal(index)">
               <img
                 class="w-full h-full | object-cover object-center"
@@ -162,8 +144,7 @@
             <UICarouselSlide
               v-for="(image, index) in currentTodo?.images"
               :key="index"
-              class="w-[80px] h-[80px] | border rounded-lg overflow-hidden | relative"
-              :class="storageStore.getThemeClass('', 'border-slate-700')"
+              class="w-[80px] h-[80px] | border border-theme rounded-lg overflow-hidden | relative"
               @click="showImageModal(index)">
               <img
                 class="w-full h-full | object-cover object-center"

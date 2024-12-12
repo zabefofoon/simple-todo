@@ -7,34 +7,19 @@
             <!-- 양식 -->
             <div class="w-full | relative">
               <label
-                class="absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full"
-                :class="
-                  storageStore.getThemeClass(
-                    'bg-white',
-                    'bg-slate-900 text-white'
-                  )
-                ">
+                class="absolute top-0 left-0 -translate-y-1/2 | text-[9px] text-theme | bg-theme-3 | rounted-full">
                 {{ i18n.t('Form') }}
               </label>
               <select
-                class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg"
-                :class="
-                  storageStore.getThemeClass(
-                    'bg-white',
-                    'dark | bg-slate-900 | text-white | border-slate-700'
-                  )
-                "
+                class="w-full lg:w-fit | text-sm text-theme | bg-theme-3 | px-2 py-1 | border border-theme rounded-lg"
                 @change="emit('change-form', $event)">
-                <option
-                  value="None"
-                  :class="storageStore.getThemeClass('', 'text-white')">
+                <option value="None">
                   {{ i18n.t('None') }}
                 </option>
                 <option
                   v-for="form in settingStore.setting?.forms"
                   :key="form.id"
-                  :value="form.id"
-                  :class="storageStore.getThemeClass('', 'text-white')">
+                  :value="form.id">
                   {{ form.title }}
                 </option>
               </select>
@@ -44,13 +29,7 @@
             <!-- 태그 -->
             <div class="w-full | relative">
               <label
-                class="flex items-center gap-0.5 | absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full"
-                :class="
-                  storageStore.getThemeClass(
-                    'bg-white',
-                    'bg-slate-900 text-white'
-                  )
-                ">
+                class="bg-theme-3 | text-theme | flex items-center gap-0.5 | absolute top-0 left-0 -translate-y-1/2 | text-[9px] | rounted-full">
                 <div
                   v-if="tagId"
                   class="w-2 h-2"
@@ -59,30 +38,22 @@
                       (tag) => tag.id === tagId
                     )?.color,
                   }"></div>
-                <span :class="storageStore.getThemeClass('', 'text-white')">
+                <span class="text-theme">
                   {{ i18n.t('Tag') }}
                 </span>
               </label>
               <select
-                class="w-full lg:w-fit | text-sm | px-2 py-1 | border rounded-lg"
+                class="w-full lg:w-fit | bg-theme-3 | text-sm text-theme | px-2 py-1 | border border-theme rounded-lg"
                 :value="tagId"
-                :class="
-                  storageStore.getThemeClass(
-                    'bg-white',
-                    'dark | bg-slate-900 | text-white | border-slate-700'
-                  )
-                "
+                :class="storageStore.getThemeClass('', 'dark')"
                 @change="emit('set-tag', $event)">
-                <option
-                  :value="''"
-                  :class="storageStore.getThemeClass('', 'text-white')">
+                <option :value="''">
                   {{ i18n.t('None') }}
                 </option>
                 <option
                   v-for="tag in settingStore.setting?.tags"
                   :key="tag.id"
-                  :value="tag.id"
-                  :class="storageStore.getThemeClass('', 'text-white')">
+                  :value="tag.id">
                   {{ tag.label }}
                 </option>
               </select>
@@ -102,13 +73,10 @@
               type="checkbox" />
             <label
               for="upTo"
-              class="flex items-center gap-1.5 | px-2 py-3 pr-3 lg:py-2.5 | text-xs | border rounded-lg | cursor-pointer"
-              :style="{ opacity: upto ? '1' : '.4' }"
-              :class="storageStore.getThemeClass('', 'border-slate-700')">
-              <i
-                class="icon icon-timer"
-                :class="storageStore.getThemeClass('', 'text-white')"></i>
-              <span :class="storageStore.getThemeClass('', 'text-white')">
+              class="flex items-center gap-1.5 | px-2 py-3 pr-3 lg:py-2.5 | text-xs text-theme | border border-theme rounded-lg | cursor-pointer"
+              :style="{ opacity: upto ? '1' : '.4' }">
+              <i class="icon icon-timer"></i>
+              <span>
                 {{ i18n.t('Upto') }}
               </span>
             </label>
@@ -118,24 +86,14 @@
               :style="{ opacity: upto ? '1' : '.4' }">
               <input
                 :value="date"
-                class="w-fit | border rounded-lg | p-2 | text-xs"
+                class="w-fit | border border-theme rounded-lg | p-2 | text-xs text-theme | bg-theme-3"
                 type="date"
-                :class="
-                  storageStore.getThemeClass(
-                    'bg-white',
-                    'dark | bg-slate-900 text-white | border-slate-700'
-                  )
-                "
+                :class="storageStore.getThemeClass('', 'dark')"
                 @change="emit('set-date', $event)" />
               <input
                 :value="time"
-                class="w-fit | border rounded-lg | px-2 py-1 | text-xs"
-                :class="
-                  storageStore.getThemeClass(
-                    'bg-white',
-                    'dark | bg-slate-900 text-white | border-slate-700'
-                  )
-                "
+                class="w-fit | bg-theme-3 | border border-theme rounded-lg | px-2 py-1 | text-xs text-theme"
+                :class="storageStore.getThemeClass('', 'dark')"
                 type="time"
                 @change="emit('set-time', $event)" />
             </div>
@@ -278,14 +236,8 @@
         <div class="w-full h-full | relative">
           <textarea
             :value="description"
-            class="w-full h-full | border rounded-lg focus-visible:outline-0 focus-visible:border-orange-200 | resize-none | p-2 lg:pt-2"
-            :class="[
-              { 'pt-6': todo },
-              storageStore.getThemeClass(
-                '',
-                'bg-slate-900 text-white border-slate-700'
-              ),
-            ]"
+            class="w-full h-full | text-theme | bg-theme-3 | border border-theme rounded-lg focus-visible:outline-0 focus-visible:border-orange-200 | resize-none | p-2 lg:pt-2"
+            :class="{ 'pt-6': todo }"
             :placeholder="i18n.t('Description')"
             @input="emit('changed')"
             @change="emit('set-description', $event)" />
@@ -297,9 +249,7 @@
           </div>
         </div>
 
-        <div
-          class="h-full | p-3 | border rounded-lg"
-          :class="storageStore.getThemeClass('', 'border-slate-700')">
+        <div class="h-full | p-3 | border border-theme rounded-lg">
           <UICarousel
             class="h-full"
             vertical
@@ -307,16 +257,14 @@
             gap="10px"
             drag-free>
             <UICarouselSlide
-              class="w-[200px] h-[200px] | border rounded-lg | grid items-center justify-center | cursor-pointer"
-              :class="storageStore.getThemeClass('', 'border-slate-700')"
+              class="w-[200px] h-[200px] | border border-theme rounded-lg | grid items-center justify-center | cursor-pointer"
               @click="emit('add-image')">
               <i class="icon icon-add"></i>
             </UICarouselSlide>
             <UICarouselSlide
               v-for="(image, index) in images"
               :key="image"
-              class="w-[200px] h-[200px] | border rounded-lg overflow-hidden | relative | cursor-grab"
-              :class="storageStore.getThemeClass('', 'border-slate-700')">
+              class="w-[200px] h-[200px] | border border-theme rounded-lg overflow-hidden | relative | cursor-grab">
               <img
                 class="w-full h-full | object-cover object-center"
                 :src="imageSrc(image)" />

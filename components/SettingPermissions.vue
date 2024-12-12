@@ -1,16 +1,9 @@
 <template>
-  <div
-    class="flex | border-b | py-3"
-    :class="storageStore.getThemeClass('', 'border-slate-700')">
-    <label
-      class="lg:w-60 | text-sm"
-      :class="storageStore.getThemeClass('', 'text-white')"
-      v-t="'Notification'">
-    </label>
+  <div class="flex | border-b border-theme | py-3">
+    <label class="lg:w-60 | text-sm text-theme" v-t="'Notification'"> </label>
     <span
       v-if="isGrantedNotification"
-      class="ml-auto lg:ml-0 px-4 py-0.5 lg:px-0 | text-sm"
-      :class="storageStore.getThemeClass('', 'text-white')"
+      class="ml-auto lg:ml-0 px-4 py-0.5 lg:px-0 | text-sm text-theme"
       name="Export"
       v-t="'ON'">
     </span>
@@ -25,7 +18,6 @@
 
 <script setup lang="ts">
 const i18n = useI18n()
-const storageStore = useStorageStore()
 
 const isGrantedNotification = ref()
 const checkGrantedNotification = (value: boolean) =>

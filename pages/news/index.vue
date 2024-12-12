@@ -1,17 +1,13 @@
 <template>
   <div
-    class="sticky top-0 z-10 | hidden lg:flex items-center gap-1 | px-4 py-2 | border-b"
-    :class="
-      storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')
-    ">
+    class="sticky top-0 z-10 | hidden lg:flex items-center gap-1 | px-4 py-2 | bg-theme-3 border-b border-theme">
     <SearchInputButton />
     <DarkModeButton />
     <NotificationButton />
   </div>
   <div class="flex flex-col gap-4 | p-4">
     <h3
-      class="pb-2 text-[18px] lg:text-[20px] | font-bold"
-      :class="storageStore.getThemeClass('', 'text-white')"
+      class="pb-2 text-[18px] lg:text-[20px] | font-bold text-theme"
       v-t="'NewsTitle'"></h3>
     <div
       class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-x-3 gap-y-5 lg:gap-x-4 lg:gap-y-6">
@@ -21,12 +17,9 @@
         :to="post.id === -1 ? undefined : `/news/${i18n.t(post.path)}`">
         <figure
           v-if="!post.isEmpty"
-          class="w-full rounded-lg | border | overflow-hidden"
+          class="w-full rounded-lg | border border-theme | bg-theme-3 | overflow-hidden"
           :class="
-            storageStore.getThemeClass(
-              'border-slate-200 | bg-white',
-              'bg-slate-900 border-slate-700'
-            )
+            storageStore.getThemeClass('border-slate-200', 'border-slate-700')
           ">
           <img
             :src="post.image ?? ''"

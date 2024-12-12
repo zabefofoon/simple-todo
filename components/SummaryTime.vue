@@ -1,9 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-2 | w-full min-w-[200px] lg:aspect-square overflow-auto | border rounded-lg | p-4"
-    :class="
-      storageStore.getThemeClass('bg-white', 'border-slate-700 text-white')
-    ">
+    class="flex flex-col gap-2 | w-full min-w-[200px] lg:aspect-square overflow-auto | border rounded-lg border-theme | bg-theme-3 | text-theme | p-4">
     <div
       v-if="loadingStore.todoLoading"
       class="w-full aspect-video lg:aspect-square | flex items-center justify-center">
@@ -38,11 +35,7 @@
                 </NuxtLink>
               </div>
             </li>
-            <hr
-              v-if="index !== tagDatas.length - 1"
-              :class="
-                storageStore.getThemeClass('bg-white', 'border-slate-700')
-              " />
+            <hr v-if="index !== tagDatas.length - 1" class="border-theme" />
           </template>
         </ul>
       </div>
@@ -57,7 +50,6 @@ const localePath = useLocalePath()
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
 const loadingStore = useLoadingStore()
-const storageStore = useStorageStore()
 
 interface TagData {
   id?: string

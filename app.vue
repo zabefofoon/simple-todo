@@ -7,13 +7,13 @@
     <CookiePopup />
   </ClientOnly>
 
-  <AddHomeScreenGuideIos v-if="isSafari" />
-  <AddHomeScreenGuideAndroid v-else />
+  <LazyAddHomeScreenGuideIos v-if="isSafari && guideStore.isShowAddHomeGuide" />
+  <LazyAddHomeScreenGuideAndroid
+    v-if="isAndroid && guideStore.isShowAddHomeGuide" />
 </template>
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import type { Theme } from './models/Setting'
-
 const { isSafari, isAndroid, isIos } = useDevice()
 
 const todoStore = useTodoStore()
@@ -23,6 +23,7 @@ const alarmStore = useAlarmStore()
 const googleStore = useGoogleStore()
 const bulkStore = useBulkStore()
 const snackbarStore = useSnackbarStore()
+const guideStore = useGuideStore()
 
 const route = useRoute()
 const i18n = useI18n()
@@ -201,6 +202,9 @@ onBeforeUnmount(() => {
 })
 
 useHead(() => ({
+  htmlAttrs: {
+    class: storageStore.theme,
+  },
   title: i18n.t('PageTitle'),
   meta: [
     {
@@ -224,13 +228,13 @@ useHead(() => ({
 
 watch(
   () => storageStore.theme,
-  (value: Theme) =>
-    setTimeout(() => {
-      if (import.meta.client)
-        document
-          .querySelector('meta[name="theme-color"]')
-          ?.setAttribute('content', value === 'dark' ? '#0f172a' : '#ffffff')
-    }),
+  (value: Theme) => {
+    if (import.meta.client) {
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute('content', value === 'dark' ? '#0f172a' : '#ffffff')
+    }
+  },
   { immediate: true }
 )
 

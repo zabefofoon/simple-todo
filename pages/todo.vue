@@ -1,10 +1,7 @@
 <template>
   <div class="flex flex-col | h-full">
     <div
-      class="sticky top-0 z-20 | flex items-center gap-1 | px-4 py-2 | border-b"
-      :class="
-        storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')
-      ">
+      class="sticky top-0 z-20 | flex items-center gap-1 | px-4 py-2 | border-b border-theme | bg-theme-3">
       <SearchInputButton />
       <DarkModeButton class="hidden lg:flex" />
       <NotificationButton class="hidden lg:block" />
@@ -21,8 +18,7 @@
       <Spinner v-if="loadingStore.todoLoading" class="m-auto" />
       <p
         v-else
-        class="w-full | flex items-center justify-center | text-center"
-        :class="storageStore.getThemeClass('', 'text-white')"
+        class="w-full | flex items-center justify-center | text-center text-theme"
         v-t="'NoTodo'"></p>
     </div>
     <template v-else>
@@ -30,11 +26,9 @@
         <template v-for="tag in settingStore.setting?.tags" :key="tag.id">
           <div
             v-if="matchedTodos(tag.label).length"
-            class="mb-4 lg:mb-8 rounded-lg border"
-            :class="[storageStore.getThemeClass('', 'border-slate-700'), ,]">
+            class="mb-4 lg:mb-8 | rounded-lg border border-theme">
             <div
-              class="p-2 lg:p-4 | font-bold | flex items-center gap-1.5"
-              :class="storageStore.getThemeClass('', 'text-white')">
+              class="p-2 lg:p-4 | font-bold text-theme | flex items-center gap-1.5">
               <NuxtLinkLocale
                 class="flex items-center gap-1.5"
                 :to="`${route.path}?tags=${tag.id}`">
@@ -52,12 +46,10 @@
         </template>
         <div
           v-if="matchedTodos().length"
-          class="mb-4 lg:mb-8 rounded-lg border"
-          :class="[storageStore.getThemeClass('', 'border-slate-700')]">
+          class="mb-4 lg:mb-8 | rounded-lg border border-theme">
           <div
             v-if="!route.query.tag"
-            class="p-2 lg:p-4 | font-bold | flex items-center gap-1.5"
-            :class="storageStore.getThemeClass('', 'text-white')">
+            class="p-2 lg:p-4 | font-bold text-theme | flex items-center gap-1.5">
             <NuxtLinkLocale
               class="flex items-center gap-1.5"
               :to="`${route.path}?tags=memo`">

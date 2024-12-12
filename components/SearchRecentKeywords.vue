@@ -11,14 +11,9 @@
       class="w-full | flex items-center gap-2 | py-0.5"
       :area-label="`Search ${keyword}`">
       <i
-        class="icon icon-close"
-        :class="storageStore.getThemeClass('', 'text-white')"
+        class="icon icon-close text-theme"
         @click.prevent="removeKeyword(keyword)"></i>
-      <span
-        class="truncate"
-        :class="storageStore.getThemeClass('', 'text-white')"
-        >{{ keyword }}</span
-      >
+      <span class="truncate text-theme">{{ keyword }}</span>
     </NuxtLinkLocale>
   </div>
 </template>

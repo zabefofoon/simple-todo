@@ -1,17 +1,12 @@
 <template>
-  <header
-    class="flex items-center gap-3 | py-3 px-4 | border-b"
-    :class="storageStore.getThemeClass('', 'border-slate-700')">
+  <header class="flex items-center gap-3 | py-3 px-4 | border-b border-theme">
     <button name="Back" class="flex" @click="back()">
-      <i
-        class="icon icon-arrow-left"
-        :class="storageStore.getThemeClass('', 'text-white')"></i>
+      <i class="icon icon-arrow-left | text-theme"></i>
     </button>
     <div
       :key="label"
       v-html="escapeHTML(label)"
-      class="w-full lg:w-1/2 | mr-auto | text-lg truncate | cursor-pointer"
-      :class="storageStore.getThemeClass('', 'text-white')"
+      class="w-full lg:w-1/2 | mr-auto | text-lg truncate text-theme | cursor-pointer"
       @click="back()"></div>
 
     <slot></slot>

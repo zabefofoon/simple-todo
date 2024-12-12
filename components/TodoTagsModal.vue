@@ -22,8 +22,7 @@
       <Spinner v-if="loadingStore.todoLoading" class="m-auto" />
       <p
         v-else
-        class="w-full | flex items-center justify-center | text-center"
-        :class="storageStore.getThemeClass('', 'text-white')"
+        class="w-full | flex items-center justify-center | text-center text-theme"
         v-t="'NoTodo'"></p>
     </div>
 
@@ -31,11 +30,8 @@
       <div
         v-for="day in days"
         :key="day"
-        class="border rounded-lg p-2 lg:p-4"
-        :class="storageStore.getThemeClass('', 'border-slate-700')">
-        <div
-          class="mb-4 | text-lg font-bold"
-          :class="storageStore.getThemeClass('', 'text-white')">
+        class="border rounded-lg border-theme | p-2 lg:p-4">
+        <div class="mb-4 | text-lg font-bold text-theme">
           {{ dayToTitle(day) }}
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-2 | h-auto">

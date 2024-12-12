@@ -7,10 +7,7 @@
         ? 'lg:w-[calc(100vw-240px)]'
         : 'lg:w-[calc(100vw-52px)]'
     "
-    :content-class="`border-t | w-full h-full | ${storageStore.getThemeClass(
-      'bg-white',
-      'bg-slate-900 | border-slate-700'
-    )}`"
+    content-class="border-t border-theme | bg-theme-3 | w-full h-full"
     :content-transition="settingStore.screen === 'lg' ? 'none' : 'slide-right'"
     overlay-class="ml-auto"
     hide-close
@@ -23,7 +20,7 @@
         <p
           v-if="!todayTodos?.length"
           class="flex items-center justify-center | h-full">
-          <span :class="storageStore.getThemeClass('', 'text-white')">
+          <span class="text-theme">
             {{ i18n.t('NoTodo') }}
           </span>
         </p>
@@ -54,7 +51,6 @@ const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
 const settingStore = useSettingStore()
-const googleStore = useGoogleStore()
 
 const todayTodos = computed(() =>
   todoStore.todos?.filter((todo) => todo.createdDate === route.query.calendar)

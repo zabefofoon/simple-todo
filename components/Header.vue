@@ -1,13 +1,7 @@
 <template>
   <header class="relative z-30 | lg:hidden">
     <div
-      class="flex items-center gap-1.5 | relative z-30 | px-4 py-3 | border-b"
-      :class="
-        storageStore.getThemeClass(
-          'bg-white',
-          'bg-slate-900 | border-slate-700'
-        )
-      ">
+      class="flex items-center gap-1.5 | relative z-30 | px-4 py-3 | border-b border-theme | bg-theme-2">
       <NuxtLinkLocale
         class="block | w-full | font-bold"
         to="/"
@@ -21,19 +15,13 @@
             "
             src="~/assets/images/logo.svg"
             alt="MEMOKU" />
-          <span
-            property="name"
-            :class="storageStore.getThemeClass('', 'text-white')">
-            MEMOKU
-          </span>
+          <span property="name" class="text-theme"> MEMOKU </span>
         </div>
       </NuxtLinkLocale>
 
       <DarkModeButton />
       <NuxtLinkLocale to="/memoku" class="flex | relative">
-        <span
-          class="icon icon-help | text-xl"
-          :class="storageStore.getThemeClass('', 'text-white')"></span>
+        <span class="icon icon-help | text-xl text-theme"></span>
       </NuxtLinkLocale>
       <NotificationButton />
     </div>

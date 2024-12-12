@@ -1,9 +1,6 @@
 <template>
   <div
-    class="flex | w-screen h-dvh overflow-hidden | border-t"
-    :class="
-      storageStore.getThemeClass('bg-white', 'bg-slate-900 border-slate-700')
-    ">
+    class="flex | w-screen h-dvh overflow-hidden | border-t border-theme bg-theme-3">
     <BulkButtons v-if="route.query.bulk" />
     <SNB v-if="settingStore.screen === 'lg'" />
     <div class="flex flex-col | h-full w-full overflow-hidden">
@@ -48,7 +45,6 @@ import TodoTagsModal from '~/components/TodoTagsModal.vue'
 const route = useRoute()
 
 const scrollStore = useScrollStore()
-const storageStore = useStorageStore()
 const settingStore = useSettingStore()
 
 const scrollArea = ref<HTMLDivElement>()

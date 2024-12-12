@@ -1,23 +1,15 @@
 <template>
   <div
     v-if="!cookiesAccepted"
-    class="transition-all | flex flex-col gap-2 | fixed bottom-0 left-0 z-50 | w-full | px-4 py-8 | text-center border-t"
-    :class="[
-      mounted ? '' : 'translate-y-full',
-      storageStore.getThemeClass(
-        'bg-white border-slate-300',
-        'bg-slate-950 border-slate-600'
-      ),
-    ]">
+    class="border-theme | bg-theme-2 | transition-all | flex flex-col gap-2 | fixed bottom-0 left-0 z-50 | w-full | px-4 py-8 | text-center border-t"
+    :class="[mounted ? '' : 'translate-y-full']">
     <p
-      class="text-sm lg:text-md | max-w-[300px] | mx-auto"
-      :class="storageStore.getThemeClass('', 'text-white')"
+      class="text-theme text-sm lg:text-md | max-w-[300px] | mx-auto"
       v-t="'CookiesAcceptNotice'"></p>
     <NuxtLinkLocale
       to="https://memoku.netlify.app/privacy-policy.html"
       target="_blank"
-      class="underline | text-sm lg:text-md"
-      :class="storageStore.getThemeClass('', 'text-white')"
+      class="underline | text-theme text-sm lg:text-md"
       external>
       <span v-t="'ShowPrivacyPolicy'"></span>
     </NuxtLinkLocale>
@@ -39,7 +31,6 @@
 <script setup lang="ts">
 const { gtag } = useGtag()
 const storageStore = useStorageStore()
-const i18n = useI18n()
 
 const mounted = ref(false)
 const setMounted = () => (mounted.value = true)

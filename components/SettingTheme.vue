@@ -1,18 +1,10 @@
 <template>
-  <div
-    class="flex | border-b | py-3"
-    :class="storageStore.getThemeClass('', 'border-slate-700')">
-    <label
-      class="lg:w-60 | text-sm"
-      :class="storageStore.getThemeClass('', 'text-white')"
-      v-t="'Theme'">
-    </label>
+  <div class="flex | border-b border-theme | py-3">
+    <label class="lg:w-60 | text-sm text-theme" v-t="'Theme'"> </label>
     <select
       v-model="storageStore.theme"
-      class="ml-auto lg:ml-0 | text-sm"
-      :class="
-        storageStore.getThemeClass('bg-white', 'dark | bg-slate-900 text-white')
-      "
+      class="ml-auto lg:ml-0 | text-sm text-theme | bg-theme-3"
+      :class="storageStore.getThemeClass('', 'dark')"
       @change="changeTheme">
       <option value="white" v-t="'White'"></option>
       <option value="dark" v-t="'Dark'"></option>

@@ -5,14 +5,11 @@
     area-label="Search">
     <input
       readonly
-      class="w-full | px-3 py-1 | rounded-full | text-sm focus:border-0 focus:outline-0"
-      :class="
-        storageStore.getThemeClass('bg-slate-200', 'bg-slate-600 | text-white')
-      "
+      class="w-full | px-3 py-1 | rounded-full | text-theme text-sm focus:border-0 focus:outline-0"
+      :class="storageStore.getThemeClass('bg-slate-200', 'bg-slate-600')"
       :placeholder="i18n.t('Search')" />
     <i
-      class="icon icon-search | text-xl | absolute right-1 top-1/2 -translate-y-1/2"
-      :class="storageStore.getThemeClass('', 'text-white')"></i>
+      class="icon icon-search | text-xl text-theme | absolute right-1 top-1/2 -translate-y-1/2"></i>
   </NuxtLinkLocale>
 </template>
 

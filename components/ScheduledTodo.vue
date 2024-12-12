@@ -1,39 +1,29 @@
 <template>
   <div
     v-if="loadingStore.todoLoading"
-    class="flex flex-col gap-2 | border rounded-lg | p-4"
-    :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
+    class="flex flex-col gap-2 | border border-theme bg-theme-3 rounded-lg | p-4">
     <!-- <Skeletor class="w-1/4 h-[24px]" /> -->
     <Skeletor class="w-full h-[24px]" />
   </div>
   <div
     v-else
-    class="flex flex-col gap-2 | border rounded-lg | p-2 lg:p-4"
-    :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
+    class="flex flex-col gap-2 | border border-theme bg-theme-3 rounded-lg | p-2 lg:p-4">
     <h3 class="font-bold">
-      <span
-        v-if="scheduledTodo"
-        :class="storageStore.getThemeClass('', 'text-white')">
+      <span v-if="scheduledTodo" class="text-theme">
         <span v-t="'ScheduledTodo'"></span>
         ({{ scheduledTodo.date?.replaceAll('-', '.').substring(2) }})
       </span>
-      <span
-        v-else
-        :class="storageStore.getThemeClass('', 'text-white')"
-        v-t="'NoScheduled'">
-      </span>
+      <span v-else class="text-theme" v-t="'NoScheduled'"> </span>
     </h3>
     <NuxtLinkLocale
       v-if="scheduledTodo?.description"
       :to="`/?todo=${scheduledTodo.id}`"
       area-label="ScheduledTodo">
       <p>
-        <span
-          v-if="scheduledTodo.description.length > 100"
-          :class="storageStore.getThemeClass('', 'text-white')">
+        <span v-if="scheduledTodo.description.length > 100" class="text-theme">
           {{ scheduledTodo.description.slice(0, 100) }}...
         </span>
-        <span v-else :class="storageStore.getThemeClass('', 'text-white')">
+        <span v-else class="text-theme">
           {{ scheduledTodo.description }}
         </span>
       </p>
@@ -44,7 +34,6 @@
 <script setup lang="ts">
 const todoStore = useTodoStore()
 const loadingStore = useLoadingStore()
-const storageStore = useStorageStore()
 
 const scheduledTodo = computed(() => {
   return todoStore.todos

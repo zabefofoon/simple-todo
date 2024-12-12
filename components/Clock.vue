@@ -1,19 +1,14 @@
 <template>
   <div
-    class="w-full flex items-center justify-center | pt-4 pb-1.5 | border rounded-lg"
-    :class="storageStore.getThemeClass('bg-white', 'border-slate-700')">
+    class="text-theme bg-theme | w-full flex items-center justify-center | pt-4 pb-1.5 | border border-theme rounded-lg">
     <div v-if="!loadingStore.todoLoading" class="relative">
-      <div
-        class="absolute top-0 left-0 -translate-y-1/2 | flex"
-        :class="storageStore.getThemeClass('', 'text-white')">
+      <div class="absolute top-0 left-0 -translate-y-1/2 | flex">
         <span class="text-[1.2cqh]">
           {{ currentYear }}
         </span>
         <div v-if="day" class="text-[1.2cqh]">({{ i18n.t(day) }})</div>
       </div>
-      <span
-        class="text-[3.6cqh]"
-        :class="storageStore.getThemeClass('', 'text-white')">
+      <span class="text-[3.6cqh]">
         {{ currentTime }}
       </span>
     </div>

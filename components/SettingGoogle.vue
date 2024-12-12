@@ -1,18 +1,12 @@
 <template>
-  <div
-    class="flex items-center | py-3"
-    :class="storageStore.getThemeClass('', 'border-slate-700')">
-    <label
-      class="lg:w-60 | text-sm"
-      :class="storageStore.getThemeClass('', 'text-white')"
-      v-t="'SpreadsheetLink'">
+  <div class="flex items-center | py-3">
+    <label class="lg:w-60 | text-sm text-theme" v-t="'SpreadsheetLink'">
     </label>
     <input
       v-model="email"
       type="email"
-      class="w-[120px] lg:w-[200px] | bg-transparent border-b | p-1 ml-auto mr-3 lg:ml-0 | truncate"
+      class="w-[120px] lg:w-[200px] | bg-transparent border-b border-theme | text-theme | p-1 ml-auto mr-3 lg:ml-0 | truncate"
       placeholder="user@google.com"
-      :class="storageStore.getThemeClass('', 'text-white | border-slate-700')"
       @change="" />
     <button
       v-if="googleStore.googleAccessToken"

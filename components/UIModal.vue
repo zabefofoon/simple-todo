@@ -13,10 +13,7 @@
       <div class="h-full">
         <button
           v-if="!hideClose"
-          class="absolute right-[16px] top-[16px] lg:right-1 lg:top-1 z-10 | flex | rounded-full p-0.5"
-          :class="
-            storageStore.getThemeClass('bg-white', 'bg-slate-800 text-white')
-          "
+          class="absolute right-[16px] top-[16px] lg:right-1 lg:top-1 z-10 | flex | rounded-full p-0.5 | text-theme"
           @click="emit('close')">
           <i class="icon icon-close"></i>
         </button>
@@ -34,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { VueFinalModal } from 'vue-final-modal'
+import { VueFinalModal } from 'vue-final-modal';
 
 const props = defineProps<{
   title?: string

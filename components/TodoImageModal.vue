@@ -2,10 +2,7 @@
   <UIModal
     modal-name="TodoImageModal"
     class="!z-50"
-    :content-class="`p-2 lg:p-4 | rounded-lg | w-[92vw] max-w-[800px] ${storageStore.getThemeClass(
-      'bg-white',
-      'bg-slate-800'
-    )}`"
+    content-class="p-2 lg:p-4 | rounded-lg | w-[92vw] max-w-[800px] | bg-theme-1"
     @close="emit('close')">
     <UICarousel use-dots gap="6px" :start-index="startIndex">
       <UICarouselSlide
@@ -31,8 +28,6 @@ defineProps<{
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
-
-const storageStore = useStorageStore()
 
 const imageSrc = (image: string | Blob) => {
   return typeof image === 'string' ? image : URL.createObjectURL(image)

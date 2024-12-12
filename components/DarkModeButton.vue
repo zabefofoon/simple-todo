@@ -1,18 +1,14 @@
 <template>
   <button
-    class="flex | relative"
+    class="flex | relative | text-theme"
     name="Notification"
     @click="
       storageStore.setTheme(storageStore.theme === 'white' ? 'dark' : 'white')
     ">
     <i
       v-if="storageStore.theme === 'white'"
-      class="icon icon-light | text-xl"
-      :class="storageStore.getThemeClass('', 'text-white')"></i>
-    <i
-      v-else
-      class="icon icon-dark | text-xl"
-      :class="storageStore.getThemeClass('', 'text-white')"></i>
+      class="icon icon-light | text-xl"></i>
+    <i v-else class="icon icon-dark | text-xl"></i>
   </button>
 </template>
 

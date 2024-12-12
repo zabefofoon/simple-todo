@@ -32,11 +32,9 @@
                   ?.filter((todo) => todo.createdDate === data.day.id)
                   .slice(0, slice)"
                 :key="todo.id"
-                class="flex | w-full overflow-hidden | border rounded-lg | p-0.5 | relative"
-                :class="storageStore.getThemeClass('', 'border-slate-700')">
+                class="flex | w-full overflow-hidden | border border-theme rounded-lg | p-0.5 | relative">
                 <span
-                  class="truncate-2 text-[8px] md:text-sm"
-                  :class="storageStore.getThemeClass('', 'text-white')"
+                  class="truncate-2 text-[8px] md:text-sm text-theme"
                   v-html="
                     escapeHTML(todo.description?.replaceAll('\n', '<br/>'))
                   ">

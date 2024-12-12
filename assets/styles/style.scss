@@ -6,6 +6,23 @@
 @import 'transition';
 @import 'carousel';
 
+html {
+  &.dark {
+    --bg-theme-1: #1e293b;
+    --bg-theme-2: #020617;
+    --bg-theme-3: #0f172a;
+    --text-theme: #fff;
+    --border-color-theme: #334155;
+  }
+  &:not(.dark) {
+    --bg-theme-1: #fff;
+    --bg-theme-2: #fff;
+    --bg-theme-3: #fff;
+    --text-theme: #1e293b;
+    --border-color-theme: #e5e7eb;
+  }
+}
+
 * {
   font-family: 'Noto Sans KR', system-ui, sans-serif;
   color: rgb(71 85 105);

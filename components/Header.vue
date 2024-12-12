@@ -1,7 +1,7 @@
 <template>
   <header class="relative z-30 | lg:hidden">
     <div
-      class="flex items-center gap-1.5 | relative z-30 | px-4 py-3 | border-b border-theme | bg-theme-2">
+      class="flex items-center gap-1.5 | relative z-30 | px-4 py-3 | border-b border-theme | bg-theme-3">
       <NuxtLinkLocale
         class="block | w-full | font-bold"
         to="/"

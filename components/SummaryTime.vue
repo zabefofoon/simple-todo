@@ -35,6 +35,26 @@
                 </NuxtLink>
               </div>
             </li>
+            <div class="w-full h-1 | relative | rounded-full overflow-hidden">
+              <div
+                class="h-full | absolute top-0 left-0"
+                :style="{
+                  width: `${
+                    (tagData.total * 100) / (todoStore.todos?.length ?? 0)
+                  }%`,
+                  background: storageStore.getThemeClass(
+                    'rgba(71, 85, 105, .2)',
+                    'rgba(71, 85, 105, .8)'
+                  ),
+                }">
+                <div
+                  class="h-full | absolute top-0 left-0"
+                  :style="{
+                    width: `${(tagData.done * 100) / tagData.total}%`,
+                    background: tagData.color ?? 'rgba(74, 222, 128, 1)',
+                  }"></div>
+              </div>
+            </div>
             <hr v-if="index !== tagDatas.length - 1" class="border-theme" />
           </template>
         </ul>
@@ -50,6 +70,7 @@ const localePath = useLocalePath()
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
 const loadingStore = useLoadingStore()
+const storageStore = useStorageStore()
 
 interface TagData {
   id?: string

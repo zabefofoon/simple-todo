@@ -6,7 +6,10 @@
     <Skeletor class="w-full h-[24px]" />
   </div>
   <div
-    v-else
+    v-else-if="
+      settingStore.screen === 'lg' ||
+      (settingStore.screen === 'sm' && scheduledTodo)
+    "
     class="flex flex-col gap-2 | border border-theme bg-theme-3 rounded-lg | p-2 lg:p-4">
     <h3 class="font-bold">
       <span v-if="scheduledTodo" class="text-theme">
@@ -20,10 +23,7 @@
       :to="`/?todo=${scheduledTodo.id}`"
       area-label="ScheduledTodo">
       <p>
-        <span v-if="scheduledTodo.description.length > 100" class="text-theme">
-          {{ scheduledTodo.description.slice(0, 100) }}...
-        </span>
-        <span v-else class="text-theme">
+        <span class="text-theme text-sm | truncate-2">
           {{ scheduledTodo.description }}
         </span>
       </p>
@@ -34,6 +34,7 @@
 <script setup lang="ts">
 const todoStore = useTodoStore()
 const loadingStore = useLoadingStore()
+const settingStore = useSettingStore()
 
 const scheduledTodo = computed(() => {
   return todoStore.todos

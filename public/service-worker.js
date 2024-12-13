@@ -45,7 +45,7 @@ self.addEventListener('notificationclick', (event) => {
 
 self.addEventListener('push', (event) => {
   const { todoId, text } = JSON.parse(event.data.text())
-  self.registration.showNotification('Check!', {
+  self.registration.showNotification('Memoku!', {
     body: text,
     requireInteraction: true,
     renotify: true,

@@ -150,7 +150,7 @@
           @change="emit('set-date', $event)" />
         <input
           :value="time"
-          class="w-fit | border border-theme rounded-lg | px-2 py-1 | text-xs text-theme"
+          class="w-fit | border border-theme rounded-lg | bg-theme-3 | px-2 py-1 | text-xs text-theme"
           :class="storageStore.getThemeClass('', 'dark')"
           type="time"
           @change="emit('set-time', $event)" />

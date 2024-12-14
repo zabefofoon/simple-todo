@@ -1,172 +1,182 @@
 <template>
-  <div class="flex flex-col justify-center">
+  <main class="relative | overflow-hidden | text-slate-800">
+    <img
+      class="w-[200px] lg:w-auto | absolute right-0 top-0 translate-x-1/2 lg:translate-x-1/3 -translate-y-1/2"
+      src="https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/blob.webp"
+      :alt="i18n.t('Induce1')" />
+    <img
+      class="w-[200px] lg:w-auto | absolute left-0 bottom-0 -translate-x-1/3 translate-y-2/3 lg:translate-y-[800px]"
+      src="https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/blob.webp"
+      :alt="i18n.t('Induce1')" />
+    <img
+      class="w-[200px] lg:w-auto | absolute right-0 bottom-0 translate-x-1/3 translate-y-2/3 lg:translate-y-[800px] rotate-90"
+      src="https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/blob.webp"
+      :alt="i18n.t('Induce1')" />
     <section
-      class="relative | main-section | flex flex-col items-center justify-center | aspect-[1/1] lg:aspect-[16/9] max-h-[88vh]"
-      property="mainContentOfPage">
-      <img
-        class="absolute z-0 bottom-0 lg:bottom-[unset] | pointer-events-none | w-[92%] aspect-[1920/1080]"
-        src="~/assets/images/main.png"
-        alt="Welcome to MEMOKU!"
-        property="image" />
-      <div class="relative | bg-white">
-        <h2
-          class="flex gap-1.5 | text-sm | absolute top-0 left-0 -translate-y-[100%]">
-          <span
-            class="text-white text-sm lg:text-md | rounded-full | px-1.5 py-0.5 | bg-[#eb4d4b]">
-            #{{ i18n.t('TodoList') }}
-          </span>
-          <span
-            class="text-white text-sm lg:text-md | rounded-full | px-1.5 py-0.5 bg-[#4834d4]">
-            #{{ i18n.t('Reminder') }}
-          </span>
-          <span
-            class="text-white text-sm lg:text-md | rounded-full | px-1.5 py-0.5 bg-[#6ab04c]">
-            #{{ i18n.t('TaskManager') }}
-          </span>
-        </h2>
-        <h1
-          class="text-7xl lg:text-8xl font-bold tracking-tighter text-slate-900">
-          MEMOKU
-        </h1>
-      </div>
-    </section>
-    <section
-      class="flex flex-col items-center justify-center | aspect-[1/1] lg:aspect-[30/9]">
-      <p
-        class="relative z-1 | mt-8 px-8 | text-lg lg:text-2xl text-center | lg:w-[800px] leading-relaxed">
-        {{ i18n.t('Induce1') }}
+      class="max-w-[440px] lg:max-w-[1400px] | mx-auto px-[16px] lg:px-[0] pt-[80px]">
+      <p class="text-[13px] text-white | flex gap-2 mb-[12px]">
+        <span class="bg-[#eb4d4b] px-2 py-0.5 | rounded-full">
+          #{{ i18n.t('TodoList') }}
+        </span>
+        <span class="bg-[#4834d4] px-2 py-0.5 | rounded-full">
+          #{{ i18n.t('Reminder') }}
+        </span>
+        <span class="bg-[#6ab04c] px-2 py-0.5 | rounded-full">
+          #{{ i18n.t('TaskManager') }}
+        </span>
       </p>
+      <h1
+        class="leading-tight text-[40px] lg:text-[48px] font-bold | mb-[24px]"
+        v-html="i18n.t('Induce1')"></h1>
+      <p
+        class="text-[20px] lg:text-[28px] mb-[24px]"
+        v-html="i18n.t('Induce2')"></p>
       <NuxtLinkLocale
-        to="/"
-        class="relative z-1 text-white lg:text-xl | rounded-full | mt-8 px-8 py-2 bg-slate-800">
-        {{ i18n.t('Induce2') }}
+        class="block | w-fit | px-12 py-1.5 mb-[60px] | bg-slate-900 | rounded-lg text-center"
+        to="/">
+        <span
+          class="whitespace-nowrap lg:text-[18px] text-white"
+          v-t="'Induce3'">
+        </span>
       </NuxtLinkLocale>
     </section>
+
     <section
-      class="flex flex-col items-center justify-center gap-10 | px-4 py-24 | bg-slate-800">
-      <ul class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 | lg:w-[80%]">
+      class="max-w-[440px] lg:max-w-[1400px] | mx-auto pb-[40px] px-[16px] lg:px-[0]">
+      <div class="relative pointer-events-none">
+        <UICarousel
+          class="bg-slate-800 border-4 border-slate-800 rounded-lg | overflow-hidden w-[90%] aspect-[1080/1920] lg:aspect-video"
+          use-dots
+          loop
+          autoplay>
+          <UICarouselSlide v-for="(item, index) in slides" :key="index">
+            <picture>
+              <source media="(min-width: 1024px)" :srcset="item.pc" />
+              <source media="(max-width: 1023px)" :srcset="item.mo" />
+              <img class="blockw-full" :src="item.mo" :alt="item.alt" />
+            </picture>
+          </UICarouselSlide>
+        </UICarousel>
+        <UICarousel
+          class="!absolute bottom-8 right-0 | rounded-lg overflow-hidden | w-[240px] aspect-video lg:aspect-[1080/1920]"
+          style="box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5)"
+          loop
+          autoplay>
+          <UICarouselSlide v-for="(item, index) in slides" :key="index">
+            <picture>
+              <source media="(min-width: 1024px)" :srcset="item.mo" />
+              <source media="(max-width: 1023px)" :srcset="item.pc" />
+              <img
+                class="blockw-full"
+                :src="item.pc"
+                :alt="item.alt"
+                loading="lazy" />
+            </picture>
+          </UICarouselSlide>
+        </UICarousel>
+      </div>
+    </section>
+
+    <section
+      class="max-w-[440px] lg:max-w-[1400px] | flex flex-col items-center justify-center gap-10 | mx-auto py-[40px] lg:py-[60px] px-[16px]">
+      <ul class="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-4">
         <li
-          class="flex flex-col gap-4 lg:gap-8 | w-full | border border-slate-500 rounded-lg | p-4 lg:py-10 lg:px-6"
+          v-for="(figure, index) in figures"
+          :key="index"
+          class="bg-slate-100 | flex flex-col gap-4 | rounded-lg | p-4 lg:p-6"
           typeof="Service">
-          <div
-            class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
-            <i class="icon icon-post flex-shrink-0 | text-white"></i>
-            <span class="text-white" property="name">{{
-              i18n.t('EasyMemoDescription')
-            }}</span>
+          <div class="flex items-center gap-2">
+            <i
+              class="icon flex-shrink-0 | lg:text-[24px]"
+              :class="figure.icon"></i>
+            <span class="lg:text-[18px]" property="name" v-t="figure.title">
+            </span>
           </div>
           <div
-            class="text-center lg:text-[18px] text-white"
-            property="description">
-            {{ i18n.t('EasyMemoDescriptionGuide') }}
-          </div>
-        </li>
-        <li
-          class="flex flex-col gap-4 lg:gap-8 | w-full | border border-slate-500 rounded-lg | p-4 lg:py-10 lg:px-6"
-          typeof="Service">
-          <div
-            class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
-            <i class="icon icon-notification flex-shrink-0 | text-white"></i>
-            <span class="text-white" property="name">{{
-              i18n.t('NotificationDescription')
-            }}</span>
-          </div>
-          <div
-            class="text-center lg:text-[18px] text-white"
-            property="description">
-            {{ i18n.t('NotificationDescriptionDescription') }}
-          </div>
-        </li>
-        <li
-          class="flex flex-col gap-4 lg:gap-8 | w-full | border border-slate-500 rounded-lg | p-4 lg:py-10 lg:px-6"
-          typeof="Service">
-          <div
-            class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
-            <i class="icon icon-tag flex-shrink-0 | text-white"></i>
-            <span class="text-white" property="name">{{
-              i18n.t('TagDescription')
-            }}</span>
-          </div>
-          <div
-            class="text-center lg:text-[18px] text-white"
-            property="description">
-            {{ i18n.t('TagDescriptionGuide') }}
-          </div>
-        </li>
-        <li
-          class="flex flex-col gap-4 lg:gap-8 | w-full | border border-slate-500 rounded-lg | p-4 lg:py-10 lg:px-6"
-          typeof="Service">
-          <div
-            class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
-            <i class="icon icon-date flex-shrink-0 | text-white"></i>
-            <span class="text-white" property="name">{{
-              i18n.t('DateDescription')
-            }}</span>
-          </div>
-          <div
-            class="text-center lg:text-[18px] text-white"
-            property="description">
-            {{ i18n.t('DateDescriptionGuide') }}
-          </div>
-        </li>
-        <li
-          class="flex flex-col gap-4 lg:gap-8 | w-full | border border-slate-500 rounded-lg | p-4 lg:py-10 lg:px-6"
-          typeof="Service">
-          <div
-            class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
-            <i class="icon icon-theme flex-shrink-0 | text-white"></i>
-            <span class="text-white" property="name">{{
-              i18n.t('ThemeDescription')
-            }}</span>
-          </div>
-          <div
-            class="text-center lg:text-[18px] text-white"
-            property="description">
-            {{ i18n.t('ThemeDescriptionGuide') }}
-          </div>
-        </li>
-        <li
-          class="flex flex-col gap-4 lg:gap-8 | w-full | border border-slate-500 rounded-lg | p-4 lg:py-10 lg:px-6"
-          typeof="Service">
-          <div
-            class="text-center lg:text-[24px] | flex items-center justify-center gap-2">
-            <i class="icon icon-chart flex-shrink-0 | text-white"></i>
-            <span class="text-white" property="name">{{
-              i18n.t('AnalisysDescription')
-            }}</span>
-          </div>
-          <div
-            class="text-center lg:text-[18px] text-white"
-            property="description">
-            {{ i18n.t('AnalisysDescriptionGuide') }}
-          </div>
+            class="lg:text-[18px]"
+            property="description"
+            v-t="figure.description"></div>
         </li>
       </ul>
     </section>
+
     <section
-      class="flex items-center justify-center flex-col lg:flex-row gap-12 lg:gap-0 | py-20">
-      <div>
-        <img
-          src="~/assets/images/add_home.png"
-          class="w-full"
-          alt="Responsive MEMOKU"
-          property="image" />
-      </div>
-      <div class="flex flex-col gap-3 | w-full | px-8">
-        <h3 class="text-2xl lg:text-3xl leading-normal | lg:w-1/2">
-          {{ i18n.t('Induce3') }}
-        </h3>
-        <p class="text-lg lg:text-xl leading-normal | lg:w-1/2">
-          {{ i18n.t('Induce4') }}
-        </p>
-        <NuxtLinkLocale
-          to="/"
-          class="lg:w-fit | relative z-1 text-white lg:text-xl text-center | rounded-full | mt-4 px-8 py-2 bg-slate-800">
-          {{ i18n.t('Induce5') }}
-        </NuxtLinkLocale>
+      v-if="settingStore.screen === 'lg'"
+      class="flex flex-col gap-[32px] | max-w-[440px] lg:max-w-[1400px] | mx-auto py-[24px] lg:py-[40px] px-[16px]">
+      <div v-for="(item, index) in newsSections" :key="index">
+        <div class="flex items-start flex-col lg:flex-row | w-full">
+          <div class="shrink-0 lg:w-1/2 | flex flex-col gap-[24px]">
+            <h2
+              class="shrink-0 w-full | leading-tight text-[20px] lg:text-[32px] font-bold"
+              v-html="item.title"></h2>
+            <p class="lg:text-[20px]" v-html="item.description"></p>
+            <NuxtLinkLocale
+              class="lg:w-fit | px-16 py-1.5 | border-2 border-slate-300 rounded-lg | text-center"
+              :to="item.href">
+              <span class="whitespace-nowrap text-[18px]" v-t="'More'"></span>
+            </NuxtLinkLocale>
+          </div>
+          <img
+            v-if="settingStore.screen === 'lg'"
+            class="lg:w-1/2 block rounded-lg"
+            :src="item.image"
+            :alt="item.title"
+            loading="lazy" />
+        </div>
       </div>
     </section>
-  </div>
+    <section v-else>
+      <UICarousel
+        class="max-w-[440px] | mx-auto py-[40px] px-[16px]"
+        drag-free
+        :perview="1.1"
+        gap="12px">
+        <UICarouselSlide
+          v-for="(item, index) in newsSections"
+          :key="index"
+          class="flex flex-col | border rounded-lg | overflow-hidden">
+          <img
+            :src="item.image"
+            :alt="item.title"
+            class="block"
+            loading="lazy" />
+          <div class="p-3 | h-full | flex flex-col">
+            <h4
+              class="mb-[12px] | font-bold text-[20px]"
+              v-html="item.title"></h4>
+            <p v-html="item.description" class="mb-[20px]"></p>
+            <NuxtLink
+              class="block | border border-slate-300 rounded-lg | py-1.5 px-8 mt-auto | text-center">
+              <span class="text-sm" v-t="'More'"></span>
+            </NuxtLink>
+          </div>
+        </UICarouselSlide>
+      </UICarousel>
+    </section>
+    <section
+      class="max-w-[440px] lg:max-w-[1400px] | flex flex-col lg:flex-row items-center gap-[32px] | mx-auto | py-[40px] lg:py-[80px] px-[16px]">
+      <div class="w-full lg:w-1/2">
+        <h2
+          class="leading-tight text-[20px] lg:text-[32px] font-bold | mb-[12px]">
+          <span class="text-[24px] lg:text-[40px] font-bold" v-t="'Induce4'">
+          </span>
+        </h2>
+        <p class="lg:text-[24px] mb-[20px]" v-html="i18n.t('Induce5')"></p>
+        <NuxtLinkLocale
+          class="block | lg:w-fit | px-12 py-1.5 | bg-slate-900 | rounded-lg text-center"
+          to="/">
+          <span
+            class="whitespace-nowrap text-[18px] text-white"
+            v-t="'Induce3'">
+          </span>
+        </NuxtLinkLocale>
+      </div>
+      <img
+        class="w-full lg:w-1/2"
+        src="~/assets/images/add_home.png"
+        loading="lazy" />
+    </section>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -174,27 +184,110 @@ definePageMeta({
   layout: 'layout-landing',
 })
 const i18n = useI18n()
+const settingStore = useSettingStore()
+const storageStore = useStorageStore()
 
-useHead({
-  title: i18n.t('PageTitle'),
-  meta: [
+const slides = computed(() => [
+  {
+    pc: 'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/capture_pc_dashboard.webp',
+    mo: 'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/capture_mo_dashboard.webp',
+    alt: i18n.t('Induce2'),
+  },
+  {
+    pc: 'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/capture_pc_todo.webp',
+    mo: 'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/capture_mo_todo.webp',
+    alt: i18n.t('TagDescriptionGuide'),
+  },
+  {
+    pc: 'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/capture_pc_calendar.webp',
+    mo: 'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/capture_mo_calendar.webp',
+    alt: i18n.t('DateDescriptionGuide'),
+  },
+  {
+    pc: 'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/capture_pc_calendar2.webp',
+    mo: 'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/capture_mo_calendar2.webp',
+    alt: i18n.t('EasyMemoDescriptionGuide'),
+  },
+  {
+    pc: 'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/capture_pc_todo2.webp',
+    mo: 'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/capture_mo_todo2.webp',
+    alt: i18n.t('Induce1'),
+  },
+])
+
+const newsSections = computed(() => {
+  let linkHref = '/news/Google-Integration'
+  if (storageStore.language === 'ko') linkHref = '/ko/news/구글-연동'
+  else if (storageStore.language === 'ja') linkHref = '/ja/news/Google連携'
+
+  let homeHref = '/news/Add-to-Home'
+  if (storageStore.language === 'ko') homeHref = '/ko/news/홈화면-추가'
+  else if (storageStore.language === 'ja') homeHref = '/ja/news/ホームに追加'
+
+  let tagHref = '/news/tags-calendar-manage'
+  if (storageStore.language === 'ko') tagHref = '/ko/news/태그-달력-관리'
+  else if (storageStore.language === 'ja')
+    tagHref = '/ja/news/タグ-カレンダー-管理'
+
+  return [
     {
-      name: 'description',
-      content: i18n.t('PageDescription'),
+      title: i18n.t('Home_news_link_title'),
+      description: i18n.t('Home_news_link_desc'),
+      image:
+        'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/link.webp',
+      href: linkHref,
     },
     {
-      name: 'keywords',
-      content: i18n.t('PageKeywords'),
+      title: i18n.t('Home_news_home_title'),
+      description: i18n.t('Home_news_home_desc'),
+      image:
+        'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/home.webp',
+      href: homeHref,
     },
     {
-      property: 'og:title',
-      content: i18n.t('PageTitle'),
+      title: i18n.t('Home_news_tags_title'),
+      description: i18n.t('Home_news_tags_desc'),
+      image:
+        'https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/calendar.webp',
+      href: tagHref,
     },
-    {
-      property: 'og:description',
-      content: i18n.t('PageDescription'),
-    },
-  ],
+  ]
+})
+
+const figures = computed(() => [
+  {
+    icon: 'icon-post',
+    title: 'EasyMemoDescription',
+    description: 'EasyMemoDescriptionGuide',
+  },
+  {
+    icon: 'icon-notification',
+    title: 'NotificationDescription',
+    description: 'NotificationDescriptionDescription',
+  },
+  {
+    icon: 'icon-tag',
+    title: 'TagDescription',
+    description: 'TagDescriptionGuide',
+  },
+  {
+    icon: 'icon-date',
+    title: 'DateDescription',
+    description: 'DateDescriptionGuide',
+  },
+  {
+    icon: 'icon-theme',
+    title: 'ThemeDescription',
+    description: 'ThemeDescriptionGuide',
+  },
+  {
+    icon: 'icon-chart',
+    title: 'AnalisysDescription',
+    description: 'AnalisysDescriptionGuide',
+  },
+])
+
+useHead(() => ({
   link: [
     {
       rel: 'canonical',
@@ -273,5 +366,5 @@ useHead({
       }),
     },
   ],
-})
+}))
 </script>

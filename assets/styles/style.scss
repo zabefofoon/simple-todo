@@ -115,3 +115,16 @@ input[type='time'] {
   margin-bottom: constant(safe-area-inset-bottom);
   margin-bottom: env(safe-area-inset-bottom);
 }
+
+.pcbr {
+  display: none;
+  @media (min-width: 1024px) {
+    display: block;
+  }
+}
+
+.mobr {
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}

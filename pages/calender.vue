@@ -16,8 +16,6 @@ definePageMeta({
   buttons: ['new', 'search'],
 })
 
-const storageStore = useStorageStore()
-
 useHead(() => ({
   meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 }))

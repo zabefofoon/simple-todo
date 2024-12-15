@@ -85,8 +85,13 @@
         <i class="icon icon-close"></i>
       </button>
       <span
-        class="absolute left-0 top-0 -translate-y-1/2 | bg-theme | text-[10px] lg:text-xs">
-        {{ todo.createdDate.replaceAll('-', '.').slice(2) }}
+        class="absolute left-0 top-0 -translate-y-1/2 | bg-theme-3 | text-[10px] lg:text-xs">
+        {{
+          etcUtil.formatDate(
+            new Date(todo.createdDate).getTime(),
+            storageStore.language
+          )
+        }}
       </span>
     </figure>
   </NuxtLinkLocale>
@@ -94,6 +99,7 @@
 
 <script setup lang="ts">
 import type { Todo } from '~/models/Todo'
+import etcUtil from '~/utils/etc'
 
 const props = defineProps<{
   todo: Todo

@@ -106,7 +106,12 @@
               src="~/assets/images/google.svg" />
 
             <span class="text-xs text-theme">
-              {{ currentTodo?.createdDate.replaceAll('-', '.').slice(2) }}
+              {{
+                etcUtil.formatDate(
+                  new Date(currentTodo?.createdDate ?? '').getTime(),
+                  storageStore.language
+                )
+              }}
             </span>
 
             <NuxtLinkLocale
@@ -161,6 +166,7 @@
 import { useModal } from 'vue-final-modal'
 import TodoImageModal from '~/components/TodoImageModal.vue'
 import { Todo } from '~/models/Todo'
+import etcUtil from '~/utils/etc'
 
 const emit = defineEmits<{
   (e: 'close'): void

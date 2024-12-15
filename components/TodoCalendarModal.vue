@@ -13,7 +13,12 @@
     hide-close
     @close="emit('close')">
     <HeaderInner
-      :label="route.query.calendar?.toString().replaceAll('-', '.') ?? ''" />
+      :label="
+        etcUtil.formatDate(
+          new Date(route.query.calendar?.toString() ?? '').getTime(),
+          storageStore.language
+        )
+      " />
     <div class="w-full h-full">
       <Spinner v-if="loadingStore.todoLoading" class="h-full" />
       <template v-else>
@@ -39,6 +44,8 @@
 </template>
 
 <script setup lang="ts">
+import etcUtil from '~/utils/etc'
+
 const emit = defineEmits<{
   (e: 'close'): void
 }>()

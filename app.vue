@@ -65,14 +65,20 @@ const init = async () => {
   broadcastChannel = new BroadcastChannel('sw-messages')
   broadcastChannel.addEventListener('message', (event) => {
     if (event.data?.type === 'notification') {
-      alarmStore.removeReadNewAlarms(event.data.todoId)
-      alarmStore.addNewAlarm(event.data.todoId)
+      const todoId = isNaN(+event.data.todoId)
+        ? event.data.todoId
+        : +event.data.todoId
+      alarmStore.removeReadNewAlarms(todoId)
+      alarmStore.addNewAlarm(todoId)
     }
     if (event.data?.type === 'notificationclick') {
-      navigateTo(`?todo=${event.data.todoId}`)
+      const todoId = isNaN(+event.data.todoId)
+        ? event.data.todoId
+        : +event.data.todoId
+      navigateTo(`?todo=${todoId}`)
       setTimeout(() => {
-        alarmStore.addNewAlarm(event.data.todoId)
-        alarmStore.addReadNewAlarm(event.data.todoId)
+        alarmStore.addNewAlarm(todoId)
+        alarmStore.addReadNewAlarm(todoId)
       }, 2000)
     }
   })

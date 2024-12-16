@@ -108,7 +108,7 @@
             <span class="text-xs text-theme">
               {{
                 etcUtil.formatDate(
-                  new Date(currentTodo?.createdDate ?? '').getTime(),
+                  new Date(currentTodo?.createdDate ?? 0).getTime(),
                   storageStore.language
                 )
               }}

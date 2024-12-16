@@ -75,15 +75,13 @@ const alarmStore = useAlarmStore()
 const checkRead = (id: string) => alarmStore.readNewAlarms?.includes(id)
 
 const alarms = computed(() => {
-  return <Todo[]>(
-    (
-      alarmStore.newAlarms?.map((alarm) =>
-        todoStore.todos?.find((todo) => todo.id === alarm)
-      ) || []
-    )
-      .filter((todo) => !!todo)
-      .slice(0, 30)
+  return (
+    alarmStore.newAlarms?.map<Todo | undefined>((alarm) =>
+      todoStore.todos?.find((todo) => todo.id === alarm)
+    ) || []
   )
+    .filter((todo) => !!todo)
+    .slice(0, 30)
 })
 
 const getUrl = (todo: Todo) => {

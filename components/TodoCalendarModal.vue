@@ -15,7 +15,7 @@
     <HeaderInner
       :label="
         etcUtil.formatDate(
-          new Date(route.query.calendar?.toString() ?? '').getTime(),
+          new Date(route.query.calendar?.toString() ?? 0).getTime(),
           storageStore.language
         )
       " />

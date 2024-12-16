@@ -8,9 +8,7 @@ precacheAndRoute(self.__WB_MANIFEST || [])
 
 const timers = []
 
-self.addEventListener('message', ({ data }) => {
-  // if (data.type === 'registerTimer') registerTimer(data.todos)
-})
+const channel = new BroadcastChannel('sw-messages')
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close()
@@ -20,24 +18,18 @@ self.addEventListener('notificationclick', (event) => {
       for (const client of clientList) {
         if ('focus' in client)
           return client.focus().then(() => {
-            setTimeout(() => {
-              const channel = new BroadcastChannel('sw-messages')
-              channel.postMessage({
-                type: 'notificationclick',
-                todoId: event.notification.data.todoId,
-              })
-            }, 1000)
-          })
-      }
-      if (clients.openWindow)
-        return clients.openWindow('/?notification=true').then(() => {
-          setTimeout(() => {
-            const channel = new BroadcastChannel('sw-messages')
             channel.postMessage({
               type: 'notificationclick',
               todoId: event.notification.data.todoId,
             })
-          }, 7000)
+          })
+      }
+      if (clients.openWindow)
+        return clients.openWindow('/?notification=true').then(() => {
+          channel.postMessage({
+            type: 'notificationclick',
+            todoId: event.notification.data.todoId,
+          })
         })
     })
   )
@@ -58,6 +50,5 @@ self.addEventListener('push', (event) => {
     },
   })
 
-  const channel = new BroadcastChannel('sw-messages')
   channel.postMessage({ type: 'notification', todoId })
 })

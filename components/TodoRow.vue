@@ -88,7 +88,7 @@
         class="absolute left-0 top-0 -translate-y-1/2 | bg-theme-3 | text-[10px] lg:text-xs">
         {{
           etcUtil.formatDate(
-            new Date(todo.createdDate).getTime(),
+            new Date(todo.createdDate ?? 0).getTime(),
             storageStore.language
           )
         }}

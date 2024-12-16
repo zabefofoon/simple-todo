@@ -146,6 +146,7 @@
               v-html="item.title"></h4>
             <p v-html="item.description" class="mb-[20px]"></p>
             <NuxtLink
+              :to="item.href"
               class="block | border border-slate-300 rounded-lg | py-1.5 px-8 mt-auto | text-center">
               <span class="text-sm" v-t="'More'"></span>
             </NuxtLink>

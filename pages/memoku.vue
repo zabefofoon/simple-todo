@@ -1,15 +1,15 @@
 <template>
   <main class="relative | overflow-hidden | text-slate-800">
     <img
-      class="w-[200px] lg:w-auto | absolute right-0 top-0 translate-x-1/2 lg:translate-x-1/3 -translate-y-1/2"
+      class="pointer-events-none | w-[200px] lg:w-auto | absolute right-0 top-0 translate-x-1/2 lg:translate-x-1/3 -translate-y-1/2"
       src="https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/blob.webp"
       :alt="i18n.t('Induce1')" />
     <img
-      class="w-[200px] lg:w-auto | absolute left-0 bottom-0 -translate-x-1/3 translate-y-2/3 lg:translate-y-[800px]"
+      class="pointer-events-none | w-[200px] lg:w-auto | absolute left-0 bottom-0 -translate-x-1/3 translate-y-2/3 lg:translate-y-[800px]"
       src="https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/blob.webp"
       :alt="i18n.t('Induce1')" />
     <img
-      class="w-[200px] lg:w-auto | absolute right-0 bottom-0 translate-x-1/3 translate-y-2/3 lg:translate-y-[800px] rotate-90"
+      class="pointer-events-none | w-[200px] lg:w-auto | absolute right-0 bottom-0 translate-x-1/3 translate-y-2/3 lg:translate-y-[800px] rotate-90"
       src="https://hopxvfhalrmkomnxznpf.supabase.co/storage/v1/object/public/memoku-bucket/public/blob.webp"
       :alt="i18n.t('Induce1')" />
     <section
@@ -164,8 +164,8 @@
         </h2>
         <p class="lg:text-[24px] mb-[20px]" v-html="i18n.t('Induce5')"></p>
         <NuxtLinkLocale
-          class="block | lg:w-fit | px-12 py-1.5 | bg-slate-900 | rounded-lg text-center"
-          to="/">
+          to="/"
+          class="block | lg:w-fit | px-12 py-1.5 | bg-slate-900 | rounded-lg text-center">
           <span
             class="whitespace-nowrap text-[18px] text-white"
             v-t="'Induce3'">

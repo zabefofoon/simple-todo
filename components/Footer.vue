@@ -9,10 +9,10 @@
         <i class="icon icon-threads"></i>
       </NuxtLinkLocale>
       <NuxtLinkLocale
-        to="https://zabefofoon.tistory.com/24"
+        to="https://x.com/zabefofoon"
         target="_blank"
         class="flex">
-        <i class="icon icon-tistory text-xs"></i>
+        <i class="icon icon-x text-xs"></i>
       </NuxtLinkLocale>
     </div>
 

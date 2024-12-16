@@ -28,8 +28,6 @@
 </template>
 
 <script setup lang="ts">
-import etcUtil from '~/utils/etc'
-
 const storageStore = useStorageStore()
 const i18n = useI18n()
 const googleStore = useGoogleStore()
@@ -47,11 +45,11 @@ const validate = () => {
     return
   }
   loading.value = true
-  etcUtil.setCookie('x-google-email', email.value, 365)
+  useCookie('x-google-email', { maxAge: 31536000 }).value = email.value
   googleStore.openGoogleLoginPopup()
 }
 
 onMounted(() => {
-  email.value = etcUtil.getCookie('x-google-email') ?? ''
+  email.value = useCookie('x-google-email').value ?? ''
 })
 </script>

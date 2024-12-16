@@ -43,7 +43,7 @@ const init = async () => {
 
   const isPWA = window.matchMedia('(display-mode: standalone)').matches
 
-  if (isPWA && isAndroid) {
+  if (isPWA && isAndroid && route.query.notification !== 'true') {
     // 페이지가 로드될 때 히스토리 추가
     navigateTo({ query: { ...route.query, f: '1' } })
 

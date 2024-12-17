@@ -34,11 +34,12 @@
                 :key="todo.id"
                 class="flex | w-full overflow-hidden | border border-theme rounded-lg | p-0.5 | relative">
                 <span
-                  class="truncate-2 text-[8px] md:text-sm text-theme"
+                  class="truncate-2 text-[8px] md:text-xs text-theme"
                   v-html="
                     escapeHTML(todo.description?.replaceAll('\n', '<br/>'))
                   ">
                 </span>
+
                 <div
                   class="w-1 h-1 | absolute top-[.5px] left-[.5px] | rounded-full"
                   :style="{

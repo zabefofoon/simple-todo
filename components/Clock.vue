@@ -1,14 +1,14 @@
 <template>
   <div
     class="text-theme bg-theme | w-full flex items-center justify-center | pt-4 pb-1.5 | border border-theme rounded-lg">
-    <div v-if="!loadingStore.todoLoading" class="relative">
-      <div class="absolute top-0 left-0 -translate-y-1/2 | flex">
-        <span class="text-[1.2cqh]">
+    <div v-if="!loadingStore.todoLoading" class="relative | w-full text-center">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2/3">
+        <span class="text-[11px]">
           {{ currentYear }}
         </span>
-        <div v-if="day" class="text-[1.2cqh]">({{ i18n.t(day) }})</div>
+        <span v-if="day" class="text-[11px]">({{ i18n.t(day) }})</span>
       </div>
-      <span class="text-[3.6cqh]">
+      <span class="text-[24px]">
         {{ currentTime }}
       </span>
     </div>
@@ -58,10 +58,15 @@ const setDay = () => {
 
   day.value = days[now.getDay()]
 }
-
+let timer: NodeJS.Timeout
 onMounted(() => {
   setYear()
   setCurrentTime()
+  timer = setInterval(() => setCurrentTime(), 1000)
   setDay()
+})
+
+onBeforeMount(() => {
+  clearInterval(timer)
 })
 </script>

@@ -5,8 +5,6 @@ import { useAlarmStore } from './alarm.store'
 import { useLoadingStore } from './loading.store'
 import { useStorageStore } from './storage.store'
 
-import { generateUniqueId } from '~/utils/etc'
-
 export const useTodoStore = defineStore('todo', () => {
   const storageStore = useStorageStore()
   const loadingStore = useLoadingStore()
@@ -26,7 +24,7 @@ export const useTodoStore = defineStore('todo', () => {
         todos.value ? todos.value.push(..._todos) : (todos.value = _todos)
       } else {
         const defaultTodo = Todo.of({
-          id: generateUniqueId(),
+          id: 1,
           description: 'Welcome!',
         })
         await addTodo(defaultTodo)

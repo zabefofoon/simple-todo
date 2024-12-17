@@ -20,11 +20,10 @@ defineProps<{
 
 const storageStore = useStorageStore()
 const router = useRouter()
-const route = useRoute()
 const localePath = useLocalePath()
 
 const back = () => {
-  !history.state.back || route.fullPath.includes(history.state.back)
+  !history.state.back || history.state.back.includes('?notification=true')
     ? navigateTo(localePath('/', storageStore.language))
     : router.back()
 }

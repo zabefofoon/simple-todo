@@ -1,252 +1,148 @@
 <template>
   <div
-    class="flex flex-col gap-3 | w-full min-w-[200px] | border border-theme rounded-lg | p-4 | bg-theme-3">
-    <div
-      v-if="loadingStore.todoLoading"
-      class="w-full aspect-video lg:aspect-square | flex items-center justify-center">
-      <Spinner />
+    class="flex flex-col gap-3 | w-full min-w-[200px] | bg-theme-3 | text-theme">
+    <div class="border border-theme rounded-lg | flex-1 | p-4">
+      <div
+        v-if="!loadingStore.todoLoading"
+        class="flex flex-col justify-center items-center | h-full">
+        <div
+          class="w-fit | aspect-square rounded-full | flex | p-1 lg:p-1.5 mb-1"
+          :style="{ background: levelData[level].color }">
+          <i class="icon icon-badge | lg:text-lg text-slate-600"></i>
+        </div>
+        <p class="text-lg lg:text-xl font-bold | mb-2">
+          {{ levelData[level].title }}
+        </p>
+        <p class="text-sm lg:text-md mb-3">
+          {{ levelData[level].description }}
+        </p>
+        <p v-if="levelData[level + 1]" class="text-xs opacity-70">
+          {{
+            i18n.t('NextLevel', {
+              title: levelData[level + 1].title,
+              n: leftTask,
+            })
+          }}
+        </p>
+      </div>
+      <div
+        v-else
+        class="flex flex-col gap-[12px] items-center justify-center | h-full">
+        <Skeletor class="w-[80%] | h-[24px]" />
+        <Skeletor class="w-[30%] | h-[24px]" />
+        <Skeletor class="w-[60%] | h-[24px]" />
+      </div>
     </div>
-    <div
-      v-else
-      class="my-auto | flex items-center justify-center"
-      :class="
-        Object.keys(tagLength).length >= 3
-          ? 'aspect-square'
-          : 'lg:aspect-square'
-      ">
-      <canvas ref="canvas" width="100%" @click="goTo"></canvas>
+    <div class="border border-theme rounded-lg | flex-1 | p-4">
+      <div
+        v-if="!loadingStore.todoLoading"
+        class="flex flex-col justify-center items-center | h-full">
+        <div class="flex items-center | mb-2">
+          <div
+            class="w-fit | aspect-square rounded-full | flex | p-1 lg:p-1.5 mr-3"
+            :class="comparePrevWeek > 0 ? 'bg-red-500' : 'bg-blue-500'">
+            <i class="icon icon-thumb | text-sm lg:text-md text-white"></i>
+          </div>
+          <div class="text-lg lg:text-xl font-bold | mr-1">
+            {{ i18n.t('Nth', { n: Math.abs(comparePrevWeek) }) }}
+          </div>
+          <i v-if="comparePrevWeek > 0" class="icon icon-arrow-top"></i>
+          <i v-else-if="comparePrevWeek < 0" class="icon icon-arrow-down"></i>
+        </div>
+        <p
+          v-if="comparePrevWeek > 0"
+          class="text-sm lg:text-md"
+          v-t="'WeekCompareUp'"></p>
+        <p
+          v-else
+          class="text-sm lg:text-md text-center"
+          v-t="'WeekCompareDown'"></p>
+      </div>
+      <div
+        v-else
+        class="flex flex-col gap-[12px] items-center justify-center | h-full">
+        <Skeletor class="w-[80%] | h-[24px]" />
+        <Skeletor class="w-[30%] | h-[24px]" />
+        <Skeletor class="w-[60%] | h-[24px]" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Chart } from 'chart.js/auto'
-import ChartDataLabels from 'chartjs-plugin-datalabels'
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
+dayjs.extend(isBetween)
+
+const todoStore = useTodoStore()
+const loadingStore = useLoadingStore()
 
 const i18n = useI18n()
 
-const todoStore = useTodoStore()
-const settingStore = useSettingStore()
-const loadingStore = useLoadingStore()
-const storageStore = useStorageStore()
-const localePath = useLocalePath()
-const canvas = ref<HTMLCanvasElement>()
+const levelData = [
+  {
+    title: 'Lv 1. Newbie',
+    description: i18n.t('Lv1Desc'),
+    condition: 0,
+    color: '#fef08a',
+  },
+  {
+    title: 'Lv 2. Starter',
+    description: i18n.t('Lv2Desc'),
+    condition: 10,
+    color: '#bbf7d0',
+  },
+  {
+    title: 'Lv 3. Planner',
+    description: i18n.t('Lv3Desc'),
+    next: 30,
+    color: '#bfdbfe',
+  },
+  {
+    title: 'Lv 4. Hard Worker',
+    description: i18n.t('Lv4Desc'),
+    condition: 70,
+    color: '#fecaca',
+  },
+  {
+    title: 'Lv 5. Todo Master',
+    description: i18n.t('Lv5Desc'),
+    condition: 150,
+    color: '#ddd6fe',
+  },
+]
 
-const tooltipActiveKey = ref<string>('')
-
-const tagLength = computed(() => {
-  const result =
-    settingStore.setting?.tags.reduce<
-      Record<string, Record<string, number | string>>
-    >((acc, current) => {
-      acc[current.label] = {
-        length:
-          todoStore.todos?.filter((todo) => todo.tagId === current.id).length ||
-          0,
-        color: current.color,
-        id: current.id,
-      }
-      return acc
-    }, {}) || {}
-
-  return Object.entries(result)
-    .sort(([, countA], [, countB]) => countB.length - countA.length)
-    .reduce<Record<string, number>>((acc, [key, { color, length, id }]) => {
-      acc[key] = { color, length, id }
-      return acc
-    }, {})
+const level = computed(() => {
+  const todoLength = todoStore.todos?.length ?? 0
+  if (todoLength < 10) return 0
+  else if (todoLength < 30) return 1
+  else if (todoLength < 70) return 2
+  else if (todoLength < 150) return 3
+  else return 4
 })
 
-const doneLengthByTag = computed(() => {
-  return Object.keys(tagLength.value).flatMap(
-    (key) =>
-      todoStore.todos
-        ?.filter((todo) => todo.tag?.label === key)
-        .filter((todo) => todo.done).length
-  )
+const leftTask = computed(() => {
+  const condition = levelData[level.value + 1].condition ?? 0
+  const length = todoStore.todos?.length ?? 0
+  return condition - length
 })
 
-const undoneLengthByTag = computed(() => {
-  return Object.keys(tagLength.value).flatMap(
-    (key) =>
-      todoStore.todos
-        ?.filter((todo) => todo.tag?.label === key)
-        .filter((todo) => !todo.done).length
-  )
-})
+const comparePrevWeek = computed(() => {
+  const todos = todoStore.todos ?? []
+  const today = dayjs()
+  const startOfWeek = today.startOf('week') // 이번 주 시작
+  const endOfWeek = today.endOf('week') // 이번 주 끝
+  const startOfLastWeek = startOfWeek.subtract(1, 'week') // 지난주 시작
+  const endOfLastWeek = startOfWeek.subtract(1, 'second') // 지난주 끝
 
-const goTo = () => {
-  if (!chartEl.value) return
-  const { tooltip } = chartEl.value
-  if (tooltip?.opacity) {
-    const key = `${tooltip.dataPoints[0].label}_${tooltip.dataPoints[0].dataset?.label}`
+  const lastWeekCount = todos.filter((todo) =>
+    dayjs(todo.created).isBetween(startOfLastWeek, endOfLastWeek, 'day', '[]')
+  ).length
 
-    if (key === tooltipActiveKey.value) {
-      navigateTo({
-        path: localePath('/'),
-        query: {
-          tags: tagLength.value[tooltip.title].id,
-          filter: tooltip.dataPoints[0].dataset?.label,
-        },
-      })
-    }
-    tooltipActiveKey.value = key
-  } else {
-    tooltipActiveKey.value = ''
-  }
-}
+  const thisWeekCount = todos.filter((todo) =>
+    dayjs(todo.created).isBetween(startOfWeek, endOfWeek, 'day', '[]')
+  ).length
 
-const chartEl = ref<Chart>()
-
-watch(canvas, async () => {
-  if (!canvas.value) return
-  Chart.register(ChartDataLabels)
-  chartEl.value = new Chart(canvas.value, {
-    type: 'bar',
-    data: {
-      labels: Object.keys(tagLength.value).map((key) => `${key}`),
-      datasets: [
-        {
-          label: 'Done',
-          backgroundColor(item) {
-            return Object.values(tagLength.value)[item.dataIndex]?.color
-          },
-          borderColor(item) {
-            return Object.values(tagLength.value)[item.dataIndex]?.color
-          },
-          borderWidth: 1,
-          data: doneLengthByTag.value,
-        },
-        {
-          label: 'Undone',
-          backgroundColor: storageStore.getThemeClass(
-            'rgba(71, 85, 105, .2)',
-            'rgba(71, 85, 105, .8)'
-          ),
-          borderColor: storageStore.getThemeClass(
-            'rgba(71, 85, 105, .2)',
-            'rgba(71, 85, 105, .8)'
-          ),
-          borderWidth: 1,
-          data: undoneLengthByTag.value,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        x: {
-          display: false,
-          stacked: true,
-          ticks: {
-            color: storageStore.getThemeClass('', 'white'),
-          },
-          grid: {
-            color: storageStore.getThemeClass(
-              'rgba(0, 0, 0, .1)',
-              'rgba(255, 255, 255, .1)'
-            ),
-          },
-        },
-        y: {
-          stacked: true,
-          display: false,
-          ticks: {
-            color: storageStore.getThemeClass('', 'white'),
-          },
-          grid: {
-            color: storageStore.getThemeClass(
-              'rgba(0, 0, 0, .1)',
-              'rgba(255, 255, 255, .1)'
-            ),
-          },
-        },
-      },
-      maintainAspectRatio: false, // false로 설정하면 canvas 크기가 변경됩니다.
-      aspectRatio: 1, // 원하는 가로:세로 비율로 설정
-      indexAxis: 'y',
-      plugins: {
-        legend: {
-          display: false,
-        },
-        tooltip: {
-          enabled: false,
-          external(context): void {
-            // 커스텀 툴팁 구현
-            const tooltipModel = context.tooltip
-
-            // DOM 요소가 이미 있는지 확인
-            let tooltipEl = document.getElementById('chartjs-tooltip')
-            if (!tooltipEl) {
-              tooltipEl = document.createElement('div')
-              tooltipEl.id = 'chartjs-tooltip'
-              tooltipEl.classList.add('custom-tooltip')
-              document.body.appendChild(tooltipEl)
-            }
-
-            // 툴팁 숨김 처리
-            if (tooltipModel.opacity === 0) {
-              tooltipEl.style.opacity = '0'
-              return
-            }
-
-            // 툴팁 내용 설정
-            if (tooltipModel.body) {
-              const bodyLines = tooltipModel.body.map((item) => item.lines)
-
-              tooltipEl.innerHTML = bodyLines
-                .map((line) => {
-                  return `${i18n.t(line[0].split(':')[0].trim())}: ${line[0]
-                    .split(':')[1]
-                    .trim()}`
-                })
-                .join('')
-            }
-
-            // 툴팁 위치 설정
-            const position = context.chart.canvas.getBoundingClientRect()
-            tooltipEl.style.opacity = '1'
-            tooltipEl.style.left =
-              position.left + window.scrollX + tooltipModel.caretX + 'px'
-            tooltipEl.style.top =
-              position.top + window.scrollX + tooltipModel.caretY + 'px'
-          },
-        },
-        datalabels: {
-          align: 'end',
-          anchor: 'end',
-          color() {
-            return storageStore.getThemeClass('rgba(71, 85, 105, 1)', 'white')
-          },
-          font() {
-            return {
-              size: 13,
-            }
-          },
-          formatter(_, context: any) {
-            return context.datasetIndex === 1
-              ? `#${context.chart.data.labels?.[context.dataIndex]}`
-              : ''
-          },
-        },
-      },
-      layout: {
-        padding: {
-          right: 40,
-        },
-      },
-    },
-  })
+  return thisWeekCount - lastWeekCount
 })
 </script>
-<style lang="scss">
-.custom-tooltip {
-  position: absolute;
-  padding: 4px 6px;
-  color: white;
-  pointer-events: none;
-  background: rgba(0 0 0 / 70%);
-  border-radius: 5px;
-  transition: all 300ms ease;
-  font-size: 12px;
-}
-</style>

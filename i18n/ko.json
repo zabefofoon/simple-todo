@@ -223,5 +223,13 @@
   "Post_image_path": "이미지-저장",
   "NoticeGoogleErrorUpload": "구글 업로드에 실패하여, 로컬에 저장됩니다.",
   "SummaryDoughnut": "전체 {total}개 중, {done}개 완료",
-  "Nth": "{n}개"
+  "Nth": "{n}개",
+  "Lv1Desc": "할 일을 정리해볼까요?",
+  "Lv2Desc": "좀 더 할일을 구체화해봅시다.",
+  "Lv3Desc": "계획적인 삶이군요.",
+  "Lv4Desc": "대단히 부지런하시군요.",
+  "Lv5Desc": "할 일 관리 마스터시군요.",
+  "NextLevel": "{title}까지 {n}개",
+  "WeekCompareUp": "지난주보다 더 부지런하시네요.",
+  "WeekCompareDown": "지난주보다 한가해지셨군요."
 }

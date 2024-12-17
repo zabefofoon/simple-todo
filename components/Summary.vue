@@ -2,11 +2,9 @@
   <div
     v-if="!resizing"
     class="w-full | flex flex-nowrap flex-col lg:flex-row gap-2">
-    <SummaryDones :key="donesKey + tagsKey" />
-    <SummaryTags
-      v-if="settingStore.screen === 'lg'"
-      :key="donesKey + tagsKey" />
-    <SummaryTime :key="donesKey + tagsKey" />
+    <SummaryDones class="order-2" :key="donesKey + tagsKey" />
+    <SummaryTime class="order-3" :key="donesKey + tagsKey" />
+    <SummaryTags class="order-1 lg:order-4" :key="donesKey + tagsKey" />
   </div>
 </template>
 

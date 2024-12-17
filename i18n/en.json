@@ -223,5 +223,13 @@
   "Post_image_path": "Save-Image",
   "NoticeGoogleErrorUpload": "Failed to upload to Google. The data will be saved locally.",
   "SummaryDoughnut": "{total} tasks in total, {done} completed.",
-  "Nth": "{n} pcs"
+  "Nth": "{n} pcs",
+  "Lv1Desc": "Shall we organize your tasks?",
+  "Lv2Desc": "Let's make your tasks more specific.",
+  "Lv3Desc": "You're living a well-planned life.",
+  "Lv4Desc": "You're incredibly diligent.",
+  "Lv5Desc": "You're a master of task management.",
+  "NextLevel": "{n} tasks left to reach {title}.",
+  "WeekCompareUp": "You're more diligent than last week.",
+  "WeekCompareDown": "You seem to have more free time than last week."
 }

@@ -223,5 +223,13 @@
   "Post_image_path": "画像-保存",
   "NoticeGoogleErrorUpload": "Googleへのアップロードに失敗したため、ローカルに保存されます。",
   "SummaryDoughnut": "全体で{total}個中、{done}個完了。",
-  "Nth": "{n}個"
+  "Nth": "{n}個",
+  "Lv1Desc": "タスクを整理してみましょうか？",
+  "Lv2Desc": "タスクをもう少し具体的にしましょう。",
+  "Lv3Desc": "計画的な生活を送っていますね。",
+  "Lv4Desc": "とても勤勉ですね。",
+  "Lv5Desc": "タスク管理の達人ですね。",
+  "NextLevel": "{title}まであと{n}個です。",
+  "WeekCompareUp": "先週よりも勤勉ですね。",
+  "WeekCompareDown": "先週よりもゆったりしていますね。"
 }

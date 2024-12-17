@@ -1,3 +1,4 @@
+import crypto from 'crypto'
 import { GoogleSpreadsheet } from 'google-spreadsheet'
 import { google } from 'googleapis'
 import { createRouter, defineEventHandler, useBase } from 'h3'
@@ -23,14 +24,11 @@ router.get(
       : event.context.siteConfigNitroOrigin.endsWith('/')
       ? event.context.siteConfigNitroOrigin.slice(0, -1)
       : event.context.siteConfigNitroOrigin
-    console.log('domain: ', domain)
-    console.log('origin: ', origin)
 
     const secureDomain =
       !domain.includes('local') && domain.startsWith('http://')
         ? domain.replace('http://', 'https://')
         : domain
-    console.log('secureDomain: ', secureDomain)
 
     const oauth2Client = new google.auth.OAuth2(
       import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID,
@@ -53,7 +51,9 @@ router.get(
         'https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/drive.file',
       ],
+      include_granted_scopes: true,
       login_hint: googleEmail,
+      state: crypto.randomBytes(32).toString('hex'),
     })
   })
 )
@@ -68,12 +68,11 @@ router.get(
       : event.context.siteConfigNitroOrigin.endsWith('/')
       ? event.context.siteConfigNitroOrigin.slice(0, -1)
       : event.context.siteConfigNitroOrigin
-    console.log('domain2: ', domain)
+
     const secureDomain =
       !domain.includes('local') && domain.startsWith('http://')
         ? domain.replace('http://', 'https://')
         : domain
-    console.log('secureDomain2: ', secureDomain)
 
     const query = getQuery(event)
     const oauth2Client = new google.auth.OAuth2(

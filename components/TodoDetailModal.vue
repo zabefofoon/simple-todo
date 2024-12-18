@@ -69,7 +69,7 @@
     </div>
     <template v-else>
       <div
-        class="safe-area-margin-bottom | flex flex-col lg:flex-row gap-3 | h-full overflow-hidden | p-3 lg:p-4">
+        class="safe-area-margin-bottom | flex flex-col lg:flex-row gap-3 | h-full overflow-hidden | p-3 lg:p-5">
         <div
           class="w-full h-full | flex flex-col | relative"
           :class="

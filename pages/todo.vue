@@ -22,11 +22,11 @@
         v-t="'NoTodo'"></p>
     </div>
     <template v-else>
-      <div class="p-2 lg:p-4 | xl:grid xl:grid-cols-2 xl:gap-4">
+      <div class="p-2 lg:p-5 | xl:grid xl:grid-cols-2 lg:gap-x-4">
         <template v-for="tag in settingStore.setting?.tags" :key="tag.id">
           <div
             v-if="matchedTodos(tag.label).length"
-            class="mb-4 lg:mb-8 | rounded-lg border border-theme">
+            class="mb-4 lg:mb-5 | rounded-lg border border-theme">
             <div
               class="p-2 lg:p-4 | font-bold text-theme | flex items-center gap-1.5">
               <NuxtLinkLocale

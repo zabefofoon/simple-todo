@@ -196,8 +196,10 @@ onMounted(() => {
     if (
       document.visibilityState === 'visible' &&
       isOver20Min(googleRequested, new Date())
-    )
+    ) {
+      isLoadedAllTodos.value = false
       loadAllTodos()
+    }
   })
   useCookie('x-origin', { maxAge: 86400 }).value = location.origin
   init()

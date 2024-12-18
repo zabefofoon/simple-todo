@@ -26,7 +26,7 @@
         v-t="'NoTodo'"></p>
     </div>
 
-    <div v-else class="p-2 lg:p-4 | flex flex-col gap-4 | overflow-auto">
+    <div v-else class="p-2 lg:p-5 | flex flex-col gap-4 | overflow-auto">
       <div
         v-for="day in days"
         :key="day"
@@ -34,7 +34,7 @@
         <div class="mb-4 | text-lg font-bold text-theme">
           {{ dayToTitle(day) }}
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-2 | h-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-1 gap-2 lg:gap-4 | h-auto">
           <TodoRow
             v-for="todo in filterTodosByDays(day)"
             :key="todo.id"

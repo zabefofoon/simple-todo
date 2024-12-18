@@ -5,7 +5,7 @@
     <DarkModeButton />
     <NotificationButton />
   </div>
-  <div class="flex flex-col gap-4 | p-4">
+  <div class="flex flex-col gap-4 | p-2 py-4 lg:p-5">
     <div class="flex flex-col | border border-theme rounded-lg | p-4 pb-0">
       <h3 class="font-bold text-theme | pb-2" v-t="'View'"></h3>
       <SettingPermissions />

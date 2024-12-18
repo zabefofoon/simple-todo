@@ -37,9 +37,10 @@ watch(
   () => props.keyword,
   (keyword) => {
     const result = todoStore.todos
-      ?.filter((todo) => todo.description?.includes(String(keyword)))
+      ?.filter((todo) => todo.description?.match(new RegExp(keyword, 'gi')))
       .map((todo) => todo.description)
       .filter((description): description is string => !!description)
+      .map((description) => escapeHTML(description))
 
     setKeywords([...new Set(result || [])])
   },

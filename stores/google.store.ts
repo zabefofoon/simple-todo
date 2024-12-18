@@ -99,6 +99,7 @@ export const useGoogleStore = defineStore(
             ...todo,
           })
         )
+        await sleep(500)
         if (response.status === 401) openGoogleLoginPopup()
       }
     }
@@ -127,6 +128,7 @@ export const useGoogleStore = defineStore(
             ...todo,
           })
         )
+        await sleep(500)
         if (response.status === 401) openGoogleLoginPopup()
       }
     }
@@ -190,8 +192,17 @@ export const useGoogleStore = defineStore(
 
       if (settingStore.setting) {
         const tags = res?.result ?? []
-        settingStore.setting.tags = tags.map(Tag.of)
-        settingStore.updateSetting('tags', tags)
+        const another = tags
+          .filter(
+            (tag) =>
+              !settingStore.setting?.tags.find((item) => item.id !== tag.id)
+          )
+          .filter((tag) => tag)
+          .map(Tag.of)
+
+        const result = [...settingStore.setting.tags, ...another]
+
+        settingStore.updateSetting('tags', deepClone(result))
       }
     }
 

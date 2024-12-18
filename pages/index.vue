@@ -7,15 +7,15 @@
       <NotificationButton />
     </div>
     <div
-      class="lg:h-[94.5%] | flex flex-col lg:flex-row gap-3 | px-2 py-4 lg:p-3 | bg-theme-3">
-      <div class="w-full h-full | flex flex-col gap-3">
+      class="lg:h-[94.5%] | flex flex-col lg:flex-row gap-3 lg:gap-6 | px-2 py-4 lg:p-5 | bg-theme-3">
+      <div class="w-full h-full | flex flex-col gap-3 lg:gap-5">
         <Summary />
         <ScheduledTodo />
         <RecentTodos />
       </div>
       <div
         v-if="settingStore.screen === 'lg'"
-        class="flex-shrink-0 h-full overflow-hidden | flex flex-col gap-3">
+        class="flex-shrink-0 h-full overflow-hidden | flex flex-col gap-3 lg:gap-5">
         <Clock />
         <HomeCalendar />
       </div>

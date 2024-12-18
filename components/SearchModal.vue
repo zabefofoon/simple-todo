@@ -127,8 +127,8 @@ onMounted(() => {
 const todos = computed(
   () =>
     todoStore.todos?.filter((todo) =>
-      todo.description?.includes(String(route.query.keyword))
-    ) || []
+      todo.description?.match(new RegExp(String(route.query.keyword), 'gi'))
+    ) ?? []
 )
 
 watch(

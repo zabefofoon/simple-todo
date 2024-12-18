@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="!resizing"
-    class="w-full | flex flex-nowrap flex-col lg:flex-row gap-2">
+    class="w-full | flex flex-nowrap flex-col lg:flex-row gap-2 lg:gap-5">
     <SummaryDones class="order-2" :key="donesKey + tagsKey" />
     <SummaryTime class="order-3" :key="donesKey + tagsKey" />
     <SummaryTags class="order-1 lg:order-4" :key="donesKey + tagsKey" />

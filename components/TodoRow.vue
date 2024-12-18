@@ -8,7 +8,8 @@
     @mousedown="route.query.bulk && bulkStore.add(todo.id)"
     @contextmenu.prevent>
     <figure
-      class="w-full h-full | flex items-center gap-1 | border rounded-lg | relative | py-1"
+      class="border-l-8 | w-full h-full overflow-hidden | flex items-center gap-1 | border rounded-lg | relative | px-4 py-3"
+      :style="{ borderLeft: `8px solid ${todo.tag?.color}` }"
       :class="[
         storageStore.getThemeClass(
           bulkStore.selectedTodoIds.includes(todo.id)
@@ -19,80 +20,89 @@
             : 'border-slate-700'
         ),
       ]">
-      <div
-        v-if="todo.tag?.id"
-        class="w-20 h-full | flex items-center | border-r border-theme">
-        <NuxtLinkLocale
-          :to="`/?tags=${todo.tag.id}`"
-          class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-white text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | rounded-full"
-          :style="{
-            background: todo.tag?.color || 'black',
-          }">
-          #{{ todo.tag?.label }}
-        </NuxtLinkLocale>
-      </div>
-      <div
-        v-else
-        class="w-20 h-full | flex items-center | border-r border-theme">
-        <div
-          class="w-fit flex-shrink-0 overflow-hidden | whitespace-nowrap text-[10px] lg:text-xs px-1.5 py-.5 mx-auto | border rounded-full">
-          memo
+      <div class="w-full">
+        <div class="flex items-center | -ml-0.5 mb-0.5">
+          <NuxtLinkLocale
+            v-if="todo.tag"
+            :to="`/?tags=${todo.tag.id}`"
+            class="text-white text-[10px] lg:text-xs px-1.5 py-.5 | rounded-full"
+            :style="{
+              background: todo.tag?.color || 'black',
+            }">
+            #{{ todo.tag?.label }}
+          </NuxtLinkLocale>
+          <span
+            v-else
+            class="text-[10px] lg:text-xs px-1.5 py-.5 | border rounded-full">
+            #memo
+          </span>
+
+          <button
+            name="Check"
+            class="ml-auto | flex items-center | rounded-full"
+            :class="[
+              todo.done ? 'bg-green-500' : 'border border-gray-200',
+              hideDelete ? 'right-2' : 'right-8',
+            ]"
+            @click.stop.prevent="!route.query.bulk && done()">
+            <i
+              class="icon icon-check | text-sm"
+              :class="todo.done ? 'text-white' : 'text-gray-300'"></i>
+          </button>
+          <button
+            v-if="!hideDelete"
+            nmae="Delete"
+            class="flex items-center | p-1"
+            @click.stop.prevent="!route.query.bulk && deleteTodo()">
+            <i class="icon icon-close"></i>
+          </button>
+        </div>
+        <h4
+          class="truncate | mb-2"
+          :class="storageStore.getThemeClass('font-bold', '')">
+          <span v-if="(todo.description?.length || 0) > 30">
+            {{ todo.description?.slice(0, 30) }}...
+          </span>
+          <span v-else>
+            {{ todo.description }}
+          </span>
+        </h4>
+        <p class="w-full truncate-2 text-xs | mb-3 | opacity-80">
+          {{ todo.description?.slice(0, 300) }}
+        </p>
+        <div class="flex items-center | w-full">
+          <img
+            v-if="todo.linked"
+            class="w-3 | mr-1"
+            src="~/assets/images/google.svg" />
+          <p class="text-xs opacity-80">
+            {{
+              etcUtil.formatDate(
+                new Date(todo.createdDate ?? 0).getTime(),
+                storageStore.language
+              )
+            }}
+          </p>
+          <figcaption
+            v-if="todo.leftUptoMinute > 0"
+            class="ml-auto | w-fit | bg-theme | flex items-center gap-1 | opacity-80">
+            <i class="icon icon-timer"></i>
+            <span
+              v-if="todo.leftUptoHour > 0"
+              class="text-[10px] lg:text-xs"
+              v-t="{ path: 'LeftHours', args: { hour: todo.leftUptoHour } }">
+            </span>
+            <span
+              v-else
+              class="text-[10px] lg:text-xs"
+              v-t="{
+                path: 'LeftMinits',
+                args: { minute: todo.leftUptoMinute },
+              }">
+            </span>
+          </figcaption>
         </div>
       </div>
-      <div
-        class="w-full overflow-hidden | pl-0.5 py-2 | text-sm lg:text-md text-ellipsis whitespace-nowrap truncate">
-        <span v-if="(todo.description?.length || 0) > 30">
-          {{ todo.description?.slice(0, 30) }}...
-        </span>
-        <span v-else>
-          {{ todo.description }}
-        </span>
-      </div>
-      <figcaption
-        v-if="todo.leftUptoMinute > 0"
-        class="absolute right-0 top-0 -translate-y-1/2 | flex-shrink-0 w-fit | bg-theme | flex items-center gap-1 | text-[10px] lg:text-xs">
-        <i class="icon icon-timer"></i>
-        <span
-          v-if="todo.leftUptoHour > 0"
-          v-t="{ path: 'LeftHours', args: { hour: todo.leftUptoHour } }">
-        </span>
-        <span
-          v-else
-          v-t="{ path: 'LeftMinits', args: { minute: todo.leftUptoMinute } }">
-        </span>
-      </figcaption>
-      <img
-        v-if="todo.linked"
-        class="w-3 | mr-2"
-        src="~/assets/images/google.svg" />
-      <button
-        name="Check"
-        class="flex items-center | rounded-full"
-        :class="[
-          todo.done ? 'bg-green-500' : 'border border-gray-200',
-          hideDelete ? 'right-2' : 'right-8',
-        ]"
-        @click.stop.prevent="!route.query.bulk && done()">
-        <i
-          class="icon icon-check | text-sm"
-          :class="todo.done ? 'text-white' : 'text-gray-300'"></i>
-      </button>
-      <button
-        v-if="!hideDelete"
-        nmae="Delete"
-        class="flex items-center | p-1"
-        @click.stop.prevent="!route.query.bulk && deleteTodo()">
-        <i class="icon icon-close"></i>
-      </button>
-      <span
-        class="absolute left-0 top-0 -translate-y-1/2 | bg-theme-3 | text-[10px] lg:text-xs">
-        {{
-          etcUtil.formatDate(
-            new Date(todo.createdDate ?? 0).getTime(),
-            storageStore.language
-          )
-        }}
-      </span>
     </figure>
   </NuxtLinkLocale>
 </template>

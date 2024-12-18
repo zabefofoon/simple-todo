@@ -10,7 +10,7 @@
       class="lg:h-[94.5%] | flex flex-col lg:flex-row gap-3 lg:gap-6 | px-2 py-4 lg:p-5 | bg-theme-3">
       <div class="w-full h-full | flex flex-col gap-3 lg:gap-5">
         <Summary />
-        <ScheduledTodo />
+        <!-- <ScheduledTodo /> -->
         <RecentTodos />
       </div>
       <div

@@ -36,7 +36,7 @@
                 <i class="icon icon-arrow-right | text-xs | mt-0.5"></i>
               </NuxtLinkLocale>
             </div>
-            <div class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
+            <div class="flex flex-col gap-2 lg:gap-4 | p-2 lg:p-4 | h-auto">
               <TodoRow
                 v-for="todo in matchedTodos(tag.label)"
                 :key="todo.id"

@@ -21,7 +21,7 @@
             class="flex | rounded-full | border"
             :class="
               currentTodo?.done
-                ? 'bg-green-500'
+                ? 'bg-green-500 border-green-500'
                 : storageStore.getThemeClass(
                     ' border-slate-400',
                     ' border-white'

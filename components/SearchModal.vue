@@ -59,7 +59,7 @@
         style="background: rgba(0, 0, 0, 0); z-index: 1"
         @click.stop="showAddArea(false)"></div>
     </template>
-    <div class="h-full | flex flex-col">
+    <div class="h-full | flex flex-col | overflow-auto">
       <Spinner v-if="loadingStore.todoLoading" class="h-full" />
       <template v-else>
         <div v-if="todos.length" class="flex flex-col gap-2 | p-4 | h-full">

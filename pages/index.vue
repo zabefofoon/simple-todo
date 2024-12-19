@@ -26,7 +26,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'layout-basic',
-  buttons: ['new'],
+  buttons: ['new', 'search'],
 })
 
 const settingStore = useSettingStore()

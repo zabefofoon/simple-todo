@@ -31,7 +31,7 @@
         </p>
         <div
           v-else
-          class="grid grid-cols-1 lg:grid-cols-1 gap-2 lg:gap-3 | p-4 lg:p-5"
+          class="grid grid-cols-1 lg:grid-cols-1 gap-3 | p-4 lg:p-5"
           :class="{ 'justify-center': !todayTodos?.length }">
           <TodoRow v-for="todo in todayTodos" :key="todo.id" :todo="todo" />
         </div>

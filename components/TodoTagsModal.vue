@@ -34,7 +34,7 @@
         <div class="mb-4 | text-lg font-bold text-theme">
           {{ dayToTitle(day) }}
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-1 gap-2 lg:gap-4 | h-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-1 gap-3 | h-auto">
           <TodoRow
             v-for="todo in filterTodosByDays(day)"
             :key="todo.id"

@@ -4,6 +4,10 @@ export default defineNuxtConfig({
     // delay the home page
     '/memoku': { delayHydration: 'mount' },
     '/news/**': { delayHydration: 'mount' },
+    '/': { delayHydration: false },
+    '/todo': { delayHydration: false },
+    '/calender': { delayHydration: false },
+    '/setting': { delayHydration: false },
   },
   devServer: {
     port: 3000,

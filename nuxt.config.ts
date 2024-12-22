@@ -71,6 +71,11 @@ export default defineNuxtConfig({
       ],
     ],
     loadingStrategy: 'async',
+    config: {
+      cookie_flags: 'SameSite=Strict;Secure',
+      cookie_domain: 'memoku.dev',
+      anonymize_ip: true,
+    },
   },
 
   app: {

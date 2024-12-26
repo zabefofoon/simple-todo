@@ -236,8 +236,7 @@
         <div class="w-full h-full | relative">
           <textarea
             :value="description"
-            class="w-full h-full | text-theme | bg-theme-3 | border border-theme rounded-lg focus-visible:outline-0 focus-visible:border-orange-200 | resize-none | p-2 lg:pt-2"
-            :class="{ 'pt-6': todo }"
+            class="w-full h-full | text-theme | bg-theme-3 | border border-theme rounded-lg focus-visible:outline-0 focus-visible:border-orange-200 | resize-none | p-2"
             :placeholder="i18n.t('Description')"
             @input="emit('changed')"
             @change="emit('set-description', $event)" />

@@ -87,7 +87,6 @@
         <textarea
           :value="description"
           class="w-full h-full | border border-theme rounded-lg | resize-none | p-2 | bg-theme-3 | text-theme"
-          :class="[{ 'pt-6': todo }]"
           :placeholder="i18n.t('Description')"
           @input="emit('changed')"
           @change="emit('set-description', $event)" />

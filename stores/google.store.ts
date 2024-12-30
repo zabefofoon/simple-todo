@@ -204,7 +204,11 @@ export const useGoogleStore = defineStore(
             )
             .map(Tag.of) ?? []
 
-        const result = [...another, ...settingStore.setting.tags]
+        const tags = settingStore.setting.tags.filter((tag) =>
+          res.result.find((item) => item.id !== tag.id)
+        )
+
+        const result = [...another, ...tags]
         settingStore.setting.tags = deepClone(result)
       }
     }

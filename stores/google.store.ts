@@ -199,8 +199,9 @@ export const useGoogleStore = defineStore(
       if (settingStore.setting) {
         const another =
           res?.result
-            ?.filter((tag) =>
-              settingStore.setting?.tags.find((item) => item.id !== tag.id)
+            ?.filter(
+              (tag) =>
+                !settingStore.setting?.tags.find((item) => item.id === tag.id)
             )
             .map(Tag.of) ?? []
 

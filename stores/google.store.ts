@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia'
+import settingApi from '~/api/setting.api'
 import { Tag } from '~/models/Tag'
 import { Todo } from '~/models/Todo'
 import etcUtil from '~/utils/etc'
 import { useSettingStore } from './setting.store'
 import { useTodoStore } from './todo.store'
+
 export const useGoogleStore = defineStore(
   'google',
   () => {
@@ -178,11 +180,15 @@ export const useGoogleStore = defineStore(
       }
     }
 
-    const unLinkGoogle = () => {
+    const unLinkGoogle = async () => {
       setGoogleAccessToken()
       const cookieValue = useCookie('google').value as any
       if (cookieValue) cookieValue.googleAccessToken = ''
       todoStore.todos = todoStore.todos?.filter((todo) => !todo.linked) ?? []
+
+      const settings = await settingApi.getSetting()
+      if (settingStore.setting)
+        settingStore.setting.tags = settings?.[0].tags ?? []
     }
 
     const syscTags = async () => {
@@ -191,18 +197,15 @@ export const useGoogleStore = defineStore(
       )
 
       if (settingStore.setting) {
-        const tags = res?.result ?? []
-        const another = tags
-          .filter(
-            (tag) =>
-              !settingStore.setting?.tags.find((item) => item.id !== tag.id)
-          )
-          .filter((tag) => tag)
-          .map(Tag.of)
+        const another =
+          res?.result
+            ?.filter((tag) =>
+              settingStore.setting?.tags.find((item) => item.id !== tag.id)
+            )
+            .map(Tag.of) ?? []
 
-        const result = [...settingStore.setting.tags, ...another]
-
-        settingStore.updateSetting('tags', deepClone(result))
+        const result = [...another, ...settingStore.setting.tags]
+        settingStore.setting.tags = deepClone(result)
       }
     }
 

@@ -193,7 +193,7 @@ export const useGoogleStore = defineStore(
 
     const syscTags = async () => {
       const res = await googleApi.syncTags(
-        settingStore.setting?.tags.filter((tag) => !tag.excludeUpload) ?? []
+        settingStore.setting?.tags?.filter((tag) => !tag.excludeUpload) ?? []
       )
 
       if (settingStore.setting) {
@@ -201,12 +201,12 @@ export const useGoogleStore = defineStore(
           res?.result
             ?.filter(
               (tag) =>
-                !settingStore.setting?.tags.find((item) => item.id === tag.id)
+                !settingStore.setting?.tags?.find((item) => item.id === tag.id)
             )
             .map(Tag.of) ?? []
 
-        const tags = settingStore.setting.tags.filter((tag) =>
-          res.result.find((item) => item.id !== tag.id)
+        const tags = settingStore.setting.tags?.filter((tag) =>
+          res.result?.find((item) => item.id !== tag.id)
         )
 
         const result = [...another, ...tags]

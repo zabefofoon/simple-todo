@@ -239,7 +239,8 @@
             class="w-full h-full | text-theme | bg-theme-3 | border border-theme rounded-lg focus-visible:outline-0 focus-visible:border-orange-200 | resize-none | p-2"
             :placeholder="i18n.t('Description')"
             @input="emit('changed')"
-            @change="emit('set-description', $event)" />
+            @change="emit('set-description', $event)"
+            @keydown="keydownHandler" />
           <div class="absolute bottom-3 right-3">
             <img
               v-if="todo?.linked"
@@ -307,6 +308,7 @@ const emit = defineEmits<{
   (e: 'changed'): void
   (e: 'add-image'): void
   (e: 'delete-image', index: number): void
+  (e: 'paste-image', blob: Blob): void
 }>()
 
 const i18n = useI18n()
@@ -316,5 +318,17 @@ const settingStore = useSettingStore()
 
 const imageSrc = (image: string | Blob) => {
   return typeof image === 'string' ? image : URL.createObjectURL(image)
+}
+
+const keydownHandler = async (event: KeyboardEvent) => {
+  if (event.code === 'KeyV' && (event.ctrlKey || event.metaKey)) {
+    const clipboardItems = await navigator.clipboard.read()
+    for (const clipboardItem of clipboardItems) {
+      for (const type of clipboardItem.types) {
+        const blob = await clipboardItem.getType(type)
+        if (blob.type.startsWith('image/')) emit('paste-image', blob)
+      }
+    }
+  }
 }
 </script>

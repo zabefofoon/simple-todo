@@ -380,7 +380,7 @@ export default defineNuxtConfig({
       { code: 'ja', iso: 'ja-JP', name: '日本語' },
     ],
     defaultLocale: 'en',
-    vueI18n: './i18n/i18n.config.ts', // if you are using custom path, default
+    vueI18n: '~/i18n/i18n.config.ts', // if you are using custom path, default
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
@@ -522,7 +522,7 @@ export default defineNuxtConfig({
       installPrompt: true,
     },
     devOptions: {
-      enabled: true,
+      enabled: false,
       type: 'module',
       navigateFallbackAllowlist: [/^index.html$/],
     },

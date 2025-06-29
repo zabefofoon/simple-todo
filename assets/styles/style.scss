@@ -1,10 +1,10 @@
+@use 'icon';
+@use 'transition';
+@use 'carousel';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import 'icon';
-@import 'transition';
-@import 'carousel';
 
 html {
   &.dark {

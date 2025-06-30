@@ -9,7 +9,7 @@
     @contextmenu.prevent>
     <figure
       class="border-l-8 | w-full h-full overflow-hidden | flex items-center gap-1 | border rounded-lg | relative | px-4 py-3"
-      :style="{ borderLeft: `8px solid ${todo.tag?.color}` }"
+      :style="{ borderLeft: `8px solid ${tag?.color}` }"
       :class="[
         storageStore.getThemeClass(
           bulkStore.selectedTodoIds.includes(todo.id)
@@ -23,13 +23,13 @@
       <div class="w-full">
         <div class="flex items-center | -ml-0.5 mb-0.5">
           <NuxtLinkLocale
-            v-if="todo.tag"
-            :to="`/?tags=${todo.tag.id}`"
+            v-if="tag"
+            :to="`/?tags=${tag.id}`"
             class="text-white text-[10px] lg:text-xs px-1.5 py-.5 | rounded-full"
             :style="{
-              background: todo.tag?.color || 'black',
+              background: tag?.color || 'black',
             }">
-            #{{ todo.tag?.label }}
+            #{{ tag?.label }}
           </NuxtLinkLocale>
           <span
             v-else
@@ -76,12 +76,7 @@
             class="w-3 | mr-1"
             src="~/assets/images/google.svg" />
           <p class="text-xs opacity-80">
-            {{
-              etcUtil.formatDate(
-                new Date(todo.createdDate ?? 0).getTime(),
-                storageStore.language
-              )
-            }}
+            {{ etcUtil.formatDate(todo.createdDate, storageStore.language) }}
           </p>
           <figcaption
             v-if="todo.leftUptoMinute > 0"
@@ -135,6 +130,8 @@ const url = computed(() => {
     ? `${path}?todo=${props.todo.id}`
     : `${path}?${query}&todo=${props.todo.id}`
 })
+
+const tag = computed(() => props.todo.tag)
 
 const nuxtLinkEl = ref<HTMLAnchorElement>()
 onLongPress(nuxtLinkEl, () => bulkStore.turnOnBulkMode(props.todo.id), {

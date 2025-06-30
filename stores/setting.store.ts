@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
 import settingApi from '~/api/setting.api'
 import { Setting } from '~/models/Setting'
+import type { Tag } from '~/models/Tag'
 import { deepClone } from '~/utils/etc'
 
 export const useSettingStore = defineStore('setting', () => {
@@ -53,6 +53,11 @@ export const useSettingStore = defineStore('setting', () => {
 
   const popCurrentModal = () => currentModals.value.pop()
 
+  const tagMap = computed<Record<string, Tag> | undefined>(() => {
+    if (!setting.value) return
+    return Object.fromEntries(setting.value.tags.map((t) => [t.id, t]))
+  })
+
   return {
     setting,
     updateSetting,
@@ -71,5 +76,7 @@ export const useSettingStore = defineStore('setting', () => {
     currentModals,
     pushCurrentModal,
     popCurrentModal,
+
+    tagMap,
   }
 })

@@ -67,8 +67,7 @@ const storageStore = useStorageStore()
 const todoStore = useTodoStore()
 
 const matchedTag = computed(() => {
-  return settingStore.setting?.tags.find((tag) => tag.id === route.query.tags)
-    ?.label
+  return settingStore.tagMap?.[route.query.tags as string]?.label
 })
 
 const todos = computed(() => {

@@ -25,7 +25,7 @@
       <div class="p-2 lg:p-5 | xl:grid xl:grid-cols-2 lg:gap-x-4">
         <template v-for="tag in settingStore.setting?.tags" :key="tag.id">
           <div
-            v-if="matchedTodos(tag.label).length"
+            v-if="todosByTag[tag.id]?.length"
             class="mb-4 lg:mb-5 | rounded-lg border border-theme">
             <div
               class="p-2 lg:p-4 | font-bold text-theme | flex items-center gap-1.5">
@@ -38,14 +38,14 @@
             </div>
             <div class="flex flex-col gap-3 | p-2 lg:p-4 | h-auto">
               <TodoRow
-                v-for="todo in matchedTodos(tag.label)"
+                v-for="todo in todosByTag[tag.id]"
                 :key="todo.id"
                 :todo="todo" />
             </div>
           </div>
         </template>
         <div
-          v-if="matchedTodos().length"
+          v-if="todosByTag.memo?.length"
           class="mb-4 lg:mb-8 | rounded-lg border border-theme">
           <div
             v-if="!route.query.tag"
@@ -59,7 +59,7 @@
           </div>
           <div class="flex flex-col gap-2 | p-2 lg:p-4 | h-auto">
             <TodoRow
-              v-for="todo in matchedTodos()"
+              v-for="todo in todosByTag.memo"
               :key="todo.id"
               :todo="todo" />
           </div>
@@ -103,13 +103,17 @@ const todos = computed(() => {
     : result?.sort((a, b) => b.created! - a.created!)
 })
 
-const matchedTodos = (label?: string) => {
-  return (
-    todos.value?.filter(({ tag }) => tag?.label === label).slice(0, 6) ??
-    todos.value?.filter(({ tag }) => !tag).slice(0, 6) ??
-    []
-  )
-}
+const todosByTag = computed(() => {
+  const map: Record<string, Todo[]> = {}
+
+  todos.value.forEach((todo) => {
+    const key = todo.tagId ?? 'memo'
+    const arr = (map[key] ||= [])
+    arr.push(todo)
+  })
+
+  return map
+})
 
 useHead(() => ({
   meta: [{ name: 'robots', content: 'noindex, nofollow' }],

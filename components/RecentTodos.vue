@@ -30,18 +30,16 @@
       </div>
     </div>
 
-    <template v-if="loadingStore.todoLoading">
-      <div class="flex flex-col gap-3">
-        <Skeletor v-for="index in 4" :key="index" class="h-[40px]" />
-      </div>
-    </template>
+    <div v-if="loadingStore.todoLoading" class="flex flex-col gap-3">
+      <Skeletor v-for="index in 4" :key="index" class="h-[40px]" />
+    </div>
     <template v-else>
       <div
         v-if="isEmptyTodos"
         class="w-full h-full min-h-[100px] | grid place-items-center | pb-8">
         <span v-t="'NoTodo'"></span>
       </div>
-      <div v-else class="grid grid-cols-1 lg:grid-cols-1 gap-3">
+      <div v-else class="flex flex-col gap-3">
         <TodoRow
           v-for="todo in storageStore.selectedRecentTab === 'plan'
             ? plannedTodos

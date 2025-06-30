@@ -12,14 +12,13 @@ export class Todo {
   modified?: number
   images?: (string | Blob)[]
   linked?: 'google'
+  createdDate?: string
 
   constructor(todo: Partial<Todo>) {
     Object.assign(this, todo)
     if (!todo.created) this.created = new Date().getTime()
-  }
 
-  get createdDate() {
-    return dayjs(this.created).format('YYYY-MM-DD')
+    this.createdDate = dayjs(this.created).format('YYYY-MM-DD')
   }
 
   get uptoTime() {
@@ -33,9 +32,10 @@ export class Todo {
   }
 
   get tag() {
-    const settingStore = useSettingStore()
+    if (!this.tagId) return undefined
 
-    return settingStore.setting?.tags.find((tag) => tag.id === this.tagId)
+    const { tagMap } = useSettingStore() // 스토어 1회 호출
+    return tagMap?.[this.tagId]
   }
 
   get leftUptoHour() {

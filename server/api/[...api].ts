@@ -193,7 +193,6 @@ router.get(
   '/spreadsheet/rows',
   defineEventHandler(async (event) => {
     const { sheetId } = getQuery(event)
-    // const isImageCleaned = getCookie(event, 'x-image-cleaned')
 
     const oauthClient = await googleUtil.createOauthClient(event)
 
@@ -203,30 +202,6 @@ router.get(
       const sheet = doc.sheetsByTitle['todos']
 
       const rows = await sheet.getRows()
-
-      // if (!isImageCleaned) {
-      //   const folderId = await googleUtil.findFolder(
-      //     oauthClient,
-      //     'MEMOKU_IMAGES'
-      //   )
-
-      //   if (folderId) {
-      //     const imageIds = rows
-      //       .map((row) => row.get('images'))
-      //       .flatMap((item) => item.match(/(?<=id=)[^&]+/gi))
-
-      //     const list = await googleUtil.listFilesInFolder(oauthClient, folderId)
-      //     const noUsedImages = list.filter(
-      //       (item): item is string => !imageIds.includes(item)
-      //     )
-
-      //     googleUtil.deleteFiles(oauthClient, noUsedImages)
-      //   }
-
-      //   setCookie(event, 'x-image-cleaned', 'true', {
-      //     maxAge: 60 * 60 * 24,
-      //   })
-      // }
 
       return {
         status: 200,

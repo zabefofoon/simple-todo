@@ -79,7 +79,6 @@ definePageMeta({
 
 const route = useRoute()
 
-const storageStore = useStorageStore()
 const todoStore = useTodoStore()
 const loadingStore = useLoadingStore()
 const settingStore = useSettingStore()

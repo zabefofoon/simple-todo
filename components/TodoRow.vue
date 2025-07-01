@@ -1,11 +1,9 @@
 <template>
-  <NuxtLinkLocale
+  <div
     ref="nuxtLinkEl"
-    :key="`${bulkStore.selectedTodoIds.includes(todo.id)}`"
-    :to="route.query.bulk ? undefined : url"
     :area-label="`Todo ${todo.id}`"
-    class="text-theme"
-    @mousedown="route.query.bulk && bulkStore.add(todo.id)"
+    class="text-theme cursor-pointer"
+    @click="route.query.bulk ? bulkStore.add(todo.id) : navigateTo(url)"
     @contextmenu.prevent>
     <figure
       class="border-l-8 | w-full h-full overflow-hidden | flex items-center gap-1 | border rounded-lg | relative | px-4 py-3"
@@ -22,15 +20,16 @@
       ]">
       <div class="w-full">
         <div class="flex items-center | -ml-0.5 mb-0.5">
-          <NuxtLinkLocale
+          <div
             v-if="tag"
             :to="`/?tags=${tag.id}`"
             class="text-white text-[10px] lg:text-xs px-1.5 py-.5 | rounded-full"
             :style="{
               background: tag?.color || 'black',
-            }">
+            }"
+            @click="navigateTo(tagUrl)">
             #{{ tag?.label }}
-          </NuxtLinkLocale>
+          </div>
           <span
             v-else
             class="text-[10px] lg:text-xs px-1.5 py-.5 | border rounded-full">
@@ -99,7 +98,7 @@
         </div>
       </div>
     </figure>
-  </NuxtLinkLocale>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -129,6 +128,10 @@ const url = computed(() => {
   return !query
     ? `${path}?todo=${props.todo.id}`
     : `${path}?${query}&todo=${props.todo.id}`
+})
+
+const tagUrl = computed(() => {
+  return `${route.path}/?tags=${props.todo.tagId}`
 })
 
 const tag = computed(() => props.todo.tag)

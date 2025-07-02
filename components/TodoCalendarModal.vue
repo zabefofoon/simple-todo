@@ -33,7 +33,12 @@
           v-else
           class="grid grid-cols-1 lg:grid-cols-1 gap-3 | p-4 lg:p-5"
           :class="{ 'justify-center': !todayTodos?.length }">
-          <TodoRow v-for="todo in todayTodos" :key="todo.id" :todo="todo" />
+          <TodoRow
+            v-for="todo in todayTodos"
+            :key="todo.id"
+            :todo="todo"
+            :route-query="route.query"
+            :route-path="route.path" />
         </div>
       </template>
     </div>

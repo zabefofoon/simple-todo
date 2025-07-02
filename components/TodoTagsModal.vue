@@ -35,7 +35,9 @@
           <TodoRow
             v-for="todo in filterTodosByDays(day)"
             :key="todo.id"
-            :todo="todo" />
+            :todo="todo"
+            :route-query="route.query"
+            :route-path="route.path" />
         </div>
       </div>
     </div>

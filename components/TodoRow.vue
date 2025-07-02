@@ -3,7 +3,7 @@
     ref="nuxtLinkEl"
     :area-label="`Todo ${todo.id}`"
     class="text-theme cursor-pointer"
-    @click="route.query.bulk ? bulkStore.add(todo.id) : navigateTo(url)"
+    @click="routeQuery.bulk ? bulkStore.add(todo.id) : navigateTo(url)"
     @contextmenu.prevent>
     <figure
       class="border-l-8 | w-full h-full overflow-hidden | flex items-center gap-1 | border rounded-lg | relative | px-4 py-3"
@@ -38,7 +38,7 @@
               todo.done ? 'bg-green-500' : 'border border-gray-200',
               hideDelete ? 'right-2' : 'right-8',
             ]"
-            @click.stop.prevent="!route.query.bulk && done()">
+            @click.stop.prevent="!routeQuery.bulk && done()">
             <i
               class="icon icon-check | text-sm"
               :class="todo.done ? 'text-white' : 'text-gray-300'"></i>
@@ -47,7 +47,7 @@
             v-if="!hideDelete"
             nmae="Delete"
             class="flex items-center | p-1"
-            @click.stop.prevent="!route.query.bulk && deleteTodo()">
+            @click.stop.prevent="!routeQuery.bulk && deleteTodo()">
             <i class="icon icon-close"></i>
           </button>
         </div>
@@ -95,19 +95,20 @@
 </template>
 
 <script setup lang="ts">
+import type { LocationQuery } from 'vue-router'
 import type { Todo } from '~/models/Todo'
 import etcUtil from '~/utils/etc'
 
 const props = defineProps<{
   todo: Todo
   hideDelete?: boolean
+  routeQuery: LocationQuery
+  routePath: string
 }>()
 
 const emit = defineEmits<{
   (e: 'delete', id: string): void
 }>()
-
-const route = useRoute()
 
 const todoStore = useTodoStore()
 const googleStore = useGoogleStore()
@@ -116,15 +117,15 @@ const bulkStore = useBulkStore()
 const i18n = useI18n()
 
 const url = computed(() => {
-  const query = routerUtil.queryToString(route.query)
-  const path = route.path
+  const query = routerUtil.queryToString(props.routeQuery)
+  const path = props.routePath
   return !query
     ? `${path}?todo=${props.todo.id}`
     : `${path}?${query}&todo=${props.todo.id}`
 })
 
 const tagUrl = computed(() => {
-  return `${route.path}/?tags=${props.todo.tagId}`
+  return `${props.routePath}/?tags=${props.todo.tagId}`
 })
 
 const tag = computed(() => props.todo.tag)

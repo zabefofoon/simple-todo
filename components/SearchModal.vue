@@ -62,7 +62,12 @@
       <Spinner v-if="loadingStore.todoLoading" class="h-full" />
       <template v-else>
         <div v-if="todos.length" class="flex flex-col gap-2 | p-4 | h-full">
-          <TodoRow v-for="todo in todos" :key="todo.id" :todo="todo" />
+          <TodoRow
+            v-for="todo in todos"
+            :key="todo.id"
+            :todo="todo"
+            :route-query="route.query"
+            :route-path="route.path" />
         </div>
         <h3 v-else class="w-full h-full | flex items-center justify-center">
           <span v-if="route.query.keyword" class="text-theme">

@@ -40,7 +40,9 @@
               <TodoRow
                 v-for="todo in todosByTag[tag.id]"
                 :key="todo.id"
-                :todo="todo" />
+                :todo="todo"
+                :route-query="route.query"
+                :route-path="route.path" />
             </div>
           </div>
         </template>
@@ -61,7 +63,9 @@
             <TodoRow
               v-for="todo in todosByTag.memo"
               :key="todo.id"
-              :todo="todo" />
+              :todo="todo"
+              :route-query="route.query"
+              :route-path="route.path" />
           </div>
         </div>
       </div>

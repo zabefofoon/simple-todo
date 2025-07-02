@@ -45,7 +45,9 @@
             ? plannedTodos
             : recentTodos"
           :key="todo.id"
-          :todo="todo" />
+          :todo="todo"
+          :route-query="route.query"
+          :route-path="route.path" />
       </div>
     </template>
   </div>
@@ -54,6 +56,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 
+const route = useRoute()
 const todoStore = useTodoStore()
 const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()

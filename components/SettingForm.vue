@@ -1,15 +1,12 @@
 <template>
   <div class="flex | py-3">
     <div class="flex gap-1 | lg:w-60 | text-sm">
-      <span :class="storageStore.getThemeClass('', 'text-white')" v-t="'Form'">
-      </span>
+      <span class="dark:text-white" v-t="'Form'"> </span>
       <NuxtLinkLocale to="/setting?form=new" area-label="New Form">
         <button
           name="New form"
           class="flex | h-fit | p-1 ml-auto lg:ml-0 | border border-dashed">
-          <i
-            class="icon icon-add | text-md"
-            :class="storageStore.getThemeClass('', 'text-white')"></i>
+          <i class="icon icon-add | text-md dark:text-white"></i>
         </button>
       </NuxtLinkLocale>
     </div>
@@ -28,33 +25,25 @@
             class="flex"
             name="Move up"
             @click="changeOrder(index, index - 1)">
-            <i
-              class="icon icon-arrow-top | text-sm"
-              :class="storageStore.getThemeClass('', 'text-white')"></i>
+            <i class="icon icon-arrow-top | text-sm dark:text-white"></i>
           </button>
           <button
             class="flex"
             name="Move down"
             @click="changeOrder(index, index + 1)">
-            <i
-              class="icon icon-arrow-down | text-sm"
-              :class="storageStore.getThemeClass('', 'text-white')"></i>
+            <i class="icon icon-arrow-down | text-sm dark:text-white"></i>
           </button>
           <NuxtLinkLocale
             :to="`/setting?form=${form.id}`"
             area-label="New form">
             <button
               name="Add form"
-              class="flex items-center gap-2 | border | pl-2 pr-1 py-0.5"
-              :class="storageStore.getThemeClass('', 'border-slate-700')">
-              <span
-                class="text-sm"
-                :class="storageStore.getThemeClass('', 'text-white')">
+              class="flex items-center gap-2 | border dark:border-slate-700 | pl-2 pr-1 py-0.5">
+              <span class="text-sm dark:text-white">
                 {{ form.title }}
               </span>
               <i
-                class="icon icon-close"
-                :class="storageStore.getThemeClass('', 'text-white')"
+                class="icon icon-close | dark:text-white"
                 @click.prevent="removeForm(form)"></i>
             </button>
           </NuxtLinkLocale>
@@ -68,7 +57,6 @@
 import type { Form } from '~/models/Setting'
 
 const settingStore = useSettingStore()
-const storageStore = useStorageStore()
 const loadingStore = useLoadingStore()
 
 const i18n = useI18n()

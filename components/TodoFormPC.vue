@@ -108,18 +108,13 @@
           :class="
             todo?.done
               ? 'bg-green-500'
-              : storageStore.getThemeClass(
-                  'border border-slate-400',
-                  'border border-white'
-                )
+              : 'border border-slate-400 dark:border-white'
           "
           @click="emit('done')">
           <i
             class="icon icon-check"
             :class="
-              todo?.done
-                ? 'text-white'
-                : storageStore.getThemeClass('text-slate-500', 'text-white')
+              todo?.done ? 'text-white' : 'text-slate-500 dark:text-white'
             "></i>
         </button>
         <!-- 체크 -->
@@ -138,24 +133,13 @@
               <div class="border-l border-slate-500 | ml-4">&nbsp;</div>
               <UISelector class="px-0.5 py-1.5 pr-2.5" @click.stop>
                 <template #button="{ showOptions }">
-                  <button
-                    class="flex | text-white"
-                    :class="
-                      storageStore.getThemeClass(
-                        'text-slate-700',
-                        ' text-white'
-                      )
-                    "
-                    @click="showOptions()">
+                  <button class="flex | text-white" @click="showOptions()">
                     <i class="icon icon-chevron-down"></i>
                   </button>
                 </template>
                 <template #options>
                   <div
-                    class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap"
-                    :class="
-                      storageStore.getThemeClass('text-slate-800', 'text-white')
-                    ">
+                    class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap text-slate-800 dark:text-white">
                     <button
                       name="Save"
                       class="flex items-center gap-2 | text-sm | pr-2.5"
@@ -192,21 +176,14 @@
               <UISelector class="px-0.5 py-1.5 pr-2.5" @click.stop>
                 <template #button="{ showOptions }">
                   <button
-                    class="flex | text-white"
-                    :class="
-                      storageStore.getThemeClass(
-                        'text-slate-700',
-                        ' text-white'
-                      )
-                    "
+                    class="flex | text-white dark:text-white"
                     @click="showOptions()">
                     <i class="icon icon-chevron-down"></i>
                   </button>
                 </template>
                 <template #options>
                   <div
-                    class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap"
-                    :class="storageStore.getThemeClass('', 'text-white')">
+                    class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap dark:text-white">
                     <button
                       name="Save"
                       class="flex items-center gap-2 | text-sm"

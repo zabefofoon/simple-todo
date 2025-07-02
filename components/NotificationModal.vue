@@ -31,8 +31,7 @@
             <li
               class="flex flex-col gap-0.5 | border-b | p-3 | text-sm lg:text-base border-theme"
               :class="{
-                [storageStore.getThemeClass('bg-gray-200', 'bg-gray-950')]:
-                  checkRead(todo.id!),
+                'bg-gray-200 dark:bg-gray-950': checkRead(todo.id!),
                 'opacity-30': checkRead(todo.id!),
               }">
               <h4

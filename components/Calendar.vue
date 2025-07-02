@@ -18,11 +18,8 @@
               class="w-fit | px-1.5 py-.5 mx-auto | rounded-full | text-[12px] md:text-sm"
               :class="
                 data.attributes.length
-                  ? storageStore.getThemeClass(
-                      'bg-slate-800 | text-white',
-                      'bg-white text-slate-800'
-                    )
-                  : storageStore.getThemeClass('', 'text-white')
+                  ? 'bg-slate-800 dark:bg-white | text-white dark:text-slate-800'
+                  : 'dark:text-white'
               ">
               {{ data.day.day }}
             </h3>

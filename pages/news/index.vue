@@ -17,22 +17,15 @@
         :to="post.id === -1 ? undefined : `/news/${i18n.t(post.path)}`">
         <figure
           v-if="!post.isEmpty"
-          class="w-full rounded-lg | border border-theme | bg-theme-3 | overflow-hidden"
-          :class="
-            storageStore.getThemeClass('border-slate-200', 'border-slate-700')
-          ">
+          class="w-full rounded-lg | border border-theme | bg-theme-3 | overflow-hidden">
           <img
             :src="post.image ?? ''"
-            class="w-full aspect-square | object-cover | border-b"
-            :class="
-              storageStore.getThemeClass('border-slate-200', 'border-slate-700')
-            "
+            class="w-full aspect-square | object-cover | border-b border-theme"
             :alt="i18n.t(post.title ?? '')"
             loading="lazy" />
           <figcaption class="px-3 pt-3 pb-4 | flex flex-col | leading-tight">
             <h4
-              class="truncate-2 text-pretty | mb-1.5"
-              :class="storageStore.getThemeClass('font-bold', 'text-white')"
+              class="truncate-2 text-pretty font-bold dark:text-white | mb-1.5"
               v-t="post.title"></h4>
             <p
               class="truncate-2 text-pretty | text-sm text-slate-400 | mb-1.5"

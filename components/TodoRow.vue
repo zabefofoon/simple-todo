@@ -9,14 +9,9 @@
       class="border-l-8 | w-full h-full overflow-hidden | flex items-center gap-1 | border rounded-lg | relative | px-4 py-3"
       :style="{ borderLeft: `8px solid ${tag?.color}` }"
       :class="[
-        storageStore.getThemeClass(
-          bulkStore.selectedTodoIds.includes(todo.id)
-            ? 'border-orange-500'
-            : '',
-          bulkStore.selectedTodoIds.includes(todo.id)
-            ? 'border-orange-500'
-            : 'border-slate-700'
-        ),
+        bulkStore.selectedTodoIds.includes(todo.id)
+          ? 'border-orange-500'
+          : 'dark:border-slate-700',
       ]">
       <div class="w-full">
         <div class="flex items-center | -ml-0.5 mb-0.5">
@@ -56,9 +51,7 @@
             <i class="icon icon-close"></i>
           </button>
         </div>
-        <h4
-          class="truncate | mb-2"
-          :class="storageStore.getThemeClass('font-bold', '')">
+        <h4 class="truncate | mb-2 | font-bold dark:font-normal">
           <span v-if="(todo.description?.length || 0) > 30">
             {{ todo.description?.slice(0, 30) }}...
           </span>

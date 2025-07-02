@@ -21,8 +21,7 @@
       <div v-else class="input-wrap | w-full lg:max-w-[50%] | relative">
         <input
           ref="input"
-          class="w-full | px-3 py-1 | rounded-full | text-theme"
-          :class="storageStore.getThemeClass('bg-slate-200', 'bg-slate-600 ')"
+          class="w-full | px-3 py-1 | rounded-full | text-theme | bg-slate-200 dark:bg-slate-600"
           :placeholder="i18n.t('Search')"
           :value="keyword"
           @input="setKeyword"

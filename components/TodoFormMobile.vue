@@ -10,7 +10,7 @@
           {{ i18n.t('Form') }}
         </label>
         <select
-          class="w-full | text-sm text-theme | px-2 py-1 | bg-theme-3| border border-theme rounded-lg"
+          class="w-full | text-sm | px-2 py-1 | border border-theme rounded-lg bg-theme-3 | text-theme"
           :class="storageStore.getThemeClass('', 'dark')"
           @change="emit('change-form', $event)">
           <option value="None">
@@ -74,9 +74,7 @@
           <i
             class="icon icon-check text-sm"
             :class="
-              todo?.done
-                ? 'text-white'
-                : storageStore.getThemeClass('text-slate-500', 'text-white')
+              todo?.done ? 'text-white' : 'text-slate-500 dark:text-white'
             "></i>
         </button>
         <button v-if="todo" name="Delete" class="flex" @click="emit('delete')">
@@ -170,12 +168,7 @@
             class="absolute top-1/2 -translate-y-1/2 right-3 | border-slate-600 | pl-1.5">
             <UISelector @click.stop>
               <template #button="{ showOptions }">
-                <button
-                  class="flex | text-white"
-                  :class="
-                    storageStore.getThemeClass('text-slate-700', ' text-white')
-                  "
-                  @click="showOptions()">
+                <button class="flex | text-white" @click="showOptions()">
                   <i
                     v-if="settingStore.screen === 'lg'"
                     class="icon icon-chevron-down | text-xl"></i>
@@ -184,10 +177,7 @@
               </template>
               <template #options>
                 <div
-                  class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap"
-                  :class="
-                    storageStore.getThemeClass('text-slate-700', 'text-white')
-                  ">
+                  class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap text-slate-700 dark:text-white">
                   <button
                     name="Upload"
                     class="flex items-center gap-2 | text-sm | pr-3"
@@ -220,12 +210,7 @@
           <div class="absolute top-1/2 -translate-y-1/2 right-3 | pl-1.5">
             <UISelector @click.stop>
               <template #button="{ showOptions }">
-                <button
-                  class="flex | text-white"
-                  :class="
-                    storageStore.getThemeClass('text-slate-700', ' text-white')
-                  "
-                  @click="showOptions()">
+                <button class="flex | text-white" @click="showOptions()">
                   <i
                     v-if="settingStore.screen === 'lg'"
                     class="icon icon-chevron-down | text-xl"></i>
@@ -234,10 +219,7 @@
               </template>
               <template #options>
                 <div
-                  class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap"
-                  :class="
-                    storageStore.getThemeClass('text-slate-700', 'text-white')
-                  ">
+                  class="flex flex-col gap-1.5 | px-4 py-2 | rounded-lg overflow-hidden | whitespace-nowrap text-slate-700 dark:text-white">
                   <button
                     name="Save"
                     class="flex items-center gap-2 | text-sm"

@@ -1,23 +1,14 @@
 <template>
   <aside
-    class="relative | flex-shrink-0 | hidden lg:block | w-[240px] h-full | border-r"
+    class="relative | flex-shrink-0 | hidden lg:block | w-[240px] h-full | border-r | border-slate-200 dark:border-slate-700 | bg-white dark:bg-slate-900"
     style="transition: width 150ms ease"
-    :class="[
-      storageStore.isSNBExpanded ? 'w-[240px]' : 'w-[52px]',
-      storageStore.getThemeClass(
-        'border-slate-200 | bg-white',
-        'bg-slate-900 border-slate-700'
-      ),
-    ]">
+    :class="[storageStore.isSNBExpanded ? 'w-[240px]' : 'w-[52px]']">
     <nav class="flex flex-col | h-full">
       <NuxtLinkLocale to="/" area-label="Home">
         <div
           class="pt-8 | text-center font-bold | flex justify-center items-center gap-1">
           <img
-            class="w-[20px] aspect-square"
-            :class="
-              storageStore.getThemeClass('', 'invert contrast-100 grayscale')
-            "
+            class="w-[20px] aspect-square | dark:invert dark:contrast-100 dark:grayscale"
             src="~/assets/images/logo.svg"
             alt="MEMOKU" />
           <Transition name="fade">
@@ -39,14 +30,8 @@
             :class="[
               storageStore.isSNBExpanded ? '' : 'justify-center',
               menuStore.isCurrentHref(menu.href)
-                ? storageStore.getThemeClass(
-                    'bg-slate-700 text-white',
-                    'bg-slate-950 text-white'
-                  )
-                : storageStore.getThemeClass(
-                    'hover:bg-slate-50 ',
-                    'hover:bg-slate-800 text-white'
-                  ),
+                ? 'bg-slate-700 dark:bg-slate-950 | text-white'
+                : 'hover:bg-slate-50 dark:hover:bg-slate-800 dark:text-white',
             ]">
             <i class="icon | text-xl | flex-shrink-0" :class="[menu.icon]"></i>
             <Transition name="fade">
@@ -58,9 +43,7 @@
               </span>
             </Transition>
           </li>
-          <hr
-            v-if="index === 3"
-            :class="storageStore.getThemeClass('', 'opacity-10')" />
+          <hr v-if="index === 3" class="dark:opacity-10" />
         </NuxtLinkLocale>
       </ul>
       <Transition name="fade">
@@ -68,15 +51,11 @@
       </Transition>
     </nav>
     <button
-      class="absolute top-1/2 right-0 -translate-y-1/2 z-50 | p-1"
+      class="absolute top-1/2 right-0 -translate-y-1/2 z-50 | p-1 | border dark:border-slate-700 | bg-white dark:bg-slate-800 | dark:text-white"
       :class="[
         storageStore.isSNBExpanded
           ? 'rounded-l-full'
           : 'rounded-r-full translate-x-full',
-        storageStore.getThemeClass(
-          'border | bg-white',
-          'bg-slate-800 | text-white'
-        ),
       ]"
       @click="storageStore.expandSNB()">
       <i

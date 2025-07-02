@@ -10,9 +10,8 @@
       @change="" />
     <button
       v-if="googleStore.googleAccessToken"
-      class="lg:ml-0 px-4 py-0.5 | text-sm text-white | rounded-full"
+      class="lg:ml-0 px-4 py-0.5 | text-sm text-white | rounded-full | bg-green-400 dark:bg-green-600"
       name="Export"
-      :class="storageStore.getThemeClass('bg-green-400', 'bg-green-600')"
       @click="googleStore.unLinkGoogle()">
       On
     </button>
@@ -28,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-const storageStore = useStorageStore()
 const i18n = useI18n()
 const googleStore = useGoogleStore()
 const snackbarStore = useSnackbarStore()

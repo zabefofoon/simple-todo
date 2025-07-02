@@ -1,7 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-2 | lg:py-8 lg:px-4 | min-w-[160px]"
-    :class="storageStore.getThemeClass('text-slate-400', 'text-slate-500')">
+    class="flex flex-col gap-2 | lg:py-8 lg:px-4 | min-w-[160px] | text-slate-400 dark:text-slate-500">
     <div class="flex justify-center lg:justify-evenly gap-4">
       <NuxtLinkLocale
         class="underline text-xs"

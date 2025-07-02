@@ -16,11 +16,8 @@
             class="relative | flex flex-col items-center gap-.5 | w-full | py-2 rounded-lg"
             :class="
               menuStore.isCurrentHref(menu.href)
-                ? storageStore.getThemeClass(
-                    'bg-slate-700 text-white',
-                    'bg-gray-950 text-white'
-                  )
-                : storageStore.getThemeClass('', 'text-white')
+                ? 'text-white | bg-slate-700 dark:bg-gray-950'
+                : 'dark:text-white'
             ">
             <i class="icon text-xl" :class="menu.icon"></i>
             <span class="text-[10px]" v-t="menu.name"> </span>

@@ -9,10 +9,7 @@
         property="url">
         <div class="flex items-center justify-center gap-1.5 | w-fit">
           <img
-            class="w-[20px] aspect-square"
-            :class="
-              storageStore.getThemeClass('', 'invert contrast-100 grayscale')
-            "
+            class="w-[20px] aspect-square dark:invert dark:contrast-100 dark:grayscale"
             src="~/assets/images/logo.svg"
             alt="MEMOKU" />
           <span property="name" class="text-theme"> MEMOKU </span>
@@ -27,7 +24,3 @@
     </div>
   </header>
 </template>
-
-<script setup lang="ts">
-const storageStore = useStorageStore()
-</script>

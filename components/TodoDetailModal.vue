@@ -22,10 +22,7 @@
             :class="
               currentTodo?.done
                 ? 'bg-green-500 border-green-500'
-                : storageStore.getThemeClass(
-                    ' border-slate-400',
-                    ' border-white'
-                  )
+                : ' border-slate-400 dark:border-white'
             "
             @click="done">
             <i
@@ -33,7 +30,7 @@
               :class="
                 currentTodo?.done
                   ? 'text-white'
-                  : storageStore.getThemeClass('text-slate-500', 'text-white')
+                  : 'text-slate-500 dark:text-white'
               "></i>
           </button>
           <UISelector>

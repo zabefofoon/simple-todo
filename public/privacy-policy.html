@@ -6,7 +6,7 @@
     <title>Privacy Policy</title>
     <style>
       body {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         padding: 1em;
       }
 
@@ -20,7 +20,7 @@
   <body>
     <div class="container">
       <h1>Privacy Policy</h1>
-      <p><strong>Effective Date:</strong> 2024-05-15</p>
+      <p><strong>Effective Date:</strong> 2025-10-17</p>
       <br />
       <h2>Data Collection and Usage</h2>
       <p>
@@ -28,13 +28,24 @@
         its functionality and providing requested features. Specifically:
       </p>
       <ul>
-        <li>Data is stored only when the user explicitly requests it.</li>
+        <li>Data is stored only when you explicitly choose to save it.</li>
         <li>
-          Google Sheets is used to save task-related information in a
+          <strong>Authentication (OpenID):</strong> We use your Google OpenID
+          <code>sub</code> (a unique identifier) to sign you in and keep you
+          logged in. We never collect your Google account password.
+        </li>
+        <li>
+          <strong>Email (userinfo.email):</strong> With your permission, we use
+          your Google account email to identify your account and display it in
+          the app. We do not send marketing emails or share your email with
+          third parties.
+        </li>
+        <li>
+          <strong>Google Sheets:</strong> We read and write task data to a
           spreadsheet (<code>MEMOKU_DATA</code>).
         </li>
         <li>
-          Google Drive is used to upload and manage images within the
+          <strong>Google Drive:</strong> We upload and manage images in the
           <code>MEMOKU_IMAGES</code> folder.
         </li>
       </ul>
@@ -61,7 +72,8 @@
         <li>
           <a
             href="https://www.googleapis.com/auth/spreadsheets"
-            target="_blank">
+            target="_blank"
+          >
             https://www.googleapis.com/auth/spreadsheets</a
           >
           (for Google Sheets integration)
@@ -71,6 +83,19 @@
             https://www.googleapis.com/auth/drive.file</a
           >
           (for Google Drive file and folder management)
+        </li>
+        <li>
+          <code>openid</code> (for authentication and user identification via
+          OpenID Connect)
+        </li>
+        <li>
+          <a
+            href="https://www.googleapis.com/auth/userinfo.email"
+            target="_blank"
+          >
+            https://www.googleapis.com/auth/userinfo.email
+          </a>
+          (to read your Google account email for account identification)
         </li>
       </ul>
       <p>
@@ -125,6 +150,22 @@
         memoku does not store or access Google account passwords or sensitive
         information beyond the specified scopes.
       </p>
+      <br />
+      <h2>Authentication Tokens</h2>
+      <ul>
+        <li>
+          We use short-lived <strong>access tokens</strong> and long-lived
+          <strong>refresh tokens</strong> to maintain your login session.
+        </li>
+        <li>
+          Tokens are stored as <strong>httpOnly cookies</strong> and are not
+          accessible to client-side scripts.
+        </li>
+        <li>
+          Tokens are used strictly within the scopes you grant and are deleted
+          upon logout or when you revoke access.
+        </li>
+      </ul>
       <br />
       <h2>Changes</h2>
       <p>

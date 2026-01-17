@@ -59,6 +59,35 @@ const formatDate = (date: number, locale: 'ko' | 'en' | 'ja'): string => {
     ? dayjs(date).format('YYYY.MM.DD')
     : dayjs(date).format('MMMM DD, YYYY')
 }
+
+const blobToBase64 = (blob: Blob): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      resolve(reader.result as string)
+    }
+    reader.onerror = reject
+    reader.readAsDataURL(blob) // Blob을 Base64로 변환
+  })
+}
+
+const base64ToBlob = (base64: string, mimeType = 'image/webp') => {
+  // Base64 문자열에서 헤더 부분을 제거 (만약 포함되어 있다면)
+  let byteString = atob(base64.split(',')[1])
+
+  // 바이너리 데이터를 저장할 배열 생성
+  let arrayBuffer = new ArrayBuffer(byteString.length)
+  let uint8Array = new Uint8Array(arrayBuffer)
+
+  // Base64 문자열을 바이너리로 변환하여 배열에 저장
+  for (let i = 0; i < byteString.length; i++) {
+    uint8Array[i] = byteString.charCodeAt(i)
+  }
+
+  // Blob 생성
+  return new Blob([uint8Array], { type: mimeType })
+}
+
 export default {
   generateUniqueId,
   generateLongUniqueId,
@@ -68,4 +97,6 @@ export default {
   getCookieExpiresNYears,
   getCookieExpiresNDays,
   formatDate,
+  blobToBase64,
+  base64ToBlob,
 }

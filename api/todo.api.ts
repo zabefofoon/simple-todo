@@ -65,7 +65,7 @@ export const updateTodo = async (id: string, updatedData: Partial<Todo>) => {
 
 export const updateBulkTodos = async (
   ids: string[],
-  updatedData: Partial<Todo>
+  updatedData: Partial<Todo>,
 ) => {
   try {
     const arr = await db!.todos.bulkGet(ids)
@@ -75,12 +75,25 @@ export const updateBulkTodos = async (
   }
 }
 
-export const bulkAdd = (todos: Todo[]) => {
+export const bulkAdd = async (todos: Todo[]) => {
   try {
+    await db!.transaction('rw', db!.todos, db!.images, async () => {
+      for (const todo of todos) {
+        const id = await db!.todos.add(todo)
+        if (todo.images) {
+          await db!.images.bulkAdd(
+            todo.images.map((image) => ({
+              todoId: id as number,
+              image,
+            })),
+          )
+        }
+      }
+    })
   } catch (e) {
     alert(useI18n().t('BrowserNotice'))
+    throw e
   }
-  return db!.todos.bulkAdd(todos)
 }
 
 export const deleteTodo = (id: string) => {

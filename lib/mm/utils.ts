@@ -552,14 +552,6 @@ const generateWidgetCss = (nodes: Node[], groups: Group[]) => {
     }, '')
 }
 
-export const generateCss = (nodes: Node[], groups: Group[]) => {
-  return (
-    generateCoreCss() +
-    generateLayoutCss(nodes) +
-    generateWidgetCss(nodes, groups)
-  )
-}
-
 const generateNodeCss = (node: Node) => {
   return (<ResponsiveMode[]>Object.keys(node.layout)).reduce<string>(
     (acc, current) => {
@@ -629,6 +621,14 @@ const generateNodeCss = (node: Node) => {
       return acc + result
     },
     ''
+  )
+}
+
+export const generateCss = (nodes: Node[], groups: Group[]) => {
+  return (
+    generateCoreCss() +
+    generateLayoutCss(nodes) +
+    generateWidgetCss(nodes, groups)
   )
 }
 

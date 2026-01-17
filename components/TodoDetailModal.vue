@@ -106,7 +106,7 @@
               {{
                 etcUtil.formatDate(
                   new Date(currentTodo?.createdDate ?? 0).getTime(),
-                  storageStore.language
+                  storageStore.language,
                 )
               }}
             </span>
@@ -197,11 +197,11 @@ const done = () => {
   currentTodo.value?.linked
     ? googleStore.doneTodo2(
         [currentTodo.value],
-        !(currentTodo.value?.done ?? true)
+        !(currentTodo.value?.done ?? true),
       )
     : todoStore.doneTodo(
         String(toValue(currentTodo)?.id),
-        toValue(currentTodo)?.done
+        toValue(currentTodo)?.done,
       )
 
   currentTodo.value.done = !toValue(currentTodo)?.done
@@ -242,13 +242,13 @@ const editUrl = computed(() => {
 
 const loadData = async () => {
   const found = todoStore.todos?.find(
-    (todo) => todo.id == route.query.todo?.toString()
+    (todo) => todo.id == route.query.todo?.toString(),
   )
   if (found) setCurrentTodo(found)
 
   if (!found?.linked && currentTodo.value) {
     currentTodo.value.images = await todoStore.getImages(
-      route.query.todo?.toString() ?? ''
+      route.query.todo?.toString() ?? '',
     )
   }
 }
@@ -270,20 +270,20 @@ watch(
           startIndex: Number(isShow),
         },
       })
-  }
+  },
 )
 
 watch(
   () => todoStore.todos?.length,
   async () => {
     loadData()
-  }
+  },
 )
 
 watch(
   () => route.query.edit,
   async (edit) => {
     if (!edit) loadData()
-  }
+  },
 )
 </script>

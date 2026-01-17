@@ -154,23 +154,6 @@ const setTag = (event: Event) => {
   tagId.value = value
 }
 
-const base64ToBlob = (base64: string, mimeType = 'image/webp') => {
-  // Base64 문자열에서 헤더 부분을 제거 (만약 포함되어 있다면)
-  let byteString = atob(base64.split(',')[1])
-
-  // 바이너리 데이터를 저장할 배열 생성
-  let arrayBuffer = new ArrayBuffer(byteString.length)
-  let uint8Array = new Uint8Array(arrayBuffer)
-
-  // Base64 문자열을 바이너리로 변환하여 배열에 저장
-  for (let i = 0; i < byteString.length; i++) {
-    uint8Array[i] = byteString.charCodeAt(i)
-  }
-
-  // Blob 생성
-  return new Blob([uint8Array], { type: mimeType })
-}
-
 const clickedSave = ref(false)
 const setClickedSave = (value: boolean) => (clickedSave.value = value)
 const save = async () => {
@@ -185,7 +168,7 @@ const save = async () => {
     upto: toValue(upto),
     modified: new Date().getTime(),
     images: images.value.map((image) =>
-      image.startsWith?.('data:') ? base64ToBlob(image) : image
+      image.startsWith?.('data:') ? etc.base64ToBlob(image) : image,
     ),
     linked: undefined,
     date: upto.value ? date.value : undefined,
@@ -267,10 +250,10 @@ const upload = async () => {
   }
 
   data.images = await Promise.all(
-    data.images.map(async (image) => {
-      if (image instanceof Blob) return await blobToBase64(image)
+    data.images!.map(async (image) => {
+      if (image instanceof Blob) return await etc.blobToBase64(image)
       return image
-    })
+    }),
   )
 
   isEditMode.value ? googleStore.updateTodo2(data) : googleStore.addTodo2(data)
@@ -334,11 +317,11 @@ const done = () => {
   currentTodo.value.linked
     ? googleStore.doneTodo2(
         [currentTodo.value],
-        !(currentTodo.value.done ?? true)
+        !(currentTodo.value.done ?? true),
       )
     : todoStore.doneTodo(
         toValue(currentTodo)?.id || '',
-        toValue(currentTodo)?.done
+        toValue(currentTodo)?.done,
       )
   currentTodo.value.done = !toValue(currentTodo)?.done
 }
@@ -418,18 +401,6 @@ const fileChangeHandler = (event: Event): void => {
   Array.from(files).forEach((file: File) => pasteImage(file))
 }
 
-// Blob을 Base64로 변환
-const blobToBase64 = (blob: Blob): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onloadend = () => {
-      resolve(reader.result as string)
-    }
-    reader.onerror = reject
-    reader.readAsDataURL(blob) // Blob을 Base64로 변환
-  })
-}
-
 const deleteImage = (index: number) => {
   images.value.splice(index, 1)
 }
@@ -478,14 +449,14 @@ const pasteImage = (file: Blob) => {
             (blob) => {
               if (blob) {
                 // Base64로 변환된 결과 처리
-                blobToBase64(blob).then((base64String) => {
+                etc.blobToBase64(blob).then((base64String) => {
                   // 여기서 Base64 이미지를 처리 (예: 업로드, 미리보기 등)
                   images.value.push(base64String)
                 })
               }
             },
             'image/webp', // 원본 이미지와 동일한 형식 유지 (JPEG, PNG 등)
-            googleStore.googleAccessToken ? 1 : 0.8 // 이미지 품질 (0.0 ~ 1.0)
+            googleStore.googleAccessToken ? 1 : 0.8, // 이미지 품질 (0.0 ~ 1.0)
           )
         }
       }
@@ -498,7 +469,7 @@ const pasteImage = (file: Blob) => {
 onMounted(async () => {
   if (route.query.edit !== 'new') {
     const found = todoStore.todos?.find(
-      (todo) => todo.id == route.query.todo?.toString()
+      (todo) => todo.id == route.query.todo?.toString(),
     )
     if (found) setCurrentTodo(found)
     else {
@@ -539,7 +510,7 @@ watch(
   async () => {
     if (route.query.edit !== 'new') {
       const found = todoStore.todos?.find(
-        (todo) => todo.id === route.query.todo?.toString()
+        (todo) => todo.id === route.query.todo?.toString(),
       )
       if (found) setCurrentTodo(found)
       else {
@@ -554,6 +525,6 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 )
 </script>

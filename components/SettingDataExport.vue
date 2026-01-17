@@ -10,26 +10,42 @@
 </template>
 
 <script setup lang="ts">
-import type { SavedData } from '~/models/SavedData'
-
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
 
-const getSerializedData = () => {
-  const data: SavedData = {
-    todos: todoStore.todos?.filter((todo) => !todo.linked),
+const getSerializedData = async () => {
+  const todos = todoStore.todos?.filter((todo) => !todo.linked) ?? []
+
+  const serializedTodos = await Promise.all(
+    todos.map(async (todo) => {
+      const images = todo.images
+        ? await Promise.all(
+            todo.images.map((image) =>
+              image instanceof Blob ? etc.blobToBase64(image) : image,
+            ),
+          )
+        : undefined
+
+      return {
+        ...todo,
+        images,
+      }
+    }),
+  )
+
+  return {
+    todos: serializedTodos,
     setting: settingStore.setting,
   }
-  return JSON.parse(JSON.stringify(data))
 }
 
-const exportData = () => {
+const exportData = async () => {
   const element = document.createElement('a')
   element.setAttribute(
     'href',
     `data:text/json;charset=utf-8, ${encodeURIComponent(
-      JSON.stringify(getSerializedData())
-    )}`
+      JSON.stringify(await getSerializedData()),
+    )}`,
   )
   element.setAttribute('download', 'data.json')
   document.body.appendChild(element)

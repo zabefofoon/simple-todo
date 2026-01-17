@@ -14,7 +14,6 @@ import type { SavedData } from '~/models/SavedData'
 
 const todoStore = useTodoStore()
 const settingStore = useSettingStore()
-const storageStore = useStorageStore()
 
 const i18n = useI18n()
 const importData = () => {
@@ -33,6 +32,7 @@ const importData = () => {
     fileReader.onload = async () => {
       const result = <SavedData>JSON.parse(`${fileReader.result}`)
       await sleep(200)
+
       todoStore.importTodos(result.todos || [])
       settingStore.importSetting(result.setting!)
     }

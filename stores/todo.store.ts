@@ -66,12 +66,18 @@ export const useTodoStore = defineStore('todo', () => {
 
   const getTodo = async (id: string) => {
     const data = await todoApi.getTodo(id)
+
     return data ? Todo.of(data) : undefined
   }
 
   const importTodos = (savedTodos: Todo[]) => {
     const result = savedTodos.map((todo) => {
       delete todo.id
+      todo.images = todo.images?.map((image) =>
+        typeof image === 'string' && image.startsWith?.('data:')
+          ? etc.base64ToBlob(image)
+          : image,
+      )
       return todo
     })
     todoApi.bulkAdd(result)

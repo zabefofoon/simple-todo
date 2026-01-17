@@ -34,6 +34,7 @@ const getSerializedData = async () => {
   )
 
   return {
+    version: 1,
     todos: serializedTodos,
     setting: settingStore.setting,
   }
